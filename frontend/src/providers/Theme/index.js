@@ -19,6 +19,8 @@ const AppThemeProvider = ({ children }) => {
     [state.mode]
   );
 
+  console.log(theme);
+
   return (
     <ThemeProvider theme={theme}>
       <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
