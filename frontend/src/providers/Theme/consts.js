@@ -15,6 +15,11 @@ const lightColors = {
     light: '#ffe180',
     main: '#c79f1e',
     dark: '#80650d',
+  },
+  neutral: {
+    light: '#fcfcfc',
+    main: '#f2f2f2',
+    dark: '#d4d4d4',
   }
 };
 
@@ -30,6 +35,11 @@ const darkColors = {
     light: '#ffe180',
     main: '#c79f1e',
     dark: '#80650d',
+  },
+  neutral: {
+    light: '#fcfcfc',
+    main: '#f2f2f2',
+    dark: '#d4d4d4',
   }
 };
 
