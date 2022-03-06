@@ -1,17 +1,14 @@
 import React from 'react';
-import Button from 'components/Button';
+import { BrowserRouter } from 'react-router-dom';
+import Routing from 'pages';
 import AppThemeProvider from 'providers/Theme';
 
 const App = () => {
   return (
     <AppThemeProvider>
-      <Button
-        onClick={() => {
-          console.log('I have been clicked!');
-        }}
-      >
-        Click me
-      </Button>
+      <BrowserRouter>
+        <Routing />
+      </BrowserRouter>
     </AppThemeProvider>
   );
 };
