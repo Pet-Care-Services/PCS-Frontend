@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from 'components/Button';
 import AppThemeProvider from 'providers/Theme';
-import './App.css';
 
 const App = () => {
   return (

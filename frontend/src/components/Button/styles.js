@@ -10,5 +10,5 @@ export default (color) => ({
     '&:hover': {
       backgroundColor: (theme) => theme.palette[color].dark,
     },
-  }
+  },
 });

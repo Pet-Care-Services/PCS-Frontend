@@ -9,7 +9,11 @@ export default {
   component: Component,
 };
 
-const Template = (args) => <AppThemeProvider><Component {...args} /></AppThemeProvider>;
+const Template = (args) => (
+  <AppThemeProvider>
+    <Component {...args} />
+  </AppThemeProvider>
+);
 
 const Default = Template.bind({});
 const Small = Template.bind({});
@@ -19,33 +23,27 @@ const Padded = Template.bind({});
 
 Default.args = {
   Component: AccessAlarmsIcon,
-  onClick: null
+  onClick: null,
 };
 
 Small.args = {
   ...Default.args,
-  size: 'small'
+  size: 'small',
 };
 
 Big.args = {
   ...Default.args,
-  size: 'big'
+  size: 'big',
 };
 
 Clickable.args = {
   ...Default.args,
-  onClick: action('onClick')
+  onClick: action('onClick'),
 };
 
 Padded.args = {
   ...Default.args,
-  padded: true
+  padded: true,
 };
 
-export {
-  Default,
-  Small,
-  Big,
-  Clickable,
-  Padded
-};
+export { Default, Small, Big, Clickable, Padded };

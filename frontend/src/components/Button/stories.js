@@ -7,7 +7,11 @@ export default {
   component: Component,
 };
 
-const Template = (args) => <AppThemeProvider><Component {...args} /></AppThemeProvider>;
+const Template = (args) => (
+  <AppThemeProvider>
+    <Component {...args} />
+  </AppThemeProvider>
+);
 
 const Primary = Template.bind({});
 const Secondary = Template.bind({});
@@ -22,7 +26,4 @@ Secondary.args = {
   children: 'Secondary',
 };
 
-export {
-  Primary,
-  Secondary
-};
+export { Primary, Secondary };

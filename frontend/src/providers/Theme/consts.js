@@ -1,6 +1,6 @@
 const MODE = {
   LIGHT: 'LIGHT',
-  DARK: 'DARK'
+  DARK: 'DARK',
 };
 
 const lightColors = {
@@ -20,7 +20,7 @@ const lightColors = {
     light: '#fcfcfc',
     main: '#f2f2f2',
     dark: '#d4d4d4',
-  }
+  },
 };
 
 const darkColors = {
@@ -40,7 +40,7 @@ const darkColors = {
     light: '#fcfcfc',
     main: '#f2f2f2',
     dark: '#d4d4d4',
-  }
+  },
 };
 
 const common = {
@@ -51,21 +51,17 @@ const common = {
     medium: 14,
     big: 16,
     huge: 20,
-  }
+  },
 };
 
 const lightTheme = {
   ...common,
-  palette: lightColors
+  palette: lightColors,
 };
 
 const darkTheme = {
   ...common,
-  palette: darkColors
+  palette: darkColors,
 };
 
-export {
-  MODE,
-  lightTheme,
-  darkTheme
-};
+export { MODE, lightTheme, darkTheme };

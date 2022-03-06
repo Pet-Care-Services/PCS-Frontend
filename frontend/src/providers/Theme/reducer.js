@@ -6,16 +6,16 @@ const actions = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-  case actions.TOGGLE_THEME: {
-    return {
-      ...state,
-      mode: state.mode === MODE.LIGHT ? MODE.DARK : MODE.LIGHT,
-    };
-  }
+    case actions.TOGGLE_THEME: {
+      return {
+        ...state,
+        mode: state.mode === MODE.LIGHT ? MODE.DARK : MODE.LIGHT,
+      };
+    }
 
-  default: {
-    throw new Error(`Unhandled action type: ${action.type}`);
-  }
+    default: {
+      throw new Error(`Unhandled action type: ${action.type}`);
+    }
   }
 };
 
