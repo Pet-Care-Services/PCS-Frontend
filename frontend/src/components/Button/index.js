@@ -5,16 +5,13 @@ import getStyles from './styles';
 
 const Button = ({ color, onClick, children }) => {
   const styles = getStyles(color);
-  
+
   return (
-    <MUIButton
-      onClick={onClick}
-      variant="contained"
-      sx={styles.root}
-    >
+    <MUIButton onClick={onClick} variant="contained" sx={styles.root}>
       {children}
     </MUIButton>
-  );};
+  );
+};
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
