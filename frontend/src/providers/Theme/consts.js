@@ -12,9 +12,9 @@ const lightColors = {
   },
   secondary: {
     contrastText: 'white',
-    light: '#ffe180',
+    light: '#C7E1CC',
     main: '#c79f1e',
-    dark: '#80650d',
+    dark: '#B9D2BE',
   },
   neutral: {
     light: '#fcfcfc',
