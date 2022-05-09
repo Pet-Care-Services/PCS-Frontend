@@ -3,44 +3,62 @@ const MODE = {
   DARK: 'DARK',
 };
 
+const NO_COLOR = '#ff42ec';
+const BLACK = '#000000';
+const WHITE = '#ffffff';
+
 const lightColors = {
   primary: {
-    contrastText: 'white',
-    light: '#91ffa2',
-    main: '#14db32',
-    dark: '#0d801e',
+    contrastText: WHITE,
+    light: NO_COLOR,
+    main: '#5A9A9E',
+    dark: '#27888E',
   },
   secondary: {
-    contrastText: 'white',
-    light: '#ffe180',
-    main: '#c79f1e',
-    dark: '#80650d',
+    contrastText: BLACK,
+    light: NO_COLOR,
+    main: '#E2F1E5',
+    dark: '#B9D2BE',
   },
   neutral: {
-    light: '#fcfcfc',
-    main: '#f2f2f2',
-    dark: '#d4d4d4',
+    light: NO_COLOR,
+    main: '#F3F4F3',
+    dark: '#A2A2A2',
   },
+  error: {
+    light: NO_COLOR,
+    main: NO_COLOR,
+    dark: '#B00020',
+  },
+  white: WHITE,
+  black: BLACK,
 };
 
 const darkColors = {
   primary: {
-    contrastText: 'white',
-    light: '#91ffa2',
-    main: '#14db32',
-    dark: '#0d801e',
+    contrastText: WHITE,
+    light: NO_COLOR,
+    main: NO_COLOR,
+    dark: NO_COLOR,
   },
   secondary: {
-    contrastText: 'white',
-    light: '#ffe180',
-    main: '#c79f1e',
-    dark: '#80650d',
+    contrastText: WHITE,
+    light: NO_COLOR,
+    main: NO_COLOR,
+    dark: NO_COLOR,
   },
   neutral: {
-    light: '#fcfcfc',
-    main: '#f2f2f2',
-    dark: '#d4d4d4',
+    light: NO_COLOR,
+    main: NO_COLOR,
+    dark: NO_COLOR,
   },
+  error: {
+    light: NO_COLOR,
+    main: NO_COLOR,
+    dark: NO_COLOR,
+  },
+  white: WHITE,
+  black: BLACK,
 };
 
 const common = {
@@ -81,4 +99,4 @@ const darkTheme = {
   palette: darkColors,
 };
 
-export { MODE, lightTheme, darkTheme };
+export { MODE, lightTheme, darkTheme, lightColors, darkColors };
