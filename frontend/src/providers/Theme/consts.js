@@ -3,54 +3,89 @@ const MODE = {
   DARK: 'DARK',
 };
 
+const NO_COLOR = '#ff42ec';
+const BLACK = '#000000';
+const WHITE = '#ffffff';
+
 const lightColors = {
   primary: {
-    contrastText: 'white',
-    light: '#91ffa2',
-    main: '#14db32',
-    dark: '#0d801e',
+    contrastText: WHITE,
+    light: NO_COLOR,
+    main: '#5A9A9E',
+    dark: '#27888E',
   },
   secondary: {
-    contrastText: 'white',
-    light: '#C7E1CC',
-    main: '#c79f1e',
+    contrastText: BLACK,
+    light: NO_COLOR,
+    main: '#E2F1E5',
     dark: '#B9D2BE',
   },
   neutral: {
-    light: '#fcfcfc',
-    main: '#f2f2f2',
-    dark: '#d4d4d4',
+    light: NO_COLOR,
+    main: '#F3F4F3',
+    dark: '#A2A2A2',
   },
+  error: {
+    light: NO_COLOR,
+    main: NO_COLOR,
+    dark: '#B00020',
+  },
+  white: WHITE,
+  black: BLACK,
 };
 
 const darkColors = {
   primary: {
-    contrastText: 'white',
-    light: '#91ffa2',
-    main: '#14db32',
-    dark: '#0d801e',
+    contrastText: WHITE,
+    light: NO_COLOR,
+    main: NO_COLOR,
+    dark: NO_COLOR,
   },
   secondary: {
-    contrastText: 'white',
-    light: '#ffe180',
-    main: '#c79f1e',
-    dark: '#80650d',
+    contrastText: WHITE,
+    light: NO_COLOR,
+    main: NO_COLOR,
+    dark: NO_COLOR,
   },
   neutral: {
-    light: '#fcfcfc',
-    main: '#f2f2f2',
-    dark: '#d4d4d4',
+    light: NO_COLOR,
+    main: NO_COLOR,
+    dark: NO_COLOR,
   },
+  error: {
+    light: NO_COLOR,
+    main: NO_COLOR,
+    dark: NO_COLOR,
+  },
+  white: WHITE,
+  black: BLACK,
 };
 
 const common = {
   spacing: 1,
-  fontSize: {
-    tiny: 10,
-    small: 12,
-    medium: 14,
-    big: 16,
-    huge: 20,
+  typography: {
+    fontFamily: ['Work Sans', 'Roboto', 'sans-serif'].join(','),
+    h1: {
+      fontSize: 24,
+    },
+    h2: {
+      fontSize: 20,
+    },
+    h3: {
+      fontSize: 16,
+    },
+    h4: {
+      fontSize: 14,
+    },
+    body: {
+      fontSize: 12,
+    },
+    tiny: {
+      fontSize: 10,
+    },
+  },
+  shape: {
+    borderRadius: 1,
   },
 };
 
@@ -64,4 +99,4 @@ const darkTheme = {
   palette: darkColors,
 };
 
-export { MODE, lightTheme, darkTheme };
+export { MODE, lightTheme, darkTheme, lightColors, darkColors };

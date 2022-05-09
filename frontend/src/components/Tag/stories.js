@@ -17,13 +17,13 @@ const Primary = Template.bind({});
 const Secondary = Template.bind({});
 
 Primary.args = {
-  label: 'primary',
-  color: '#333fe5',
+  label: 'Walking',
+  color: '#B9D2BE',
 };
 
 Secondary.args = {
-  label: 'secondary',
-  color: '#c96161',
+  label: 'Dog',
+  color: '#E2F1E5',
 };
 
 export { Primary, Secondary };
