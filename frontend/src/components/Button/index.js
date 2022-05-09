@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button as MUIButton } from '@mui/material';
+import { Button as MUIButton, Typography } from '@mui/material';
 import getStyles from './styles';
 
 const Button = ({ color, onClick, children }) => {
@@ -8,7 +8,7 @@ const Button = ({ color, onClick, children }) => {
 
   return (
     <MUIButton onClick={onClick} variant="contained" sx={styles.root}>
-      {children}
+      <Typography variant="h3">{children}</Typography>
     </MUIButton>
   );
 };
