@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { isString, keys, map } from 'lodash';
-import { Typography } from '@mui/material';
+import { Typography as MUITypography } from '@mui/material';
 import { Box } from '@mui/system';
 import AppThemeProvider from 'providers/Theme';
 import { lightColors, darkColors } from './consts';
@@ -24,16 +24,16 @@ const Color = ({ color, name }) => (
         backgroundColor: color,
       }}
     />
-    <Typography>{name}</Typography>
+    <MUITypography>{name}</MUITypography>
   </Box>
 );
 
 const ListedColors = ({ colors }) => {
   const palette = map(keys(colors), (name) => (
     <Box sx={{ marginBottom: 20, marginTop: 20 }}>
-      <Typography variant="h2" sx={{ marginBottom: 20 }}>
+      <MUITypography variant="h2" sx={{ marginBottom: 20 }}>
         {name}
-      </Typography>
+      </MUITypography>
       <Box sx={{ display: 'flex', columnGap: 20 }}>
         {isString(colors[name]) ? (
           <Color color={colors[name]} name={name} />
@@ -49,26 +49,56 @@ const ListedColors = ({ colors }) => {
   return <Box sx={{ marginBottom: 100 }}>{palette}</Box>;
 };
 
-const Palette = () => (
-  <Box>
-    <Typography variant="h1">Light theme:</Typography>
-    <ListedColors colors={lightColors} />
-    <Typography variant="h1">Dark theme:</Typography>
-    <ListedColors colors={darkColors} />
-  </Box>
-);
+const Component = ({ variant }) => {
+  let content;
+  if (variant === 'palette') {
+    content = (
+      <Box>
+        <MUITypography variant="h1">Light theme:</MUITypography>
+        <ListedColors colors={lightColors} />
+        <MUITypography variant="h1">Dark theme:</MUITypography>
+        <ListedColors colors={darkColors} />
+      </Box>
+    );
+  } else if (variant === 'typography') {
+    const variants = ['h1', 'h2', 'h3', 'h4', 'body', 'tiny'];
+    content = (
+      <Box>
+        {map(variants, (v) => (
+          <MUITypography
+            variant={v}
+            sx={{ marginBottom: 20, display: 'block' }}
+          >
+            Typography variant {v}
+          </MUITypography>
+        ))}
+      </Box>
+    );
+  }
+
+  return content;
+};
 
 export default {
-  title: 'Configuration/Palette',
-  component: Palette,
+  title: 'Configuration/Theme',
+  component: Component,
 };
 
 const Template = (args) => (
   <AppThemeProvider>
-    <Palette {...args} />
+    <Component {...args} />
   </AppThemeProvider>
 );
 
-const Default = Template.bind({});
+const Palette = Template.bind({});
+const Typography = Template.bind({});
 
-export { Default };
+Palette.args = {
+  variant: 'palette',
+};
+
+Typography.args = {
+  variant: 'typography',
+};
+
+export { Palette, Typography };
