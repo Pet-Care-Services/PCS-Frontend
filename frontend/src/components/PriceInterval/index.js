@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './styles';
+import { Typography } from '@mui/material';
 
 const PriceInterval = ({ price, priceTo, priceType, currency }) => {
   const intervalEnd = priceTo != null && priceTo !== price ? '-' + priceTo : '';
   const intervalType = priceType === 'single' ? '' : '/h';
   const priceInterval = price + intervalEnd + currency + intervalType;
-  return <div style={styles.priceInterval}>{priceInterval}</div>;
+  return <Typography variant="h2">{priceInterval}</Typography>;
 };
 
 PriceInterval.propTypes = {
@@ -22,6 +22,6 @@ PriceInterval.defaultProps = {
   currency: 'zł',
 };
 
-//TODO [PCS-22]
+//TODO [PCS-22] Currencies
 
 export default PriceInterval;
