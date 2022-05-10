@@ -4,7 +4,7 @@ import Component from '.';
 
 export default {
   title: 'Advertisement',
-  component: Component
+  component: Component,
 };
 
 const Template = (args) => (
@@ -19,6 +19,11 @@ Advertisement.args = {
   activities: ['Walking', 'Feeding', 'SthElse'],
   animals: ['Cat', 'Dog', 'Fish', 'Horse'],
   starsValue: 4,
+  price: {
+    from: 10,
+    to: 20,
+    priceType: 'hourly',
+  },
 };
 
 export { Advertisement };

@@ -2,27 +2,50 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Paper, Rating } from '@mui/material';
 import { Box } from '@mui/system';
+import PriceInterval from '../PriceInterval';
 import Tag from '../Tag';
 import styles from './styles';
 
-const Advertisement = ({ activities, animals, starsValue }) => {
+const Advertisement = ({ activities, animals, starsValue, price }) => {
   return (
-    <Box>
-      <Paper sx={styles.root}>
-        <Box p={5}>
-          <Grid container spacing={2}>
-            <Grid item xs={3} />
-            <Grid item xs={7}>
-              <div>{renderTags(activities, 'activitiesTags', 2)}</div>
-              <div>{renderTags(animals, 'animalsTags', 2)}</div>
-            </Grid>
-            <Grid item xs={2}>
-              <Rating name='read-only' value={starsValue} readOnly />
-            </Grid>
-          </Grid>
+    <Paper sx={styles.root}>
+      <Box p={10}>
+        <Box display={'flex'} sx={styles.root}>
+          <Box flexGrow={3}>{'img'}</Box>
+          <Box
+            display={'flex'}
+            flexGrow={9}
+            flexDirection={'column'}
+            justifyContent={'space-between'}
+          >
+            <Box display={'flex'} flexDirection={'column'}>
+              <Box>{renderTags(activities, 'activitiesTags', 2)}</Box>
+              <Box>{renderTags(animals, 'animalsTags', 2)}</Box>
+            </Box>
+            <Box display={'flex'} flexDirection={'column'}>
+              <Box display={'flex'}>{'tags3'}</Box>
+            </Box>
+          </Box>
+          <Box
+            display={'flex'}
+            flexGrow={4}
+            flexDirection={'column'}
+            justifyContent={'space-between'}
+          >
+            <Box display={'flex'} justifyContent={'flex-end'}>
+              {<Rating name="read-only" value={starsValue} readOnly />}
+            </Box>
+            <Box display={'flex'} justifyContent={'flex-end'}>
+              <PriceInterval
+                price={price.from}
+                priceTo={price.to}
+                priceType={price.priceType}
+              />
+            </Box>
+          </Box>
         </Box>
-      </Paper>
-    </Box>
+      </Box>
+    </Paper>
   );
 };
 
@@ -45,9 +68,10 @@ const renderTags = (tagLabels, styleType, amountToFit) => {
 };
 
 Advertisement.propTypes = {
-  activities: PropTypes.node.isRequired,
-  animals: PropTypes.node.isRequired,
-  starsValue: PropTypes.node.isRequired
+  activities: PropTypes.array.isRequired,
+  animals: PropTypes.array.isRequired,
+  starsValue: PropTypes.number.isRequired,
+  price: PropTypes.object.isRequired,
 };
 
 export default Advertisement;
