@@ -89,14 +89,21 @@ const common = {
   },
 };
 
+const decoratePalette = (colors) => ({
+  ...colors,
+  background: {
+    default: colors.secondary.main,
+  },
+});
+
 const lightTheme = {
   ...common,
-  palette: lightColors,
+  palette: decoratePalette(lightColors),
 };
 
 const darkTheme = {
   ...common,
-  palette: darkColors,
+  palette: decoratePalette(darkColors),
 };
 
 export { MODE, lightTheme, darkTheme, lightColors, darkColors };
