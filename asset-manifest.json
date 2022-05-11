@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/pet-care-services/static/css/main.e6c13ad2.css",
-    "main.js": "/pet-care-services/static/js/main.893c7e77.js",
+    "main.js": "/pet-care-services/static/js/main.d04d82c3.js",
     "static/js/787.c6bcca0b.chunk.js": "/pet-care-services/static/js/787.c6bcca0b.chunk.js",
     "index.html": "/pet-care-services/index.html",
     "main.e6c13ad2.css.map": "/pet-care-services/static/css/main.e6c13ad2.css.map",
-    "main.893c7e77.js.map": "/pet-care-services/static/js/main.893c7e77.js.map",
+    "main.d04d82c3.js.map": "/pet-care-services/static/js/main.d04d82c3.js.map",
     "787.c6bcca0b.chunk.js.map": "/pet-care-services/static/js/787.c6bcca0b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.893c7e77.js"
+    "static/js/main.d04d82c3.js"
   ]
 }
