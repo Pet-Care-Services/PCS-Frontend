@@ -1,5 +1,6 @@
 {
   "name": "pet-care-services",
+  "homepage": "https://mskwara.github.io/pet-care-services",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -30,7 +31,9 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "lint": "eslint src --ext .js,.jsx,.json,.scss",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
