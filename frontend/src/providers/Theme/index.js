@@ -1,6 +1,6 @@
 import React, { useMemo, useReducer } from 'react';
 import PropTypes from 'prop-types';
-import { ThemeProvider, createTheme } from '@mui/material';
+import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { MODE, lightTheme, darkTheme } from './consts';
 import reducer from './reducer';
 
@@ -21,6 +21,7 @@ const AppThemeProvider = ({ children }) => {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
     </ThemeProvider>
   );
