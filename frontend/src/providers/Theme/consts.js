@@ -27,7 +27,7 @@ const lightColors = {
   },
   error: {
     light: NO_COLOR,
-    main: NO_COLOR,
+    main: '#e30b32',
     dark: '#B00020',
   },
   white: WHITE,
