@@ -1,13 +1,7 @@
 import React from 'react';
-import { Field as FormikField } from 'formik';
+import FormikField from 'components/FormikField';
 import InputView from './view';
 
-const Input = (props) => (
-  <FormikField {...props}>
-    {({ field, meta }) => (
-      <InputView {...field} error={meta.error} {...props} />
-    )}
-  </FormikField>
-);
+const Input = (props) => <FormikField Component={InputView} {...props} />;
 
 export default Input;

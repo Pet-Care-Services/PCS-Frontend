@@ -5,14 +5,14 @@ import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 
 export default {
-  title: 'Input',
+  title: 'Select',
   component: Component,
 };
 
 const Template = (args) => (
   <AppThemeProvider>
     <Formik
-      initialValues={{ inputName: args.initialValue || '' }}
+      initialValues={{ select: args.initialValue || '' }}
       onSubmit={() => {}}
     >
       <Form>
@@ -28,13 +28,23 @@ const Error = Template.bind({});
 const Helper = Template.bind({});
 
 Default.args = {
-  label: 'My input',
-  name: 'inputName',
+  label: 'My select',
+  name: 'select',
+  options: [
+    {
+      label: 'Co tydzień',
+      value: 'value1',
+    },
+    {
+      label: 'Co dwa tygodnie',
+      value: 'value2',
+    },
+  ],
 };
 
 WithValue.args = {
   ...Default.args,
-  initialValue: 'Some value',
+  initialValue: 'value1',
 };
 
 Error.args = {
@@ -44,7 +54,7 @@ Error.args = {
 
 Helper.args = {
   ...Default.args,
-  helperText: 'Please provide full animal breed',
+  helperText: 'Please provide your job name',
 };
 
-export { Default, WithValue, Error, Helper };
+export { Default, Error, WithValue, Helper };

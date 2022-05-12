@@ -10,7 +10,7 @@ const WHITE = '#ffffff';
 const lightColors = {
   primary: {
     contrastText: WHITE,
-    light: NO_COLOR,
+    light: '#9dc0c2',
     main: '#5A9A9E',
     dark: '#27888E',
   },
