@@ -3,10 +3,21 @@ import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 
-const InputView = ({ field, error, type, helperText, label, sx, ...props }) => (
+const InputView = ({
+  field,
+  error,
+  type,
+  helperText,
+  label,
+  isSelect,
+  children,
+  sx,
+  ...props
+}) => (
   <TextField
     {...field}
     {...props}
+    select={isSelect}
     type={type}
     label={label}
     error={!isEmpty(error)}
@@ -45,7 +56,21 @@ const InputView = ({ field, error, type, helperText, label, sx, ...props }) => (
         },
       },
     }}
-  />
+    SelectProps={{
+      MenuProps: {
+        sx: {
+          '.MuiMenu-paper': {
+            borderRadius: 5,
+          },
+          '.MuiMenu-list': {
+            padding: 0,
+          },
+        },
+      },
+    }}
+  >
+    {children}
+  </TextField>
 );
 
 InputView.propTypes = {
@@ -53,6 +78,8 @@ InputView.propTypes = {
   field: PropTypes.any,
   error: PropTypes.string,
   helperText: PropTypes.string,
+  isSelect: PropTypes.bool,
+  children: PropTypes.node,
   type: PropTypes.oneOf(['text', 'password']),
   sx: PropTypes.objectOf(PropTypes.any),
 };
@@ -61,6 +88,8 @@ InputView.defaultProps = {
   error: '',
   helperText: '',
   type: 'text',
+  isSelect: false,
+  children: null,
   sx: {},
 };
 
