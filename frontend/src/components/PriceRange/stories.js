@@ -3,7 +3,7 @@ import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 
 export default {
-  title: 'PriceInterval',
+  title: 'PriceRange',
   component: Component,
 };
 
@@ -19,23 +19,23 @@ const Hourly = Template.bind({});
 const HourlyInterval = Template.bind({});
 
 Single.args = {
-  price: 10,
+  from: 10,
 };
 
 SingleInterval.args = {
-  price: 10,
-  priceTo: 25,
+  from: 10,
+  to: 25,
 };
 
 Hourly.args = {
-  price: 20,
-  priceType: 'hourly',
+  from: 20,
+  type: 'hourly',
 };
 
 HourlyInterval.args = {
-  price: 20,
-  priceTo: 30,
-  priceType: 'hourly',
+  from: 20,
+  to: 30,
+  type: 'hourly',
 };
 
 export { Single, SingleInterval, Hourly, HourlyInterval };
