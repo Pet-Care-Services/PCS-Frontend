@@ -24,6 +24,7 @@ Primary.args = {
 Secondary.args = {
   label: 'Dog',
   color: '#E2F1E5',
+  labelColor: '#cc1515',
 };
 
 export { Primary, Secondary };
