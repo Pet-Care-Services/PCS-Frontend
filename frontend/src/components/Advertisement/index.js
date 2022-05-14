@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import { Paper, Rating, Box, Typography } from '@mui/material';
 import Icon from '../Icon';
-import PriceInterval from '../PriceInterval';
+import PriceRange from '../PriceRange';
 import styles from './styles';
 import renderTags from './utils';
 
@@ -54,10 +54,10 @@ const Advertisement = ({
               {<Rating name="read-only" value={starsValue} readOnly />}
             </Box>
             <Box display={'flex'} justifyContent={'flex-end'}>
-              <PriceInterval
-                price={price.from}
-                priceTo={price.to}
-                priceType={price.priceType}
+              <PriceRange
+                from={price.from}
+                to={price.to}
+                type={price.priceType}
               />
             </Box>
           </Box>
