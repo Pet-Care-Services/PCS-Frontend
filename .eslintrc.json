@@ -77,7 +77,8 @@
         "vars": "all",
         "args": "after-used"
       }
-    ]
+    ],
+    "react/prop-types": "warn"
   },
   "settings": {
     "import/resolver": {
