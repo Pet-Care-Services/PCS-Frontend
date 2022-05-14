@@ -10,7 +10,7 @@ const WHITE = '#ffffff';
 const lightColors = {
   primary: {
     contrastText: WHITE,
-    light: NO_COLOR,
+    light: '#9dc0c2',
     main: '#5A9A9E',
     dark: '#27888E',
   },
@@ -27,7 +27,7 @@ const lightColors = {
   },
   error: {
     light: NO_COLOR,
-    main: NO_COLOR,
+    main: '#e30b32',
     dark: '#B00020',
   },
   white: WHITE,
@@ -89,14 +89,21 @@ const common = {
   },
 };
 
+const decoratePalette = (colors) => ({
+  ...colors,
+  background: {
+    default: colors.secondary.main,
+  },
+});
+
 const lightTheme = {
   ...common,
-  palette: lightColors,
+  palette: decoratePalette(lightColors),
 };
 
 const darkTheme = {
   ...common,
-  palette: darkColors,
+  palette: decoratePalette(darkColors),
 };
 
 export { MODE, lightTheme, darkTheme, lightColors, darkColors };
