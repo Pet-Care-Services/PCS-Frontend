@@ -20,7 +20,9 @@ export default {
     display: 'flex',
     columnGap: 10,
   },
-  submitButton: {
+  buttons: {
     marginTop: 10,
+    display: 'flex',
+    columnGap: 10,
   },
 };

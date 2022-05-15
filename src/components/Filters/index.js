@@ -10,12 +10,16 @@ import Field from './components/Field';
 import { rowsShape } from './shapes';
 import styles from './styles';
 
-const Filters = ({ rows, initialValues, onSubmit }) => {
+const Filters = ({ rows, initialValues, onSubmit, onClear }) => {
   const { t } = useTranslation();
 
   return (
     <Box sx={styles.root}>
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        enableReinitialize
+      >
         <Form>
           <Box sx={styles.formContent}>
             <Typography variant="h2">{t('filters')}</Typography>
@@ -32,9 +36,18 @@ const Filters = ({ rows, initialValues, onSubmit }) => {
 
               return <Field {...row} key={index} />;
             })}
-            <Button sx={styles.submitButton} submit>
-              {t('apply')}
-            </Button>
+            <Box sx={styles.buttons}>
+              <Button
+                color="neutral"
+                onClick={onClear}
+                sx={styles.submitButton}
+              >
+                {t('clear')}
+              </Button>
+              <Button type="submit" sx={styles.submitButton}>
+                {t('apply')}
+              </Button>
+            </Box>
           </Box>
         </Form>
       </Formik>
@@ -46,11 +59,13 @@ Filters.propTypes = {
   rows: rowsShape.isRequired,
   initialValues: PropTypes.object,
   onSubmit: PropTypes.func,
+  onClear: PropTypes.func,
 };
 
 Filters.defaultProps = {
   initialValues: {},
   onSubmit: noop,
+  onClear: noop,
 };
 
 export default Filters;

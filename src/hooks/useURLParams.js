@@ -9,8 +9,13 @@ const useURLParams = () => {
     setSearchParams({ ...params, ...newParams });
   };
 
+  const clearParams = () => {
+    setSearchParams({});
+  };
+
   return {
     updateParams,
+    clearParams,
     params,
   };
 };
