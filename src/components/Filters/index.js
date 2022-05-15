@@ -27,36 +27,41 @@ const Filters = ({
         onSubmit={onSubmit}
         enableReinitialize
       >
-        <Form>
-          <Box sx={styles.formContent}>
-            <Typography variant="h2">{t('filters')}</Typography>
-            {map(rows, (row, index) => {
-              if (isArray(row)) {
-                return (
-                  <Box sx={styles.horizontalFieldsWrapper} key={index}>
-                    {map(row, (field) => (
-                      <Field {...field} key={field.name} />
-                    ))}
-                  </Box>
-                );
-              }
+        {({ resetForm }) => (
+          <Form>
+            <Box sx={styles.formContent}>
+              <Typography variant="h2">{t('filters')}</Typography>
+              {map(rows, (row, index) => {
+                if (isArray(row)) {
+                  return (
+                    <Box sx={styles.horizontalFieldsWrapper} key={index}>
+                      {map(row, (field) => (
+                        <Field {...field} key={field.name} />
+                      ))}
+                    </Box>
+                  );
+                }
 
-              return <Field {...row} key={index} />;
-            })}
-            <Box sx={styles.buttons}>
-              <Button
-                color="neutral"
-                onClick={onClear}
-                sx={styles.submitButton}
-              >
-                {t('clear')}
-              </Button>
-              <Button type="submit" sx={styles.submitButton}>
-                {t('apply')}
-              </Button>
+                return <Field {...row} key={index} />;
+              })}
+              <Box sx={styles.buttons}>
+                <Button
+                  color="neutral"
+                  onClick={() => {
+                    resetForm();
+                    onClear();
+                  }}
+                  sx={styles.submitButton}
+                >
+                  {t('clear')}
+                </Button>
+                <Button type="submit" sx={styles.submitButton}>
+                  {t('apply')}
+                </Button>
+              </Box>
             </Box>
-          </Box>
-        </Form>
+          </Form>
+        )}
       </Formik>
     </Box>
   );
