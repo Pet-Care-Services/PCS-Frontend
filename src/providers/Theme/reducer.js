@@ -1,4 +1,4 @@
-import { MODE } from './consts';
+import { MODE } from './theme';
 
 const actions = {
   TOGGLE_THEME: 'THEME/TOGGLE_THEME',

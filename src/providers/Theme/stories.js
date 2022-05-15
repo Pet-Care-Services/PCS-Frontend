@@ -4,7 +4,7 @@ import { isString, keys, map } from 'lodash';
 import { Typography as MUITypography } from '@mui/material';
 import { Box } from '@mui/system';
 import AppThemeProvider from 'providers/Theme';
-import { lightColors, darkColors } from './consts';
+import { lightColors, darkColors } from './theme';
 
 const Color = ({ color, name }) => (
   <Box

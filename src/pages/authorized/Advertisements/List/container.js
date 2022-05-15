@@ -4,11 +4,7 @@ import { itemTypeShape } from './shapes';
 import ListView from './view';
 
 const ListContainer = ({ itemType }) => {
-  const { params, updateParams } = useURLParams();
-
-  const onFiltersSubmit = (values) => {
-    updateParams(values);
-  };
+  const { params, updateParams, clearParams } = useURLParams();
 
   const filtersInitialValues = {
     animal: params.animal || '',
@@ -22,7 +18,8 @@ const ListContainer = ({ itemType }) => {
     <ListView
       itemType={itemType}
       filtersInitialValues={filtersInitialValues}
-      onFiltersSubmit={onFiltersSubmit}
+      onFiltersSubmit={updateParams}
+      onFiltersClear={clearParams}
     />
   );
 };

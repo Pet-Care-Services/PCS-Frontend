@@ -21,11 +21,17 @@ const filtersFields = [
       name: 'priceMin',
       label: 'Minimum Price',
       fieldType: FIELD_TYPES.INPUT,
+      fieldProps: {
+        onlyNumbers: true,
+      },
     },
     {
       name: 'priceMax',
       label: 'Maximum Price',
       fieldType: FIELD_TYPES.INPUT,
+      fieldProps: {
+        onlyNumbers: true,
+      },
     },
   ],
 ];
