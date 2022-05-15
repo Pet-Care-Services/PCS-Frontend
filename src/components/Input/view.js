@@ -1,5 +1,5 @@
 import React from 'react';
-import { noop } from 'lodash';
+import { noop, toInteger } from 'lodash';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
@@ -25,6 +25,9 @@ const InputView = ({
       if (onlyNumbers && !isStringNumber(e.target.value)) {
         return;
       } else {
+        if (onlyNumbers && !isEmpty(e.target.value)) {
+          e.target.value = toInteger(e.target.value);
+        }
         onChange(e);
       }
     }}
