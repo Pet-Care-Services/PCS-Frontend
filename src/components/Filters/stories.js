@@ -1,6 +1,4 @@
 import React from 'react';
-import { Form, Formik } from 'formik';
-import { omit } from 'lodash';
 import { Box } from '@mui/system';
 import AppThemeProvider from 'providers/Theme';
 import Component from '.';
@@ -13,13 +11,9 @@ export default {
 
 const Template = (args) => (
   <AppThemeProvider>
-    <Formik initialValues={{}} onSubmit={() => {}}>
-      <Form>
-        <Box sx={{ width: 380 }}>
-          <Component {...omit(args, ['initialValues'])} />
-        </Box>
-      </Form>
-    </Formik>
+    <Box sx={{ width: 380 }}>
+      <Component {...args} />
+    </Box>
   </AppThemeProvider>
 );
 
@@ -62,6 +56,12 @@ Default.args = {
       },
     },
   ],
+  initialValues: {
+    myinput: '',
+    leftinput: '',
+    rightinput: '',
+    myselect: '',
+  },
 };
 
 export { Default };

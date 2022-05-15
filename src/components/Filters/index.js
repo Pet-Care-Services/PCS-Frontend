@@ -1,59 +1,56 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import { isArray, map } from 'lodash';
+import { isArray, map, noop } from 'lodash';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Button from 'components/Button';
 import Field from './components/Field';
+import { rowsShape } from './shapes';
+import styles from './styles';
 
-const Filters = ({ rows }) => {
+const Filters = ({ rows, initialValues, onSubmit }) => {
   const { t } = useTranslation();
 
   return (
-    <Box
-      sx={{
-        minWidth: 380,
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: (theme) => theme.palette.white,
-        padding: 20,
-        boxSizing: 'border-box',
-        borderRadius: 10,
-      }}
-    >
-      <Formik>
+    <Box sx={styles.root}>
+      <Formik initialValues={initialValues} onSubmit={onSubmit}>
         <Form>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              rowGap: 10,
-            }}
-          >
+          <Box sx={styles.formContent}>
             <Typography variant="h2">{t('filters')}</Typography>
-            {map(rows, (row) => {
+            {map(rows, (row, index) => {
               if (isArray(row)) {
                 return (
-                  <Box sx={{ display: 'flex', columnGap: 10 }}>
+                  <Box sx={styles.horizontalFieldsWrapper} key={index}>
                     {map(row, (field) => (
-                      <Field {...field} />
+                      <Field {...field} key={field.name} />
                     ))}
                   </Box>
                 );
               }
 
-              return <Field {...row} />;
+              return <Field {...row} key={index} />;
             })}
-            <Button sx={{ marginTop: 10 }}>{t('apply')}</Button>
+            <Button sx={styles.submitButton} submit>
+              {t('apply')}
+            </Button>
           </Box>
         </Form>
       </Formik>
     </Box>
   );
+};
+
+Filters.propTypes = {
+  rows: rowsShape.isRequired,
+  initialValues: PropTypes.object,
+  onSubmit: PropTypes.func,
+};
+
+Filters.defaultProps = {
+  initialValues: {},
+  onSubmit: noop,
 };
 
 export default Filters;
