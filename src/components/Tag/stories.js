@@ -13,18 +13,17 @@ const Template = (args) => (
   </AppThemeProvider>
 );
 
-const Primary = Template.bind({});
-const Secondary = Template.bind({});
+const Default = Template.bind({});
+const WithColors = Template.bind({});
 
-Primary.args = {
+Default.args = {
   label: 'Walking',
-  color: '#B9D2BE',
 };
 
-Secondary.args = {
+WithColors.args = {
   label: 'Dog',
-  color: '#E2F1E5',
-  labelColor: '#cc1515',
+  color: '#b74fd6',
+  labelColor: '#ffffff',
 };
 
-export { Primary, Secondary };
+export { Default, WithColors };
