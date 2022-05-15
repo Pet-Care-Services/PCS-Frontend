@@ -1,7 +1,9 @@
 import React from 'react';
+import { noop } from 'lodash';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
+import { isStringNumber } from './utils';
 
 const InputView = ({
   field,
@@ -11,12 +13,21 @@ const InputView = ({
   label,
   isSelect,
   children,
+  onlyNumbers,
+  onChange,
   sx,
   ...props
 }) => (
   <TextField
     {...field}
     {...props}
+    onChange={(e) => {
+      if (onlyNumbers && !isStringNumber(e.target.value)) {
+        return;
+      } else {
+        onChange(e);
+      }
+    }}
     select={isSelect}
     type={type}
     label={label}
@@ -80,6 +91,8 @@ InputView.propTypes = {
   helperText: PropTypes.string,
   isSelect: PropTypes.bool,
   children: PropTypes.node,
+  onChange: PropTypes.func,
+  onlyNumbers: PropTypes.bool,
   type: PropTypes.oneOf(['text', 'password']),
   sx: PropTypes.objectOf(PropTypes.any),
 };
@@ -89,6 +102,8 @@ InputView.defaultProps = {
   helperText: '',
   type: 'text',
   isSelect: false,
+  onChange: noop,
+  onlyNumbers: false,
   children: null,
   sx: {},
 };
