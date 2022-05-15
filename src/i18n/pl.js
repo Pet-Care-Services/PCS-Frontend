@@ -3,5 +3,8 @@ export default {
     filters: 'Filtry',
     apply: 'Zastosuj',
     clear: 'Wyczyść',
+    validation: {
+      required: 'Pole jest wymagane',
+    },
   },
 };

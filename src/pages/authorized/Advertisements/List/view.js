@@ -1,10 +1,12 @@
 import React from 'react';
 import { noop } from 'lodash';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/material';
 import Filters from 'components/Filters';
-import { filtersFields } from './consts';
+import { getFiltersFields } from './consts';
 import { itemTypeShape, filtersInitialValuesShape } from './shapes';
+import { getFiltersValidation } from './validation';
 
 const ListView = ({
   itemType,
@@ -12,12 +14,15 @@ const ListView = ({
   onFiltersSubmit,
   onFiltersClear,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Box sx={{ width: '100%', height: '100%', display: 'flex', columnGap: 20 }}>
       <Box sx={{ flex: 1 }}>
         <Filters
-          rows={filtersFields}
+          rows={getFiltersFields(t)}
           initialValues={filtersInitialValues}
+          validationSchema={getFiltersValidation(t)}
           onSubmit={onFiltersSubmit}
           onClear={onFiltersClear}
         />

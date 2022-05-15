@@ -10,13 +10,20 @@ import Field from './components/Field';
 import { rowsShape } from './shapes';
 import styles from './styles';
 
-const Filters = ({ rows, initialValues, onSubmit, onClear }) => {
+const Filters = ({
+  rows,
+  initialValues,
+  validationSchema,
+  onSubmit,
+  onClear,
+}) => {
   const { t } = useTranslation();
 
   return (
     <Box sx={styles.root}>
       <Formik
         initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={onSubmit}
         enableReinitialize
       >
@@ -58,12 +65,14 @@ const Filters = ({ rows, initialValues, onSubmit, onClear }) => {
 Filters.propTypes = {
   rows: rowsShape.isRequired,
   initialValues: PropTypes.object,
+  validationSchema: PropTypes.object,
   onSubmit: PropTypes.func,
   onClear: PropTypes.func,
 };
 
 Filters.defaultProps = {
   initialValues: {},
+  validationSchema: {},
   onSubmit: noop,
   onClear: noop,
 };

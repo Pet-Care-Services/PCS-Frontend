@@ -1,25 +1,25 @@
 import { FIELD_TYPES } from 'components/Filters/components/Field/consts';
 
-const filtersFields = [
+const getFiltersFields = (t) => [
   {
     name: 'animal',
-    label: 'Animal',
+    label: t('animal'),
     fieldType: FIELD_TYPES.INPUT,
   },
   {
     name: 'location',
-    label: 'Location',
+    label: t('location'),
     fieldType: FIELD_TYPES.INPUT,
   },
   {
     name: 'activity',
-    label: 'Service',
+    label: t('service'),
     fieldType: FIELD_TYPES.INPUT,
   },
   [
     {
       name: 'priceMin',
-      label: 'Minimum Price',
+      label: t('minimalPrice'),
       fieldType: FIELD_TYPES.INPUT,
       fieldProps: {
         onlyNumbers: true,
@@ -27,7 +27,7 @@ const filtersFields = [
     },
     {
       name: 'priceMax',
-      label: 'Maximum Price',
+      label: t('maximalPrice'),
       fieldType: FIELD_TYPES.INPUT,
       fieldProps: {
         onlyNumbers: true,
@@ -36,4 +36,4 @@ const filtersFields = [
   ],
 ];
 
-export { filtersFields };
+export { getFiltersFields };
