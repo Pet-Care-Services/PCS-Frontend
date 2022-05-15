@@ -14,7 +14,7 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    rowGap: 10,
+    rowGap: 15,
   },
   horizontalFieldsWrapper: {
     display: 'flex',

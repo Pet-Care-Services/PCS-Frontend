@@ -4,4 +4,12 @@ import { ITEM_TYPE } from 'consts/enums';
 
 const itemTypeShape = PropTypes.oneOf(values(ITEM_TYPE));
 
-export { itemTypeShape };
+const filtersInitialValuesShape = PropTypes.exact({
+  animal: PropTypes.string,
+  location: PropTypes.string,
+  activity: PropTypes.string,
+  priceMin: PropTypes.string,
+  priceMax: PropTypes.string,
+});
+
+export { itemTypeShape, filtersInitialValuesShape };
