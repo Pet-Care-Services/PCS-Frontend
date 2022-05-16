@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/pet-care-services/static/css/main.e6c13ad2.css",
-    "main.js": "/pet-care-services/static/js/main.d04d82c3.js",
-    "static/js/787.c6bcca0b.chunk.js": "/pet-care-services/static/js/787.c6bcca0b.chunk.js",
-    "index.html": "/pet-care-services/index.html",
-    "main.e6c13ad2.css.map": "/pet-care-services/static/css/main.e6c13ad2.css.map",
-    "main.d04d82c3.js.map": "/pet-care-services/static/js/main.d04d82c3.js.map",
-    "787.c6bcca0b.chunk.js.map": "/pet-care-services/static/js/787.c6bcca0b.chunk.js.map"
+    "main.css": "/static/css/main.e6c13ad2.css",
+    "main.js": "/static/js/main.9a31d487.js",
+    "static/js/787.c6bcca0b.chunk.js": "/static/js/787.c6bcca0b.chunk.js",
+    "index.html": "/index.html",
+    "main.e6c13ad2.css.map": "/static/css/main.e6c13ad2.css.map",
+    "main.9a31d487.js.map": "/static/js/main.9a31d487.js.map",
+    "787.c6bcca0b.chunk.js.map": "/static/js/787.c6bcca0b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.d04d82c3.js"
+    "static/js/main.9a31d487.js"
   ]
 }
