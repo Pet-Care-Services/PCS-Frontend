@@ -4,7 +4,7 @@ const MODE = {
 };
 
 const NO_COLOR = '#ff42ec';
-const BLACK = '#000000';
+const BLACK = '#0d1617';
 const WHITE = '#ffffff';
 
 const lightColors = {
@@ -21,11 +21,13 @@ const lightColors = {
     dark: '#B9D2BE',
   },
   neutral: {
+    contrastText: BLACK,
     light: NO_COLOR,
     main: '#F3F4F3',
     dark: '#A2A2A2',
   },
   error: {
+    contrastText: WHITE,
     light: NO_COLOR,
     main: '#e30b32',
     dark: '#B00020',

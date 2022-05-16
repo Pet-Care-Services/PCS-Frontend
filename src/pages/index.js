@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ITEM_TYPE } from 'consts/enums';
 import AuthorizedLayout from 'layouts/AuthorizedLayout';
-import AdvertismentsList from 'pages/authorized/Advertisments/List';
+import AdvertismentsList from 'pages/authorized/Advertisements/List';
 
 const DEFAULT_ROUTE = '/application/services';
 

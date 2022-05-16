@@ -1,8 +1,8 @@
 import React, { useMemo, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
-import { MODE, lightTheme, darkTheme } from './consts';
 import reducer from './reducer';
+import { MODE, lightTheme, darkTheme } from './theme';
 
 const initialState = {
   mode: MODE.LIGHT,

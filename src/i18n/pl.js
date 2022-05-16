@@ -1,6 +1,10 @@
 export default {
   translation: {
-    // put here messages used on website
-    // ex. accept: "Akceptuj"
+    filters: 'Filtry',
+    apply: 'Zastosuj',
+    clear: 'Wyczyść',
+    validation: {
+      required: 'Pole jest wymagane',
+    },
   },
 };

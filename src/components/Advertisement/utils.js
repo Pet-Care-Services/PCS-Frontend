@@ -9,12 +9,22 @@ const renderTags = (tagLabels, styleType, amountToFit) => {
   const color = styles[styleType].backgroundColor;
   for (let i = 0; i < amountToFit; i++) {
     if (size > i) {
-      activitiesTags.push(<Tag label={tagLabels[i]} color={color} />);
+      activitiesTags.push(
+        <Tag
+          label={tagLabels[i]}
+          color={color}
+          key={`tag-${i}-${tagLabels[i]}`}
+        />
+      );
     }
   }
   if (size > amountToFit) {
     activitiesTags.push(
-      <Tag label={'+' + (size - amountToFit)} color={color} />
+      <Tag
+        label={'+' + (size - amountToFit)}
+        color={color}
+        key={`tag-has-more-${styleType}`}
+      />
     );
   }
 
