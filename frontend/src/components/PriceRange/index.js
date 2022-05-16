@@ -6,7 +6,7 @@ const PriceRange = ({ from, to, type, currency }) => {
   const intervalEnd = to != null && to !== from ? '-' + to : '';
   const intervalType = type === 'single' ? '' : '/h';
   const priceInterval = from + intervalEnd + currency + intervalType;
-  return <Typography variant="h2">{priceInterval}</Typography>;
+  return <Typography variant="h3">{priceInterval}</Typography>;
 };
 
 PriceRange.propTypes = {

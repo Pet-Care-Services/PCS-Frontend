@@ -6,7 +6,7 @@ export default {
     backgroundColor: (theme) => theme.palette.neutral.main,
   },
   root: {
-    minHeight: 140,
+    minHeight: 100,
     borderRadius: 25,
     p: 5,
   },

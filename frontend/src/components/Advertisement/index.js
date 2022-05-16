@@ -17,12 +17,12 @@ const Advertisement = ({
 }) => {
   return (
     <Paper sx={styles.root}>
-      <Box p={10}>
-        <Box display={'flex'} sx={styles.root} gap={20}>
+      <Box p={5}>
+        <Box display={'flex'} gap={20}>
           <Box
             component="img"
             sx={{
-              height: 140,
+              height: 100,
               borderRadius: 25,
             }}
             src={image}
@@ -32,6 +32,7 @@ const Advertisement = ({
             flexGrow={10}
             flexDirection={'column'}
             justifyContent={'space-between'}
+            gap={10}
           >
             <Box display={'flex'} flexDirection={'column'}>
               {renderTags(activities, 'activitiesTags', 2)}
@@ -40,7 +41,7 @@ const Advertisement = ({
             <Box display={'flex'} flexDirection={'column'}>
               <Box display={'flex'}>
                 <Icon Component={FmdGoodIcon} size={'big'}></Icon>
-                <Typography variant={'h1'}>{location}</Typography>
+                <Typography variant={'h3'}>{location}</Typography>
               </Box>
             </Box>
           </Box>

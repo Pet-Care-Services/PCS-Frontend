@@ -19,7 +19,7 @@ const renderTags = (tagLabels, styleType, amountToFit) => {
   }
 
   return (
-    <Box display={'flex'} p={3} gap={5}>
+    <Box display={'flex'} p={1} gap={5}>
       {activitiesTags}
     </Box>
   );
