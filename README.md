@@ -1,6 +1,6 @@
 # pet-care-services
 
-DEMO: https://mskwara.github.io/pet-care-services
+DEMO: https://pet-care-services.github.io/PCS-Frontend
 
 Frontend:
  - cd ./frontend
