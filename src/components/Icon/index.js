@@ -1,32 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mui/system';
+import MuiIconButton from '@mui/material/IconButton';
 import { sizes } from './consts';
 
-const Icon = ({ size, padded, Component, onClick, sx }) => {
+const Icon = ({ size, Component, onClick, disabled, sx }) => {
   const dimension = sizes[size];
 
   return (
-    <Box
+    <MuiIconButton
+      size={size}
+      color="inherit"
+      onClick={onClick}
+      disabled={disabled}
+      disableRipple={!onClick}
       sx={{
-        width: dimension,
-        height: dimension,
-        transition: '0.2s',
-        ...((padded || onClick) && {
-          padding: 10,
-          borderRadius: '50%',
-          backgroundColor: 'neutral.main',
-        }),
-        ...(onClick && {
-          cursor: 'pointer',
-          backgroundColor: 'none',
-          '&:hover': {
-            backgroundColor: 'neutral.main',
-          },
-        }),
+        ...(!onClick && { cursor: 'default', padding: 0 }),
+        '&.MuiIconButton-sizeLarge': {
+          padding: 7,
+        },
         ...sx,
       }}
-      onClick={onClick}
     >
       <Component
         sx={{
@@ -34,22 +27,22 @@ const Icon = ({ size, padded, Component, onClick, sx }) => {
           height: dimension,
         }}
       />
-    </Box>
+    </MuiIconButton>
   );
 };
 
 Icon.propTypes = {
   Component: PropTypes.elementType.isRequired,
-  size: PropTypes.oneOf(['small', 'medium', 'big']),
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
   onClick: PropTypes.func,
-  padded: PropTypes.bool,
+  disabled: PropTypes.bool,
   sx: PropTypes.object,
 };
 
 Icon.defaultProps = {
   size: 'medium',
   onClick: null,
-  padded: false,
+  disabled: false,
   sx: {},
 };
 
