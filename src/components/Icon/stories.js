@@ -17,9 +17,8 @@ const Template = (args) => (
 
 const Default = Template.bind({});
 const Small = Template.bind({});
-const Big = Template.bind({});
+const Large = Template.bind({});
 const Clickable = Template.bind({});
-const Padded = Template.bind({});
 
 Default.args = {
   Component: AccessAlarmsIcon,
@@ -31,9 +30,9 @@ Small.args = {
   size: 'small',
 };
 
-Big.args = {
+Large.args = {
   ...Default.args,
-  size: 'big',
+  size: 'large',
 };
 
 Clickable.args = {
@@ -41,9 +40,4 @@ Clickable.args = {
   onClick: action('onClick'),
 };
 
-Padded.args = {
-  ...Default.args,
-  padded: true,
-};
-
-export { Default, Small, Big, Clickable, Padded };
+export { Default, Small, Large, Clickable };

@@ -13,5 +13,6 @@ export default {
       min: 'The value cannot be lower than {{value}}',
       max: 'The value cannot be higher than {{value}}',
     },
+    searchOffer: 'Search for an offer',
   },
 };
