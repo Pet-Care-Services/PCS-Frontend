@@ -25,7 +25,9 @@ export default {
     flex: 1,
     height: '100%',
     minWidth: 300,
+    maxWidth: 800,
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
   },
 };
