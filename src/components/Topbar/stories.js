@@ -15,4 +15,10 @@ const Template = (args) => (
 
 const Default = Template.bind({});
 
+Default.args = {
+  initialValues: {
+    search: '',
+  },
+};
+
 export { Default };
