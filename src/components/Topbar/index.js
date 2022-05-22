@@ -32,20 +32,13 @@ const Topbar = ({
           <Icon size="large" Component={MenuIcon} onClick={onMenuClick} />
         </Box>
         <Box sx={styles.searchWrapper}>
-          <Box sx={{ width: '100%' }}>
+          <Box sx={styles.formWrapper}>
             <Formik initialValues={initialValues} onSubmit={onSearch}>
               <Form>
                 <Input
                   name="search"
                   label={t('searchOffer')}
-                  endAdornment={
-                    <SearchOutlinedIcon
-                      sx={{
-                        margin: (theme) => theme.spacing(0, 10),
-                        color: (theme) => theme.palette.primary.main,
-                      }}
-                    />
-                  }
+                  endAdornment={<SearchOutlinedIcon sx={styles.inputIcon} />}
                   shrink={false}
                   small
                   noBorderEffects

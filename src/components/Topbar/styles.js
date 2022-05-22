@@ -30,4 +30,11 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
   },
+  formWrapper: {
+    width: '100%',
+  },
+  inputIcon: {
+    margin: (theme) => theme.spacing(0, 10),
+    color: (theme) => theme.palette.primary.main,
+  },
 };
