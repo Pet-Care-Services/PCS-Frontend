@@ -16,6 +16,7 @@ const InputView = ({
   onlyNumbers,
   onChange,
   value,
+  endAdornment,
   small,
   shrink,
   noBorderEffects,
@@ -54,6 +55,7 @@ const InputView = ({
         ...sx,
       }}
       InputProps={{
+        endAdornment,
         sx: {
           height: 50,
           padding: 0,
@@ -129,6 +131,7 @@ InputView.propTypes = {
   shrink: PropTypes.bool,
   noBorderEffects: PropTypes.bool,
   rounded: PropTypes.bool,
+  endAdornment: PropTypes.node,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   type: PropTypes.oneOf(['text', 'password']),
   sx: PropTypes.objectOf(PropTypes.any),
@@ -146,6 +149,7 @@ InputView.defaultProps = {
   shrink: true,
   noBorderEffects: false,
   rounded: false,
+  endAdornment: null,
   children: null,
   sx: {},
 };

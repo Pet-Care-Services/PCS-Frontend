@@ -7,6 +7,7 @@ import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import PersonIcon from '@mui/icons-material/Person';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Box } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiToolbar from '@mui/material/Toolbar';
@@ -37,6 +38,14 @@ const Topbar = ({
                 <Input
                   name="search"
                   label={t('searchOffer')}
+                  endAdornment={
+                    <SearchOutlinedIcon
+                      sx={{
+                        margin: (theme) => theme.spacing(0, 10),
+                        color: (theme) => theme.palette.primary.main,
+                      }}
+                    />
+                  }
                   shrink={false}
                   small
                   noBorderEffects
