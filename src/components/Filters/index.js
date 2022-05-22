@@ -77,7 +77,7 @@ Filters.propTypes = {
 
 Filters.defaultProps = {
   initialValues: {},
-  validationSchema: {},
+  validationSchema: null,
   onSubmit: noop,
   onClear: noop,
 };

@@ -15,77 +15,106 @@ const InputView = ({
   children,
   onlyNumbers,
   onChange,
+  value,
+  small,
+  shrink,
+  noBorderEffects,
+  rounded,
   sx,
   ...props
-}) => (
-  <TextField
-    {...field}
-    {...props}
-    onChange={(e) => {
-      if (onlyNumbers && !isStringNumber(e.target.value)) {
-        return;
-      } else {
-        if (onlyNumbers && !isEmpty(e.target.value)) {
-          e.target.value = toInteger(e.target.value);
+}) => {
+  const borderDefaultStyle = {
+    borderColor: (theme) => theme.palette.neutral.dark,
+    borderWidth: 1,
+  };
+
+  return (
+    <TextField
+      {...field}
+      {...props}
+      value={value}
+      onChange={(e) => {
+        if (onlyNumbers && !isStringNumber(e.target.value)) {
+          return;
+        } else {
+          if (onlyNumbers && !isEmpty(e.target.value)) {
+            e.target.value = toInteger(e.target.value);
+          }
+          onChange(e);
         }
-        onChange(e);
-      }
-    }}
-    select={isSelect}
-    type={type}
-    label={label}
-    error={!isEmpty(error)}
-    helperText={error || helperText}
-    variant="outlined"
-    sx={{
-      width: '100%',
-      ...sx,
-    }}
-    InputProps={{
-      sx: {
-        height: 50,
-        padding: 0,
-        borderRadius: 5,
-        backgroundColor: (theme) => theme.palette.white,
-        '&.MuiOutlinedInput-root': {
-          '&:hover': {
+      }}
+      select={isSelect}
+      type={type}
+      label={label}
+      error={!isEmpty(error)}
+      helperText={error || helperText}
+      variant="outlined"
+      sx={{
+        width: '100%',
+        ...sx,
+      }}
+      InputProps={{
+        sx: {
+          height: 50,
+          padding: 0,
+          borderRadius: 5,
+          ...(rounded && { borderRadius: 15 }),
+          backgroundColor: (theme) => theme.palette.white,
+          '&.MuiOutlinedInput-root': {
             '.MuiOutlinedInput-notchedOutline': {
-              borderColor: (theme) => theme.palette.primary.main,
+              ...borderDefaultStyle,
+            },
+            '&.Mui-focused': {
+              '.MuiOutlinedInput-notchedOutline': {
+                borderColor: (theme) => theme.palette.primary.main,
+                borderWidth: 2,
+                ...(noBorderEffects && borderDefaultStyle),
+              },
+            },
+            '&:hover': {
+              '.MuiOutlinedInput-notchedOutline': {
+                borderColor: (theme) => theme.palette.primary.main,
+                ...(noBorderEffects && borderDefaultStyle),
+              },
+            },
+          },
+          ...(small && { height: 35 }),
+        },
+      }}
+      FormHelperTextProps={{
+        sx: {
+          margin: 0,
+          fontSize: (theme) => theme.typography.tiny,
+        },
+      }}
+      InputLabelProps={{
+        shrink: shrink ? undefined : false,
+        sx: {
+          ...(!shrink && value !== '' && { opacity: 0 }),
+          transform: 'translate(14px, 14px) scale(1)',
+          ...(!shrink && { transform: 'translate(14px, 7px) scale(1)' }),
+          '&.MuiInputLabel-shrink': {
+            transform: 'translate(14px, -9px) scale(0.75)',
+          },
+        },
+      }}
+      SelectProps={{
+        MenuProps: {
+          sx: {
+            '.MuiMenu-paper': {
+              borderRadius: 5,
+            },
+            '.MuiMenu-list': {
+              padding: 0,
             },
           },
         },
-      },
-    }}
-    FormHelperTextProps={{
-      sx: {
-        margin: 0,
-        fontSize: (theme) => theme.typography.tiny,
-      },
-    }}
-    InputLabelProps={{
-      sx: {
-        transform: 'translate(14px, 14px) scale(1)',
-        '&.MuiInputLabel-shrink': {
-          transform: 'translate(14px, -9px) scale(0.75)',
-        },
-      },
-    }}
-    SelectProps={{
-      MenuProps: {
-        sx: {
-          '.MuiMenu-paper': {
-            borderRadius: 5,
-          },
-          '.MuiMenu-list': {
-            padding: 0,
-          },
-        },
-      },
-    }}
-  >
-    {children}
-  </TextField>
-);
+      }}
+    >
+      {children}
+    </TextField>
+  );
+};
 
 InputView.propTypes = {
   label: PropTypes.string.isRequired,
@@ -96,17 +125,27 @@ InputView.propTypes = {
   children: PropTypes.node,
   onChange: PropTypes.func,
   onlyNumbers: PropTypes.bool,
+  small: PropTypes.bool,
+  shrink: PropTypes.bool,
+  noBorderEffects: PropTypes.bool,
+  rounded: PropTypes.bool,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   type: PropTypes.oneOf(['text', 'password']),
   sx: PropTypes.objectOf(PropTypes.any),
 };
 
 InputView.defaultProps = {
+  value: '',
   error: '',
   helperText: '',
   type: 'text',
   isSelect: false,
   onChange: noop,
   onlyNumbers: false,
+  small: false,
+  shrink: true,
+  noBorderEffects: false,
+  rounded: false,
   children: null,
   sx: {},
 };
