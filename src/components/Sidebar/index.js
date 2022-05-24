@@ -8,7 +8,7 @@ import Icon from 'components/Icon';
 import Item from './components/Item';
 import styles from './styles';
 
-const Sidebar = ({ items, open, onBackClick }) => {
+const Sidebar = ({ items, open, onBackClick, onItemClick }) => {
   const { t } = useTranslation();
 
   return (
@@ -28,7 +28,10 @@ const Sidebar = ({ items, open, onBackClick }) => {
             key={item.id}
             title={t(item.titleKey)}
             Icon={item.Icon}
-            onClick={item.onClick}
+            onClick={() => {
+              item.onClick();
+              onItemClick();
+            }}
           />
         ))}
       </Box>
@@ -46,6 +49,7 @@ Sidebar.propTypes = {
     })
   ),
   onBackClick: PropTypes.func,
+  onItemClick: PropTypes.func,
   open: PropTypes.bool,
 };
 

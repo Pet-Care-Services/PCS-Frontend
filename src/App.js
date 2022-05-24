@@ -3,6 +3,7 @@ import axios from 'axios';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import Routing from 'pages';
+import SidebarProvider from 'providers/Sidebar';
 import AppThemeProvider from 'providers/Theme';
 
 const queryClient = new QueryClient();
@@ -13,9 +14,11 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <AppThemeProvider>
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-          <Routing />
-        </BrowserRouter>
+        <SidebarProvider>
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <Routing />
+          </BrowserRouter>
+        </SidebarProvider>
       </AppThemeProvider>
     </QueryClientProvider>
   );
