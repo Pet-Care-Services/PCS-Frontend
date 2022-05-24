@@ -18,28 +18,34 @@ const Template = (args) => (
 const Default = Template.bind({});
 
 Default.args = {
+  open: true,
   items: [
     {
+      id: 0,
       titleKey: 'services',
       Icon: HelpIcon,
       onClick: action('onClick'),
     },
     {
+      id: 1,
       titleKey: 'requests',
       Icon: HelpIcon,
       onClick: action('onClick'),
     },
     {
+      id: 2,
       titleKey: 'history',
       Icon: HelpIcon,
       onClick: action('onClick'),
     },
     {
+      id: 3,
       titleKey: 'newAdvertisement',
       Icon: HelpIcon,
       onClick: action('onClick'),
     },
     {
+      id: 4,
       titleKey: 'account',
       Icon: HelpIcon,
       onClick: action('onClick'),

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { get } from 'lodash';
 import { useQuery } from 'react-query';
 import useURLParams from 'hooks/useURLParams';
@@ -9,11 +9,15 @@ import ListView from './view';
 
 const ListContainer = ({ itemType }) => {
   const { params, updateParams, clearParams } = useURLParams();
-  const { data, isLoading } = useQuery(
+  const { data, isLoading, refetch } = useQuery(
     ADVERTISEMENTS_KEY,
     () => getAdvertisements(itemType),
     { refetchOnWindowFocus: false }
   );
+
+  useEffect(() => {
+    refetch();
+  }, [itemType]);
 
   const filtersInitialValues = {
     animal: params.animal || '',

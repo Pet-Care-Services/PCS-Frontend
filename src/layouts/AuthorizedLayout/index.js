@@ -1,9 +1,14 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Box } from '@mui/system';
+import Sidebar from 'components/Sidebar';
 import Topbar from 'components/Topbar';
+import { getSidebarItems } from './consts';
 
 const AuthorizedLayout = () => {
+  let navigate = useNavigate();
+  const sidebarItems = getSidebarItems(navigate);
+
   return (
     <Box
       sx={{
@@ -14,6 +19,7 @@ const AuthorizedLayout = () => {
         boxSizing: 'border-box',
       }}
     >
+      <Sidebar items={sidebarItems} />
       <Topbar />
       <Box sx={{ flex: 1, padding: 40 }}>
         <Outlet />
