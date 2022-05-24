@@ -5,7 +5,7 @@ import Component from '.';
 import { FIELD_TYPES } from './components/Field/consts';
 
 export default {
-  title: 'Filters',
+  title: 'Components/Filters',
   component: Component,
 };
 

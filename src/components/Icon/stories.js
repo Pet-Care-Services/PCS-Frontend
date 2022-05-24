@@ -5,7 +5,7 @@ import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 
 export default {
-  title: 'Icon',
+  title: 'Components/Icon',
   component: Component,
 };
 

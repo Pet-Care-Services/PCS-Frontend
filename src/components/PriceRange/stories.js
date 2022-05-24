@@ -3,7 +3,7 @@ import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 
 export default {
-  title: 'PriceRange',
+  title: 'Components/PriceRange',
   component: Component,
 };
 

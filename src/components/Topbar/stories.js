@@ -3,7 +3,7 @@ import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 
 export default {
-  title: 'Topbar',
+  title: 'Components/Topbar',
   component: Component,
 };
 

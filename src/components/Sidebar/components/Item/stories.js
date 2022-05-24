@@ -1,9 +1,10 @@
 import React from 'react';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 
 export default {
-  title: 'Components/Rating',
+  title: 'Components/Sidebar/Item',
   component: Component,
 };
 
@@ -14,10 +15,10 @@ const Template = (args) => (
 );
 
 const Default = Template.bind({});
-const WithValue = Template.bind({});
 
-WithValue.args = {
-  value: 4,
+Default.args = {
+  Icon: AssignmentTurnedInIcon,
+  title: 'Usługi',
 };
 
-export { Default, WithValue };
+export { Default };

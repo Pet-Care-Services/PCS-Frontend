@@ -16,5 +16,10 @@ export default {
     searchOffer: 'Wyszukaj ofertę',
     noResults: 'Brak wyników...',
     loading: 'Ładowanie...',
+    services: 'Usługi',
+    requests: 'Prośby',
+    history: 'Historia',
+    newAdvertisement: 'Nowe ogłoszenie',
+    account: 'Konto',
   },
 };
