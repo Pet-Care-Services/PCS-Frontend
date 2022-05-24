@@ -5,7 +5,7 @@ import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 
 export default {
-  title: 'Select',
+  title: 'Components/Select',
   component: Component,
 };
 

@@ -16,5 +16,10 @@ export default {
     searchOffer: 'Search for an offer',
     noResults: 'No results found...',
     loading: 'Loading...',
+    services: 'Services',
+    requests: 'Requests',
+    history: 'History',
+    newAdvertisement: 'New Advertisement',
+    account: 'Account',
   },
 };

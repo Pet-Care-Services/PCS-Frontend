@@ -5,7 +5,7 @@ import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 
 export default {
-  title: 'Input',
+  title: 'Components/Input',
   component: Component,
 };
 

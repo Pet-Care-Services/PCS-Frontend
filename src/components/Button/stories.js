@@ -3,7 +3,7 @@ import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 
 export default {
-  title: 'Button',
+  title: 'Components/Button',
   component: Component,
 };
 
