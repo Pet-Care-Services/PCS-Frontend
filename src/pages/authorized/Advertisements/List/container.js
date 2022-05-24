@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, isEmpty } from 'lodash';
+import { get } from 'lodash';
 import { useQuery } from 'react-query';
 import useURLParams from 'hooks/useURLParams';
 import { ADVERTISEMENTS_KEY, getAdvertisements } from './queries';

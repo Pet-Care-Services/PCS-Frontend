@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
-import { Paper, Rating, Box, Typography } from '@mui/material';
+import { Paper, Box, Typography } from '@mui/material';
+import Rating from 'components/Rating';
 import Icon from '../Icon';
 import PriceRange from '../PriceRange';
 import styles from './styles';
@@ -51,7 +52,7 @@ const Advertisement = ({
             justifyContent={'space-between'}
           >
             <Box display={'flex'} justifyContent={'flex-end'}>
-              {<Rating name="read-only" value={starsValue} readOnly />}
+              <Rating value={starsValue} />
             </Box>
             <Box display={'flex'} justifyContent={'flex-end'}>
               <PriceRange
