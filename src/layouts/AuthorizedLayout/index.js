@@ -3,11 +3,13 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Box } from '@mui/system';
 import Sidebar from 'components/Sidebar';
 import Topbar from 'components/Topbar';
+import useSidebar from 'hooks/useSidebar';
 import { getSidebarItems } from './consts';
 
 const AuthorizedLayout = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const sidebarItems = getSidebarItems(navigate);
+  const { openSidebar, closeSidebar, isSidebarOpened } = useSidebar();
 
   return (
     <Box
@@ -19,8 +21,13 @@ const AuthorizedLayout = () => {
         boxSizing: 'border-box',
       }}
     >
-      <Sidebar items={sidebarItems} />
-      <Topbar />
+      <Sidebar
+        items={sidebarItems}
+        open={isSidebarOpened}
+        onBackClick={closeSidebar}
+        onItemClick={closeSidebar}
+      />
+      <Topbar onMenuClick={openSidebar} />
       <Box sx={{ flex: 1, padding: 40 }}>
         <Outlet />
       </Box>
