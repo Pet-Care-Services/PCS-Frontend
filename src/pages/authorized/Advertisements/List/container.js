@@ -31,7 +31,6 @@ const ListContainer = ({ itemType }) => {
       onFiltersSubmit={updateParams}
       onFiltersClear={clearParams}
       data={formatData(items)}
-      noResults={isEmpty(items)}
       isLoading={isLoading}
     />
   );
