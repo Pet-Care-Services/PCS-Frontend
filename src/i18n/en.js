@@ -14,5 +14,7 @@ export default {
       max: 'The value cannot be higher than {{value}}',
     },
     searchOffer: 'Search for an offer',
+    noResults: 'No results found...',
+    loading: 'Loading...',
   },
 };

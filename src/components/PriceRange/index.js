@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
+import priceTypeShape from 'shapes/priceTypeShape';
 
 const PriceRange = ({ from, to, type, currency }) => {
   const intervalEnd = to != null && to !== from ? '-' + to : '';
@@ -12,7 +13,7 @@ const PriceRange = ({ from, to, type, currency }) => {
 PriceRange.propTypes = {
   from: PropTypes.number.isRequired,
   to: PropTypes.number,
-  type: PropTypes.oneOf(['single', 'hourly']),
+  type: priceTypeShape,
   currency: PropTypes.string,
 };
 

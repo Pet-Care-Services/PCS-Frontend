@@ -1,24 +1,27 @@
 import React from 'react';
-import { noop } from 'lodash';
+import { isEmpty, map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import Advertisement from 'components/Advertisement';
 import Filters from 'components/Filters';
 import { getFiltersFields } from './consts';
-import { itemTypeShape, filtersInitialValuesShape } from './shapes';
+import { filtersInitialValuesShape, dataShape } from './shapes';
+import styles from './styles';
 import { getFiltersValidation } from './validation';
 
 const ListView = ({
-  itemType,
   filtersInitialValues,
   onFiltersSubmit,
   onFiltersClear,
+  data,
+  isLoading,
 }) => {
   const { t } = useTranslation();
 
   return (
-    <Box sx={{ width: '100%', height: '100%', display: 'flex', columnGap: 20 }}>
-      <Box sx={{ flex: 1 }}>
+    <Box sx={styles.root}>
+      <Box sx={styles.filtersWrapper}>
         <Filters
           rows={getFiltersFields(t)}
           initialValues={filtersInitialValues}
@@ -27,25 +30,31 @@ const ListView = ({
           onClear={onFiltersClear}
         />
       </Box>
-      <Box
-        sx={{
-          flex: 3,
-          minWidth: 600,
-          backgroundColor: 'white',
-          display: 'flex',
-          flexDirection: 'column',
-          rowGap: 20,
-        }}
-      >
-        List of {itemType}s here
+      <Box sx={styles.contentWrapper}>
+        {isLoading && (
+          <Box sx={styles.centered}>
+            {/* TODO put real Loader here */}
+            <Typography>{t('loading')}</Typography>
+          </Box>
+        )}
+        {!isLoading && isEmpty(data) && (
+          <Box sx={styles.centered}>
+            {/* TODO put EmptyState here */}
+            <Typography>{t('noResults')}</Typography>
+          </Box>
+        )}
+        {map(data, (adverisement, index) => (
+          <Advertisement key={index} {...adverisement} />
+        ))}
       </Box>
     </Box>
   );
 };
 
 ListView.propTypes = {
-  itemType: itemTypeShape.isRequired,
   filtersInitialValues: filtersInitialValuesShape.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  data: dataShape,
   onFiltersSubmit: PropTypes.func,
   onFiltersClear: PropTypes.func,
 };
@@ -53,6 +62,7 @@ ListView.propTypes = {
 ListView.defaultProps = {
   onFiltersSubmit: noop,
   onFiltersClear: noop,
+  data: [],
 };
 
 export default ListView;
