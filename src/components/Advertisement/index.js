@@ -23,6 +23,8 @@ const Advertisement = ({
             component="img"
             sx={{
               height: 140,
+              width: 180,
+              objectFit: 'cover',
               borderRadius: 25,
             }}
             src={image}
@@ -37,11 +39,9 @@ const Advertisement = ({
               {renderTags(activities, 'activitiesTags', 2)}
               {renderTags(animals, 'animalsTags', 2)}
             </Box>
-            <Box display={'flex'} flexDirection={'column'}>
-              <Box display={'flex'}>
-                <Icon Component={FmdGoodIcon} size={'big'}></Icon>
-                <Typography variant={'h1'}>{location}</Typography>
-              </Box>
+            <Box display={'flex'} alignItems={'center'}>
+              <Icon Component={FmdGoodIcon} size={'large'}></Icon>
+              <Typography variant={'h1'}>{location}</Typography>
             </Box>
           </Box>
           <Box

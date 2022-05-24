@@ -14,5 +14,7 @@ export default {
       max: 'Wartość nie może być większa niż {{value}}',
     },
     searchOffer: 'Wyszukaj ofertę',
+    noResults: 'Brak wyników...',
+    loading: 'Ładowanie...',
   },
 };
