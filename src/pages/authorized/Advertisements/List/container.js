@@ -9,8 +9,10 @@ import ListView from './view';
 
 const ListContainer = ({ itemType }) => {
   const { params, updateParams, clearParams } = useURLParams();
-  const { data, isLoading } = useQuery(ADVERTISEMENTS_KEY, () =>
-    getAdvertisements(itemType)
+  const { data, isLoading } = useQuery(
+    ADVERTISEMENTS_KEY,
+    () => getAdvertisements(itemType),
+    { refetchOnWindowFocus: false }
   );
 
   const filtersInitialValues = {
