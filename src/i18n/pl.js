@@ -21,5 +21,6 @@ export default {
     history: 'Historia',
     newAdvertisement: 'Nowe ogłoszenie',
     account: 'Konto',
+    back: 'Powrót',
   },
 };

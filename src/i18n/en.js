@@ -21,5 +21,6 @@ export default {
     history: 'History',
     newAdvertisement: 'New Advertisement',
     account: 'Account',
+    back: 'Back',
   },
 };
