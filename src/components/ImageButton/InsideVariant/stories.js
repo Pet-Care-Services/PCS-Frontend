@@ -4,7 +4,7 @@ import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 
 export default {
-  title: 'Components/ImageButton',
+  title: 'Components/ImageButton/InsideVariant',
   component: Component,
 };
 
