@@ -13,7 +13,10 @@ const BottomVariant = ({ img, title, faded, onClick }) => (
       <Box component="img" src={img} sx={styles.img} />
       <Box sx={{ ...styles.fadeBlock, ...(faded && styles.faded) }} />
     </Box>
-    <Typography variant="h2" sx={{ ...(faded && styles.textFaded) }}>
+    <Typography
+      variant="h2"
+      sx={{ ...styles.title, ...(faded && styles.textFaded) }}
+    >
       {title}
     </Typography>
   </Box>

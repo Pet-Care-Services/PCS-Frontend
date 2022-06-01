@@ -36,6 +36,9 @@ export default {
   imgWrapper: {
     position: 'relative',
   },
+  title: {
+    transition: (theme) => theme.transition,
+  },
   textFaded: {
     color: (theme) => addOpacity(theme.palette.black, 60),
   },

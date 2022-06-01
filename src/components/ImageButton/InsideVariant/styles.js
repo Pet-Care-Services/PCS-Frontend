@@ -35,6 +35,7 @@ export default {
   title: {
     color: (theme) => theme.palette.white,
     marginTop: 20,
+    height: 'fit-content',
   },
   fadeBlock: {
     width: '100%',
