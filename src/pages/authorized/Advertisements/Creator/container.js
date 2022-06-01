@@ -6,7 +6,7 @@ const AdvertismentCreator = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [type, setType] = useState(null);
-  // const [animal, setAnimal] = useState(null);
+  const [animal, setAnimal] = useState(null);
   // const [data, setData] = useState({});
 
   const goBack = () => {
@@ -23,8 +23,8 @@ const AdvertismentCreator = () => {
     setStep(2);
   };
 
-  const handleAnimalSelect = () => {
-    // TODO type select
+  const handleAnimalSelect = (id) => {
+    setAnimal(id);
     setStep(3);
   };
 

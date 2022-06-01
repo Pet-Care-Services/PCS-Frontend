@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
 import Advertisement from 'components/Advertisement';
 import Filters from 'components/Filters';
+import Loader from 'components/Loader';
 import { getFiltersFields } from './consts';
 import { filtersInitialValuesShape, dataShape } from './shapes';
 import styles from './styles';
@@ -31,12 +32,7 @@ const ListView = ({
         />
       </Box>
       <Box sx={styles.contentWrapper}>
-        {isLoading && (
-          <Box sx={styles.centered}>
-            {/* TODO put real Loader here */}
-            <Typography>{t('loading')}</Typography>
-          </Box>
-        )}
+        {isLoading && <Loader />}
         {!isLoading && isEmpty(data) && (
           <Box sx={styles.centered}>
             {/* TODO put EmptyState here */}
