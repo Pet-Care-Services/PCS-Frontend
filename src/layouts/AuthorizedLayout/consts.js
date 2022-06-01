@@ -17,19 +17,19 @@ const getSidebarItems = (navigate) => [
     id: 2,
     titleKey: 'history',
     Icon: HelpIcon,
-    onClick: () => navigate('/history'),
+    onClick: () => navigate('/application/history'),
   },
   {
     id: 3,
     titleKey: 'newAdvertisement',
     Icon: HelpIcon,
-    onClick: () => navigate('/newAdvertisement'),
+    onClick: () => navigate('/application/creator'),
   },
   {
     id: 4,
     titleKey: 'account',
     Icon: HelpIcon,
-    onClick: () => navigate('/account'),
+    onClick: () => navigate('/application/account'),
   },
 ];
 
