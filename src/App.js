@@ -3,7 +3,6 @@ import axios from 'axios';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import Routing from 'pages';
-import AdvertisementCreatorProvider from 'providers/AdvertisementCreator';
 import SidebarProvider from 'providers/Sidebar';
 import AppThemeProvider from 'providers/Theme';
 
@@ -16,11 +15,9 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <AppThemeProvider>
         <SidebarProvider>
-          <AdvertisementCreatorProvider>
-            <BrowserRouter basename={process.env.PUBLIC_URL}>
-              <Routing />
-            </BrowserRouter>
-          </AdvertisementCreatorProvider>
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <Routing />
+          </BrowserRouter>
         </SidebarProvider>
       </AppThemeProvider>
     </QueryClientProvider>

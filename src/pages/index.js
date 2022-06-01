@@ -22,11 +22,7 @@ const Routing = () => (
         path="requests"
         element={<AdvertismentsList itemType={ITEM_TYPE.REQUEST} />}
       />
-      <Route path="creator" element={<AdvertismentCreator />}>
-        <Route path="step1" element={'step1'} />
-        <Route path="step2" element={'step2'} />
-        <Route path="step3" element={'step3'} />
-      </Route>
+      <Route path="creator" element={<AdvertismentCreator />} />
     </Route>
 
     <Route path="*" element={<Navigate to={DEFAULT_ROUTE} replace />} />
