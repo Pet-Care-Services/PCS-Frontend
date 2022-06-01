@@ -20,13 +20,18 @@ export default {
     boxShadow: (theme) =>
       `${theme.spacing(0, 2, 5)} ${addOpacity(theme.palette.black, 50)}`,
   },
-  fade: {
+  fadeBlock: {
     width: SIZE,
     height: SIZE,
     backgroundColor: (theme) => addOpacity(theme.palette.neutral.main, 60),
     position: 'absolute',
     top: 0,
     borderRadius: '50%',
+    transition: (theme) => theme.transition,
+    opacity: 0,
+  },
+  faded: {
+    opacity: 1,
   },
   imgWrapper: {
     position: 'relative',

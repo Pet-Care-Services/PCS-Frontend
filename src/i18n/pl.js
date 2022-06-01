@@ -22,5 +22,7 @@ export default {
     newAdvertisement: 'Nowe ogłoszenie',
     account: 'Konto',
     back: 'Powrót',
+    needKeeper: 'Potrzebuję opiekuna',
+    iAmKeeper: 'Jestem opiekunem',
   },
 };

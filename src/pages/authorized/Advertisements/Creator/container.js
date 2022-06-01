@@ -5,7 +5,7 @@ import CreatorView from './view';
 const AdvertismentCreator = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
-  // const [type, setType] = useState(null);
+  const [type, setType] = useState(null);
   // const [animal, setAnimal] = useState(null);
   // const [data, setData] = useState({});
 
@@ -18,8 +18,8 @@ const AdvertismentCreator = () => {
     }
   };
 
-  const handleTypeSelect = () => {
-    // TODO type select
+  const handleTypeSelect = (selectedType) => {
+    setType(selectedType);
     setStep(2);
   };
 
