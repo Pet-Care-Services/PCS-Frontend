@@ -36,11 +36,16 @@ export default {
     color: (theme) => theme.palette.white,
     marginTop: 20,
   },
-  fade: {
+  fadeBlock: {
     width: '100%',
     height: '100%',
     backgroundColor: (theme) => addOpacity(theme.palette.neutral.main, 60),
     position: 'absolute',
     borderRadius: '50%',
+    transition: (theme) => theme.transition,
+    opacity: 0,
+  },
+  faded: {
+    opacity: 1,
   },
 };

@@ -7,7 +7,10 @@ import styles from './styles';
 const InsideVariant = ({ img, title, faded, onClick }) => (
   <Box
     onClick={onClick}
-    sx={{ ...styles.root, ...(onClick && styles.clickable) }}
+    sx={{
+      ...styles.root,
+      ...(onClick && styles.clickable),
+    }}
   >
     <Box component="img" src={img} sx={styles.img} />
     <Box sx={styles.bottomBar}>
@@ -15,7 +18,7 @@ const InsideVariant = ({ img, title, faded, onClick }) => (
         {title}
       </Typography>
     </Box>
-    {faded && <Box sx={styles.fade} />}
+    <Box sx={{ ...styles.fadeBlock, ...(faded && styles.faded) }} />
   </Box>
 );
 

@@ -22,5 +22,7 @@ export default {
     newAdvertisement: 'New Advertisement',
     account: 'Account',
     back: 'Back',
+    needKeeper: 'I need a keeper',
+    iAmKeeper: 'I am a keeper',
   },
 };
