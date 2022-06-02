@@ -1,5 +1,18 @@
 export default {
   translation: {
+    validation: {
+      required: 'Field is required',
+      min: 'The value cannot be lower than {{value}}',
+      max: 'The value cannot be higher than {{value}}',
+    },
+    priceType: {
+      single: 'Once',
+      hourly: 'Per hour',
+      daily: 'Per day',
+    },
+    currency: {
+      pln: 'PLN',
+    },
     filters: 'Filters',
     apply: 'Apply',
     clear: 'Clear',
@@ -8,11 +21,6 @@ export default {
     service: 'Service',
     minimalPrice: 'Minimal price',
     maximalPrice: 'Maximal price',
-    validation: {
-      required: 'Field is required',
-      min: 'The value cannot be lower than {{value}}',
-      max: 'The value cannot be higher than {{value}}',
-    },
     searchOffer: 'Search for an offer',
     noResults: 'No results found...',
     loading: 'Loading...',
@@ -24,5 +32,11 @@ export default {
     back: 'Back',
     needKeeper: 'I need a keeper',
     iAmKeeper: 'I am a keeper',
+    information: 'Information',
+    activity: 'Aktywność',
+    price: 'Price',
+    priceFor: 'Price for',
+    availability: 'Availability',
+    publish: 'Publish',
   },
 };

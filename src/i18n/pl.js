@@ -1,5 +1,18 @@
 export default {
   translation: {
+    validation: {
+      required: 'Pole jest wymagane',
+      min: 'Wartość nie może być mniejsza niż {{value}}',
+      max: 'Wartość nie może być większa niż {{value}}',
+    },
+    priceType: {
+      single: 'Jednorazowo',
+      hourly: 'Na godzinę',
+      daily: 'Dziennie',
+    },
+    currency: {
+      pln: 'zł',
+    },
     filters: 'Filtry',
     apply: 'Zastosuj',
     clear: 'Wyczyść',
@@ -8,11 +21,6 @@ export default {
     service: 'Usługa',
     minimalPrice: 'Cena minimalna',
     maximalPrice: 'Cena maksymalna',
-    validation: {
-      required: 'Pole jest wymagane',
-      min: 'Wartość nie może być mniejsza niż {{value}}',
-      max: 'Wartość nie może być większa niż {{value}}',
-    },
     searchOffer: 'Wyszukaj ofertę',
     noResults: 'Brak wyników...',
     loading: 'Ładowanie...',
@@ -24,5 +32,11 @@ export default {
     back: 'Powrót',
     needKeeper: 'Potrzebuję opiekuna',
     iAmKeeper: 'Jestem opiekunem',
+    information: 'Informacje',
+    activity: 'Aktywność',
+    price: 'Cena',
+    priceFor: 'Cena za',
+    availability: 'Dostępność',
+    publish: 'Opublikuj',
   },
 };

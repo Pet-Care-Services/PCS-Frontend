@@ -28,8 +28,8 @@ const AdvertismentCreator = () => {
     setStep(3);
   };
 
-  const handleDataSubmit = () => {
-    console.log('API request');
+  const handleDataSubmit = (values) => {
+    console.log('API request', { ...values, type, animal });
   };
 
   return (

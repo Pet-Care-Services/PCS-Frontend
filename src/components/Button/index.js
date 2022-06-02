@@ -23,7 +23,6 @@ Button.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func,
   color: PropTypes.oneOf(['primary', 'secondary', 'neutral']),
-  submit: PropTypes.bool,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
   sx: PropTypes.object,
 };
@@ -31,7 +30,6 @@ Button.propTypes = {
 Button.defaultProps = {
   onClick: noop,
   color: 'primary',
-  submit: false,
   type: 'button',
   sx: {},
 };
