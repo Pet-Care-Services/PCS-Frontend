@@ -18,6 +18,7 @@ const Step3Container = ({ onSubmit }) => {
   if (isLoading) {
     return <Loader />;
   }
+
   const activitiesOptions = map(activities.data, ({ id, name }) => ({
     value: id,
     label: name,
@@ -27,8 +28,10 @@ const Step3Container = ({ onSubmit }) => {
 
   const initialValues = {
     activity: '',
-    price: '',
-    priceType: priceTypeOptions[0].value,
+    price: {
+      amount: '',
+      type: priceTypeOptions[0].value,
+    },
   };
 
   return (

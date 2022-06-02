@@ -9,6 +9,7 @@ import Input from 'components/Input';
 import Select from 'components/Select';
 import { optionsShape } from 'components/Select/shapes';
 import styles from './styles';
+import getValidation from './validation';
 
 const Step3 = ({
   onSubmit,
@@ -20,7 +21,11 @@ const Step3 = ({
 
   return (
     <Box sx={styles.root}>
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={getValidation(t)}
+        onSubmit={onSubmit}
+      >
         <Box component={Form} sx={styles.form}>
           <Typography variant="h2">{t('information')}</Typography>
           <Select
@@ -33,7 +38,7 @@ const Step3 = ({
           <Box sx={styles.dualField}>
             <Input
               label={t('price')}
-              name="price"
+              name="price.amount"
               endAdornment={
                 <Typography variant="h3" sx={styles.inputAdornment}>
                   {t('currency.pln')}
@@ -44,7 +49,7 @@ const Step3 = ({
             />
             <Select
               label={t('priceFor')}
-              name="priceType"
+              name="price.type"
               options={priceTypeOptions}
               sx={{ ...styles.field, ...styles.narrowField }}
             />
@@ -68,7 +73,10 @@ Step3.propTypes = {
   priceTypeOptions: optionsShape,
   initialValues: PropTypes.exact({
     activity: PropTypes.string,
-    price: PropTypes.string,
+    price: PropTypes.exact({
+      amount: PropTypes.string,
+      type: PropTypes.string,
+    }),
     priceType: PropTypes.string,
     location: PropTypes.string,
   }),
