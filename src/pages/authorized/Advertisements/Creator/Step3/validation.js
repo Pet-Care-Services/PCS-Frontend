@@ -8,6 +8,13 @@ const getValidation = (t) =>
       type: Yup.string().required(t('validation.required')),
     }),
     location: Yup.string().required(t('validation.required')),
+    availabilities: Yup.array().of(
+      Yup.object({
+        date: Yup.string().required(t('validation.required')),
+        cyclic: Yup.bool().required(t('validation.required')),
+        period: Yup.string().required(t('validation.required')),
+      })
+    ),
   });
 
 export default getValidation;

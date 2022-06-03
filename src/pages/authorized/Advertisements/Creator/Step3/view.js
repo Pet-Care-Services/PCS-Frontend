@@ -1,6 +1,6 @@
 import React from 'react';
 import { FieldArray, Form, Formik } from 'formik';
-import { map } from 'lodash';
+import { get, map } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -13,6 +13,7 @@ import IconCheck from 'components/IconCheck';
 import Input from 'components/Input';
 import Select from 'components/Select';
 import { optionsShape } from 'components/Select/shapes';
+import commonStyles from 'consts/commonStyles';
 import { initialAvailabilityData } from './consts';
 import styles from './styles';
 import getValidation from './validation';
@@ -35,7 +36,7 @@ const Step3 = ({
         validateOnBlur={false}
         onSubmit={onSubmit}
       >
-        {({ values }) => (
+        {({ values, errors }) => (
           <Box component={Form} sx={styles.form}>
             <Typography variant="h2">{t('information')}</Typography>
             <Select
@@ -71,31 +72,46 @@ const Step3 = ({
               name="availabilities"
               render={(arrayHelpers) => (
                 <>
-                  {map(values.availabilities, (_, index) => (
-                    <Box sx={styles.multiFieldLine} key={index}>
-                      <Input
-                        label={t('date')}
-                        name={`availabilities.${index}.date`}
-                        sx={styles.field}
-                      />
-                      <IconCheck
-                        name={`availabilities.${index}.cyclic`}
-                        Component={RepeatIcon}
-                        sx={styles.selfCentered}
-                      />
-                      <Select
-                        label={t('repeat')}
-                        name={`availabilities.${index}.period`}
-                        options={periodOptions}
-                        sx={styles.narrowField}
-                      />
-                      <Icon
-                        onClick={() => arrayHelpers.remove(index)}
-                        Component={DeleteIcon}
-                        sx={{ ...styles.deleteIcon, ...styles.selfCentered }}
-                      />
-                    </Box>
-                  ))}
+                  {map(values.availabilities, (_, index) => {
+                    const withError = get(errors, `availabilities[${index}]`);
+
+                    return (
+                      <Box sx={styles.multiFieldLine} key={index}>
+                        <Input
+                          label={t('date')}
+                          name={`availabilities.${index}.date`}
+                          sx={styles.field}
+                        />
+                        <IconCheck
+                          name={`availabilities.${index}.cyclic`}
+                          Component={RepeatIcon}
+                          sx={{
+                            ...styles.selfCentered,
+                            ...(withError && commonStyles.fixErrorShifting),
+                          }}
+                        />
+                        {values.availabilities[index].cyclic && (
+                          <Select
+                            label={t('repeat')}
+                            name={`availabilities.${index}.period`}
+                            options={periodOptions}
+                            sx={styles.narrowField}
+                          />
+                        )}
+                        {values.availabilities.length > 1 && (
+                          <Icon
+                            onClick={() => arrayHelpers.remove(index)}
+                            Component={DeleteIcon}
+                            sx={{
+                              ...styles.deleteIcon,
+                              ...styles.selfCentered,
+                              ...(withError && commonStyles.fixErrorShifting),
+                            }}
+                          />
+                        )}
+                      </Box>
+                    );
+                  })}
                   <Button
                     onClick={() =>
                       arrayHelpers.insert(

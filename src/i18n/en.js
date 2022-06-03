@@ -43,6 +43,7 @@ export default {
     availability: 'Availability',
     repeat: 'Repeat',
     add: 'Add',
+    date: 'Date',
     publish: 'Publish',
   },
 };
