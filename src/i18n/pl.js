@@ -13,6 +13,10 @@ export default {
     currency: {
       pln: 'zł',
     },
+    period: {
+      everyWeek: 'Co tydzień',
+      everyMonth: 'Co miesiąc',
+    },
     filters: 'Filtry',
     apply: 'Zastosuj',
     clear: 'Wyczyść',
@@ -35,8 +39,10 @@ export default {
     information: 'Informacje',
     activity: 'Aktywność',
     price: 'Cena',
-    priceFor: 'Cena za',
+    type: 'Typ',
     availability: 'Dostępność',
+    repeat: 'Powtarzaj',
+    add: 'Dodaj',
     publish: 'Opublikuj',
   },
 };

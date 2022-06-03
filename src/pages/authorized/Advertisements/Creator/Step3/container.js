@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import Loader from 'components/Loader';
-import getPriceTypes from 'consts/getPriceTypes';
+import getPeriodOptions from 'consts/getPeriodOptions';
+import getPriceTypes from 'consts/getPriceTypesOptions';
 import { ACTIVITIES_KEY, getActivities } from 'consts/queries';
+import { initialAvailabilityData } from './consts';
 import Step3View from './view';
 
 const Step3Container = ({ onSubmit }) => {
@@ -25,6 +27,7 @@ const Step3Container = ({ onSubmit }) => {
   }));
 
   const priceTypeOptions = getPriceTypes(t);
+  const periodOptions = getPeriodOptions(t);
 
   const initialValues = {
     activity: '',
@@ -32,12 +35,15 @@ const Step3Container = ({ onSubmit }) => {
       amount: '',
       type: priceTypeOptions[0].value,
     },
+    location: '',
+    availabilities: [initialAvailabilityData],
   };
 
   return (
     <Step3View
       activitiesOptions={activitiesOptions}
       priceTypeOptions={priceTypeOptions}
+      periodOptions={periodOptions}
       initialValues={initialValues}
       onSubmit={onSubmit}
     />
