@@ -1,17 +1,17 @@
 import React from 'react';
 import { Field as FormikField } from 'formik';
 import PropTypes from 'prop-types';
-import IconCheckView from './view';
+import Icon from 'components/Icon';
 
-const IconCheck = ({ Component, name, ...props }) => {
+const IconCheck = ({ Component, name, sx, ...props }) => {
   return (
     <FormikField name={name} {...props}>
       {({ field: { value }, form: { setFieldValue } }) => (
-        <IconCheckView
+        <Icon
           Component={Component}
           active={value}
           onClick={() => setFieldValue(name, !value)}
-          {...props}
+          sx={sx}
         />
       )}
     </FormikField>
@@ -21,6 +21,11 @@ const IconCheck = ({ Component, name, ...props }) => {
 IconCheck.propTypes = {
   Component: PropTypes.elementType.isRequired,
   name: PropTypes.string.isRequired,
+  sx: PropTypes.object,
+};
+
+IconCheck.defaultProps = {
+  sx: {},
 };
 
 export default IconCheck;
