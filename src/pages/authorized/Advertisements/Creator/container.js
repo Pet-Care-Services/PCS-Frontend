@@ -12,7 +12,6 @@ const AdvertismentCreator = () => {
   const [step, setStep] = useState(1);
   const [type, setType] = useState(null);
   const [animal, setAnimal] = useState(null);
-  // const [data, setData] = useState({});
 
   const { mutate: submitRequest } = useMutation(postRequest, {
     onSuccess: () => {
