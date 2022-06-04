@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import BackArrow from '@mui/icons-material/ArrowBackIosNew';
 import { Box, Typography } from '@mui/material';
+import { ITEM_TYPE } from 'consts/enums';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
@@ -15,6 +16,7 @@ const CreatorView = ({
   handleTypeSelect,
   handleAnimalSelect,
   handleDataSubmit,
+  type,
 }) => {
   const { t } = useTranslation();
 
@@ -28,13 +30,19 @@ const CreatorView = ({
       </Box>
       {step === 1 && <Step1 onSubmit={handleTypeSelect} />}
       {step === 2 && <Step2 onSubmit={handleAnimalSelect} />}
-      {step === 3 && <Step3 onSubmit={handleDataSubmit} />}
+      {step === 3 && (
+        <Step3
+          onSubmit={handleDataSubmit}
+          isService={type === ITEM_TYPE.SERVICE}
+        />
+      )}
     </Box>
   );
 };
 
 CreatorView.propTypes = {
   step: PropTypes.oneOf([1, 2, 3]).isRequired,
+  type: PropTypes.string,
   goBack: PropTypes.func,
   handleTypeSelect: PropTypes.func,
   handleAnimalSelect: PropTypes.func,
@@ -42,6 +50,7 @@ CreatorView.propTypes = {
 };
 
 CreatorView.defaultProps = {
+  type: '',
   goBack: noop,
   handleTypeSelect: noop,
   handleAnimalSelect: noop,

@@ -34,6 +34,7 @@ const lightColors = {
   },
   white: WHITE,
   black: BLACK,
+  placeholder: '#7d7d7d',
 };
 
 const darkColors = {
@@ -61,6 +62,7 @@ const darkColors = {
   },
   white: WHITE,
   black: BLACK,
+  placeholder: '#7d7d7d',
 };
 
 const common = {

@@ -10,4 +10,8 @@ export default (color) => ({
       backgroundColor: (theme) => theme.palette[color].dark,
     },
   },
+  small: {
+    height: 30,
+    width: 'fit-content',
+  },
 });

@@ -6,4 +6,10 @@ const getAnimals = () => {
   return axios.get('/animals');
 };
 
-export { ANIMALS_KEY, getAnimals };
+const ACTIVITIES_KEY = 'ACTIVITIES';
+
+const getActivities = () => {
+  return axios.get('/activities');
+};
+
+export { ANIMALS_KEY, getAnimals, ACTIVITIES_KEY, getActivities };
