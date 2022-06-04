@@ -10,7 +10,7 @@ import { ACTIVITIES_KEY, getActivities } from 'consts/queries';
 import { initialAvailabilityData } from './consts';
 import Step3View from './view';
 
-const Step3Container = ({ onSubmit }) => {
+const Step3Container = ({ onSubmit, isService }) => {
   const { t } = useTranslation();
   const { data: activities, isLoading } = useQuery(
     ACTIVITIES_KEY,
@@ -37,6 +37,7 @@ const Step3Container = ({ onSubmit }) => {
     },
     location: '',
     availabilities: [initialAvailabilityData],
+    capacity: '',
   };
 
   return (
@@ -46,6 +47,7 @@ const Step3Container = ({ onSubmit }) => {
       periodOptions={periodOptions}
       initialValues={initialValues}
       onSubmit={onSubmit}
+      isService={isService}
     />
   );
 };

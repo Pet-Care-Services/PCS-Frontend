@@ -2,7 +2,7 @@ export default {
   root: {
     margin: 40,
     padding: (theme) => theme.spacing(20, 40),
-    width: 700,
+    width: 850,
     minWidth: 300,
     backgroundColor: (theme) => theme.palette.white,
     borderRadius: 10,
@@ -23,6 +23,10 @@ export default {
   narrowField: {
     minWidth: 120,
     maxWidth: 200,
+  },
+  dateField: {
+    minWidth: 250,
+    maxWidth: 300,
   },
   inputAdornment: {
     marginRight: 20,

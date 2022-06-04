@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const getValidation = (t) =>
+const getValidation = (t, isService) =>
   Yup.object().shape({
     activity: Yup.string().required(t('validation.required')),
     price: Yup.object().shape({
@@ -10,11 +10,15 @@ const getValidation = (t) =>
     location: Yup.string().required(t('validation.required')),
     availabilities: Yup.array().of(
       Yup.object({
-        date: Yup.string().required(t('validation.required')),
+        from: Yup.string().required(t('validation.required')),
+        to: Yup.string().required(t('validation.required')),
         cyclic: Yup.bool().required(t('validation.required')),
         period: Yup.string().required(t('validation.required')),
       })
     ),
+    ...(isService && {
+      capacity: Yup.number().required(t('validation.required')),
+    }),
   });
 
 export default getValidation;

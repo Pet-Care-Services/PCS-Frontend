@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
+import { map } from 'lodash';
+import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { ITEM_TYPE } from 'consts/enums';
+import setAPIDateFormat from 'utils/setAPIDateFormat';
+import { postRequest, postService } from './queries';
 import CreatorView from './view';
 
 const AdvertismentCreator = () => {
@@ -8,6 +13,18 @@ const AdvertismentCreator = () => {
   const [type, setType] = useState(null);
   const [animal, setAnimal] = useState(null);
   // const [data, setData] = useState({});
+
+  const { mutate: submitRequest } = useMutation(postRequest, {
+    onSuccess: () => {
+      navigate('/application/requests');
+    },
+  });
+
+  const { mutate: submitService } = useMutation(postService, {
+    onSuccess: () => {
+      navigate('/application/services');
+    },
+  });
 
   const goBack = () => {
     const newStep = step - 1;
@@ -29,7 +46,24 @@ const AdvertismentCreator = () => {
   };
 
   const handleDataSubmit = (values) => {
-    console.log('API request', { ...values, type, animal });
+    const data = {
+      ...values,
+      activities: [{ id: values.activity }],
+      animal: { id: animal },
+      availabilities: map(values.availabilities, (entry) => ({
+        ...entry,
+        from: setAPIDateFormat(entry.from),
+        to: setAPIDateFormat(entry.to),
+      })),
+      userId: 1,
+    };
+    delete data.activity;
+
+    if (type === ITEM_TYPE.REQUEST) {
+      submitRequest(data);
+    } else {
+      submitService(data);
+    }
   };
 
   return (
@@ -39,6 +73,7 @@ const AdvertismentCreator = () => {
       handleAnimalSelect={handleAnimalSelect}
       handleDataSubmit={handleDataSubmit}
       goBack={goBack}
+      type={type}
     />
   );
 };

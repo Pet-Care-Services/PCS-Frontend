@@ -43,7 +43,9 @@ export default {
     availability: 'Availability',
     repeat: 'Repeat',
     add: 'Add',
-    date: 'Date',
+    from: 'From',
+    to: 'To',
+    animalQuantity: 'Animal quantity',
     publish: 'Publish',
   },
 };

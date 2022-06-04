@@ -8,6 +8,7 @@ import RepeatIcon from '@mui/icons-material/Repeat';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Button from 'components/Button';
+import DatePicker from 'components/DatePicker';
 import Icon from 'components/Icon';
 import IconCheck from 'components/IconCheck';
 import Input from 'components/Input';
@@ -24,6 +25,7 @@ const Step3 = ({
   priceTypeOptions,
   periodOptions,
   initialValues,
+  isService,
 }) => {
   const { t } = useTranslation();
 
@@ -31,7 +33,7 @@ const Step3 = ({
     <Box sx={styles.root}>
       <Formik
         initialValues={initialValues}
-        validationSchema={getValidation(t)}
+        validationSchema={getValidation(t, isService)}
         validateOnChange={false}
         validateOnBlur={false}
         onSubmit={onSubmit}
@@ -66,6 +68,14 @@ const Step3 = ({
               />
             </Box>
             <Input label={t('location')} name="location" sx={styles.field} />
+            {isService && (
+              <Input
+                label={t('animalQuantity')}
+                name="capacity"
+                sx={styles.field}
+                onlyNumbers
+              />
+            )}
 
             <Typography variant="h2">{t('availability')}</Typography>
             <FieldArray
@@ -77,10 +87,15 @@ const Step3 = ({
 
                     return (
                       <Box sx={styles.multiFieldLine} key={index}>
-                        <Input
-                          label={t('date')}
-                          name={`availabilities.${index}.date`}
-                          sx={styles.field}
+                        <DatePicker
+                          label={t('from')}
+                          name={`availabilities.${index}.from`}
+                          sx={styles.dateField}
+                        />
+                        <DatePicker
+                          label={t('to')}
+                          name={`availabilities.${index}.to`}
+                          sx={styles.dateField}
                         />
                         <IconCheck
                           name={`availabilities.${index}.cyclic`}
@@ -139,10 +154,11 @@ const Step3 = ({
 
 Step3.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  isService: PropTypes.bool.isRequired,
   activitiesOptions: optionsShape,
   priceTypeOptions: optionsShape,
   periodOptions: optionsShape,
-  initialValues: PropTypes.exact({
+  initialValues: PropTypes.shape({
     activity: PropTypes.string,
     price: PropTypes.exact({
       amount: PropTypes.string,
@@ -157,6 +173,7 @@ Step3.propTypes = {
         period: PropTypes.string,
       })
     ),
+    capacity: PropTypes.string,
   }),
 };
 

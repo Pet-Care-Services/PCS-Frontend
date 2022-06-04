@@ -43,7 +43,9 @@ export default {
     availability: 'Dostępność',
     repeat: 'Powtarzaj',
     add: 'Dodaj',
-    date: 'Data',
+    from: 'Od',
+    to: 'Do',
+    animalQuantity: 'Ilość zwierząt',
     publish: 'Opublikuj',
   },
 };
