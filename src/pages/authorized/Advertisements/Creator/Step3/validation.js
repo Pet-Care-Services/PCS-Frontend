@@ -2,7 +2,11 @@ import * as Yup from 'yup';
 
 const getValidation = (t, isService) =>
   Yup.object().shape({
-    activity: Yup.string().required(t('validation.required')),
+    activities: Yup.array().of(
+      Yup.object({
+        id: Yup.string().required(t('validation.required')),
+      })
+    ),
     price: Yup.object().shape({
       amount: Yup.number().required(t('validation.required')),
       type: Yup.string().required(t('validation.required')),

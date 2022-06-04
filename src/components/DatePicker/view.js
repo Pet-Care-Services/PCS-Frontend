@@ -38,6 +38,7 @@ const DatePickerView = ({ field, name, ...props }) => {
       open={open}
       onClose={() => setOpen(false)}
       minutesStep={5}
+      mask={null}
     />
   );
 };

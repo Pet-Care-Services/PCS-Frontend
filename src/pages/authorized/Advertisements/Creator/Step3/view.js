@@ -1,21 +1,15 @@
 import React from 'react';
-import { FieldArray, Form, Formik } from 'formik';
-import { get, map } from 'lodash';
+import { Form, Formik } from 'formik';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import DeleteIcon from '@mui/icons-material/Delete';
-import RepeatIcon from '@mui/icons-material/Repeat';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Button from 'components/Button';
-import DatePicker from 'components/DatePicker';
-import Icon from 'components/Icon';
-import IconCheck from 'components/IconCheck';
 import Input from 'components/Input';
 import Select from 'components/Select';
 import { optionsShape } from 'components/Select/shapes';
-import commonStyles from 'consts/commonStyles';
-import { initialAvailabilityData } from './consts';
+import ActivitiesFieldArray from './components/ActivitiesFieldArray';
+import AvailabilitiesFieldArray from './components/AvailabilitiesFieldArray';
 import styles from './styles';
 import getValidation from './validation';
 
@@ -41,11 +35,10 @@ const Step3 = ({
         {({ values, errors }) => (
           <Box component={Form} sx={styles.form}>
             <Typography variant="h2">{t('information')}</Typography>
-            <Select
-              label={t('activity')}
-              name="activity"
-              options={activitiesOptions}
-              sx={styles.field}
+            <ActivitiesFieldArray
+              activitiesOptions={activitiesOptions}
+              errors={errors}
+              activities={values.activities}
             />
             {/* TODO activity tags as list */}
             <Box sx={styles.multiFieldLine}>
@@ -78,68 +71,10 @@ const Step3 = ({
             )}
 
             <Typography variant="h2">{t('availability')}</Typography>
-            <FieldArray
-              name="availabilities"
-              render={(arrayHelpers) => (
-                <>
-                  {map(values.availabilities, (_, index) => {
-                    const withError = get(errors, `availabilities[${index}]`);
-
-                    return (
-                      <Box sx={styles.multiFieldLine} key={index}>
-                        <DatePicker
-                          label={t('from')}
-                          name={`availabilities.${index}.from`}
-                          sx={styles.dateField}
-                        />
-                        <DatePicker
-                          label={t('to')}
-                          name={`availabilities.${index}.to`}
-                          sx={styles.dateField}
-                        />
-                        <IconCheck
-                          name={`availabilities.${index}.cyclic`}
-                          Component={RepeatIcon}
-                          sx={{
-                            ...styles.selfCentered,
-                            ...(withError && commonStyles.fixErrorShifting),
-                          }}
-                        />
-                        {values.availabilities[index].cyclic && (
-                          <Select
-                            label={t('repeat')}
-                            name={`availabilities.${index}.period`}
-                            options={periodOptions}
-                            sx={styles.narrowField}
-                          />
-                        )}
-                        {values.availabilities.length > 1 && (
-                          <Icon
-                            onClick={() => arrayHelpers.remove(index)}
-                            Component={DeleteIcon}
-                            sx={{
-                              ...styles.deleteIcon,
-                              ...styles.selfCentered,
-                              ...(withError && commonStyles.fixErrorShifting),
-                            }}
-                          />
-                        )}
-                      </Box>
-                    );
-                  })}
-                  <Button
-                    onClick={() =>
-                      arrayHelpers.insert(
-                        values.availabilities.length,
-                        initialAvailabilityData
-                      )
-                    }
-                    small
-                  >
-                    {t('add')}
-                  </Button>
-                </>
-              )}
+            <AvailabilitiesFieldArray
+              periodOptions={periodOptions}
+              availabilities={values.availabilities}
+              errors={errors}
             />
 
             <Button type="submit" sx={styles.submitButton}>
@@ -175,6 +110,13 @@ Step3.propTypes = {
     ),
     capacity: PropTypes.string,
   }),
+};
+
+Step3.defaultProps = {
+  activitiesOptions: [],
+  priceTypeOptions: [],
+  periodOptions: [],
+  initialValues: {},
 };
 
 export default Step3;

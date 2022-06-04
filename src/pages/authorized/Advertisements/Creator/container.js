@@ -48,7 +48,6 @@ const AdvertismentCreator = () => {
   const handleDataSubmit = (values) => {
     const data = {
       ...values,
-      activities: [{ id: values.activity }],
       animal: { id: animal },
       availabilities: map(values.availabilities, (entry) => ({
         ...entry,
@@ -57,7 +56,6 @@ const AdvertismentCreator = () => {
       })),
       userId: 1,
     };
-    delete data.activity;
 
     if (type === ITEM_TYPE.REQUEST) {
       submitRequest(data);

@@ -7,7 +7,7 @@ import Loader from 'components/Loader';
 import getPeriodOptions from 'consts/getPeriodOptions';
 import getPriceTypes from 'consts/getPriceTypesOptions';
 import { ACTIVITIES_KEY, getActivities } from 'consts/queries';
-import { initialAvailabilityData } from './consts';
+import { initialActivityData, initialAvailabilityData } from './consts';
 import Step3View from './view';
 
 const Step3Container = ({ onSubmit, isService }) => {
@@ -30,7 +30,7 @@ const Step3Container = ({ onSubmit, isService }) => {
   const periodOptions = getPeriodOptions(t);
 
   const initialValues = {
-    activity: '',
+    activities: [initialActivityData],
     price: {
       amount: '',
       type: priceTypeOptions[0].value,
@@ -54,6 +54,7 @@ const Step3Container = ({ onSubmit, isService }) => {
 
 Step3Container.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  isService: PropTypes.bool.isRequired,
 };
 
 export default Step3Container;

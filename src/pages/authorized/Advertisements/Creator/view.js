@@ -42,6 +42,7 @@ const CreatorView = ({
 
 CreatorView.propTypes = {
   step: PropTypes.oneOf([1, 2, 3]).isRequired,
+  type: PropTypes.string,
   goBack: PropTypes.func,
   handleTypeSelect: PropTypes.func,
   handleAnimalSelect: PropTypes.func,
@@ -49,6 +50,7 @@ CreatorView.propTypes = {
 };
 
 CreatorView.defaultProps = {
+  type: '',
   goBack: noop,
   handleTypeSelect: noop,
   handleAnimalSelect: noop,

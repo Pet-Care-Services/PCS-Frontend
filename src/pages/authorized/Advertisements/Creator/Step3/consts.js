@@ -5,4 +5,8 @@ const initialAvailabilityData = {
   period: 'WEEK',
 };
 
-export { initialAvailabilityData };
+const initialActivityData = {
+  id: '',
+};
+
+export { initialAvailabilityData, initialActivityData };
