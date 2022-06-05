@@ -3,12 +3,13 @@ export default {
     width: 300,
     backgroundColor: (theme) => theme.palette.primary.main,
   },
-  arrowWrapper: {
+  topIconsWrapper: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     color: (theme) => theme.palette.white,
-    paddingRight: 10,
-    margin: (theme) => theme.spacing(20, 0, 50, 10),
+    paddingRight: 20,
+    margin: (theme) => theme.spacing(20, 0, 50, 20),
   },
   itemsWrapper: {
     width: '90%',
