@@ -5,11 +5,14 @@ import { useTranslation } from 'react-i18next';
 import ArrowBackIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Box, Drawer } from '@mui/material';
 import Icon from 'components/Icon';
+import LanguageSwitch from 'components/LanguageSwitch';
+import useSidebar from 'hooks/useSidebar';
 import Item from './components/Item';
 import styles from './styles';
 
 const Sidebar = ({ items, open, onBackClick, onItemClick }) => {
   const { t } = useTranslation();
+  const { closeSidebar } = useSidebar();
 
   return (
     <Drawer
@@ -18,8 +21,10 @@ const Sidebar = ({ items, open, onBackClick, onItemClick }) => {
       PaperProps={{
         sx: styles.paper,
       }}
+      onClose={closeSidebar}
     >
-      <Box sx={styles.arrowWrapper}>
+      <Box sx={styles.topIconsWrapper}>
+        <LanguageSwitch />
         <Icon Component={ArrowBackIcon} onClick={onBackClick} />
       </Box>
       <Box sx={styles.itemsWrapper}>

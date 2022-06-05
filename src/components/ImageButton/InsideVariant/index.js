@@ -14,7 +14,7 @@ const InsideVariant = ({ img, title, faded, onClick }) => (
   >
     <Box component="img" src={img} sx={styles.img} />
     <Box sx={styles.bottomBar}>
-      <Typography variant="h2" sx={styles.title}>
+      <Typography variant="h3" sx={styles.title}>
         {title}
       </Typography>
     </Box>
