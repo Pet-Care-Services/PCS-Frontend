@@ -1,7 +1,15 @@
 import React, { useEffect } from 'react';
 import { get } from 'lodash';
 import { useQuery } from 'react-query';
+import Loader from 'components/Loader';
+import {
+  ACTIVITIES_KEY,
+  ANIMALS_KEY,
+  getActivities,
+  getAnimals,
+} from 'consts/queries';
 import useURLParams from 'hooks/useURLParams';
+import mapDictionaryToOptions from 'utils/mapDictionaryToOptions';
 import { ADVERTISEMENTS_KEY, getAdvertisements } from './queries';
 import { itemTypeShape } from './shapes';
 import { formatData } from './utils';
@@ -9,9 +17,23 @@ import ListView from './view';
 
 const ListContainer = ({ itemType }) => {
   const { params, updateParams, clearParams } = useURLParams();
-  const { data, isLoading, refetch } = useQuery(
-    ADVERTISEMENTS_KEY,
-    () => getAdvertisements(itemType, params),
+  const {
+    data: advertisementsData,
+    isLoading: isLoadingAdvertisements,
+    refetch,
+  } = useQuery(ADVERTISEMENTS_KEY, () => getAdvertisements(itemType, params), {
+    refetchOnWindowFocus: false,
+  });
+
+  const { data: animalsData, isLoading: isLoadingAnimals } = useQuery(
+    ANIMALS_KEY,
+    getAnimals,
+    { refetchOnWindowFocus: false }
+  );
+
+  const { data: activitiesData, isLoading: isLoadingActivities } = useQuery(
+    ACTIVITIES_KEY,
+    getActivities,
     { refetchOnWindowFocus: false }
   );
 
@@ -27,7 +49,11 @@ const ListContainer = ({ itemType }) => {
     priceMax: params.priceMax || '',
   };
 
-  const items = get(data, 'data');
+  const items = get(advertisementsData, 'data');
+
+  if (isLoadingAnimals || isLoadingActivities) {
+    return <Loader />;
+  }
 
   return (
     <ListView
@@ -35,7 +61,9 @@ const ListContainer = ({ itemType }) => {
       onFiltersSubmit={updateParams}
       onFiltersClear={clearParams}
       data={formatData(items)}
-      isLoading={isLoading}
+      animalsOptions={mapDictionaryToOptions(animalsData.data)}
+      activitiesOptions={mapDictionaryToOptions(activitiesData.data)}
+      isLoading={isLoadingAdvertisements}
     />
   );
 };

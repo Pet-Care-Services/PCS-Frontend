@@ -6,6 +6,7 @@ import { Box, Typography } from '@mui/material';
 import Advertisement from 'components/Advertisement';
 import Filters from 'components/Filters';
 import Loader from 'components/Loader';
+import { optionsShape } from 'components/Select/shapes';
 import { getFiltersFields } from './consts';
 import { filtersInitialValuesShape, dataShape } from './shapes';
 import styles from './styles';
@@ -16,6 +17,8 @@ const ListView = ({
   onFiltersSubmit,
   onFiltersClear,
   data,
+  animalsOptions,
+  activitiesOptions,
   isLoading,
 }) => {
   const { t } = useTranslation();
@@ -24,7 +27,7 @@ const ListView = ({
     <Box sx={styles.root}>
       <Box sx={styles.filtersWrapper}>
         <Filters
-          rows={getFiltersFields(t)}
+          rows={getFiltersFields(t, animalsOptions, activitiesOptions)}
           initialValues={filtersInitialValues}
           validationSchema={getFiltersValidation(t)}
           onSubmit={onFiltersSubmit}
@@ -53,12 +56,16 @@ ListView.propTypes = {
   data: dataShape,
   onFiltersSubmit: PropTypes.func,
   onFiltersClear: PropTypes.func,
+  animalsOptions: optionsShape,
+  activitiesOptions: optionsShape,
 };
 
 ListView.defaultProps = {
   onFiltersSubmit: noop,
   onFiltersClear: noop,
   data: [],
+  animalsOptions: [],
+  activitiesOptions: [],
 };
 
 export default ListView;
