@@ -6,9 +6,9 @@ import priceTypeShape from 'shapes/priceTypeShape';
 const itemTypeShape = PropTypes.oneOf(values(ITEM_TYPE));
 
 const filtersInitialValuesShape = PropTypes.exact({
-  animal: PropTypes.string,
+  animalId: PropTypes.string,
   location: PropTypes.string,
-  activity: PropTypes.string,
+  activityId: PropTypes.string,
   priceMin: PropTypes.string,
   priceMax: PropTypes.string,
 });

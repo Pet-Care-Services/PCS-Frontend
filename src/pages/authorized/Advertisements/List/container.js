@@ -11,18 +11,18 @@ const ListContainer = ({ itemType }) => {
   const { params, updateParams, clearParams } = useURLParams();
   const { data, isLoading, refetch } = useQuery(
     ADVERTISEMENTS_KEY,
-    () => getAdvertisements(itemType),
+    () => getAdvertisements(itemType, params),
     { refetchOnWindowFocus: false }
   );
 
   useEffect(() => {
     refetch();
-  }, [itemType]);
+  }, [itemType, params]);
 
   const filtersInitialValues = {
-    animal: params.animal || '',
+    animalId: params.animalId || '',
     location: params.location || '',
-    activity: params.activity || '',
+    activityId: params.activityId || '',
     priceMin: params.priceMin || '',
     priceMax: params.priceMax || '',
   };

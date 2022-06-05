@@ -2,7 +2,7 @@ import { FIELD_TYPES } from 'components/Filters/components/Field/consts';
 
 const getFiltersFields = (t) => [
   {
-    name: 'animal',
+    name: 'animalId',
     label: t('animal'),
     fieldType: FIELD_TYPES.INPUT,
   },
@@ -12,7 +12,7 @@ const getFiltersFields = (t) => [
     fieldType: FIELD_TYPES.INPUT,
   },
   {
-    name: 'activity',
+    name: 'activityId',
     label: t('service'),
     fieldType: FIELD_TYPES.INPUT,
   },
