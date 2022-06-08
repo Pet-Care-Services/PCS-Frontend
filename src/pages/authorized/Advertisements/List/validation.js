@@ -4,9 +4,9 @@ import * as Yup from 'yup';
 const getFiltersValidation = (t) =>
   Yup.object().shape(
     {
-      animal: Yup.string(),
+      animalId: Yup.string(),
       location: Yup.string(),
-      service: Yup.string(),
+      activityId: Yup.string(),
       priceMin: Yup.number().when('priceMax', {
         is: (val) => !isNil(val),
         then: (schema) =>

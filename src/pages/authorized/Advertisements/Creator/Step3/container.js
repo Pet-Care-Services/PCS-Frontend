@@ -1,5 +1,4 @@
 import React from 'react';
-import { map } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
@@ -7,6 +6,7 @@ import Loader from 'components/Loader';
 import getPeriodOptions from 'consts/getPeriodOptions';
 import getPriceTypes from 'consts/getPriceTypesOptions';
 import { ACTIVITIES_KEY, getActivities } from 'consts/queries';
+import mapDictionaryToOptions from 'utils/mapDictionaryToOptions';
 import { initialActivityData, initialAvailabilityData } from './consts';
 import Step3View from './view';
 
@@ -21,10 +21,7 @@ const Step3Container = ({ onSubmit, isService }) => {
     return <Loader />;
   }
 
-  const activitiesOptions = map(activities.data, ({ id, name }) => ({
-    value: id,
-    label: name,
-  }));
+  const activitiesOptions = mapDictionaryToOptions(activities.data);
 
   const priceTypeOptions = getPriceTypes(t);
   const periodOptions = getPeriodOptions(t);
