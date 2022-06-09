@@ -24,7 +24,7 @@ const getFiltersFields = (t, animalsOptions, activitiesOptions) => [
   },
   [
     {
-      name: 'priceMin',
+      name: 'minPrice',
       label: t('minimalPrice'),
       fieldType: FIELD_TYPES.INPUT,
       fieldProps: {
@@ -32,7 +32,7 @@ const getFiltersFields = (t, animalsOptions, activitiesOptions) => [
       },
     },
     {
-      name: 'priceMax',
+      name: 'maxPrice',
       label: t('maximalPrice'),
       fieldType: FIELD_TYPES.INPUT,
       fieldProps: {

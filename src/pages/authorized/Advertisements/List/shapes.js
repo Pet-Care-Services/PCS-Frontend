@@ -9,8 +9,8 @@ const filtersInitialValuesShape = PropTypes.exact({
   animalId: PropTypes.string,
   location: PropTypes.string,
   activityId: PropTypes.string,
-  priceMin: PropTypes.string,
-  priceMax: PropTypes.string,
+  minPrice: PropTypes.string,
+  maxPrice: PropTypes.string,
 });
 
 const advertisementShape = PropTypes.shape({
