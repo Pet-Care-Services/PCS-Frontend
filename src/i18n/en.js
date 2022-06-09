@@ -37,7 +37,6 @@ export default {
     needKeeper: 'I need a keeper',
     iAmKeeper: 'I am a keeper',
     information: 'Information',
-    activity: 'Aktywność',
     price: 'Price',
     type: 'Type',
     availability: 'Availability',

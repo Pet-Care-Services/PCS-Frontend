@@ -28,7 +28,7 @@ const ActivitiesFieldArray = ({ activities, activitiesOptions, errors }) => {
             return (
               <Box sx={styles.multiFieldLine} key={index}>
                 <Select
-                  label={t('activity')}
+                  label={t('service')}
                   name={`activities[${index}].id`}
                   options={filterOptionsForNotUsed(
                     activitiesOptions,

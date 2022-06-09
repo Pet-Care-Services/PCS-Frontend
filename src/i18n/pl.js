@@ -37,7 +37,6 @@ export default {
     needKeeper: 'Potrzebuję opiekuna',
     iAmKeeper: 'Jestem opiekunem',
     information: 'Informacje',
-    activity: 'Aktywność',
     price: 'Cena',
     type: 'Typ',
     availability: 'Dostępność',
