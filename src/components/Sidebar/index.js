@@ -4,15 +4,19 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import ArrowBackIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Box, Drawer } from '@mui/material';
+import Button from 'components/Button';
 import Icon from 'components/Icon';
 import LanguageSwitch from 'components/LanguageSwitch';
+import useDialog from 'hooks/useDialog';
 import useSidebar from 'hooks/useSidebar';
+import Login from 'templates/Login';
 import Item from './components/Item';
 import styles from './styles';
 
 const Sidebar = ({ items, open, onBackClick, onItemClick }) => {
   const { t } = useTranslation();
   const { closeSidebar } = useSidebar();
+  const { openDialog } = useDialog();
 
   return (
     <Drawer
@@ -40,6 +44,16 @@ const Sidebar = ({ items, open, onBackClick, onItemClick }) => {
           />
         ))}
       </Box>
+      <Button
+        variant="text"
+        onClick={() => {
+          closeSidebar();
+          openDialog(<Login />);
+        }}
+        sx={styles.loginButton}
+      >
+        {t('login')}
+      </Button>
     </Drawer>
   );
 };

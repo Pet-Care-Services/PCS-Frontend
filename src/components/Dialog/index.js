@@ -10,9 +10,9 @@ const Dialog = ({ onClose, open, content }) => (
     PaperProps={{
       sx: {
         width: 500,
-        height: 300,
+        height: 'auto',
         borderRadius: 5,
-        padding: 20,
+        padding: 40,
       },
     }}
   >
