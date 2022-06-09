@@ -45,8 +45,8 @@ const ListContainer = ({ itemType }) => {
     animalId: params.animalId || '',
     location: params.location || '',
     activityId: params.activityId || '',
-    priceMin: params.priceMin || '',
-    priceMax: params.priceMax || '',
+    minPrice: params.minPrice || '',
+    maxPrice: params.maxPrice || '',
   };
 
   const items = get(advertisementsData, 'data');
