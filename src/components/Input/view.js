@@ -3,6 +3,7 @@ import { noop, toInteger } from 'lodash';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
+import stringOrNumberShape from 'shapes/stringOrNumberShape';
 import { isStringNumber } from './utils';
 
 // eslint-disable-next-line react/display-name
@@ -148,7 +149,7 @@ InputView.propTypes = {
   actAsClickable: PropTypes.bool,
   onClick: PropTypes.func,
   endAdornment: PropTypes.node,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  value: stringOrNumberShape,
   type: PropTypes.oneOf(['text', 'password']),
   sx: PropTypes.objectOf(PropTypes.any),
 };
