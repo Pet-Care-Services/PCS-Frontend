@@ -17,6 +17,7 @@ import styles from './styles';
 
 const Topbar = ({
   initialValues,
+  withRightIcons,
   onSearch,
   onMenuClick,
   onNotificationClick,
@@ -49,17 +50,25 @@ const Topbar = ({
           </Box>
         </Box>
         <Box sx={{ ...styles.icons, ...styles.rightIcons }}>
-          <Icon
-            size="large"
-            Component={NotificationsNoneIcon}
-            onClick={onNotificationClick}
-          />
-          <Icon
-            size="large"
-            Component={ChatOutlinedIcon}
-            onClick={onChatClick}
-          />
-          <Icon size="large" Component={PersonIcon} onClick={onAccountClick} />
+          {withRightIcons && (
+            <>
+              <Icon
+                size="large"
+                Component={NotificationsNoneIcon}
+                onClick={onNotificationClick}
+              />
+              <Icon
+                size="large"
+                Component={ChatOutlinedIcon}
+                onClick={onChatClick}
+              />
+              <Icon
+                size="large"
+                Component={PersonIcon}
+                onClick={onAccountClick}
+              />
+            </>
+          )}
         </Box>
       </MuiToolbar>
     </MuiAppBar>
@@ -70,6 +79,7 @@ Topbar.propTypes = {
   initialValues: PropTypes.shape({
     search: PropTypes.string,
   }),
+  withRightIcons: PropTypes.bool,
   onSearch: PropTypes.func,
   onMenuClick: PropTypes.func,
   onNotificationClick: PropTypes.func,
@@ -79,6 +89,7 @@ Topbar.propTypes = {
 
 Topbar.defaultProps = {
   initialValues: {},
+  withRightIcons: false,
   onSearch: noop,
   onMenuClick: noop,
   onNotificationClick: noop,

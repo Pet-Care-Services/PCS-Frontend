@@ -4,6 +4,8 @@ export default {
       required: 'Field is required',
       min: 'The value cannot be lower than {{value}}',
       max: 'The value cannot be higher than {{value}}',
+      emailOrPasswordInvalid: 'Provided email or password is invalid',
+      email: 'Please provide valid email address',
     },
     priceType: {
       single: 'Once',
@@ -46,5 +48,9 @@ export default {
     to: 'To',
     animalQuantity: 'Animal quantity',
     publish: 'Publish',
+    login: 'Log in',
+    logout: 'Log out',
+    email: 'Email',
+    password: 'Password',
   },
 };

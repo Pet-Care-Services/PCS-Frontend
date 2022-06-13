@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 
 const availabilitiesShape = PropTypes.arrayOf(
   PropTypes.shape({
-    from: PropTypes.string,
-    to: PropTypes.string,
+    from: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
+    to: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
     cyclic: PropTypes.bool,
     period: PropTypes.string,
   })
