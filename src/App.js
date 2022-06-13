@@ -8,6 +8,7 @@ import Routing from 'pages';
 import DialogProvider from 'providers/Dialog';
 import SidebarProvider from 'providers/Sidebar';
 import AppThemeProvider from 'providers/Theme';
+import UserDataProvider from 'providers/UserData';
 
 const queryClient = new QueryClient();
 
@@ -17,15 +18,17 @@ const App = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <QueryClientProvider client={queryClient}>
-        <AppThemeProvider>
-          <DialogProvider>
-            <SidebarProvider>
-              <BrowserRouter basename={process.env.PUBLIC_URL}>
-                <Routing />
-              </BrowserRouter>
-            </SidebarProvider>
-          </DialogProvider>
-        </AppThemeProvider>
+        <UserDataProvider>
+          <AppThemeProvider>
+            <DialogProvider>
+              <SidebarProvider>
+                <BrowserRouter basename={process.env.PUBLIC_URL}>
+                  <Routing />
+                </BrowserRouter>
+              </SidebarProvider>
+            </DialogProvider>
+          </AppThemeProvider>
+        </UserDataProvider>
       </QueryClientProvider>
     </LocalizationProvider>
   );

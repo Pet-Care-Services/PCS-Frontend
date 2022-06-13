@@ -49,6 +49,7 @@ export default {
     animalQuantity: 'Animal quantity',
     publish: 'Publish',
     login: 'Log in',
+    logout: 'Log out',
     email: 'Email',
     password: 'Password',
   },

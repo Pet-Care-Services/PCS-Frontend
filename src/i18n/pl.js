@@ -49,6 +49,7 @@ export default {
     animalQuantity: 'Ilość zwierząt',
     publish: 'Opublikuj',
     login: 'Zaloguj',
+    logout: 'Wyloguj',
     email: 'Email',
     password: 'Hasło',
   },
