@@ -1,19 +1,15 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import ProtectedRoute from 'components/ProtectedRoute';
+import { DEFAULT_ROUTE } from 'consts/config';
 import { ITEM_TYPE } from 'consts/enums';
-import AuthorizedLayout from 'layouts/AuthorizedLayout';
-import AdvertismentCreator from 'pages/authorized/Advertisements/Creator';
-import AdvertismentsList from 'pages/authorized/Advertisements/List';
-
-const DEFAULT_ROUTE = '/application/services';
+import ApplicationLayout from 'layouts/ApplicationLayout';
+import AdvertismentCreator from 'pages/application/Advertisements/Creator';
+import AdvertismentsList from 'pages/application/Advertisements/List';
 
 const Routing = () => (
   <Routes>
-    <Route path="public">
-      <Route path="login" element="TODO: Login" />
-      <Route path="register" element="TODO: Register" />
-    </Route>
-    <Route path="application" element={<AuthorizedLayout />}>
+    <Route path="application" element={<ApplicationLayout />}>
       <Route
         path="services"
         element={<AdvertismentsList itemType={ITEM_TYPE.SERVICE} />}
@@ -22,7 +18,14 @@ const Routing = () => (
         path="requests"
         element={<AdvertismentsList itemType={ITEM_TYPE.REQUEST} />}
       />
-      <Route path="creator" element={<AdvertismentCreator />} />
+      <Route
+        path="creator"
+        element={
+          <ProtectedRoute>
+            <AdvertismentCreator />
+          </ProtectedRoute>
+        }
+      />
     </Route>
 
     <Route path="*" element={<Navigate to={DEFAULT_ROUTE} replace />} />

@@ -1,4 +1,6 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
+import axios from 'axios';
+import { isNil } from 'lodash';
 import PropTypes from 'prop-types';
 import reducer from './reducer';
 
@@ -12,6 +14,14 @@ const UserDataContext = React.createContext({});
 const UserDataProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const value = { state, dispatch };
+
+  useEffect(() => {
+    if (!isNil(initialState.token)) {
+      axios.defaults.headers.common = {
+        Authorization: initialState.token,
+      };
+    }
+  }, []);
 
   return (
     <UserDataContext.Provider value={value}>

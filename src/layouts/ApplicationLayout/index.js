@@ -7,7 +7,7 @@ import useSidebar from 'hooks/useSidebar';
 import useUserData from 'hooks/useUserData';
 import { getSidebarItems } from './consts';
 
-const AuthorizedLayout = () => {
+const ApplicationLayout = () => {
   const navigate = useNavigate();
   const sidebarItems = getSidebarItems(navigate);
   const { openSidebar, closeSidebar, isSidebarOpened } = useSidebar();
@@ -38,4 +38,4 @@ const AuthorizedLayout = () => {
   );
 };
 
-export default AuthorizedLayout;
+export default ApplicationLayout;
