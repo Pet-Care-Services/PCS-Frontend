@@ -4,12 +4,14 @@ import { Box } from '@mui/system';
 import Sidebar from 'components/Sidebar';
 import Topbar from 'components/Topbar';
 import useSidebar from 'hooks/useSidebar';
+import useUserData from 'hooks/useUserData';
 import { getSidebarItems } from './consts';
 
-const AuthorizedLayout = () => {
+const ApplicationLayout = () => {
   const navigate = useNavigate();
   const sidebarItems = getSidebarItems(navigate);
   const { openSidebar, closeSidebar, isSidebarOpened } = useSidebar();
+  const { isLoggedIn } = useUserData();
 
   return (
     <Box
@@ -24,10 +26,11 @@ const AuthorizedLayout = () => {
       <Sidebar
         items={sidebarItems}
         open={isSidebarOpened}
+        isLoggedIn={isLoggedIn}
         onBackClick={closeSidebar}
         onItemClick={closeSidebar}
       />
-      <Topbar onMenuClick={openSidebar} />
+      <Topbar onMenuClick={openSidebar} withRightIcons={isLoggedIn} />
       <Box sx={{ flex: 1, padding: 40 }}>
         <Outlet />
       </Box>
@@ -35,4 +38,4 @@ const AuthorizedLayout = () => {
   );
 };
 
-export default AuthorizedLayout;
+export default ApplicationLayout;

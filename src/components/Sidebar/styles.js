@@ -18,4 +18,13 @@ export default {
     flexDirection: 'column',
     rowGap: 20,
   },
+  loginButton: {
+    margin: 20,
+    marginTop: 'auto',
+
+    '&:hover': {
+      color: (theme) => theme.palette.black,
+      backgroundColor: (theme) => theme.palette.white,
+    },
+  },
 };

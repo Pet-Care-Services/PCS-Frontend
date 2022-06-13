@@ -4,6 +4,8 @@ export default {
       required: 'Pole jest wymagane',
       min: 'Wartość nie może być mniejsza niż {{value}}',
       max: 'Wartość nie może być większa niż {{value}}',
+      emailOrPasswordInvalid: 'Podano nieprawidłowy email lub hasło',
+      email: 'Proszę podać poprawny adres email',
     },
     priceType: {
       single: 'Jednorazowo',
@@ -46,5 +48,9 @@ export default {
     to: 'Do',
     animalQuantity: 'Ilość zwierząt',
     publish: 'Opublikuj',
+    login: 'Zaloguj',
+    logout: 'Wyloguj',
+    email: 'Email',
+    password: 'Hasło',
   },
 };
