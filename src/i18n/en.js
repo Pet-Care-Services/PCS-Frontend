@@ -52,5 +52,6 @@ export default {
     logout: 'Log out',
     email: 'Email',
     password: 'Password',
+    message: 'Message',
   },
 };

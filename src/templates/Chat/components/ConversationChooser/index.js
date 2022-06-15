@@ -3,6 +3,7 @@ import { map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/system';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
+import { conversationOptionsShape } from './shapes';
 import styles from './styles';
 
 const ConversationChooser = ({
@@ -33,12 +34,7 @@ const ConversationChooser = ({
 };
 
 ConversationChooser.propTypes = {
-  options: PropTypes.arrayOf(
-    PropTypes.exact({
-      id: stringOrNumberShape,
-      image: PropTypes.string,
-    })
-  ).isRequired,
+  options: conversationOptionsShape.isRequired,
   activeConversationId: stringOrNumberShape,
   onConversationClick: PropTypes.func,
 };
