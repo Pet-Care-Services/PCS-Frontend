@@ -1,8 +1,4 @@
 export default {
-  paper: {
-    width: 300,
-    backgroundColor: (theme) => theme.palette.primary.main,
-  },
   topIconsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',

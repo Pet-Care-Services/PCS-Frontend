@@ -19,19 +19,19 @@ const App = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <QueryClientProvider client={queryClient}>
-        <UserDataProvider>
-          <AppThemeProvider>
-            <DialogProvider>
-              <SidebarProvider>
-                <ChatProvider>
-                  <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <UserDataProvider>
+            <AppThemeProvider>
+              <DialogProvider>
+                <SidebarProvider>
+                  <ChatProvider>
                     <Routing />
-                  </BrowserRouter>
-                </ChatProvider>
-              </SidebarProvider>
-            </DialogProvider>
-          </AppThemeProvider>
-        </UserDataProvider>
+                  </ChatProvider>
+                </SidebarProvider>
+              </DialogProvider>
+            </AppThemeProvider>
+          </UserDataProvider>
+        </BrowserRouter>
       </QueryClientProvider>
     </LocalizationProvider>
   );

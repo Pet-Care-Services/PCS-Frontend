@@ -3,32 +3,22 @@ import { filter, map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import ArrowBackIcon from '@mui/icons-material/ArrowBackIosNew';
-import { Box, Drawer } from '@mui/material';
+import { Box } from '@mui/material';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
 import LanguageSwitch from 'components/LanguageSwitch';
-import useDialog from 'hooks/useDialog';
-import useSidebar from 'hooks/useSidebar';
-import useUserData from 'hooks/useUserData';
-import Login from 'templates/Login';
 import Item from './components/Item';
 import styles from './styles';
 
-const Sidebar = ({ items, open, isLoggedIn }) => {
+const Sidebar = ({
+  items,
+  isLoggedIn,
+  onLoginClick,
+  onLogoutClick,
+  onBackArrowClick,
+  onItemClick,
+}) => {
   const { t } = useTranslation();
-  const { closeSidebar } = useSidebar();
-  const { openDialog } = useDialog();
-  const { clearUserData } = useUserData();
-
-  const onLoginClick = () => {
-    closeSidebar();
-    openDialog(<Login />);
-  };
-
-  const onLogoutClick = () => {
-    closeSidebar();
-    clearUserData();
-  };
 
   const visibleItems = filter(
     items,
@@ -36,17 +26,10 @@ const Sidebar = ({ items, open, isLoggedIn }) => {
   );
 
   return (
-    <Drawer
-      anchor="left"
-      open={open}
-      PaperProps={{
-        sx: styles.paper,
-      }}
-      onClose={closeSidebar}
-    >
+    <>
       <Box sx={styles.topIconsWrapper}>
         <LanguageSwitch />
-        <Icon Component={ArrowBackIcon} onClick={closeSidebar} />
+        <Icon Component={ArrowBackIcon} onClick={onBackArrowClick} />
       </Box>
       <Box sx={styles.itemsWrapper}>
         {map(visibleItems, (item) => (
@@ -56,7 +39,7 @@ const Sidebar = ({ items, open, isLoggedIn }) => {
             Icon={item.Icon}
             onClick={() => {
               item.onClick();
-              closeSidebar();
+              onItemClick();
             }}
           />
         ))}
@@ -68,7 +51,7 @@ const Sidebar = ({ items, open, isLoggedIn }) => {
       >
         {t(isLoggedIn ? 'logout' : 'login')}
       </Button>
-    </Drawer>
+    </>
   );
 };
 
@@ -83,13 +66,19 @@ Sidebar.propTypes = {
     })
   ),
   isLoggedIn: PropTypes.bool,
-  open: PropTypes.bool,
+  onLoginClick: PropTypes.func,
+  onLogoutClick: PropTypes.func,
+  onBackArrowClick: PropTypes.func,
+  onItemClick: PropTypes.func,
 };
 
 Sidebar.defaultProps = {
   items: [],
   isLoggedIn: false,
-  open: false,
+  onLoginClick: noop,
+  onLogoutClick: noop,
+  onBackArrowClick: noop,
+  onItemClick: noop,
 };
 
 export default Sidebar;
