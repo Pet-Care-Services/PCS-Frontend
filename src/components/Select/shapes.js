@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
+import stringOrNumberShape from 'shapes/stringOrNumberShape';
 
 const optionsShape = PropTypes.arrayOf(
   PropTypes.exact({
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    value: stringOrNumberShape,
     label: PropTypes.string,
   })
 );

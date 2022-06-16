@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import Routing from 'pages';
+import ChatProvider from 'providers/Chat';
 import DialogProvider from 'providers/Dialog';
 import SidebarProvider from 'providers/Sidebar';
 import AppThemeProvider from 'providers/Theme';
@@ -18,17 +19,19 @@ const App = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <QueryClientProvider client={queryClient}>
-        <UserDataProvider>
-          <AppThemeProvider>
-            <DialogProvider>
-              <SidebarProvider>
-                <BrowserRouter basename={process.env.PUBLIC_URL}>
-                  <Routing />
-                </BrowserRouter>
-              </SidebarProvider>
-            </DialogProvider>
-          </AppThemeProvider>
-        </UserDataProvider>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <UserDataProvider>
+            <AppThemeProvider>
+              <DialogProvider>
+                <SidebarProvider>
+                  <ChatProvider>
+                    <Routing />
+                  </ChatProvider>
+                </SidebarProvider>
+              </DialogProvider>
+            </AppThemeProvider>
+          </UserDataProvider>
+        </BrowserRouter>
       </QueryClientProvider>
     </LocalizationProvider>
   );

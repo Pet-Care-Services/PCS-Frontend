@@ -1,16 +1,14 @@
 import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/system';
-import Sidebar from 'components/Sidebar';
 import Topbar from 'components/Topbar';
+import useChat from 'hooks/useChat';
 import useSidebar from 'hooks/useSidebar';
 import useUserData from 'hooks/useUserData';
-import { getSidebarItems } from './consts';
 
 const ApplicationLayout = () => {
-  const navigate = useNavigate();
-  const sidebarItems = getSidebarItems(navigate);
-  const { openSidebar, closeSidebar, isSidebarOpened } = useSidebar();
+  const { openSidebar } = useSidebar();
+  const { openChat } = useChat();
   const { isLoggedIn } = useUserData();
 
   return (
@@ -23,14 +21,11 @@ const ApplicationLayout = () => {
         boxSizing: 'border-box',
       }}
     >
-      <Sidebar
-        items={sidebarItems}
-        open={isSidebarOpened}
-        isLoggedIn={isLoggedIn}
-        onBackClick={closeSidebar}
-        onItemClick={closeSidebar}
+      <Topbar
+        onMenuClick={openSidebar}
+        onChatClick={openChat}
+        withRightIcons={isLoggedIn}
       />
-      <Topbar onMenuClick={openSidebar} withRightIcons={isLoggedIn} />
       <Box sx={{ flex: 1, padding: 40 }}>
         <Outlet />
       </Box>
