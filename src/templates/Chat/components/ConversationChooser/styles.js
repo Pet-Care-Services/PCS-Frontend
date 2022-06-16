@@ -4,7 +4,7 @@ export default {
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: 120,
+    width: 110,
     height: '100%',
     rowGap: 10,
     backgroundColor: (theme) => theme.palette.primary.main,

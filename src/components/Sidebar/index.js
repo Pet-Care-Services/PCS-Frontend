@@ -14,7 +14,7 @@ import Login from 'templates/Login';
 import Item from './components/Item';
 import styles from './styles';
 
-const Sidebar = ({ items, open, isLoggedIn, onBackClick, onItemClick }) => {
+const Sidebar = ({ items, open, isLoggedIn }) => {
   const { t } = useTranslation();
   const { closeSidebar } = useSidebar();
   const { openDialog } = useDialog();
@@ -46,7 +46,7 @@ const Sidebar = ({ items, open, isLoggedIn, onBackClick, onItemClick }) => {
     >
       <Box sx={styles.topIconsWrapper}>
         <LanguageSwitch />
-        <Icon Component={ArrowBackIcon} onClick={onBackClick} />
+        <Icon Component={ArrowBackIcon} onClick={closeSidebar} />
       </Box>
       <Box sx={styles.itemsWrapper}>
         {map(visibleItems, (item) => (
@@ -56,7 +56,7 @@ const Sidebar = ({ items, open, isLoggedIn, onBackClick, onItemClick }) => {
             Icon={item.Icon}
             onClick={() => {
               item.onClick();
-              onItemClick();
+              closeSidebar();
             }}
           />
         ))}
@@ -83,15 +83,12 @@ Sidebar.propTypes = {
     })
   ),
   isLoggedIn: PropTypes.bool,
-  onBackClick: PropTypes.func,
-  onItemClick: PropTypes.func,
   open: PropTypes.bool,
 };
 
 Sidebar.defaultProps = {
   items: [],
   isLoggedIn: false,
-  onBackClick: noop,
   open: false,
 };
 

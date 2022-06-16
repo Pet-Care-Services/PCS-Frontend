@@ -9,5 +9,8 @@ export default {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    marginLeft: -10,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
   },
 };

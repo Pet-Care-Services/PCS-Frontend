@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import Routing from 'pages';
+import ChatProvider from 'providers/Chat';
 import DialogProvider from 'providers/Dialog';
 import SidebarProvider from 'providers/Sidebar';
 import AppThemeProvider from 'providers/Theme';
@@ -22,9 +23,11 @@ const App = () => {
           <AppThemeProvider>
             <DialogProvider>
               <SidebarProvider>
-                <BrowserRouter basename={process.env.PUBLIC_URL}>
-                  <Routing />
-                </BrowserRouter>
+                <ChatProvider>
+                  <BrowserRouter basename={process.env.PUBLIC_URL}>
+                    <Routing />
+                  </BrowserRouter>
+                </ChatProvider>
               </SidebarProvider>
             </DialogProvider>
           </AppThemeProvider>

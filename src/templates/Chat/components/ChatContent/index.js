@@ -8,7 +8,10 @@ const ChatContent = ({ messages }) => {
   return (
     <Box sx={styles.root}>
       {map(messages, (message) => (
-        <Box sx={{ ...(message.isMyMessage && styles.myMessage) }}>
+        <Box
+          key={message.id}
+          sx={{ ...(message.isMyMessage && styles.myMessage) }}
+        >
           {message.content}
         </Box>
       ))}

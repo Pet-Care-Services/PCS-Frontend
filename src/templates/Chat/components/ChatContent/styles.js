@@ -7,6 +7,7 @@ export default {
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
+    borderTopLeftRadius: 10,
   },
   myMessage: {
     alignSelf: 'flex-end',
