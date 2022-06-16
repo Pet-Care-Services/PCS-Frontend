@@ -8,8 +8,15 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     borderTopLeftRadius: 10,
+    rowGap: 10,
+    overflowY: 'auto',
+  },
+  messageWrapper: {
+    width: '70%',
+    display: 'flex',
   },
   myMessage: {
     alignSelf: 'flex-end',
+    justifyContent: 'flex-end',
   },
 };
