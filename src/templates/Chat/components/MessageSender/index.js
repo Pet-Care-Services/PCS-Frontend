@@ -8,6 +8,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { Box } from '@mui/system';
 import Icon from 'components/Icon';
 import Input from 'components/Input';
+import styles from './styles';
 
 const MessageSender = ({ onSubmit }) => {
   const { t } = useTranslation();
@@ -15,23 +16,13 @@ const MessageSender = ({ onSubmit }) => {
   return (
     <Formik initialValues={{ message: '' }} onSubmit={onSubmit}>
       {({ submitForm }) => (
-        <Box
-          component={Form}
-          sx={{
-            width: '100%',
-            height: 50,
-            display: 'flex',
-            alignItems: 'center',
-            backgroundColor: (theme) => theme.palette.secondary.main,
-            padding: (theme) => theme.spacing(0, 5),
-          }}
-        >
+        <Box component={Form} sx={styles.root}>
           <Icon Component={AddCircleOutlineIcon} size="large" />
           <Input
             name="message"
             label={t('message')}
             shrink={false}
-            sx={{ margin: (theme) => theme.spacing(0, 5) }}
+            sx={styles.input}
             small
             rounded
           />
