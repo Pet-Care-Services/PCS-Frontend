@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import useDialog from 'hooks/useDialog';
 import useUserData from 'hooks/useUserData';
+import Signup from 'templates/Signup';
 import { postLogin } from './queries';
 import LoginView from './view';
 
@@ -11,7 +12,7 @@ let formikSetFieldError = noop;
 
 const LoginContainer = () => {
   const { t } = useTranslation();
-  const { closeDialog } = useDialog();
+  const { closeDialog, openDialog } = useDialog();
   const { setToken, setUsername } = useUserData();
 
   const { mutate: login } = useMutation(postLogin, {
@@ -32,7 +33,11 @@ const LoginContainer = () => {
     formikSetFieldError = setFieldError;
   };
 
-  return <LoginView onSubmit={onSubmit} />;
+  const onGoToSignup = () => {
+    openDialog(<Signup />);
+  };
+
+  return <LoginView onGoToSignup={onGoToSignup} onSubmit={onSubmit} />;
 };
 
 export default LoginContainer;

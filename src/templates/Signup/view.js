@@ -6,16 +6,27 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import ActionText from 'components/ActionText';
 import Button from 'components/Button';
+import DatePicker from 'components/DatePicker';
 import Input from 'components/Input';
+import Select from 'components/Select';
+import getGenderOptions from 'consts/getGenderOptions';
 import getValidation from './validation';
 
-const LoginView = ({ onGoToSignup, onSubmit }) => {
+const SignupView = ({ onGoToLogin, onSubmit }) => {
   const { t } = useTranslation();
 
   return (
     <Formik
       onSubmit={onSubmit}
-      initialValues={{ email: '', password: '' }}
+      initialValues={{
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        mobile: '',
+        gender: '',
+        birthdate: '',
+      }}
       validationSchema={getValidation(t)}
       validateOnChange={false}
       validateOnBlur={false}
@@ -31,24 +42,35 @@ const LoginView = ({ onGoToSignup, onSubmit }) => {
           rowGap: 10,
         }}
       >
-        <Typography variant="h1">{t('login')}</Typography>
+        <Typography variant="h1">{t('signup')}</Typography>
+        <Box sx={{ display: 'flex', columnGap: 10 }}>
+          <Input name="firstName" label={t('firstName')} />
+          <Input name="lastName" label={t('lastName')} />
+        </Box>
         <Input name="email" label={t('email')} />
         <Input name="password" type="password" label={t('password')} />
-        <Button type="submit">{t('login')}</Button>
+        <Input name="mobile" label={t('mobile')} onlyNumbers />
+        <Select
+          name="gender"
+          label={t('genderLabel')}
+          options={getGenderOptions(t)}
+        />
+        <DatePicker name="birthdate" label={t('birthdate')} />
+        <Button type="submit">{t('signup')}</Button>
         <ActionText
-          onClick={onGoToSignup}
+          onClick={onGoToLogin}
           sx={{ marginBottom: -20, alignSelf: 'flex-end' }}
         >
-          {t('dontHaveAccount')}
+          {t('haveAccountAlready')}
         </ActionText>
       </Box>
     </Formik>
   );
 };
 
-LoginView.propTypes = {
+SignupView.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  onGoToSignup: PropTypes.func.isRequired,
+  onGoToLogin: PropTypes.func.isRequired,
 };
 
-export default LoginView;
+export default SignupView;
