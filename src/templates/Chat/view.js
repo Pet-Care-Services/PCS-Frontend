@@ -16,16 +16,19 @@ const ChatView = ({
   messages,
   onConversationClick,
   onSendMessage,
+  isLoadingConversations,
+  isLoadingMessages,
 }) => {
   return (
     <Box sx={styles.root}>
       <ConversationChooser
+        loading={isLoadingConversations}
         options={conversationOptions}
         activeConversationId={activeConversationId}
         onConversationClick={onConversationClick}
       />
       <Box sx={styles.rightContent}>
-        <ChatContent messages={messages} />
+        <ChatContent messages={messages} loading={isLoadingMessages} />
         <MessageSender onSubmit={onSendMessage} />
       </Box>
     </Box>
@@ -38,6 +41,8 @@ ChatView.propTypes = {
   messages: messagesShape,
   onConversationClick: PropTypes.func,
   onSendMessage: PropTypes.func,
+  isLoadingConversations: PropTypes.bool,
+  isLoadingMessages: PropTypes.bool,
 };
 
 ChatView.defaultProps = {
@@ -46,6 +51,8 @@ ChatView.defaultProps = {
   messages: [],
   onConversationClick: noop,
   onSendMessage: noop,
+  isLoadingConversations: true,
+  isLoadingMessages: true,
 };
 
 export default ChatView;

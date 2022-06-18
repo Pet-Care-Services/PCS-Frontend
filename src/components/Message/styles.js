@@ -4,6 +4,7 @@ export default {
     backgroundColor: (theme) => theme.palette.neutral.main,
     borderRadius: 20,
     padding: (theme) => theme.spacing(8, 15),
+    minHeight: 38,
   },
   text: {
     lineHeight: 1.5,
