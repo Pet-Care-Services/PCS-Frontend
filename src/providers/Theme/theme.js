@@ -32,6 +32,11 @@ const lightColors = {
     main: '#e30b32',
     dark: '#B00020',
   },
+  action: {
+    dark: NO_COLOR,
+    main: '#2579B7',
+    light: NO_COLOR,
+  },
   white: WHITE,
   black: BLACK,
   placeholder: '#7d7d7d',
@@ -59,6 +64,9 @@ const darkColors = {
     light: NO_COLOR,
     main: NO_COLOR,
     dark: NO_COLOR,
+  },
+  action: {
+    main: NO_COLOR,
   },
   white: WHITE,
   black: BLACK,
