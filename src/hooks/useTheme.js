@@ -16,6 +16,7 @@ const useTheme = () => {
   };
 
   return {
+    mode: context.state.mode,
     toggleTheme,
   };
 };

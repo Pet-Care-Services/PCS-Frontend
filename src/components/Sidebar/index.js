@@ -7,6 +7,7 @@ import { Box } from '@mui/material';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
 import LanguageSwitch from 'components/LanguageSwitch';
+import ThemeModeSwitch from 'components/ThemeModeSwitch';
 import Item from './components/Item';
 import styles from './styles';
 
@@ -28,7 +29,10 @@ const Sidebar = ({
   return (
     <>
       <Box sx={styles.topIconsWrapper}>
-        <LanguageSwitch />
+        <Box sx={styles.leftIcons}>
+          <LanguageSwitch />
+          <ThemeModeSwitch />
+        </Box>
         <Icon Component={ArrowBackIcon} onClick={onBackArrowClick} />
       </Box>
       <Box sx={styles.itemsWrapper}>

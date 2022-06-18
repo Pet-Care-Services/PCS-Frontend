@@ -5,7 +5,7 @@ import reducer from './reducer';
 import { MODE, lightTheme, darkTheme } from './theme';
 
 const initialState = {
-  mode: MODE.LIGHT,
+  mode: localStorage.getItem('mode') || MODE.LIGHT,
 };
 
 const ThemeContext = React.createContext({});
