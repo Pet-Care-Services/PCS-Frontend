@@ -53,5 +53,6 @@ export default {
     email: 'Email',
     password: 'Password',
     message: 'Message',
+    contact: 'Contact',
   },
 };

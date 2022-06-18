@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
-import { Paper, Box, Typography } from '@mui/material';
+import { Paper, Box, Typography, Collapse } from '@mui/material';
+import Button from 'components/Button';
+import Icon from 'components/Icon';
+import PriceRange from 'components/PriceRange';
 import Rating from 'components/Rating';
-import Icon from '../Icon';
-import PriceRange from '../PriceRange';
 import styles from './styles';
 import renderTags from './utils';
 
@@ -15,46 +17,30 @@ const Advertisement = ({
   price,
   location,
   image,
+  description,
 }) => {
+  const [isExpanded, setExpanded] = useState(false);
+
+  const { t } = useTranslation();
+
   return (
-    <Paper sx={styles.root}>
-      <Box p={10}>
-        <Box display={'flex'} sx={styles.root} gap={20}>
-          <Box
-            component="img"
-            sx={{
-              height: 140,
-              width: 180,
-              objectFit: 'cover',
-              borderRadius: 25,
-            }}
-            src={image}
-          />
-          <Box
-            display={'flex'}
-            flexGrow={10}
-            flexDirection={'column'}
-            justifyContent={'space-between'}
-          >
-            <Box display={'flex'} flexDirection={'column'}>
-              {renderTags(activities, 'activitiesTags', 2)}
-              {renderTags(animals, 'animalsTags', 2)}
+    <Paper sx={styles.elevation}>
+      <Collapse in={isExpanded} collapsedSize={170} sx={styles.collapse}>
+        <Box onClick={() => setExpanded(!isExpanded)} sx={styles.root}>
+          <Box sx={styles.collapsedBox}>
+            <Box component="img" sx={styles.imageBox} src={image} />
+            <Box sx={styles.centerColumnBox}>
+              <Box sx={styles.tagsBox}>
+                {renderTags(activities, 'activitiesTags', 2)}
+                {renderTags(animals, 'animalsTags', 2)}
+              </Box>
+              <Box sx={styles.locationBox}>
+                <Icon Component={FmdGoodIcon} size={'large'}></Icon>
+                <Typography variant={'h1'}>{location}</Typography>
+              </Box>
             </Box>
-            <Box display={'flex'} alignItems={'center'}>
-              <Icon Component={FmdGoodIcon} size={'large'}></Icon>
-              <Typography variant={'h1'}>{location}</Typography>
-            </Box>
-          </Box>
-          <Box
-            display={'flex'}
-            flexGrow={4}
-            flexDirection={'column'}
-            justifyContent={'space-between'}
-          >
-            <Box display={'flex'} justifyContent={'flex-end'}>
+            <Box sx={styles.rightColumnBox}>
               <Rating value={starsValue} />
-            </Box>
-            <Box display={'flex'} justifyContent={'flex-end'}>
               <PriceRange
                 from={price.from}
                 to={price.to}
@@ -62,8 +48,15 @@ const Advertisement = ({
               />
             </Box>
           </Box>
+          <Box sx={styles.expandedBox}>
+            <Typography variant="h2">{description}</Typography>
+            <Box sx={styles.availabilityBox}>Availability</Box>
+            <Box sx={styles.justifyEndBox}>
+              <Button sx={styles.contactButton}>{t('contact')}</Button>
+            </Box>
+          </Box>
         </Box>
-      </Box>
+      </Collapse>
     </Paper>
   );
 };
@@ -75,6 +68,7 @@ Advertisement.propTypes = {
   price: PropTypes.object.isRequired,
   location: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
 };
 
 //TODO Location prop as an object
