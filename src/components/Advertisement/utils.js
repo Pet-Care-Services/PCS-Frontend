@@ -1,29 +1,37 @@
 import React from 'react';
 import { Box } from '@mui/system';
-import Tag from '../Tag';
+import Tag from 'components/Tag';
 import styles from './styles';
 
-const renderTags = (tagLabels, styleType, amountToFit) => {
+const styleMap = {
+  activity: 'activitiesTags',
+  animal: 'animalsTags',
+};
+
+const renderTags = (tagLabels, modelKey, amountToFit, t) => {
   const size = tagLabels.length;
   const activitiesTags = [];
-  const color = styles[styleType].backgroundColor;
+  const styleKey = styleMap[modelKey];
+  const color = styles[styleKey].backgroundColor;
+
   for (let i = 0; i < amountToFit; i++) {
     if (size > i) {
       activitiesTags.push(
         <Tag
-          label={tagLabels[i]}
+          label={t(`${modelKey}.${tagLabels[i]}`)}
           color={color}
           key={`tag-${i}-${tagLabels[i]}`}
         />
       );
     }
   }
+
   if (size > amountToFit) {
     activitiesTags.push(
       <Tag
         label={'+' + (size - amountToFit)}
         color={color}
-        key={`tag-has-more-${styleType}`}
+        key={`tag-has-more-${modelKey}`}
       />
     );
   }

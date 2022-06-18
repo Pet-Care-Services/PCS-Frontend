@@ -5,5 +5,6 @@ export default {
     rowGap: 30,
     flexWrap: 'wrap',
     padding: 40,
+    justifyContent: 'center',
   },
 };

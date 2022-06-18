@@ -1,7 +1,7 @@
 import { map } from 'lodash';
 
-export default (dictionary) =>
+export default (dictionary, modelKey, t) =>
   map(dictionary, ({ id, name }) => ({
     value: id,
-    label: name,
+    label: t(`${modelKey}.${name}`),
   }));

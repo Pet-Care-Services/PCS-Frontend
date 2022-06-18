@@ -31,8 +31,8 @@ const Advertisement = ({
             <Box component="img" sx={styles.imageBox} src={image} />
             <Box sx={styles.centerColumnBox}>
               <Box sx={styles.tagsBox}>
-                {renderTags(activities, 'activitiesTags', 2)}
-                {renderTags(animals, 'animalsTags', 2)}
+                {renderTags(activities, 'activity', 2, t)}
+                {renderTags(animals, 'animal', 2, t)}
               </Box>
               <Box sx={styles.locationBox}>
                 <Icon Component={FmdGoodIcon} size={'large'}></Icon>
