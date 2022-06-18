@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { get } from 'lodash';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import Loader from 'components/Loader';
 import {
@@ -16,6 +17,7 @@ import { formatData } from './utils';
 import ListView from './view';
 
 const ListContainer = ({ itemType }) => {
+  const { t } = useTranslation();
   const { params, updateParams, clearParams } = useURLParams();
   const {
     data: advertisementsData,
@@ -61,8 +63,12 @@ const ListContainer = ({ itemType }) => {
       onFiltersSubmit={updateParams}
       onFiltersClear={clearParams}
       data={formatData(items)}
-      animalsOptions={mapDictionaryToOptions(animalsData.data)}
-      activitiesOptions={mapDictionaryToOptions(activitiesData.data)}
+      animalsOptions={mapDictionaryToOptions(animalsData.data, 'animal', t)}
+      activitiesOptions={mapDictionaryToOptions(
+        activitiesData.data,
+        'activity',
+        t
+      )}
       isLoading={isLoadingAdvertisements}
     />
   );

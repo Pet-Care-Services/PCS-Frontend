@@ -21,7 +21,11 @@ const Step3Container = ({ onSubmit, isService }) => {
     return <Loader />;
   }
 
-  const activitiesOptions = mapDictionaryToOptions(activities.data);
+  const activitiesOptions = mapDictionaryToOptions(
+    activities.data,
+    'activity',
+    t
+  );
 
   const priceTypeOptions = getPriceTypes(t);
   const periodOptions = getPeriodOptions(t);

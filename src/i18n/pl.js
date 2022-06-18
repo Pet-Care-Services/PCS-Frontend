@@ -28,7 +28,7 @@ export default {
     filters: 'Filtry',
     apply: 'Zastosuj',
     clear: 'Wyczyść',
-    animal: 'Zwierzę',
+    animalLabel: 'Zwierzę',
     location: 'Lokalizacja',
     service: 'Usługa',
     minimalPrice: 'Cena minimalna',

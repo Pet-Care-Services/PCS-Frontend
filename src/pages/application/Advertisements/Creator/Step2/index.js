@@ -29,7 +29,7 @@ const Step2 = ({ onSubmit }) => {
           onMouseLeave={() => setHoverItemId(null)}
         >
           <ImageButton
-            title={t(animal.name)}
+            title={t(`animal.${animal.name}`)}
             img={require('assets/mockPhoto.jpg')}
             variant="bottom"
             faded={hoverItemId !== null && hoverItemId !== animal.id}

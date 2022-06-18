@@ -3,7 +3,7 @@ import { FIELD_TYPES } from 'components/Filters/components/Field/consts';
 const getFiltersFields = (t, animalsOptions, activitiesOptions) => [
   {
     name: 'animalId',
-    label: t('animal'),
+    label: t('animalLabel'),
     fieldType: FIELD_TYPES.SELECT,
     fieldProps: {
       options: animalsOptions,
