@@ -7,6 +7,7 @@ import { Box } from '@mui/system';
 import ActionText from 'components/ActionText';
 import Button from 'components/Button';
 import Input from 'components/Input';
+import styles from './styles';
 import getValidation from './validation';
 
 const LoginView = ({ onGoToSignup, onSubmit }) => {
@@ -20,25 +21,12 @@ const LoginView = ({ onGoToSignup, onSubmit }) => {
       validateOnChange={false}
       validateOnBlur={false}
     >
-      <Box
-        component={Form}
-        sx={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          rowGap: 10,
-        }}
-      >
+      <Box component={Form} sx={styles.root}>
         <Typography variant="h1">{t('login')}</Typography>
         <Input name="email" label={t('email')} />
         <Input name="password" type="password" label={t('password')} />
         <Button type="submit">{t('login')}</Button>
-        <ActionText
-          onClick={onGoToSignup}
-          sx={{ marginBottom: -20, alignSelf: 'flex-end' }}
-        >
+        <ActionText onClick={onGoToSignup} sx={styles.linkButton}>
           {t('dontHaveAccount')}
         </ActionText>
       </Box>

@@ -10,6 +10,7 @@ import DatePicker from 'components/DatePicker';
 import Input from 'components/Input';
 import Select from 'components/Select';
 import getGenderOptions from 'consts/getGenderOptions';
+import styles from './styles';
 import getValidation from './validation';
 
 const SignupView = ({ onGoToLogin, onSubmit }) => {
@@ -31,19 +32,9 @@ const SignupView = ({ onGoToLogin, onSubmit }) => {
       validateOnChange={false}
       validateOnBlur={false}
     >
-      <Box
-        component={Form}
-        sx={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          rowGap: 10,
-        }}
-      >
+      <Box component={Form} sx={styles.root}>
         <Typography variant="h1">{t('signup')}</Typography>
-        <Box sx={{ display: 'flex', columnGap: 10 }}>
+        <Box sx={styles.dualField}>
           <Input name="firstName" label={t('firstName')} />
           <Input name="lastName" label={t('lastName')} />
         </Box>
@@ -57,10 +48,7 @@ const SignupView = ({ onGoToLogin, onSubmit }) => {
         />
         <DatePicker name="birthdate" label={t('birthdate')} withTime={false} />
         <Button type="submit">{t('signup')}</Button>
-        <ActionText
-          onClick={onGoToLogin}
-          sx={{ marginBottom: -20, alignSelf: 'flex-end' }}
-        >
+        <ActionText onClick={onGoToLogin} sx={styles.linkButton}>
           {t('haveAccountAlready')}
         </ActionText>
       </Box>
