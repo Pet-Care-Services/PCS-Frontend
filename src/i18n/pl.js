@@ -59,6 +59,7 @@ export default {
     email: 'Email',
     password: 'Hasło',
     message: 'Wiadomość',
+    contact: 'Kontakt',
     signup: 'Zarejestruj się',
     dontHaveAccount: 'Nie masz jeszcze konta?',
     haveAccountAlready: 'Masz już konto?',

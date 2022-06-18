@@ -60,6 +60,7 @@ export default {
     email: 'Email',
     password: 'Password',
     message: 'Message',
+    contact: 'Contact',
     signup: 'Sign up',
     // eslint-disable-next-line prettier/prettier
     dontHaveAccount: 'Don\'t have an account?',
