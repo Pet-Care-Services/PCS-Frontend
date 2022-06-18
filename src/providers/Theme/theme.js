@@ -42,31 +42,36 @@ const lightColors = {
   placeholder: '#7d7d7d',
 };
 
+// TODO create dark theme
+const TEMP_DARK_1 = '#242424';
+const TEMP_DARK_2 = '#363636';
+const TEMP_DARK_3 = '#4a4a4a';
+
 const darkColors = {
   primary: {
     contrastText: WHITE,
-    light: NO_COLOR,
-    main: NO_COLOR,
-    dark: NO_COLOR,
+    light: TEMP_DARK_1,
+    main: TEMP_DARK_2,
+    dark: TEMP_DARK_3,
   },
   secondary: {
     contrastText: WHITE,
-    light: NO_COLOR,
-    main: NO_COLOR,
-    dark: NO_COLOR,
+    light: TEMP_DARK_1,
+    main: TEMP_DARK_2,
+    dark: TEMP_DARK_3,
   },
   neutral: {
-    light: NO_COLOR,
-    main: NO_COLOR,
-    dark: NO_COLOR,
+    light: TEMP_DARK_1,
+    main: TEMP_DARK_2,
+    dark: TEMP_DARK_3,
   },
   error: {
-    light: NO_COLOR,
-    main: NO_COLOR,
-    dark: NO_COLOR,
+    light: TEMP_DARK_1,
+    main: TEMP_DARK_2,
+    dark: TEMP_DARK_3,
   },
   action: {
-    main: NO_COLOR,
+    main: TEMP_DARK_2,
   },
   white: WHITE,
   black: BLACK,

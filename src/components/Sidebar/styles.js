@@ -23,4 +23,9 @@ export default {
       backgroundColor: (theme) => theme.palette.white,
     },
   },
+  leftIcons: {
+    display: 'flex',
+    columnGap: 10,
+    marginRight: 'auto',
+  },
 };
