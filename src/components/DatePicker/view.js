@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { Box } from '@mui/system';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import InputView from 'components/Input/view';
+import { inputFormats, views } from './consts';
 
-const DatePickerView = ({ field, name, ...props }) => {
+const DatePickerView = ({ field, name, withTime, ...props }) => {
   const { setFieldValue } = useFormikContext();
   const [open, setOpen] = useState(false);
 
@@ -33,8 +34,9 @@ const DatePickerView = ({ field, name, ...props }) => {
       onChange={(value) => {
         setFieldValue(name, value);
       }}
+      views={views[withTime ? 'withTime' : 'onlyDate']}
       ampm={false}
-      inputFormat="dd - MM - yyyy, HH:mm"
+      inputFormat={inputFormats[withTime ? 'withTime' : 'onlyDate']}
       open={open}
       onClose={() => setOpen(false)}
       minutesStep={5}
@@ -46,6 +48,11 @@ const DatePickerView = ({ field, name, ...props }) => {
 DatePickerView.propTypes = {
   name: PropTypes.string.isRequired,
   field: PropTypes.any,
+  withTime: PropTypes.bool,
+};
+
+DatePickerView.defaultProps = {
+  withTime: true,
 };
 
 export default DatePickerView;

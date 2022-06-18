@@ -6,6 +6,8 @@ export default {
       max: 'The value cannot be higher than {{value}}',
       emailOrPasswordInvalid: 'Provided email or password is invalid',
       email: 'Please provide valid email address',
+      mobile: 'Please provide valid mobile number',
+      fieldTooShort: '{{field}} must be at least {{value}} characters long',
     },
     priceType: {
       single: 'Once',
@@ -18,6 +20,11 @@ export default {
     period: {
       everyWeek: 'Every week',
       everyMonth: 'Every month',
+    },
+    gender: {
+      male: 'Male',
+      female: 'Female',
+      notGiven: 'Prefer not to answer',
     },
     filters: 'Filters',
     apply: 'Apply',
@@ -54,5 +61,14 @@ export default {
     password: 'Password',
     message: 'Message',
     contact: 'Contact',
+    signup: 'Sign up',
+    // eslint-disable-next-line prettier/prettier
+    dontHaveAccount: 'Don\'t have an account?',
+    haveAccountAlready: 'Have account already?',
+    firstName: 'First name',
+    lastName: 'Last name',
+    mobile: 'Mobile',
+    genderLabel: 'Gender',
+    birthdate: 'Birthdate',
   },
 };

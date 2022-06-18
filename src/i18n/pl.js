@@ -6,6 +6,7 @@ export default {
       max: 'Wartość nie może być większa niż {{value}}',
       emailOrPasswordInvalid: 'Podano nieprawidłowy email lub hasło',
       email: 'Proszę podać poprawny adres email',
+      mobile: 'Proszę podać poprawny numer telefonu',
     },
     priceType: {
       single: 'Jednorazowo',
@@ -18,6 +19,11 @@ export default {
     period: {
       everyWeek: 'Co tydzień',
       everyMonth: 'Co miesiąc',
+    },
+    gender: {
+      male: 'Mężczyzna',
+      female: 'Kobieta',
+      notGiven: 'Wolę nie podawać',
     },
     filters: 'Filtry',
     apply: 'Zastosuj',
@@ -54,5 +60,13 @@ export default {
     password: 'Hasło',
     message: 'Wiadomość',
     contact: 'Kontakt',
+    signup: 'Zarejestruj się',
+    dontHaveAccount: 'Nie masz jeszcze konta?',
+    haveAccountAlready: 'Masz już konto?',
+    firstName: 'Imię',
+    lastName: 'Nazwisko',
+    mobile: 'Telefon',
+    genderLabel: 'Płeć',
+    birthdate: 'Data urodzenia',
   },
 };
