@@ -55,7 +55,7 @@ const SignupView = ({ onGoToLogin, onSubmit }) => {
           label={t('genderLabel')}
           options={getGenderOptions(t)}
         />
-        <DatePicker name="birthdate" label={t('birthdate')} />
+        <DatePicker name="birthdate" label={t('birthdate')} withTime={false} />
         <Button type="submit">{t('signup')}</Button>
         <ActionText
           onClick={onGoToLogin}
