@@ -35,7 +35,7 @@ const Advertisement = ({
                 {renderTags(animals, 'animal', 2, t)}
               </Box>
               <Box sx={styles.locationBox}>
-                <Icon Component={FmdGoodIcon} size={'large'}></Icon>
+                <Icon Component={FmdGoodIcon} size={'large'} />
                 <Typography variant={'h1'}>{location}</Typography>
               </Box>
             </Box>

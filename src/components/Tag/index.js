@@ -5,7 +5,10 @@ import colorShape from 'shapes/colorShape';
 
 const Tag = ({ label, color, labelColor }) => {
   return (
-    <Chip label={label} sx={{ backgroundColor: color, color: labelColor }} />
+    <Chip
+      label={label}
+      sx={{ backgroundColor: color, color: labelColor, cursor: 'inherit' }}
+    />
   );
 };
 

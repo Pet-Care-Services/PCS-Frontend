@@ -52,6 +52,7 @@ const ListContainer = ({ itemType }) => {
   };
 
   const items = get(advertisementsData, 'data');
+  console.log(items, formatData(items));
 
   if (isLoadingAnimals || isLoadingActivities) {
     return <Loader />;
