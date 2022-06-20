@@ -5,7 +5,7 @@ import priceTypeShape from 'shapes/priceTypeShape';
 
 const PriceRange = ({ from, to, type, currency }) => {
   const intervalEnd = to != null && to !== from ? '-' + to : '';
-  const intervalType = type === 'single' ? '' : '/h';
+  const intervalType = type === 'SINGLE' ? '' : '/h';
   const priceInterval = from + intervalEnd + currency + intervalType;
   return <Typography variant="h1">{priceInterval}</Typography>;
 };
@@ -19,7 +19,7 @@ PriceRange.propTypes = {
 
 PriceRange.defaultProps = {
   to: null,
-  type: 'single',
+  type: 'SINGLE',
   currency: 'zł',
 };
 

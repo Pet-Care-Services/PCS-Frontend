@@ -68,7 +68,11 @@ Advertisement.propTypes = {
   price: PropTypes.object.isRequired,
   location: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
+};
+
+Advertisement.defaultProps = {
+  description: '',
 };
 
 //TODO Location prop as an object
