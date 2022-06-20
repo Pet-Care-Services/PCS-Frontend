@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
@@ -20,6 +20,12 @@ const Advertisement = ({
   description,
 }) => {
   const [isExpanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    // TODO (chodzi o przełączanie services<->requests przy zexpandowanym ogłoszeniu)
+    // może warto tablicę zależności zastąpić jakimś ID? A jeśli to będzie kontolowane w kontenerze to wywalić ten useEffect
+    setExpanded(false);
+  }, [activities, animals, starsValue, price, location, image, description]);
 
   const { t } = useTranslation();
 

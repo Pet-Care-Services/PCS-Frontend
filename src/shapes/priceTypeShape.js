@@ -1,3 +1,3 @@
 import PropTypes from 'prop-types';
 
-export default PropTypes.oneOf(['SINGLE', 'HOURLY']);
+export default PropTypes.oneOf(['SINGLE', 'HOURLY', 'DAILY']);

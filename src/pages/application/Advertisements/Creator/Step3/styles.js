@@ -20,6 +20,10 @@ export default {
     minWidth: 300,
     maxWidth: 300,
   },
+  fullWidthField: {
+    minWidth: 300,
+    mwidth: '100%',
+  },
   narrowField: {
     minWidth: 120,
     maxWidth: 200,

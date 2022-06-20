@@ -61,11 +61,14 @@ const Step3 = ({
               />
             </Box>
             <Input label={t('location')} name="location" sx={styles.field} />
-            <Input
-              label={t('description')}
-              name="description"
-              sx={styles.field}
-            />
+            {!isService && (
+              <Input
+                label={t('description')}
+                name="description"
+                multiline
+                sx={styles.fullWidthField}
+              />
+            )}
             {isService && (
               <Input
                 label={t('animalQuantity')}

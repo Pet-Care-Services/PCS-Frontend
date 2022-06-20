@@ -78,6 +78,7 @@ export default {
     from: 'From',
     to: 'To',
     animalQuantity: 'Animal quantity',
+    description: 'Description',
     publish: 'Publish',
     login: 'Log in',
     logout: 'Log out',
@@ -94,5 +95,6 @@ export default {
     mobile: 'Mobile',
     genderLabel: 'Gender',
     birthdate: 'Birthdate',
+    day: 'day',
   },
 };

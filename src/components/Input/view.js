@@ -26,6 +26,7 @@ const InputView = forwardRef(
       noBorderEffects,
       rounded,
       actAsClickable,
+      multiline,
       onClick,
       sx,
       ...props
@@ -58,6 +59,9 @@ const InputView = forwardRef(
         label={label}
         error={!isEmpty(error)}
         helperText={error || helperText}
+        multiline={multiline}
+        minRows={2}
+        maxRows={999}
         variant="outlined"
         sx={{
           width: '100%',
@@ -71,8 +75,9 @@ const InputView = forwardRef(
           endAdornment,
           sx: {
             color: (theme) => theme.palette.black,
-            height: 50,
-            padding: 0,
+            height: !multiline && 50,
+            minHeight: 50,
+            padding: multiline ? 16 : 0,
             borderRadius: 5,
             ...(rounded && { borderRadius: 15 }),
             backgroundColor: (theme) => theme.palette.white,
@@ -94,7 +99,7 @@ const InputView = forwardRef(
                 },
               },
             },
-            ...(small && { height: 35 }),
+            ...(small && { height: 35, minHeight: 35 }),
           },
         }}
         FormHelperTextProps={{
@@ -147,6 +152,7 @@ InputView.propTypes = {
   noBorderEffects: PropTypes.bool,
   rounded: PropTypes.bool,
   actAsClickable: PropTypes.bool,
+  multiline: PropTypes.bool,
   onClick: PropTypes.func,
   endAdornment: PropTypes.node,
   value: stringOrNumberShape,
@@ -168,6 +174,7 @@ InputView.defaultProps = {
   noBorderEffects: false,
   rounded: false,
   actAsClickable: false,
+  multiline: false,
   endAdornment: null,
   children: null,
   sx: {},

@@ -26,6 +26,7 @@ const Default = Template.bind({});
 const WithValue = Template.bind({});
 const Error = Template.bind({});
 const Helper = Template.bind({});
+const TextArea = Template.bind({});
 
 Default.args = {
   label: 'My input',
@@ -47,4 +48,9 @@ Helper.args = {
   helperText: 'Please provide full animal breed',
 };
 
-export { Default, WithValue, Error, Helper };
+TextArea.args = {
+  ...Default.args,
+  multiline: true,
+};
+
+export { Default, WithValue, Error, Helper, TextArea };

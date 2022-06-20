@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 import priceTypeShape from 'shapes/priceTypeShape';
 
 const PriceRange = ({ from, to, type, currency }) => {
+  const { t } = useTranslation();
+  const typeIntervalMap = {
+    SINGLE: '',
+    HOURLY: '/h',
+    DAILY: `/${t('day')}`,
+  };
+
   const intervalEnd = to != null && to !== from ? '-' + to : '';
-  const intervalType = type === 'SINGLE' ? '' : '/h';
+  const intervalType = typeIntervalMap[type];
   const priceInterval = from + intervalEnd + currency + intervalType;
+
   return <Typography variant="h1">{priceInterval}</Typography>;
 };
 
