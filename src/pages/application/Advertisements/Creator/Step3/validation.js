@@ -23,6 +23,9 @@ const getValidation = (t, isService) =>
     ...(isService && {
       capacity: Yup.number().required(t('validation.required')),
     }),
+    ...(!isService && {
+      description: Yup.string().required(t('validation.required')),
+    }),
   });
 
 export default getValidation;

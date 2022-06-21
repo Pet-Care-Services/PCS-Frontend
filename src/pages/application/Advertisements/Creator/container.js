@@ -47,13 +47,14 @@ const AdvertismentCreator = () => {
   const handleDataSubmit = (values) => {
     const data = {
       ...values,
+      description: type === ITEM_TYPE.REQUEST ? values.description : undefined,
+      capacity: type === ITEM_TYPE.SERVICE ? values.capacity : undefined,
       animal: { id: animal },
       availabilities: map(values.availabilities, (entry) => ({
         ...entry,
         from: setAPIDateFormat(entry.from),
         to: setAPIDateFormat(entry.to),
       })),
-      userId: 1,
     };
 
     if (type === ITEM_TYPE.REQUEST) {

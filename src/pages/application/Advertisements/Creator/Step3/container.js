@@ -39,6 +39,7 @@ const Step3Container = ({ onSubmit, isService }) => {
     location: '',
     availabilities: [initialAvailabilityData],
     capacity: '',
+    description: '',
   };
 
   return (

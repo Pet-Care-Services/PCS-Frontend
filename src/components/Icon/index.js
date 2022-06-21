@@ -15,7 +15,7 @@ const Icon = ({ size, Component, onClick, disabled, active, sx }) => {
       disableRipple={!onClick || active}
       sx={{
         ...{ width: dimension.box, height: dimension.box },
-        ...(!onClick && { cursor: 'default', padding: 0 }),
+        ...(!onClick && { cursor: 'inherit', padding: 0 }),
         ...(active && {
           backgroundColor: (theme) => theme.palette.primary.main,
           color: (theme) => theme.palette.white,

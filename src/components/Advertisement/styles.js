@@ -10,6 +10,7 @@ export default {
   },
   contactButton: {
     width: 300,
+    marginTop: 10,
   },
   collapse: {
     borderRadius: 25,
