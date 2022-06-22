@@ -8,7 +8,7 @@ export default (t) => [
     label: t('gender.female'),
   },
   {
-    value: 'NOT_GIVEN',
+    value: 'RATHER_NOT_SAY',
     label: t('gender.notGiven'),
   },
 ];

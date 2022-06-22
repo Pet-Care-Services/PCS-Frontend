@@ -10,7 +10,10 @@ const Button = ({ color, variant, onClick, children, type, small, sx }) => {
   return (
     <MUIButton
       type={type}
-      onClick={onClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
       variant={variant}
       sx={{ ...styles.root, ...(small && styles.small), ...sx }}
     >
