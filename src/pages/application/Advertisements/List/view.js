@@ -6,6 +6,7 @@ import { Box, Typography } from '@mui/material';
 import Advertisement from 'components/Advertisement';
 import Filters from 'components/Filters';
 import Loader from 'components/Loader';
+import Map from 'components/Map';
 import { optionsShape } from 'components/Select/shapes';
 import { getFiltersFields } from './consts';
 import { filtersInitialValuesShape, dataShape } from './shapes';
@@ -35,6 +36,9 @@ const ListView = ({
         />
       </Box>
       <Box sx={styles.contentWrapper}>
+        <Box sx={{ width: '100%', height: 300, background: 'green' }}>
+          <Map />
+        </Box>
         {isLoading && <Loader />}
         {!isLoading && isEmpty(data) && (
           <Box sx={styles.centered}>
