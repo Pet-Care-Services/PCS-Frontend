@@ -16,6 +16,7 @@ const ListView = ({
   filtersInitialValues,
   onFiltersSubmit,
   onFiltersClear,
+  onContactClick,
   data,
   animalsOptions,
   activitiesOptions,
@@ -43,7 +44,11 @@ const ListView = ({
           </Box>
         )}
         {map(data, (adverisement, index) => (
-          <Advertisement key={index} {...adverisement} />
+          <Advertisement
+            key={index}
+            {...adverisement}
+            onContactClick={() => onContactClick(adverisement.userId)}
+          />
         ))}
       </Box>
     </Box>
@@ -56,6 +61,7 @@ ListView.propTypes = {
   data: dataShape,
   onFiltersSubmit: PropTypes.func,
   onFiltersClear: PropTypes.func,
+  onContactClick: PropTypes.func,
   animalsOptions: optionsShape,
   activitiesOptions: optionsShape,
 };
@@ -63,6 +69,7 @@ ListView.propTypes = {
 ListView.defaultProps = {
   onFiltersSubmit: noop,
   onFiltersClear: noop,
+  onContactClick: noop,
   data: [],
   animalsOptions: [],
   activitiesOptions: [],

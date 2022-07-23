@@ -12,4 +12,10 @@ const getAdvertisements = (itemType, params) => {
   });
 };
 
-export { ADVERTISEMENTS_KEY, getAdvertisements };
+const postConversation = ({ userId }) => {
+  return axios.post('/conversations', {
+    userId,
+  });
+};
+
+export { ADVERTISEMENTS_KEY, getAdvertisements, postConversation };
