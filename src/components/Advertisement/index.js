@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
@@ -18,14 +19,16 @@ const Advertisement = ({
   location,
   image,
   description,
+  onContactClick,
 }) => {
   const [isExpanded, setExpanded] = useState(false);
 
-  useEffect(() => {
-    // TODO (chodzi o przełączanie services<->requests przy zexpandowanym ogłoszeniu)
-    // może warto tablicę zależności zastąpić jakimś ID? A jeśli to będzie kontolowane w kontenerze to wywalić ten useEffect
-    setExpanded(false);
-  }, [activities, animals, starsValue, price, location, image, description]);
+  // TODO wywalone bo psuło się przy zamykaniu chatu
+  // useEffect(() => {
+  // TODO (chodzi o przełączanie services<->requests przy zexpandowanym ogłoszeniu)
+  // może warto tablicę zależności zastąpić jakimś ID? A jeśli to będzie kontolowane w kontenerze to wywalić ten useEffect
+  // setExpanded(false);
+  // }, [activities, animals, starsValue, price, location, image, description]);
 
   const { t } = useTranslation();
 
@@ -58,7 +61,9 @@ const Advertisement = ({
             <Typography variant="h2">{description}</Typography>
             <Box sx={styles.availabilityBox}>Availability</Box>
             <Box sx={styles.justifyEndBox}>
-              <Button sx={styles.contactButton}>{t('contact')}</Button>
+              <Button sx={styles.contactButton} onClick={onContactClick}>
+                {t('contact')}
+              </Button>
             </Box>
           </Box>
         </Box>
@@ -75,10 +80,12 @@ Advertisement.propTypes = {
   location: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   description: PropTypes.string,
+  onContactClick: PropTypes.func,
 };
 
 Advertisement.defaultProps = {
   description: '',
+  onContactClick: noop,
 };
 
 //TODO Location prop as an object

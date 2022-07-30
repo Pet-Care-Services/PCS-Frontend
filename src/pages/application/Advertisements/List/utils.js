@@ -26,6 +26,7 @@ const formatAnimals = (data) => {
 const formatData = (advertisements) =>
   map(advertisements, (entry) => ({
     id: entry.id,
+    userId: entry.userId,
     activities: map(entry.activities, ({ name }) => name),
     animals: formatAnimals(entry.animals || entry.animal),
     starsValue: 5,
