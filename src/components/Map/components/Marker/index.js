@@ -1,11 +1,12 @@
 import React from 'react';
 import { Circle, OverlayView } from '@react-google-maps/api';
+import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import styles from './styles';
 
-const Marker = ({ position, radius }) => {
+const Marker = ({ position, radius, onMapClick, onMarkerClick }) => {
   const theme = useTheme();
 
   return (
@@ -14,8 +15,15 @@ const Marker = ({ position, radius }) => {
       mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
     >
       <>
-        <Box sx={styles.center} />
+        <Box
+          sx={styles.center}
+          onClick={(e) => {
+            e.stopPropagation();
+            onMarkerClick(position);
+          }}
+        />
         <Circle
+          onClick={onMapClick}
           center={position}
           radius={radius}
           options={{
@@ -36,6 +44,14 @@ Marker.propTypes = {
     lng: PropTypes.number,
   }).isRequired,
   radius: PropTypes.number,
+  onMapClick: PropTypes.func,
+  onMarkerClick: PropTypes.func,
+};
+
+Marker.defaultProps = {
+  radius: null,
+  onMapClick: noop,
+  onMarkerClick: noop,
 };
 
 export default Marker;
