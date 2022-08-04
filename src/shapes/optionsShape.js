@@ -8,4 +8,4 @@ const optionsShape = PropTypes.arrayOf(
   })
 );
 
-export { optionsShape };
+export default optionsShape;

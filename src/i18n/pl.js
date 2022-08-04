@@ -94,5 +94,10 @@ export default {
     genderLabel: 'Płeć',
     birthdate: 'Data urodzenia',
     day: 'dzień',
+    autocomplete: {
+      noOptions: 'Brak dopasowań',
+      encourageText: 'Wpisz co najmniej 3 litery, aby wyszukać...',
+      loading: 'Wczytywanie dopasowań...',
+    },
   },
 };

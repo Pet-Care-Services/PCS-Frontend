@@ -96,5 +96,10 @@ export default {
     genderLabel: 'Gender',
     birthdate: 'Birthdate',
     day: 'day',
+    autocomplete: {
+      noOptions: 'No options',
+      encourageText: 'Type at least 3 characters to search...',
+      loading: 'Loading options...',
+    },
   },
 };
