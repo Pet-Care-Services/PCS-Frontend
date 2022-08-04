@@ -7,7 +7,7 @@ import { Box } from '@mui/system';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Select from 'components/Select';
-import { optionsShape } from 'components/Select/shapes';
+import optionsShape from 'shapes/optionsShape';
 import ActivitiesFieldArray from './components/ActivitiesFieldArray';
 import AvailabilitiesFieldArray from './components/AvailabilitiesFieldArray';
 import styles from './styles';

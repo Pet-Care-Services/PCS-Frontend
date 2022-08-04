@@ -6,7 +6,7 @@ import { Box, Typography } from '@mui/material';
 import Advertisement from 'components/Advertisement';
 import Filters from 'components/Filters';
 import Loader from 'components/Loader';
-import { optionsShape } from 'components/Select/shapes';
+import optionsShape from 'shapes/optionsShape';
 import { getFiltersFields } from './consts';
 import { filtersInitialValuesShape, dataShape } from './shapes';
 import styles from './styles';

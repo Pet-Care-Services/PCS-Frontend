@@ -1,6 +1,6 @@
 import { keys } from 'lodash';
 import PropTypes from 'prop-types';
-import { optionsShape } from 'components/Select/shapes';
+import optionsShape from 'shapes/optionsShape';
 import { FIELD_TYPES } from './consts';
 
 const fieldPropsShape = PropTypes.shape({
