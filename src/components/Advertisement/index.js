@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -19,23 +19,16 @@ const Advertisement = ({
   location,
   image,
   description,
+  isExpanded,
+  onBoxClick,
   onContactClick,
 }) => {
-  const [isExpanded, setExpanded] = useState(false);
-
-  // TODO wywalone bo psuło się przy zamykaniu chatu
-  // useEffect(() => {
-  // TODO (chodzi o przełączanie services<->requests przy zexpandowanym ogłoszeniu)
-  // może warto tablicę zależności zastąpić jakimś ID? A jeśli to będzie kontolowane w kontenerze to wywalić ten useEffect
-  // setExpanded(false);
-  // }, [activities, animals, starsValue, price, location, image, description]);
-
   const { t } = useTranslation();
 
   return (
     <Paper sx={styles.elevation}>
       <Collapse in={isExpanded} collapsedSize={170} sx={styles.collapse}>
-        <Box onClick={() => setExpanded(!isExpanded)} sx={styles.root}>
+        <Box onClick={onBoxClick} sx={styles.root}>
           <Box sx={styles.collapsedBox}>
             <Box component="img" sx={styles.imageBox} src={image} />
             <Box sx={styles.centerColumnBox}>
@@ -80,12 +73,16 @@ Advertisement.propTypes = {
   location: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   description: PropTypes.string,
+  isExpanded: PropTypes.bool,
   onContactClick: PropTypes.func,
+  onBoxClick: PropTypes.func,
 };
 
 Advertisement.defaultProps = {
   description: '',
+  isExpanded: false,
   onContactClick: noop,
+  onBoxClick: noop,
 };
 
 //TODO Location prop as an object
