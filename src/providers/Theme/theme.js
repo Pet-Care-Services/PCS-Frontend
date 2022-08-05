@@ -101,6 +101,12 @@ const common = {
       fontSize: 10,
     },
   },
+  borderRadius: {
+    tiny: 5,
+    small: 10,
+    medium: 25,
+    infinite: 9999,
+  },
   shape: {
     borderRadius: 1,
   },

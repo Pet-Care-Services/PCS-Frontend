@@ -6,14 +6,14 @@ export default {
     backgroundColor: (theme) => theme.palette.neutral.main,
   },
   elevation: {
-    borderRadius: 25,
+    borderRadius: (theme) => theme.borderRadius.medium,
   },
   contactButton: {
     width: 300,
     marginTop: 10,
   },
   collapse: {
-    borderRadius: 25,
+    borderRadius: (theme) => theme.borderRadius.medium,
   },
   root: {
     display: 'flex',
@@ -31,7 +31,7 @@ export default {
     height: 140,
     width: 180,
     objectFit: 'cover',
-    borderRadius: 25,
+    borderRadius: (theme) => theme.borderRadius.medium,
   },
   centerColumnBox: {
     display: 'flex',

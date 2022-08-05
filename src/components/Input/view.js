@@ -78,8 +78,10 @@ const InputView = forwardRef(
             height: !multiline && 50,
             minHeight: 50,
             padding: multiline ? 16 : 0,
-            borderRadius: 5,
-            ...(rounded && { borderRadius: 15 }),
+            borderRadius: (theme) => theme.borderRadius.tiny,
+            ...(rounded && {
+              borderRadius: (theme) => theme.borderRadius.medium,
+            }),
             backgroundColor: (theme) => theme.palette.white,
             '&.MuiOutlinedInput-root': {
               '.MuiOutlinedInput-notchedOutline': {
@@ -123,7 +125,7 @@ const InputView = forwardRef(
           MenuProps: {
             sx: {
               '.MuiMenu-paper': {
-                borderRadius: 5,
+                borderRadius: (theme) => theme.borderRadius.tiny,
               },
               '.MuiMenu-list': {
                 padding: 0,

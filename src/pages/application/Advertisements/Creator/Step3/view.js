@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { Typography } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Button from 'components/Button';
 import Input from 'components/Input';
@@ -24,7 +24,7 @@ const Step3 = ({
   const { t } = useTranslation();
 
   return (
-    <Box sx={styles.root}>
+    <Paper sx={styles.root}>
       <Formik
         initialValues={initialValues}
         validationSchema={getValidation(t, isService)}
@@ -91,7 +91,7 @@ const Step3 = ({
           </Box>
         )}
       </Formik>
-    </Box>
+    </Paper>
   );
 };
 

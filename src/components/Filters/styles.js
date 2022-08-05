@@ -8,7 +8,7 @@ export default {
     backgroundColor: (theme) => theme.palette.white,
     padding: 20,
     boxSizing: 'border-box',
-    borderRadius: 10,
+    borderRadius: (theme) => theme.borderRadius.small,
   },
   formContent: {
     display: 'flex',

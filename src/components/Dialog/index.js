@@ -11,7 +11,7 @@ const Dialog = ({ onClose, open, content }) => (
       sx: {
         width: 500,
         height: 'auto',
-        borderRadius: 5,
+        borderRadius: (theme) => theme.borderRadius.tiny,
         padding: 40,
       },
     }}
