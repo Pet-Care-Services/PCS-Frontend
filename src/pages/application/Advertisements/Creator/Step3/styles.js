@@ -5,7 +5,7 @@ export default {
     width: 850,
     minWidth: 300,
     backgroundColor: (theme) => theme.palette.white,
-    borderRadius: 10,
+    borderRadius: (theme) => theme.borderRadius.small,
   },
   form: {
     rowGap: 15,

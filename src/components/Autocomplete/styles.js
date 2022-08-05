@@ -3,7 +3,7 @@ export default (error, helperText) => ({
     width: '100%',
   },
   listbox: {
-    borderRadius: 5,
+    borderRadius: (theme) => theme.borderRadius.tiny,
     padding: 0,
 
     '.MuiAutocomplete-option': {
@@ -29,7 +29,7 @@ export default (error, helperText) => ({
     },
   },
   paper: {
-    borderRadius: 5,
+    borderRadius: (theme) => theme.borderRadius.tiny,
     marginTop: error || helperText ? -15 : 3,
     boxShadow:
       '0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12)',
