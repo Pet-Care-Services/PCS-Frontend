@@ -5,11 +5,8 @@ export default {
     display: 'flex',
     columnGap: 20,
   },
-  filtersWrapper: {
-    flex: 1,
-  },
   contentWrapper: {
-    flex: 3,
+    flex: 1,
     minWidth: 600,
     display: 'flex',
     flexDirection: 'column',

@@ -1,7 +1,7 @@
 export default {
   root: {
     minWidth: 380,
-    width: '100%',
+    width: 380,
     height: '100%',
     display: 'flex',
     flexDirection: 'column',

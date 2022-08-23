@@ -70,7 +70,7 @@ const ActivitiesFieldArray = ({ activities, activitiesOptions, errors }) => {
 ActivitiesFieldArray.propTypes = {
   activities: PropTypes.arrayOf(
     PropTypes.exact({
-      id: PropTypes.oneOfType(PropTypes.number, PropTypes.string),
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     })
   ),
   activitiesOptions: optionsShape,

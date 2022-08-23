@@ -35,15 +35,13 @@ const ListView = ({
 
   return (
     <Box sx={styles.root}>
-      <Box sx={styles.filtersWrapper}>
-        <Filters
-          rows={getFiltersFields(t, animalsOptions, activitiesOptions)}
-          initialValues={filtersInitialValues}
-          validationSchema={getFiltersValidation(t)}
-          onSubmit={onFiltersSubmit}
-          onClear={onFiltersClear}
-        />
-      </Box>
+      <Filters
+        rows={getFiltersFields(t, animalsOptions, activitiesOptions)}
+        initialValues={filtersInitialValues}
+        validationSchema={getFiltersValidation(t)}
+        onSubmit={onFiltersSubmit}
+        onClear={onFiltersClear}
+      />
       <Box sx={styles.contentWrapper}>
         {isLoading && <Loader />}
         {!isLoading && isEmpty(data) && (
