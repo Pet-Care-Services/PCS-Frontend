@@ -7,6 +7,9 @@ export default {
       emailOrPasswordInvalid: 'Podano nieprawidłowy email lub hasło',
       email: 'Proszę podać poprawny adres email',
       mobile: 'Proszę podać poprawny numer telefonu',
+      fieldTooShort: '{{field}} musi mieć co najmniej {{value}} znaków',
+      invalidTextLength: '{{field}} musi mieć dokładnie {{value}} znaków',
+      invalidCode: 'Kod jest niepoprawny',
     },
     priceType: {
       single: 'Jednorazowo',
@@ -99,5 +102,9 @@ export default {
       encourageText: 'Wpisz co najmniej 3 litery, aby wyszukać...',
       loading: 'Wczytywanie dopasowań...',
     },
+    verify: 'Zweryfikuj',
+    resendCode: 'Wyślij ponownie',
+    mobileVerification: 'Weryfikacja telefonu',
+    smsHasBeenSent: 'Kod aktywacyjny został wysłany na podany numer telefonu.',
   },
 };

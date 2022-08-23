@@ -3,6 +3,7 @@ import { noop } from 'lodash';
 import { useMutation } from 'react-query';
 import useDialog from 'hooks/useDialog';
 import Login from 'templates/Login';
+import MobileVerification from 'templates/MobileVerification';
 import { postSignup } from './queries';
 import SignupView from './view';
 
@@ -13,7 +14,7 @@ const SignupContainer = () => {
 
   const { mutate: signup } = useMutation(postSignup, {
     onSuccess: () => {
-      closeDialog();
+      openDialog(<MobileVerification />);
     },
     onError: (err) => {
       if (err.response.status === 400) {

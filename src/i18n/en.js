@@ -8,6 +8,8 @@ export default {
       email: 'Please provide valid email address',
       mobile: 'Please provide valid mobile number',
       fieldTooShort: '{{field}} must be at least {{value}} characters long',
+      invalidTextLength: '{{field}} must have {{value}} characters',
+      invalidCode: 'The code is invalid',
     },
     priceType: {
       single: 'Once',
@@ -101,5 +103,9 @@ export default {
       encourageText: 'Type at least 3 characters to search...',
       loading: 'Loading options...',
     },
+    verify: 'Verify',
+    resendCode: 'Resend the code',
+    mobileVerification: 'Mobile verification',
+    smsHasBeenSent: 'We have sent you a SMS message with a verification code.',
   },
 };
