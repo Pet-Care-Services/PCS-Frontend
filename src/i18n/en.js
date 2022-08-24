@@ -107,5 +107,9 @@ export default {
     resendCode: 'Resend the code',
     mobileVerification: 'Mobile verification',
     smsHasBeenSent: 'We have sent you a SMS message with a verification code.',
+    welcome: 'Welcome!',
+    afterRegistrationMessage:
+      'Your account has been created. You can go to login section. Remember to check your email inbox in order to confirm the account.',
+    ok: 'Ok',
   },
 };

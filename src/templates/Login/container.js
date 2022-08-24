@@ -4,8 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import useDialog from 'hooks/useDialog';
 import useUserData from 'hooks/useUserData';
+import MobileVerification from 'templates/MobileVerification';
 import Signup from 'templates/Signup';
-import { postLogin } from './queries';
+import { postLogin, sendCodeMutation } from './queries';
 import LoginView from './view';
 
 let formikSetFieldError = noop;
@@ -15,12 +16,22 @@ const LoginContainer = () => {
   const { closeDialog, openDialog } = useDialog();
   const { setToken, setUsername } = useUserData();
 
+  const { mutate: sendCode } = useMutation(sendCodeMutation, {
+    onSuccess: () => {
+      openDialog(<MobileVerification />);
+    },
+    onError: () => {
+      // TODO Snackbar here
+    },
+  });
+
   const { mutate: login } = useMutation(postLogin, {
     onSuccess: (res) => {
       closeDialog();
       const bearerToken = `Bearer ${res.data.token}`;
       setToken(bearerToken);
       setUsername(res.data.username);
+      sendCode();
     },
     onError: () => {
       formikSetFieldError('email', t('validation.emailOrPasswordInvalid'));

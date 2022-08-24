@@ -8,12 +8,12 @@ import MobileVerificationView from './view';
 
 let formikSetFieldError = noop;
 
-const LoginContainer = () => {
+const MobileVerificationContainer = () => {
   const { t } = useTranslation();
   const { closeDialog } = useDialog();
 
   const { mutate: verifyCode } = useMutation(verifyCodeMutation, {
-    onSuccess: (res) => {
+    onSuccess: () => {
       closeDialog();
     },
     onError: () => {
@@ -40,4 +40,4 @@ const LoginContainer = () => {
   );
 };
 
-export default LoginContainer;
+export default MobileVerificationContainer;

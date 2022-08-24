@@ -5,10 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import ActionText from 'components/ActionText';
-import Button from 'components/Button';
 import CodeInput from 'components/CodeInput';
 import styles from './styles';
-import getValidation from './validation';
 
 const MobileVerificationView = ({ onResendCode, onSubmit }) => {
   const { t } = useTranslation();
@@ -17,22 +15,25 @@ const MobileVerificationView = ({ onResendCode, onSubmit }) => {
     <Formik
       onSubmit={onSubmit}
       initialValues={{ code: '' }}
-      validationSchema={getValidation(t)}
       validateOnChange={false}
       validateOnBlur={false}
     >
-      <Box component={Form} sx={styles.root}>
-        <Typography variant="h1">{t('mobileVerification')}</Typography>
-        <Typography variant="body" sx={styles.description}>
-          {t('smsHasBeenSent')}
-        </Typography>
-        <CodeInput autoFocus fastSubmitAction={onSubmit} />
+      {({ submitForm }) => (
+        <Box component={Form} sx={styles.root}>
+          <Typography variant="h1">{t('mobileVerification')}</Typography>
+          <Typography variant="body">{t('smsHasBeenSent')}</Typography>
+          <CodeInput
+            name="code"
+            autoFocus
+            fastSubmitAction={submitForm}
+            sx={styles.codeInput}
+          />
 
-        <Button type="submit">{t('verify')}</Button>
-        <ActionText onClick={onResendCode} sx={styles.linkButton}>
-          {t('resendCode')}
-        </ActionText>
-      </Box>
+          <ActionText onClick={onResendCode} sx={styles.linkButton}>
+            {t('resendCode')}
+          </ActionText>
+        </Box>
+      )}
     </Formik>
   );
 };

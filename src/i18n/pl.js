@@ -106,5 +106,9 @@ export default {
     resendCode: 'Wyślij ponownie',
     mobileVerification: 'Weryfikacja telefonu',
     smsHasBeenSent: 'Kod aktywacyjny został wysłany na podany numer telefonu.',
+    welcome: 'Witaj!',
+    afterRegistrationMessage:
+      'Twoje konto zostało założone. Możesz przejść teraz do sekcji logowania. Pamiętaj o sprawdzeniu skrzynki mailowej w celu potwierdzenia konta.',
+    ok: 'Ok',
   },
 };

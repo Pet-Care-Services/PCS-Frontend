@@ -4,4 +4,8 @@ const postLogin = (data) => {
   return axios.post('/authenticate/login', data);
 };
 
-export { postLogin };
+const sendCodeMutation = () => {
+  return axios.post('/sms/verification/obtain');
+};
+
+export { postLogin, sendCodeMutation };

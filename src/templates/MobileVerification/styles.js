@@ -7,8 +7,9 @@ export default {
     alignItems: 'center',
     rowGap: 10,
   },
-  description: {
-    alignSelf: 'flex-start',
+  codeInput: {
+    marginTop: 20,
+    marginBottom: 20,
   },
   linkButton: {
     marginBottom: -20,

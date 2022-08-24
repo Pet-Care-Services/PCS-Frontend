@@ -40,8 +40,8 @@ const CodeInput = ({
   return (
     <FormikField name={name} {...props}>
       {({ form: { setFieldValue }, meta: { error } }) => (
-        <>
-          <Box sx={{ ...styles.root, ...sx }}>
+        <Box sx={sx}>
+          <Box sx={styles.boxesWrapper}>
             {map(idsArray, (id) => (
               <Box
                 key={id}
@@ -54,10 +54,12 @@ const CodeInput = ({
               />
             ))}
           </Box>
-          <Typography variant="tiny" sx={styles.error}>
-            {error}
-          </Typography>
-        </>
+          {error && (
+            <Typography variant="tiny" sx={styles.error}>
+              {error}
+            </Typography>
+          )}
+        </Box>
       )}
     </FormikField>
   );

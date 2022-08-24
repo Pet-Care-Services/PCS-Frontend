@@ -1,5 +1,5 @@
 export default {
-  root: {
+  boxesWrapper: {
     display: 'flex',
     columnGap: 5,
   },
