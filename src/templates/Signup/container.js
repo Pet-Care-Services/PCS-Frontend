@@ -19,6 +19,9 @@ const SignupContainer = () => {
         <SimpleInfoDialogContent
           title={t('welcome')}
           information={t('afterRegistrationMessage')}
+          onAccept={() => {
+            openDialog(<Login />);
+          }}
         />
       );
     },

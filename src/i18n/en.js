@@ -11,6 +11,9 @@ export default {
       invalidTextLength: '{{field}} must have {{value}} characters',
       invalidCode: 'The code is invalid',
     },
+    error: {
+      unknown: 'Something went wrong...',
+    },
     priceType: {
       single: 'Once',
       hourly: 'Per hour',
@@ -111,5 +114,7 @@ export default {
     afterRegistrationMessage:
       'Your account has been created. You can go to login section. Remember to check your email inbox in order to confirm the account.',
     ok: 'Ok',
+    codeHasBeenResent: 'Code has been resent',
+    mobileHasBeenVerified: 'Your mobile has been verified',
   },
 };

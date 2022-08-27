@@ -11,6 +11,9 @@ export default {
       invalidTextLength: '{{field}} musi mieć dokładnie {{value}} znaków',
       invalidCode: 'Kod jest niepoprawny',
     },
+    error: {
+      unknown: 'Coś poszło nie tak...',
+    },
     priceType: {
       single: 'Jednorazowo',
       hourly: 'Na godzinę',
@@ -110,5 +113,7 @@ export default {
     afterRegistrationMessage:
       'Twoje konto zostało założone. Możesz przejść teraz do sekcji logowania. Pamiętaj o sprawdzeniu skrzynki mailowej w celu potwierdzenia konta.',
     ok: 'Ok',
+    codeHasBeenResent: 'Kod został wysłany ponownie',
+    mobileHasBeenVerified: 'Twój telefon został pomyślnie zweryfikowany',
   },
 };

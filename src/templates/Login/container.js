@@ -3,6 +3,7 @@ import { noop } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import useDialog from 'hooks/useDialog';
+import useSnackbar from 'hooks/useSnackbar';
 import useUserData from 'hooks/useUserData';
 import MobileVerification from 'templates/MobileVerification';
 import Signup from 'templates/Signup';
@@ -14,6 +15,7 @@ let formikSetFieldError = noop;
 const LoginContainer = () => {
   const { t } = useTranslation();
   const { closeDialog, openDialog } = useDialog();
+  const { openSnackbar } = useSnackbar();
   const { setToken, setUsername } = useUserData();
 
   const { mutate: sendCode } = useMutation(sendCodeMutation, {
@@ -21,7 +23,7 @@ const LoginContainer = () => {
       openDialog(<MobileVerification />);
     },
     onError: () => {
-      // TODO Snackbar here
+      openSnackbar(t('error.unknown'));
     },
   });
 
