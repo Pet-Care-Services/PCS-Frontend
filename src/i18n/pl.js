@@ -115,5 +115,10 @@ export default {
     ok: 'Ok',
     codeHasBeenResent: 'Kod został wysłany ponownie',
     mobileHasBeenVerified: 'Twój telefon został pomyślnie zweryfikowany',
+    emailHasBeenVerified: 'Twój adres email został pomyślnie zweryfikowany',
+    emailVerificationFailed:
+      'Link weryfikacyjny wygasł lub jest nieprawidłowy!',
+    redirectInXSeconds:
+      'Zostaniesz przekierowany na stronę główną za {{value}} sekund.',
   },
 };

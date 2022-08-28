@@ -6,6 +6,7 @@ import { ITEM_TYPE } from 'consts/enums';
 import ApplicationLayout from 'layouts/ApplicationLayout';
 import AdvertismentCreator from 'pages/application/Advertisements/Creator';
 import AdvertismentsList from 'pages/application/Advertisements/List';
+import EmailVerification from './application/Verification/EmailVerification';
 
 const Routing = () => (
   <Routes>
@@ -26,6 +27,9 @@ const Routing = () => (
           </ProtectedRoute>
         }
       />
+
+      <Route path="verify-email" element={<EmailVerification />} />
+      <Route path="" element={<Navigate to={DEFAULT_ROUTE} replace />} />
     </Route>
 
     <Route path="*" element={<Navigate to={DEFAULT_ROUTE} replace />} />

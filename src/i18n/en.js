@@ -115,6 +115,10 @@ export default {
       'Your account has been created. You can go to login section. Remember to check your email inbox in order to confirm the account.',
     ok: 'Ok',
     codeHasBeenResent: 'Code has been resent',
-    mobileHasBeenVerified: 'Your mobile has been verified',
+    mobileHasBeenVerified: 'Your mobile has been successfully verified',
+    emailHasBeenVerified: 'Your email has been successfully verified!',
+    emailVerificationFailed: 'The verification link has expired or is invalid!',
+    redirectInXSeconds:
+      'You will be redirected to the main page in {{value}} seconds.',
   },
 };
