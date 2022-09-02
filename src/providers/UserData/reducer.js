@@ -1,6 +1,8 @@
+import { omit } from 'lodash';
+
 const actions = {
   SET_TOKEN: 'USER_DATA/SET_TOKEN',
-  SET_USERNAME: 'USER_DATA/SET_USERNAME',
+  SET_USER_DATA: 'USER_DATA/SET_USER_DATA',
   CLEAR: 'USER_DATA/CLEAR',
 };
 
@@ -13,18 +15,16 @@ const reducer = (state, action) => {
       };
     }
 
-    case actions.SET_USERNAME: {
+    case actions.SET_USER_DATA: {
       return {
         ...state,
-        username: action.payload,
+        ...omit(action.payload, 'token'),
       };
     }
 
     case actions.CLEAR: {
       return {
-        ...state,
         token: null,
-        username: null,
       };
     }
 

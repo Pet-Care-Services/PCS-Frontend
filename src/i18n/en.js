@@ -8,6 +8,13 @@ export default {
       email: 'Please provide valid email address',
       mobile: 'Please provide valid mobile number',
       fieldTooShort: '{{field}} must be at least {{value}} characters long',
+      invalidTextLength: '{{field}} must have {{value}} characters',
+      invalidCode: 'The code is invalid',
+    },
+    error: {
+      unknown: 'Something went wrong...',
+      sendEmail: 'We encountered an error while sending the email...',
+      sessionExpired: 'Session expired. Please log in again',
     },
     priceType: {
       single: 'Once',
@@ -101,5 +108,22 @@ export default {
       encourageText: 'Type at least 3 characters to search...',
       loading: 'Loading options...',
     },
+    verify: 'Verify',
+    resendCode: 'Resend the code',
+    resendEmail: 'Resend the email',
+    mobileVerification: 'Mobile verification',
+    smsHasBeenSent: 'We have sent you a SMS message with a verification code.',
+    activateAccount: 'Activate your account',
+    verificationEmailHasBeenSent:
+      'An activation link has been sent to the provided email address',
+    verifyYourEmail:
+      'Please check your email inbox in order to verify the email address.',
+    ok: 'Ok',
+    codeHasBeenResent: 'Code has been resent',
+    mobileHasBeenVerified: 'Your mobile has been successfully verified',
+    emailHasBeenVerified: 'Your email has been successfully verified!',
+    emailVerificationFailed: 'The verification link has expired or is invalid!',
+    redirectInXSeconds:
+      'You will be redirected to the main page in {{value}} seconds.',
   },
 };

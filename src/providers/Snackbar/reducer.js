@@ -1,20 +1,19 @@
 const actions = {
-  OPEN_DIALOG: 'DIALOG/OPEN',
-  CLOSE_DIALOG: 'DIALOG/CLOSE',
+  OPEN_SNACKBAR: 'SNACKBAR/OPEN',
+  CLOSE_SNACKBAR: 'SNACKBAR/CLOSE',
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case actions.OPEN_DIALOG: {
+    case actions.OPEN_SNACKBAR: {
       return {
         ...state,
         open: true,
-        content: action.payload,
-        closable: action.closable ?? true,
+        message: action.payload,
       };
     }
 
-    case actions.CLOSE_DIALOG: {
+    case actions.CLOSE_SNACKBAR: {
       return {
         ...state,
         open: false,

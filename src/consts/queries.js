@@ -12,4 +12,17 @@ const getActivities = () => {
   return axios.get('/activities');
 };
 
-export { ANIMALS_KEY, getAnimals, ACTIVITIES_KEY, getActivities };
+const ME_QUERY_KEY = 'ME_QUERY';
+
+const getMe = () => {
+  return axios.get('/user/me');
+};
+
+export {
+  ANIMALS_KEY,
+  getAnimals,
+  ACTIVITIES_KEY,
+  getActivities,
+  ME_QUERY_KEY,
+  getMe,
+};

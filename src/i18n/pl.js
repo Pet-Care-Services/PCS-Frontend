@@ -7,6 +7,14 @@ export default {
       emailOrPasswordInvalid: 'Podano nieprawidłowy email lub hasło',
       email: 'Proszę podać poprawny adres email',
       mobile: 'Proszę podać poprawny numer telefonu',
+      fieldTooShort: '{{field}} musi mieć co najmniej {{value}} znaków',
+      invalidTextLength: '{{field}} musi mieć dokładnie {{value}} znaków',
+      invalidCode: 'Kod jest niepoprawny',
+    },
+    error: {
+      unknown: 'Coś poszło nie tak...',
+      sendEmail: 'Napotkaliśmy problem podczas wysyłania maila...',
+      sessionExpired: 'Sesja wygasła. Zaloguj się ponownie',
     },
     priceType: {
       single: 'Jednorazowo',
@@ -99,5 +107,23 @@ export default {
       encourageText: 'Wpisz co najmniej 3 litery, aby wyszukać...',
       loading: 'Wczytywanie dopasowań...',
     },
+    verify: 'Zweryfikuj',
+    resendCode: 'Wyślij kod ponownie',
+    resendEmail: 'Wyślij email ponownie',
+    mobileVerification: 'Weryfikacja telefonu',
+    smsHasBeenSent: 'Kod aktywacyjny został wysłany na podany numer telefonu.',
+    activateAccount: 'Aktywuj konto',
+    verificationEmailHasBeenSent:
+      'Na podany adres email został wysłany link aktywacyjny',
+    verifyYourEmail:
+      'Proszę sprawdzić skrzynkę email w celu potwierdzenia adresu email.',
+    ok: 'Ok',
+    codeHasBeenResent: 'Kod został wysłany ponownie',
+    mobileHasBeenVerified: 'Twój telefon został pomyślnie zweryfikowany',
+    emailHasBeenVerified: 'Twój adres email został pomyślnie zweryfikowany',
+    emailVerificationFailed:
+      'Link weryfikacyjny wygasł lub jest nieprawidłowy!',
+    redirectInXSeconds:
+      'Zostaniesz przekierowany na stronę główną za {{value}} sekund.',
   },
 };

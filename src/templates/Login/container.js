@@ -13,14 +13,13 @@ let formikSetFieldError = noop;
 const LoginContainer = () => {
   const { t } = useTranslation();
   const { closeDialog, openDialog } = useDialog();
-  const { setToken, setUsername } = useUserData();
+  const { setToken } = useUserData();
 
   const { mutate: login } = useMutation(postLogin, {
     onSuccess: (res) => {
       closeDialog();
       const bearerToken = `Bearer ${res.data.token}`;
       setToken(bearerToken);
-      setUsername(res.data.username);
     },
     onError: () => {
       formikSetFieldError('email', t('validation.emailOrPasswordInvalid'));
