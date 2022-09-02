@@ -8,12 +8,13 @@ import ActionText from 'components/ActionText';
 import Button from 'components/Button';
 import DatePicker from 'components/DatePicker';
 import Input from 'components/Input';
+import Loader from 'components/Loader';
 import Select from 'components/Select';
 import getGenderOptions from 'consts/getGenderOptions';
 import styles from './styles';
 import getValidation from './validation';
 
-const SignupView = ({ onGoToLogin, onSubmit }) => {
+const SignupView = ({ onGoToLogin, onSubmit, isLoading }) => {
   const { t } = useTranslation();
 
   return (
@@ -48,6 +49,7 @@ const SignupView = ({ onGoToLogin, onSubmit }) => {
         />
         <DatePicker name="birthdate" label={t('birthdate')} withTime={false} />
         <Button type="submit">{t('signup')}</Button>
+        {isLoading && <Loader />}
         <ActionText onClick={onGoToLogin} sx={styles.linkButton}>
           {t('haveAccountAlready')}
         </ActionText>
@@ -59,6 +61,7 @@ const SignupView = ({ onGoToLogin, onSubmit }) => {
 SignupView.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onGoToLogin: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default SignupView;

@@ -3,11 +3,9 @@ import { noop } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import useDialog from 'hooks/useDialog';
-import useSnackbar from 'hooks/useSnackbar';
 import useUserData from 'hooks/useUserData';
-import MobileVerification from 'templates/MobileVerification';
 import Signup from 'templates/Signup';
-import { postLogin, sendCodeMutation } from './queries';
+import { postLogin } from './queries';
 import LoginView from './view';
 
 let formikSetFieldError = noop;
@@ -15,25 +13,13 @@ let formikSetFieldError = noop;
 const LoginContainer = () => {
   const { t } = useTranslation();
   const { closeDialog, openDialog } = useDialog();
-  const { openSnackbar } = useSnackbar();
-  const { setToken, setUsername } = useUserData();
-
-  const { mutate: sendCode } = useMutation(sendCodeMutation, {
-    onSuccess: () => {
-      openDialog(<MobileVerification />);
-    },
-    onError: () => {
-      openSnackbar(t('error.unknown'));
-    },
-  });
+  const { setToken } = useUserData();
 
   const { mutate: login } = useMutation(postLogin, {
     onSuccess: (res) => {
       closeDialog();
       const bearerToken = `Bearer ${res.data.token}`;
       setToken(bearerToken);
-      setUsername(res.data.username);
-      sendCode();
     },
     onError: () => {
       formikSetFieldError('email', t('validation.emailOrPasswordInvalid'));

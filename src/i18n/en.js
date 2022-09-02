@@ -13,6 +13,8 @@ export default {
     },
     error: {
       unknown: 'Something went wrong...',
+      sendEmail: 'We encountered an error while sending the email...',
+      sessionExpired: 'Session expired. Please log in again',
     },
     priceType: {
       single: 'Once',
@@ -108,11 +110,14 @@ export default {
     },
     verify: 'Verify',
     resendCode: 'Resend the code',
+    resendEmail: 'Resend the email',
     mobileVerification: 'Mobile verification',
     smsHasBeenSent: 'We have sent you a SMS message with a verification code.',
-    welcome: 'Welcome!',
-    afterRegistrationMessage:
-      'Your account has been created. You can go to login section. Remember to check your email inbox in order to confirm the account.',
+    activateAccount: 'Activate your account',
+    verificationEmailHasBeenSent:
+      'An activation link has been sent to the provided email address',
+    verifyYourEmail:
+      'Please check your email inbox in order to verify the email address.',
     ok: 'Ok',
     codeHasBeenResent: 'Code has been resent',
     mobileHasBeenVerified: 'Your mobile has been successfully verified',

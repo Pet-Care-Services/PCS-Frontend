@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { noop } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
@@ -13,6 +13,7 @@ const MobileVerificationContainer = () => {
   const { t } = useTranslation();
   const { closeDialog } = useDialog();
   const { openSnackbar } = useSnackbar();
+  const [isFirstLoad, setFirstLoad] = useState(true);
 
   const { mutate: verifyCode } = useMutation(verifyCodeMutation, {
     onSuccess: () => {
@@ -24,14 +25,21 @@ const MobileVerificationContainer = () => {
     },
   });
 
-  const { mutate: resendCode } = useMutation(resendCodeMutation, {
+  const { mutate: sendCodeBySMS } = useMutation(resendCodeMutation, {
     onSuccess: () => {
-      openSnackbar(t('codeHasBeenResent'));
+      if (!isFirstLoad) {
+        openSnackbar(t('codeHasBeenResent'));
+      }
     },
     onError: () => {
       openSnackbar(t('error.unknown'));
     },
   });
+
+  useEffect(() => {
+    sendCodeBySMS();
+    setFirstLoad(false);
+  }, []);
 
   const onSubmit = (values, { setFieldError }) => {
     verifyCode(values);
@@ -39,7 +47,7 @@ const MobileVerificationContainer = () => {
   };
 
   return (
-    <MobileVerificationView onResendCode={resendCode} onSubmit={onSubmit} />
+    <MobileVerificationView onResendCode={sendCodeBySMS} onSubmit={onSubmit} />
   );
 };
 

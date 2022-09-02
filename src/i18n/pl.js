@@ -13,6 +13,8 @@ export default {
     },
     error: {
       unknown: 'Coś poszło nie tak...',
+      sendEmail: 'Napotkaliśmy problem podczas wysyłania maila...',
+      sessionExpired: 'Sesja wygasła. Zaloguj się ponownie',
     },
     priceType: {
       single: 'Jednorazowo',
@@ -106,12 +108,15 @@ export default {
       loading: 'Wczytywanie dopasowań...',
     },
     verify: 'Zweryfikuj',
-    resendCode: 'Wyślij ponownie',
+    resendCode: 'Wyślij kod ponownie',
+    resendEmail: 'Wyślij email ponownie',
     mobileVerification: 'Weryfikacja telefonu',
     smsHasBeenSent: 'Kod aktywacyjny został wysłany na podany numer telefonu.',
-    welcome: 'Witaj!',
-    afterRegistrationMessage:
-      'Twoje konto zostało założone. Możesz przejść teraz do sekcji logowania. Pamiętaj o sprawdzeniu skrzynki mailowej w celu potwierdzenia konta.',
+    activateAccount: 'Aktywuj konto',
+    verificationEmailHasBeenSent:
+      'Na podany adres email został wysłany link aktywacyjny',
+    verifyYourEmail:
+      'Proszę sprawdzić skrzynkę email w celu potwierdzenia adresu email.',
     ok: 'Ok',
     codeHasBeenResent: 'Kod został wysłany ponownie',
     mobileHasBeenVerified: 'Twój telefon został pomyślnie zweryfikowany',

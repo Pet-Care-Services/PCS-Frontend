@@ -9,10 +9,11 @@ const useDialog = () => {
     throw new Error('useDialog must be used within a DialogContext');
   }
 
-  const openDialog = (content) => {
+  const openDialog = (content, closable) => {
     context.dispatch({
       type: actions.OPEN_DIALOG,
       payload: content,
+      closable,
     });
   };
 

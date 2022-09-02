@@ -6,6 +6,7 @@ import reducer, { actions } from './reducer';
 const initialState = {
   open: false,
   content: null,
+  closable: true,
 };
 
 const DialogContext = React.createContext({});
@@ -15,9 +16,11 @@ const DialogProvider = ({ children }) => {
   const value = { state, dispatch };
 
   const handleClose = () => {
-    dispatch({
-      type: actions.CLOSE_DIALOG,
-    });
+    if (state.closable) {
+      dispatch({
+        type: actions.CLOSE_DIALOG,
+      });
+    }
   };
 
   return (
