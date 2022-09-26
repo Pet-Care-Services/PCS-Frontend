@@ -60,7 +60,25 @@ const Step3 = ({
                 sx={styles.narrowField}
               />
             </Box>
-            <Input label={t('location')} name="location" sx={styles.field} />
+            <Box sx={styles.multiFieldLine}>
+              <Input
+                label={t('address')}
+                name="location.address"
+                sx={styles.field}
+              />
+              <Input
+                label={t('city')}
+                name="location.city"
+                sx={styles.narrowField}
+              />
+              <Input
+                label={t('postalCode')}
+                name="location.postalCode"
+                maxLength={5}
+                onlyNumbers
+                sx={styles.narrowField}
+              />
+            </Box>
             {!isService && (
               <Input
                 label={t('description')}

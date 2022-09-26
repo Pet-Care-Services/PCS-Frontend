@@ -27,6 +27,7 @@ const InputView = forwardRef(
       rounded,
       actAsClickable,
       multiline,
+      maxLength,
       onClick,
       sx,
       ...props
@@ -69,6 +70,7 @@ const InputView = forwardRef(
         }}
         inputProps={{
           onClick,
+          maxLength,
         }}
         InputProps={{
           readOnly: actAsClickable,
@@ -149,6 +151,7 @@ InputView.propTypes = {
   children: PropTypes.node,
   onChange: PropTypes.func,
   onlyNumbers: PropTypes.bool,
+  maxLength: PropTypes.number,
   small: PropTypes.bool,
   shrink: PropTypes.bool,
   noBorderEffects: PropTypes.bool,
@@ -171,6 +174,7 @@ InputView.defaultProps = {
   onChange: noop,
   onClick: noop,
   onlyNumbers: false,
+  maxLength: null,
   small: false,
   shrink: true,
   noBorderEffects: false,
