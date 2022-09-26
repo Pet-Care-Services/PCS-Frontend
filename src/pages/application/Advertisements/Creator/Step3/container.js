@@ -1,23 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { debounce } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import Loader from 'components/Loader';
+import { DEBOUNCE_TIME } from 'consts/config';
 import getPeriodOptions from 'consts/getPeriodOptions';
 import getPriceTypes from 'consts/getPriceTypesOptions';
 import { ACTIVITIES_KEY, getActivities } from 'consts/queries';
 import mapDictionaryToOptions from 'utils/mapDictionaryToOptions';
+import {
+  getAddressesFromGoogleAPI,
+  GOOGLE_API_ADDRESSES_KEY,
+} from '../queries';
 import { initialActivityData, initialAvailabilityData } from './consts';
 import Step3View from './view';
 
 const Step3Container = ({ onSubmit, isService }) => {
   const { t } = useTranslation();
-  const { data: activities, isLoading } = useQuery(
+  const [addressValue, setAddressValue] = useState('');
+  const { data: activities, isLoading: isLoadingActivities } = useQuery(
     ACTIVITIES_KEY,
     getActivities
   );
 
-  if (isLoading) {
+  const {
+    data: addresses,
+    isLoading: isLoadingAddresses,
+    refetch: fetchAddresses,
+  } = useQuery(
+    GOOGLE_API_ADDRESSES_KEY,
+    () => getAddressesFromGoogleAPI(addressValue),
+    {
+      refetchOnWindowFocus: false,
+      enabled: false,
+    }
+  );
+
+  useEffect(() => {
+    if (addressValue) {
+      debounce(fetchAddresses, DEBOUNCE_TIME)();
+    }
+  }, [addressValue]);
+
+  if (isLoadingActivities) {
     return <Loader />;
   }
 
@@ -30,13 +56,25 @@ const Step3Container = ({ onSubmit, isService }) => {
   const priceTypeOptions = getPriceTypes(t);
   const periodOptions = getPeriodOptions(t);
 
+  const getAddressOptions = (event) => {
+    setAddressValue(event.target.value);
+  };
+
   const initialValues = {
     activities: [initialActivityData],
     price: {
       amount: '',
       type: priceTypeOptions[0].value,
     },
-    location: '',
+    location: {
+      address: '',
+      apartment: '',
+      city: '',
+      postalCode: '',
+    },
+    pin: {
+      radius: isService ? '' : undefined,
+    },
     availabilities: [initialAvailabilityData],
     capacity: '',
     description: '',
@@ -50,6 +88,7 @@ const Step3Container = ({ onSubmit, isService }) => {
       initialValues={initialValues}
       onSubmit={onSubmit}
       isService={isService}
+      getAddressOptions={getAddressOptions}
     />
   );
 };

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import Autocomplete from 'components/Autocomplete';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Select from 'components/Select';
@@ -20,8 +21,10 @@ const Step3 = ({
   periodOptions,
   initialValues,
   isService,
+  getAddressOptions,
 }) => {
   const { t } = useTranslation();
+  const adressOptions = [];
 
   return (
     <Paper sx={styles.root}>
@@ -61,16 +64,34 @@ const Step3 = ({
               />
             </Box>
             <Box sx={styles.multiFieldLine}>
-              <Input
+              <Autocomplete
                 label={t('address')}
                 name="location.address"
+                options={adressOptions}
+                onChange={getAddressOptions}
                 sx={styles.field}
               />
               <Input
-                label={t('city')}
-                name="location.city"
+                label={t('apartmentNumber')}
+                name="location.apartment"
+                helperText={t('optional')}
                 sx={styles.narrowField}
               />
+              {isService && (
+                <Input
+                  label={t('radius')}
+                  name="pin.radius"
+                  endAdornment={
+                    <Typography variant="h3" sx={styles.inputAdornment}>
+                      {t('distance.km')}
+                    </Typography>
+                  }
+                  sx={styles.narrowField}
+                />
+              )}
+            </Box>
+            <Box sx={styles.multiFieldLine}>
+              <Input label={t('city')} name="location.city" sx={styles.field} />
               <Input
                 label={t('postalCode')}
                 name="location.postalCode"
@@ -125,7 +146,15 @@ Step3.propTypes = {
       amount: PropTypes.string,
       type: PropTypes.string,
     }),
-    location: PropTypes.string,
+    location: PropTypes.shape({
+      address: PropTypes.string,
+      apartment: PropTypes.string,
+      city: PropTypes.string,
+      postalCode: PropTypes.string,
+    }),
+    pin: PropTypes.shape({
+      radius: PropTypes.string,
+    }),
     availabilities: PropTypes.arrayOf(
       PropTypes.shape({
         from: PropTypes.string,

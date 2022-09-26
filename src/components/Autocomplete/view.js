@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useFormikContext } from 'formik';
+import { get } from 'lodash';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Paper } from '@mui/material';
 import MUIAutocomplete from '@mui/material/Autocomplete';
 import InputView from 'components/Input/view';
+import { AUTOCOMPLETE_MIN_LENGTH_TO_SEARCH } from 'consts/config';
 import optionsShape from 'shapes/optionsShape';
 import getStyles from './styles';
 import { getOptions, getOptionLabel } from './utils';
@@ -14,11 +16,11 @@ const Autocomplete = ({
   options,
   label,
   name,
-  minLengthToSearch,
   onChange,
   error,
   helperText,
   isLoading,
+  sx,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -26,19 +28,19 @@ const Autocomplete = ({
   const [open, setOpen] = useState(false);
   const { values, setFieldValue } = useFormikContext();
 
-  const value = values[name];
+  const value = get(values, name, '');
 
   let noOptionsText = t('autocomplete.noOptions');
 
   if (isLoading) {
     noOptionsText = t('autocomplete.loading');
-  } else if (value.length < minLengthToSearch) {
+  } else if (value.length < AUTOCOMPLETE_MIN_LENGTH_TO_SEARCH) {
     noOptionsText = t('autocomplete.encourageText');
   }
 
   return (
     <MUIAutocomplete
-      sx={styles.root}
+      sx={{ ...styles.root, ...sx }}
       ListboxProps={{
         sx: styles.listbox,
       }}
@@ -60,7 +62,9 @@ const Autocomplete = ({
       onChange={(_, option) => {
         const value = getOptionLabel(option);
         setFieldValue(name, value);
-        onChange({ target: { value } });
+        if (value.length >= AUTOCOMPLETE_MIN_LENGTH_TO_SEARCH) {
+          onChange({ target: { value } });
+        }
       }}
       renderInput={(params) => (
         <div ref={params.InputProps.ref}>
@@ -87,20 +91,20 @@ Autocomplete.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   options: optionsShape,
-  minLengthToSearch: PropTypes.number,
   error: PropTypes.string,
   helperText: PropTypes.string,
   isLoading: PropTypes.bool,
   onChange: PropTypes.func,
+  sx: PropTypes.object,
 };
 
 Autocomplete.defaultProps = {
   options: [],
   onChange: noop,
-  minLengthToSearch: 0,
   error: '',
   helperText: '',
   isLoading: false,
+  sx: {},
 };
 
 export default Autocomplete;
