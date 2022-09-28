@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import useDialog from 'hooks/useDialog';
 import useSnackbar from 'hooks/useSnackbar';
+import useUserData from 'hooks/useUserData';
 import { verifyCodeMutation, resendCodeMutation } from './queries';
 import MobileVerificationView from './view';
 
@@ -13,6 +14,7 @@ const MobileVerificationContainer = () => {
   const { t } = useTranslation();
   const { closeDialog } = useDialog();
   const { openSnackbar } = useSnackbar();
+  const { clearUserData } = useUserData();
   const [isFirstLoad, setFirstLoad] = useState(true);
 
   const { mutate: verifyCode } = useMutation(verifyCodeMutation, {
@@ -46,8 +48,17 @@ const MobileVerificationContainer = () => {
     formikSetFieldError = setFieldError;
   };
 
+  const onLogoutClick = () => {
+    closeDialog();
+    clearUserData();
+  };
+
   return (
-    <MobileVerificationView onResendCode={sendCodeBySMS} onSubmit={onSubmit} />
+    <MobileVerificationView
+      onResendCode={sendCodeBySMS}
+      onLogoutClick={onLogoutClick}
+      onSubmit={onSubmit}
+    />
   );
 };
 
