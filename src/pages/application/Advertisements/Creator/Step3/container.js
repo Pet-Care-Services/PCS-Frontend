@@ -1,47 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { debounce } from 'lodash';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import Loader from 'components/Loader';
-import { DEBOUNCE_TIME } from 'consts/config';
+import { ITEM_TYPE } from 'consts/enums';
 import getPeriodOptions from 'consts/getPeriodOptions';
 import getPriceTypes from 'consts/getPriceTypesOptions';
 import { ACTIVITIES_KEY, getActivities } from 'consts/queries';
+import useGoogleAutocomplete from 'hooks/useGoogleAutocomplete';
 import mapDictionaryToOptions from 'utils/mapDictionaryToOptions';
-import {
-  getAddressesFromGoogleAPI,
-  GOOGLE_API_ADDRESSES_KEY,
-} from '../queries';
 import { initialActivityData, initialAvailabilityData } from './consts';
+import { mapAddressOptions, mapCityOptions } from './utils';
 import Step3View from './view';
 
 const Step3Container = ({ onSubmit, isService }) => {
   const { t } = useTranslation();
   const [addressValue, setAddressValue] = useState('');
+  const [cityValue, setCityValue] = useState('');
   const { data: activities, isLoading: isLoadingActivities } = useQuery(
     ACTIVITIES_KEY,
     getActivities
   );
-
-  const {
-    data: addresses,
-    isLoading: isLoadingAddresses,
-    refetch: fetchAddresses,
-  } = useQuery(
-    GOOGLE_API_ADDRESSES_KEY,
-    () => getAddressesFromGoogleAPI(addressValue),
-    {
-      refetchOnWindowFocus: false,
-      enabled: false,
-    }
-  );
-
-  useEffect(() => {
-    if (addressValue) {
-      debounce(fetchAddresses, DEBOUNCE_TIME)();
-    }
-  }, [addressValue]);
+  const typeId = isService ? ITEM_TYPE.SERVICE : ITEM_TYPE.REQUEST;
+  const { data: addressData, isLoading: isLoadingAddressOptions } =
+    useGoogleAutocomplete(`${typeId}-address`, addressValue, ['address']);
+  const { data: cityData, isLoading: isLoadingCityOptions } =
+    useGoogleAutocomplete(`${typeId}-city`, cityValue, ['locality']);
 
   if (isLoadingActivities) {
     return <Loader />;
@@ -55,10 +39,6 @@ const Step3Container = ({ onSubmit, isService }) => {
 
   const priceTypeOptions = getPriceTypes(t);
   const periodOptions = getPeriodOptions(t);
-
-  const getAddressOptions = (event) => {
-    setAddressValue(event.target.value);
-  };
 
   const initialValues = {
     activities: [initialActivityData],
@@ -88,7 +68,12 @@ const Step3Container = ({ onSubmit, isService }) => {
       initialValues={initialValues}
       onSubmit={onSubmit}
       isService={isService}
-      getAddressOptions={getAddressOptions}
+      getAddressOptions={setAddressValue}
+      addressOptions={mapAddressOptions(addressData)}
+      isLoadingAddressOptions={isLoadingAddressOptions}
+      getCityOptions={setCityValue}
+      cityOptions={mapCityOptions(cityData)}
+      isLoadingCityOptions={isLoadingCityOptions}
     />
   );
 };

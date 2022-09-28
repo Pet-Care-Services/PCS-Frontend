@@ -60,12 +60,11 @@ const Autocomplete = ({
       getOptionDisabled={(option) => option.value < 0}
       options={getOptions(options, noOptionsText)}
       onChange={(_, option) => {
-        const value = getOptionLabel(option);
+        const value = option.value;
         setFieldValue(name, value);
-        if (value.length >= AUTOCOMPLETE_MIN_LENGTH_TO_SEARCH) {
-          onChange({ target: { value } });
-        }
+        onChange({ target: { value, set: option.set } });
       }}
+      onFocus={() => onChange({ target: { value } })}
       renderInput={(params) => (
         <div ref={params.InputProps.ref}>
           <InputView

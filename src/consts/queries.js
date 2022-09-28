@@ -18,6 +18,17 @@ const getMe = () => {
   return axios.get('/user/me');
 };
 
+const GOOGLE_API_AUTOCOMPLETE_KEY = 'GOOGLE_API_AUTOCOMPLETE';
+
+const getAddressesFromGoogleAPI = (phrase, types) => {
+  const AutocompleteService =
+    new window.google.maps.places.AutocompleteService();
+  return AutocompleteService.getPlacePredictions({
+    input: phrase,
+    types,
+  });
+};
+
 export {
   ANIMALS_KEY,
   getAnimals,
@@ -25,4 +36,6 @@ export {
   getActivities,
   ME_QUERY_KEY,
   getMe,
+  GOOGLE_API_AUTOCOMPLETE_KEY,
+  getAddressesFromGoogleAPI,
 };
