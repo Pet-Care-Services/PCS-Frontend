@@ -29,6 +29,20 @@ const getAddressesFromGoogleAPI = (phrase, types) => {
   });
 };
 
+const getPinByAddressFromGoogleAPI = async (address) => {
+  const Geocoder = new window.google.maps.Geocoder();
+  const rawData = await Geocoder.geocode({
+    address,
+  });
+
+  const pinData = rawData.results[0].geometry.location;
+  const latLng = {
+    latitude: pinData.lat(),
+    longitude: pinData.lng(),
+  };
+  return latLng;
+};
+
 export {
   ANIMALS_KEY,
   getAnimals,
@@ -38,4 +52,5 @@ export {
   getMe,
   GOOGLE_API_AUTOCOMPLETE_KEY,
   getAddressesFromGoogleAPI,
+  getPinByAddressFromGoogleAPI,
 };
