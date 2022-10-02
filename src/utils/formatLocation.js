@@ -1,2 +1,2 @@
-export default ({ address, apartment, city }) =>
-  `${address}${apartment ? `/${apartment}` : ''}, ${city}`;
+export default ({ address, flatNumber, city }) =>
+  `${address}${flatNumber ? `/${flatNumber}` : ''}, ${city}`;

@@ -48,7 +48,7 @@ const Step3Container = ({ onSubmit, isService }) => {
     },
     location: {
       address: '',
-      apartment: '',
+      flatNumber: '',
       city: '',
       postalCode: '',
     },

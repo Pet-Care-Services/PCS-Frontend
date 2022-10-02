@@ -13,7 +13,7 @@ const getValidation = (t, isService) =>
     }),
     location: Yup.object().shape({
       address: Yup.string().required(t('validation.required')),
-      apartment: Yup.string(),
+      flatNumber: Yup.string(),
       city: Yup.string().required(t('validation.required')),
       postalCode: Yup.string().required(t('validation.required')),
     }),

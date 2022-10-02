@@ -89,7 +89,7 @@ export default {
     from: 'From',
     to: 'To',
     address: 'Address',
-    apartmentNumber: 'Apartment number',
+    flatNumber: 'Flat number',
     radius: 'Radius',
     city: 'City',
     postalCode: 'Postal code',

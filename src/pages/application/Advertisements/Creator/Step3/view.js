@@ -83,8 +83,8 @@ const Step3 = ({
                 sx={styles.field}
               />
               <Input
-                label={t('apartmentNumber')}
-                name="location.apartment"
+                label={t('flatNumber')}
+                name="location.flatNumber"
                 helperText={t('optional')}
                 sx={styles.narrowField}
               />
@@ -174,7 +174,7 @@ Step3.propTypes = {
     }),
     location: PropTypes.shape({
       address: PropTypes.string,
-      apartment: PropTypes.string,
+      flatNumber: PropTypes.string,
       city: PropTypes.string,
       postalCode: PropTypes.string,
     }),
