@@ -1,4 +1,5 @@
 import { isArray, map } from 'lodash';
+import formatLocation from 'utils/formatLocation';
 
 const formatPrice = (data) => {
   let priceObject;
@@ -23,6 +24,16 @@ const formatAnimals = (data) => {
   return [data.name];
 };
 
+const formatLocationText = (locationData) => {
+  if (isArray(locationData)) {
+    return `${formatLocation(locationData[0])}${
+      locationData.length > 1 ? ' (...)' : ''
+    }`;
+  } else {
+    return formatLocation(locationData);
+  }
+};
+
 const formatData = (advertisements) =>
   map(advertisements, (entry) => ({
     id: entry.id,
@@ -31,7 +42,7 @@ const formatData = (advertisements) =>
     animals: formatAnimals(entry.animals || entry.animal),
     starsValue: 5,
     price: formatPrice(entry.price),
-    location: entry.location,
+    location: formatLocationText(entry.location),
     image: require('assets/mockPhoto.jpg'),
     description: entry.description,
   }));

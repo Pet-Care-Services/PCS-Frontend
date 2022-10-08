@@ -10,6 +10,7 @@ const reducer = (state, action) => {
         ...state,
         open: true,
         content: action.payload,
+        closable: action.closable ?? true,
       };
     }
 

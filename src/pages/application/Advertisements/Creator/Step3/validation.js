@@ -11,7 +11,17 @@ const getValidation = (t, isService) =>
       amount: Yup.number().required(t('validation.required')),
       type: Yup.string().required(t('validation.required')),
     }),
-    location: Yup.string().required(t('validation.required')),
+    location: Yup.object().shape({
+      address: Yup.string().required(t('validation.required')),
+      flatNumber: Yup.string(),
+      city: Yup.string().required(t('validation.required')),
+      postalCode: Yup.string().required(t('validation.required')),
+    }),
+    pin: Yup.object().shape({
+      ...(isService && {
+        radius: Yup.number().required(t('validation.required')),
+      }),
+    }),
     availabilities: Yup.array().of(
       Yup.object({
         from: Yup.string().required(t('validation.required')),

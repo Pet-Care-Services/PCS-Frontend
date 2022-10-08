@@ -3,6 +3,8 @@ import { map } from 'lodash';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { ITEM_TYPE } from 'consts/enums';
+import { getPinByAddressFromGoogleAPI } from 'consts/queries';
+import formatLocation from 'utils/formatLocation';
 import setAPIDateFormat from 'utils/setAPIDateFormat';
 import { postRequest, postService } from './queries';
 import CreatorView from './view';
@@ -44,12 +46,17 @@ const AdvertismentCreator = () => {
     setStep(3);
   };
 
-  const handleDataSubmit = (values) => {
+  const handleDataSubmit = async (values) => {
+    const latLng = await getPinByAddressFromGoogleAPI(
+      `${formatLocation(values.location)}, ${values.location.postalCode}`
+    );
+
     const data = {
       ...values,
       description: type === ITEM_TYPE.REQUEST ? values.description : undefined,
       capacity: type === ITEM_TYPE.SERVICE ? values.capacity : undefined,
       animal: { id: animal },
+      pin: { ...values.pin, ...latLng },
       availabilities: map(values.availabilities, (entry) => ({
         ...entry,
         from: setAPIDateFormat(entry.from),

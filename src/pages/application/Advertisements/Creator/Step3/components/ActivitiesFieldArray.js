@@ -8,8 +8,8 @@ import { Box } from '@mui/system';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
 import Select from 'components/Select';
-import { optionsShape } from 'components/Select/shapes';
 import commonStyles from 'consts/commonStyles';
+import optionsShape from 'shapes/optionsShape';
 import filterOptionsForNotUsed from 'utils/filterOptionsForNotUsed';
 import { initialActivityData } from '../consts';
 import styles from '../styles';
@@ -70,7 +70,7 @@ const ActivitiesFieldArray = ({ activities, activitiesOptions, errors }) => {
 ActivitiesFieldArray.propTypes = {
   activities: PropTypes.arrayOf(
     PropTypes.exact({
-      id: PropTypes.oneOfType(PropTypes.number, PropTypes.string),
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     })
   ),
   activitiesOptions: optionsShape,

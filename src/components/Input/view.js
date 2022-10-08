@@ -27,6 +27,7 @@ const InputView = forwardRef(
       rounded,
       actAsClickable,
       multiline,
+      maxLength,
       onClick,
       sx,
       ...props
@@ -69,6 +70,7 @@ const InputView = forwardRef(
         }}
         inputProps={{
           onClick,
+          maxLength,
         }}
         InputProps={{
           readOnly: actAsClickable,
@@ -78,8 +80,10 @@ const InputView = forwardRef(
             height: !multiline && 50,
             minHeight: 50,
             padding: multiline ? 16 : 0,
-            borderRadius: 5,
-            ...(rounded && { borderRadius: 15 }),
+            borderRadius: (theme) => theme.borderRadius.tiny,
+            ...(rounded && {
+              borderRadius: (theme) => theme.borderRadius.medium,
+            }),
             backgroundColor: (theme) => theme.palette.white,
             '&.MuiOutlinedInput-root': {
               '.MuiOutlinedInput-notchedOutline': {
@@ -123,7 +127,7 @@ const InputView = forwardRef(
           MenuProps: {
             sx: {
               '.MuiMenu-paper': {
-                borderRadius: 5,
+                borderRadius: (theme) => theme.borderRadius.tiny,
               },
               '.MuiMenu-list': {
                 padding: 0,
@@ -147,6 +151,7 @@ InputView.propTypes = {
   children: PropTypes.node,
   onChange: PropTypes.func,
   onlyNumbers: PropTypes.bool,
+  maxLength: PropTypes.number,
   small: PropTypes.bool,
   shrink: PropTypes.bool,
   noBorderEffects: PropTypes.bool,
@@ -169,6 +174,7 @@ InputView.defaultProps = {
   onChange: noop,
   onClick: noop,
   onlyNumbers: false,
+  maxLength: null,
   small: false,
   shrink: true,
   noBorderEffects: false,

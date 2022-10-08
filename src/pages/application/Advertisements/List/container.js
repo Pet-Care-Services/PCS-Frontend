@@ -88,6 +88,7 @@ const ListContainer = ({ itemType }) => {
         'activity',
         t
       )}
+      itemType={itemType}
       isLoading={isLoadingAdvertisements}
     />
   );

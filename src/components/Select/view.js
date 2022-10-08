@@ -4,7 +4,7 @@ import map from 'lodash/map';
 import PropTypes from 'prop-types';
 import { MenuItem } from '@mui/material';
 import InputView from 'components/Input/view';
-import { optionsShape } from './shapes';
+import optionsShape from 'shapes/optionsShape';
 
 const Select = ({ field, options, ...props }) => (
   <InputView {...field} {...props} isSelect>

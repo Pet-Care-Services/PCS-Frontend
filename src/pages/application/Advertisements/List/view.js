@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { isEmpty, map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -7,9 +7,9 @@ import Advertisement from 'components/Advertisement';
 import Filters from 'components/Filters';
 import Loader from 'components/Loader';
 import Map from 'components/Map';
-import { optionsShape } from 'components/Select/shapes';
+import optionsShape from 'shapes/optionsShape';
 import { getFiltersFields } from './consts';
-import { filtersInitialValuesShape, dataShape } from './shapes';
+import { filtersInitialValuesShape, dataShape, itemTypeShape } from './shapes';
 import styles from './styles';
 import { getFiltersValidation } from './validation';
 
@@ -22,20 +22,27 @@ const ListView = ({
   animalsOptions,
   activitiesOptions,
   isLoading,
+  itemType,
 }) => {
   const { t } = useTranslation();
+  const [expandedAdvertisementIndex, setExpandedAdvertisementIndex] =
+    useState(null);
+
+  useEffect(() => {
+    if (expandedAdvertisementIndex !== null) {
+      setExpandedAdvertisementIndex(null);
+    }
+  }, [itemType]);
 
   return (
     <Box sx={styles.root}>
-      <Box sx={styles.filtersWrapper}>
-        <Filters
-          rows={getFiltersFields(t, animalsOptions, activitiesOptions)}
-          initialValues={filtersInitialValues}
-          validationSchema={getFiltersValidation(t)}
-          onSubmit={onFiltersSubmit}
-          onClear={onFiltersClear}
-        />
-      </Box>
+      <Filters
+        rows={getFiltersFields(t, animalsOptions, activitiesOptions)}
+        initialValues={filtersInitialValues}
+        validationSchema={getFiltersValidation(t)}
+        onSubmit={onFiltersSubmit}
+        onClear={onFiltersClear}
+      />
       <Box sx={styles.contentWrapper}>
         <Box sx={{ width: '100%', height: 300, background: 'green' }}>
           <Map />
@@ -51,6 +58,14 @@ const ListView = ({
           <Advertisement
             key={index}
             {...adverisement}
+            isExpanded={expandedAdvertisementIndex === index}
+            onBoxClick={() => {
+              if (index === expandedAdvertisementIndex) {
+                setExpandedAdvertisementIndex(null);
+              } else {
+                setExpandedAdvertisementIndex(index);
+              }
+            }}
             onContactClick={() => onContactClick(adverisement.userId)}
           />
         ))}
@@ -62,6 +77,7 @@ const ListView = ({
 ListView.propTypes = {
   filtersInitialValues: filtersInitialValuesShape.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  itemType: itemTypeShape.isRequired,
   data: dataShape,
   onFiltersSubmit: PropTypes.func,
   onFiltersClear: PropTypes.func,
