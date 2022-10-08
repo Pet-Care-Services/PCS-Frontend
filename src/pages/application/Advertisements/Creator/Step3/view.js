@@ -1,9 +1,11 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
+import { forEach, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import Autocomplete from 'components/Autocomplete';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Select from 'components/Select';
@@ -20,6 +22,12 @@ const Step3 = ({
   periodOptions,
   initialValues,
   isService,
+  getAddressOptions,
+  addressOptions,
+  isLoadingAddressOptions,
+  getCityOptions,
+  cityOptions,
+  isLoadingCityOptions,
 }) => {
   const { t } = useTranslation();
 
@@ -32,7 +40,7 @@ const Step3 = ({
         validateOnBlur={false}
         onSubmit={onSubmit}
       >
-        {({ values, errors }) => (
+        {({ values, errors, setFieldValue }) => (
           <Box component={Form} sx={styles.form}>
             <Typography variant="h2">{t('information')}</Typography>
             <ActivitiesFieldArray
@@ -60,7 +68,58 @@ const Step3 = ({
                 sx={styles.narrowField}
               />
             </Box>
-            <Input label={t('location')} name="location" sx={styles.field} />
+            <Box sx={styles.multiFieldLine}>
+              <Autocomplete
+                label={t('address')}
+                name="location.address"
+                options={addressOptions}
+                isLoading={isLoadingAddressOptions}
+                onChange={(event) => {
+                  forEach(event.target.set, ({ field, value }) => {
+                    setFieldValue(field, value);
+                  });
+                  getAddressOptions(event.target.value);
+                }}
+                sx={styles.field}
+              />
+              <Input
+                label={t('flatNumber')}
+                name="location.flatNumber"
+                helperText={t('optional')}
+                sx={styles.narrowField}
+              />
+              {isService && (
+                <Input
+                  label={t('radius')}
+                  name="pin.radius"
+                  endAdornment={
+                    <Typography variant="h3" sx={styles.inputAdornment}>
+                      {t('distance.m')}
+                    </Typography>
+                  }
+                  sx={styles.narrowField}
+                />
+              )}
+            </Box>
+            <Box sx={styles.multiFieldLine}>
+              <Autocomplete
+                label={t('city')}
+                name="location.city"
+                options={cityOptions}
+                isLoading={isLoadingCityOptions}
+                onChange={(event) => {
+                  getCityOptions(event.target.value);
+                }}
+                sx={styles.field}
+              />
+              <Input
+                label={t('postalCode')}
+                name="location.postalCode"
+                maxLength={5}
+                onlyNumbers
+                sx={styles.narrowField}
+              />
+            </Box>
             {!isService && (
               <Input
                 label={t('description')}
@@ -101,13 +160,27 @@ Step3.propTypes = {
   activitiesOptions: optionsShape,
   priceTypeOptions: optionsShape,
   periodOptions: optionsShape,
+  getAddressOptions: PropTypes.func,
+  addressOptions: optionsShape,
+  isLoadingAddressOptions: PropTypes.bool,
+  getCityOptions: PropTypes.func,
+  cityOptions: optionsShape,
+  isLoadingCityOptions: PropTypes.bool,
   initialValues: PropTypes.shape({
     activity: PropTypes.string,
     price: PropTypes.exact({
       amount: PropTypes.string,
       type: PropTypes.string,
     }),
-    location: PropTypes.string,
+    location: PropTypes.shape({
+      address: PropTypes.string,
+      flatNumber: PropTypes.string,
+      city: PropTypes.string,
+      postalCode: PropTypes.string,
+    }),
+    pin: PropTypes.shape({
+      radius: PropTypes.string,
+    }),
     availabilities: PropTypes.arrayOf(
       PropTypes.shape({
         from: PropTypes.string,
@@ -124,6 +197,12 @@ Step3.defaultProps = {
   activitiesOptions: [],
   priceTypeOptions: [],
   periodOptions: [],
+  addressOptions: [],
+  isLoadingAddressOptions: false,
+  getAddressOptions: noop,
+  cityOptions: [],
+  isLoadingCityOptions: false,
+  getCityOptions: noop,
   initialValues: {},
 };
 

@@ -8,7 +8,7 @@ import ActionText from 'components/ActionText';
 import CodeInput from 'components/CodeInput';
 import styles from './styles';
 
-const MobileVerificationView = ({ onResendCode, onSubmit }) => {
+const MobileVerificationView = ({ onResendCode, onLogoutClick, onSubmit }) => {
   const { t } = useTranslation();
 
   return (
@@ -29,9 +29,12 @@ const MobileVerificationView = ({ onResendCode, onSubmit }) => {
             sx={styles.codeInput}
           />
 
-          <ActionText onClick={onResendCode} sx={styles.linkButton}>
-            {t('resendCode')}
-          </ActionText>
+          <Box sx={styles.linksWrapper}>
+            <ActionText onClick={onLogoutClick}>{t('logout')}</ActionText>
+            <ActionText onClick={onResendCode} sx={styles.rightLinkButton}>
+              {t('resendCode')}
+            </ActionText>
+          </Box>
         </Box>
       )}
     </Formik>
@@ -41,6 +44,7 @@ const MobileVerificationView = ({ onResendCode, onSubmit }) => {
 MobileVerificationView.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onResendCode: PropTypes.func.isRequired,
+  onLogoutClick: PropTypes.func.isRequired,
 };
 
 export default MobileVerificationView;

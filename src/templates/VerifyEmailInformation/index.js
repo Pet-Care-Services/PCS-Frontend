@@ -10,10 +10,10 @@ import { postSendVerificationEmail } from './queries';
 
 const VerifyEmailInformation = () => {
   const { t } = useTranslation();
-  const { openDialog } = useDialog();
+  const { openDialog, closeDialog } = useDialog();
   const { openSnackbar } = useSnackbar();
   const [isFirstLoad, setFirstLoad] = useState(true);
-  const { emailVerified, smsVerified } = useUserData();
+  const { emailVerified, smsVerified, clearUserData } = useUserData();
 
   const { mutate: sendVerificationEmail } = useMutation(
     postSendVerificationEmail,
@@ -40,13 +40,20 @@ const VerifyEmailInformation = () => {
     }
   }, [emailVerified]);
 
+  const onLogoutClick = () => {
+    closeDialog();
+    clearUserData();
+  };
+
   return (
     <SimpleInfoDialogContent
       title={t('activateAccount')}
       information={t('verifyYourEmail')}
       withOkButton={false}
-      onLinkClick={sendVerificationEmail}
-      linkText={t('resendEmail')}
+      onLeftLinkClick={onLogoutClick}
+      leftLinkText={t('logout')}
+      onRightLinkClick={sendVerificationEmail}
+      rightLinkText={t('resendEmail')}
     />
   );
 };

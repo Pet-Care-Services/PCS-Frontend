@@ -11,8 +11,10 @@ const SimpleInfoDialogContent = ({
   title,
   information,
   onAccept,
-  onLinkClick,
-  linkText,
+  onLeftLinkClick,
+  leftLinkText,
+  onRightLinkClick,
+  rightLinkText,
 }) => {
   const { t } = useTranslation();
   const { closeDialog } = useDialog();
@@ -33,11 +35,16 @@ const SimpleInfoDialogContent = ({
           {t('ok')}
         </Button>
       )}
-      {onLinkClick && linkText && (
-        <ActionText onClick={onLinkClick} sx={styles.linkButton}>
-          {linkText}
-        </ActionText>
-      )}
+      <Box sx={styles.linksWrapper}>
+        {onLeftLinkClick && leftLinkText && (
+          <ActionText onClick={onLeftLinkClick}>{leftLinkText}</ActionText>
+        )}
+        {onRightLinkClick && rightLinkText && (
+          <ActionText onClick={onRightLinkClick} sx={styles.rightLinkButton}>
+            {rightLinkText}
+          </ActionText>
+        )}
+      </Box>
     </Box>
   );
 };
@@ -46,14 +53,18 @@ SimpleInfoDialogContent.propTypes = {
   title: PropTypes.string.isRequired,
   information: PropTypes.string.isRequired,
   onAccept: PropTypes.func,
-  onLinkClick: PropTypes.func,
-  linkText: PropTypes.string,
+  onLeftLinkClick: PropTypes.func,
+  leftLinkText: PropTypes.string,
+  onRightLinkClick: PropTypes.func,
+  rightLinkText: PropTypes.string,
 };
 
 SimpleInfoDialogContent.defaultProps = {
   onAccept: null,
-  onLinkClick: null,
-  linkText: '',
+  onLeftLinkClick: null,
+  leftLinkText: '',
+  onRightLinkClick: null,
+  rightLinkText: '',
 };
 
 export default SimpleInfoDialogContent;
