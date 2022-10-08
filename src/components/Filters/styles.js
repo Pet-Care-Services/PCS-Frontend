@@ -5,10 +5,8 @@ export default {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: (theme) => theme.palette.white,
     padding: 20,
     boxSizing: 'border-box',
-    borderRadius: (theme) => theme.borderRadius.small,
   },
   formContent: {
     display: 'flex',

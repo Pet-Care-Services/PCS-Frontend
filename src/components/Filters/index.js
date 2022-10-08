@@ -3,9 +3,10 @@ import { Formik, Form } from 'formik';
 import { isArray, map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { Paper, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Button from 'components/Button';
+import TileWrapper from 'components/TileWrapper';
 import Field from './components/Field';
 import { rowsShape } from './shapes';
 import styles from './styles';
@@ -20,7 +21,7 @@ const Filters = ({
   const { t } = useTranslation();
 
   return (
-    <Paper sx={styles.root}>
+    <TileWrapper sx={styles.root}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -63,7 +64,7 @@ const Filters = ({
           </Form>
         )}
       </Formik>
-    </Paper>
+    </TileWrapper>
   );
 };
 

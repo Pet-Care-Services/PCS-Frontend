@@ -3,11 +3,12 @@ import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
-import { Paper, Box, Typography, Collapse } from '@mui/material';
+import { Box, Typography, Collapse } from '@mui/material';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
 import PriceRange from 'components/PriceRange';
 import Rating from 'components/Rating';
+import TileWrapper from 'components/TileWrapper';
 import styles from './styles';
 import renderTags from './utils';
 
@@ -26,7 +27,7 @@ const Advertisement = ({
   const { t } = useTranslation();
 
   return (
-    <Paper sx={styles.elevation}>
+    <TileWrapper>
       <Collapse in={isExpanded} collapsedSize={170} sx={styles.collapse}>
         <Box onClick={onBoxClick} sx={styles.root}>
           <Box sx={styles.collapsedBox}>
@@ -61,7 +62,7 @@ const Advertisement = ({
           </Box>
         </Box>
       </Collapse>
-    </Paper>
+    </TileWrapper>
   );
 };
 

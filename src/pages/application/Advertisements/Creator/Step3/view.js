@@ -3,12 +3,13 @@ import { Form, Formik } from 'formik';
 import { forEach, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { Paper, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Autocomplete from 'components/Autocomplete';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Select from 'components/Select';
+import TileWrapper from 'components/TileWrapper';
 import optionsShape from 'shapes/optionsShape';
 import ActivitiesFieldArray from './components/ActivitiesFieldArray';
 import AvailabilitiesFieldArray from './components/AvailabilitiesFieldArray';
@@ -32,7 +33,7 @@ const Step3 = ({
   const { t } = useTranslation();
 
   return (
-    <Paper sx={styles.root}>
+    <TileWrapper sx={styles.root}>
       <Formik
         initialValues={initialValues}
         validationSchema={getValidation(t, isService)}
@@ -150,7 +151,7 @@ const Step3 = ({
           </Box>
         )}
       </Formik>
-    </Paper>
+    </TileWrapper>
   );
 };
 
