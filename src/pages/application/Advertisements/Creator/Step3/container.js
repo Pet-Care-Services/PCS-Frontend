@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { uniqueId } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
@@ -17,15 +18,24 @@ const Step3Container = ({ onSubmit, isService }) => {
   const { t } = useTranslation();
   const [addressValue, setAddressValue] = useState('');
   const [cityValue, setCityValue] = useState('');
+  const [sessionId, setSessionId] = useState('');
   const { data: activities, isLoading: isLoadingActivities } = useQuery(
     ACTIVITIES_KEY,
     getActivities
   );
   const typeId = isService ? ITEM_TYPE.SERVICE : ITEM_TYPE.REQUEST;
   const { data: addressData, isLoading: isLoadingAddressOptions } =
-    useGoogleAutocomplete(`${typeId}-address`, addressValue, ['address']);
+    useGoogleAutocomplete(`${typeId}-address-${sessionId}`, addressValue, [
+      'address',
+    ]);
   const { data: cityData, isLoading: isLoadingCityOptions } =
-    useGoogleAutocomplete(`${typeId}-city`, cityValue, ['locality']);
+    useGoogleAutocomplete(`${typeId}-city-${sessionId}`, cityValue, [
+      'locality',
+    ]);
+
+  useEffect(() => {
+    setSessionId(uniqueId());
+  }, []);
 
   if (isLoadingActivities) {
     return <Loader />;
