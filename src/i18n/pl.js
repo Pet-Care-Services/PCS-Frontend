@@ -58,7 +58,7 @@ export default {
       FISH: 'Ryby',
     },
     distance: {
-      km: 'km',
+      m: 'm',
     },
     optional: 'Opcjonalnie',
     filters: 'Filtry',

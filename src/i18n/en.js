@@ -58,7 +58,7 @@ export default {
       FISH: 'Fish',
     },
     distance: {
-      km: 'km',
+      m: 'm',
     },
     optional: 'Optional',
     filters: 'Filters',

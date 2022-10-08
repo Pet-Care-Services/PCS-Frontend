@@ -94,7 +94,7 @@ const Step3 = ({
                   name="pin.radius"
                   endAdornment={
                     <Typography variant="h3" sx={styles.inputAdornment}>
-                      {t('distance.km')}
+                      {t('distance.m')}
                     </Typography>
                   }
                   sx={styles.narrowField}
