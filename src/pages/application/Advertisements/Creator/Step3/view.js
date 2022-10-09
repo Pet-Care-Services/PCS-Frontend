@@ -13,6 +13,7 @@ import TileWrapper from 'components/TileWrapper';
 import optionsShape from 'shapes/optionsShape';
 import ActivitiesFieldArray from './components/ActivitiesFieldArray';
 import AvailabilitiesFieldArray from './components/AvailabilitiesFieldArray';
+import { initialValuesShape } from './shapes';
 import styles from './styles';
 import getValidation from './validation';
 
@@ -167,31 +168,7 @@ Step3.propTypes = {
   getCityOptions: PropTypes.func,
   cityOptions: optionsShape,
   isLoadingCityOptions: PropTypes.bool,
-  initialValues: PropTypes.shape({
-    activity: PropTypes.string,
-    price: PropTypes.exact({
-      amount: PropTypes.string,
-      type: PropTypes.string,
-    }),
-    location: PropTypes.shape({
-      address: PropTypes.string,
-      flatNumber: PropTypes.string,
-      city: PropTypes.string,
-      postalCode: PropTypes.string,
-    }),
-    pin: PropTypes.shape({
-      radius: PropTypes.string,
-    }),
-    availabilities: PropTypes.arrayOf(
-      PropTypes.shape({
-        from: PropTypes.string,
-        to: PropTypes.string,
-        cyclic: PropTypes.bool,
-        period: PropTypes.string,
-      })
-    ),
-    capacity: PropTypes.string,
-  }),
+  initialValues: initialValuesShape,
 };
 
 Step3.defaultProps = {

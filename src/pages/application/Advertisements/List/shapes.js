@@ -1,6 +1,7 @@
 import { values } from 'lodash';
 import PropTypes from 'prop-types';
 import { ITEM_TYPE } from 'consts/enums';
+import pinShape from 'shapes/pinShape';
 import priceTypeShape from 'shapes/priceTypeShape';
 
 const itemTypeShape = PropTypes.oneOf(values(ITEM_TYPE));
@@ -24,6 +25,7 @@ const advertisementShape = PropTypes.shape({
     type: priceTypeShape,
   }),
   location: PropTypes.string,
+  pin: pinShape,
   image: PropTypes.string,
 });
 

@@ -4,9 +4,10 @@ import { isFunction, map } from 'lodash';
 import PropTypes from 'prop-types';
 import Loader from 'components/Loader';
 import Marker from './components/Marker';
-import { anchorPoint, mockedMarkers, zoom } from './consts';
+import { anchorPoint, zoom } from './consts';
+import { markersShape } from './shapes';
 
-const Map = ({ onClick, sx }) => {
+const Map = ({ markers, onClick, sx }) => {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -19,7 +20,7 @@ const Map = ({ onClick, sx }) => {
   const onMapClick = ({ latLng }) => {
     const lat = latLng.lat();
     const lng = latLng.lng();
-    console.log(lat, lng);
+
     if (isFunction(onClick)) {
       onClick({ lat, lng });
     }
@@ -41,7 +42,7 @@ const Map = ({ onClick, sx }) => {
       clickableIcons={false}
       onClick={onMapClick}
     >
-      {map(mockedMarkers, (marker, index) => (
+      {map(markers, (marker, index) => (
         <Marker
           key={index}
           onMapClick={onMapClick}
@@ -55,11 +56,13 @@ const Map = ({ onClick, sx }) => {
 
 Map.propTypes = {
   onClick: PropTypes.func,
+  markers: markersShape,
   sx: PropTypes.object,
 };
 
 Map.defaultProps = {
   onMapClick: null,
+  markers: [],
   sx: {},
 };
 

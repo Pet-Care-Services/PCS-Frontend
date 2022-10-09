@@ -63,6 +63,8 @@ const Step3Container = ({ onSubmit, isService }) => {
       postalCode: '',
     },
     pin: {
+      latitude: 0,
+      longitude: 0,
       radius: isService ? '' : undefined,
     },
     availabilities: [initialAvailabilityData],

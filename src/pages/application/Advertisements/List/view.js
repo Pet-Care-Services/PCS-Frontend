@@ -38,6 +38,14 @@ const ListView = ({
     }
   }, [itemType]);
 
+  const markers = map(data, (advertisement) => ({
+    position: {
+      lat: advertisement.pin.latitude,
+      lng: advertisement.pin.longitude,
+    },
+    radius: advertisement.pin.radius,
+  }));
+
   return (
     <Box sx={styles.root}>
       <Filters
@@ -56,7 +64,7 @@ const ListView = ({
         />
         <Collapse in={isMapVisible} sx={styles.mapCollapse}>
           <TileWrapper sx={styles.mapWrapper}>
-            <Map sx={styles.map} />
+            <Map markers={markers} sx={styles.map} />
           </TileWrapper>
         </Collapse>
         {isLoading && <Loader />}
