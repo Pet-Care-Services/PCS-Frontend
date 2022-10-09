@@ -134,5 +134,6 @@ export default {
       'Link weryfikacyjny wygasł lub jest nieprawidłowy!',
     redirectInXSeconds:
       'Zostaniesz przekierowany na stronę główną za {{value}} sekund.',
+    map: 'Mapa',
   },
 };

@@ -1,9 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Box } from '@mui/material';
 import MuiIconButton from '@mui/material/IconButton';
 import { sizes } from './consts';
 
-const Icon = ({ size, Component, onClick, disabled, active, sx }) => {
+const Icon = ({
+  size,
+  Component,
+  onClick,
+  disabled,
+  active,
+  componentProps,
+  sx,
+}) => {
   const dimension = sizes[size];
 
   return (
@@ -23,7 +32,9 @@ const Icon = ({ size, Component, onClick, disabled, active, sx }) => {
         ...sx,
       }}
     >
-      <Component
+      <Box
+        component={Component}
+        {...componentProps}
         sx={{
           width: dimension.icon,
           height: dimension.icon,
@@ -39,6 +50,7 @@ Icon.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   active: PropTypes.bool,
+  componentProps: PropTypes.object,
   sx: PropTypes.object,
 };
 
@@ -47,6 +59,7 @@ Icon.defaultProps = {
   onClick: null,
   disabled: false,
   active: false,
+  componentProps: {},
   sx: {},
 };
 

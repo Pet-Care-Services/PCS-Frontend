@@ -10,7 +10,7 @@ export default {
     marginTop: 10,
   },
   collapse: {
-    borderRadius: (theme) => theme.borderRadius.medium,
+    borderRadius: (theme) => theme.borderRadius.small,
   },
   root: {
     display: 'flex',

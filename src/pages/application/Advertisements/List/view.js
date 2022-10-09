@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { isEmpty, map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { Box, Typography } from '@mui/material';
+import { Box, Collapse, Typography } from '@mui/material';
+import mapIconSrc from 'assets/icons/map.png';
 import Advertisement from 'components/Advertisement';
 import Filters from 'components/Filters';
+import Icon from 'components/Icon';
 import Loader from 'components/Loader';
 import Map from 'components/Map';
+import TileWrapper from 'components/TileWrapper';
 import optionsShape from 'shapes/optionsShape';
 import { getFiltersFields } from './consts';
 import { filtersInitialValuesShape, dataShape, itemTypeShape } from './shapes';
@@ -27,6 +30,7 @@ const ListView = ({
   const { t } = useTranslation();
   const [expandedAdvertisementIndex, setExpandedAdvertisementIndex] =
     useState(null);
+  const [isMapVisible, setIsMapVisible] = useState(false);
 
   useEffect(() => {
     if (expandedAdvertisementIndex !== null) {
@@ -44,9 +48,17 @@ const ListView = ({
         onClear={onFiltersClear}
       />
       <Box sx={styles.contentWrapper}>
-        <Box sx={{ width: '100%', height: 300, background: 'green' }}>
-          <Map />
-        </Box>
+        <Icon
+          Component="img"
+          size="large"
+          onClick={() => setIsMapVisible((v) => !v)}
+          componentProps={{ src: mapIconSrc, alt: t('map') }}
+        />
+        <Collapse in={isMapVisible} sx={styles.mapCollapse}>
+          <TileWrapper sx={styles.mapWrapper}>
+            <Map sx={styles.map} />
+          </TileWrapper>
+        </Collapse>
         {isLoading && <Loader />}
         {!isLoading && isEmpty(data) && (
           <Box sx={styles.centered}>

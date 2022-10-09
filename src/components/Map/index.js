@@ -6,7 +6,7 @@ import Loader from 'components/Loader';
 import Marker from './components/Marker';
 import { anchorPoint, mockedMarkers, zoom } from './consts';
 
-const Map = ({ onClick }) => {
+const Map = ({ onClick, sx }) => {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -34,6 +34,7 @@ const Map = ({ onClick }) => {
       mapContainerStyle={{
         width: '100%',
         height: '100%',
+        ...sx,
       }}
       center={anchorPoint}
       zoom={zoom}
@@ -54,10 +55,12 @@ const Map = ({ onClick }) => {
 
 Map.propTypes = {
   onClick: PropTypes.func,
+  sx: PropTypes.object,
 };
 
 Map.defaultProps = {
   onMapClick: null,
+  sx: {},
 };
 
 export default memo(Map);
