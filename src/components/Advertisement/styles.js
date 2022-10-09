@@ -5,15 +5,12 @@ export default {
   animalsTags: {
     backgroundColor: (theme) => theme.palette.neutral.main,
   },
-  elevation: {
-    borderRadius: (theme) => theme.borderRadius.medium,
-  },
   contactButton: {
     width: 300,
     marginTop: 10,
   },
   collapse: {
-    borderRadius: (theme) => theme.borderRadius.medium,
+    borderRadius: (theme) => theme.borderRadius.small,
   },
   root: {
     display: 'flex',
@@ -31,7 +28,7 @@ export default {
     height: 140,
     width: 180,
     objectFit: 'cover',
-    borderRadius: (theme) => theme.borderRadius.medium,
+    borderRadius: (theme) => theme.borderRadius.small,
   },
   centerColumnBox: {
     display: 'flex',

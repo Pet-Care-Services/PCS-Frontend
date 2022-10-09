@@ -36,15 +36,14 @@ const formatLocationText = (locationData) => {
 
 const formatData = (advertisements) =>
   map(advertisements, (entry) => ({
+    ...entry,
     id: entry.id,
-    userId: entry.userId,
     activities: map(entry.activities, ({ name }) => name),
     animals: formatAnimals(entry.animals || entry.animal),
     starsValue: 5,
     price: formatPrice(entry.price),
     location: formatLocationText(entry.location),
     image: require('assets/mockPhoto.jpg'),
-    description: entry.description,
   }));
 
 export { formatData };

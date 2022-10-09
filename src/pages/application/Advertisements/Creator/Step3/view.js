@@ -3,15 +3,17 @@ import { Form, Formik } from 'formik';
 import { forEach, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { Paper, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Autocomplete from 'components/Autocomplete';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Select from 'components/Select';
+import TileWrapper from 'components/TileWrapper';
 import optionsShape from 'shapes/optionsShape';
 import ActivitiesFieldArray from './components/ActivitiesFieldArray';
 import AvailabilitiesFieldArray from './components/AvailabilitiesFieldArray';
+import { initialValuesShape } from './shapes';
 import styles from './styles';
 import getValidation from './validation';
 
@@ -32,7 +34,7 @@ const Step3 = ({
   const { t } = useTranslation();
 
   return (
-    <Paper sx={styles.root}>
+    <TileWrapper sx={styles.root}>
       <Formik
         initialValues={initialValues}
         validationSchema={getValidation(t, isService)}
@@ -150,7 +152,7 @@ const Step3 = ({
           </Box>
         )}
       </Formik>
-    </Paper>
+    </TileWrapper>
   );
 };
 
@@ -166,31 +168,7 @@ Step3.propTypes = {
   getCityOptions: PropTypes.func,
   cityOptions: optionsShape,
   isLoadingCityOptions: PropTypes.bool,
-  initialValues: PropTypes.shape({
-    activity: PropTypes.string,
-    price: PropTypes.exact({
-      amount: PropTypes.string,
-      type: PropTypes.string,
-    }),
-    location: PropTypes.shape({
-      address: PropTypes.string,
-      flatNumber: PropTypes.string,
-      city: PropTypes.string,
-      postalCode: PropTypes.string,
-    }),
-    pin: PropTypes.shape({
-      radius: PropTypes.string,
-    }),
-    availabilities: PropTypes.arrayOf(
-      PropTypes.shape({
-        from: PropTypes.string,
-        to: PropTypes.string,
-        cyclic: PropTypes.bool,
-        period: PropTypes.string,
-      })
-    ),
-    capacity: PropTypes.string,
-  }),
+  initialValues: initialValuesShape,
 };
 
 Step3.defaultProps = {

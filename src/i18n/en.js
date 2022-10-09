@@ -134,5 +134,6 @@ export default {
     emailVerificationFailed: 'The verification link has expired or is invalid!',
     redirectInXSeconds:
       'You will be redirected to the main page in {{value}} seconds.',
+    map: 'Map',
   },
 };

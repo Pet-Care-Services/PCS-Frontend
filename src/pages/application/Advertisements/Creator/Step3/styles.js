@@ -4,8 +4,6 @@ export default {
     padding: (theme) => theme.spacing(20, 40),
     width: 850,
     minWidth: 300,
-    backgroundColor: (theme) => theme.palette.white,
-    borderRadius: (theme) => theme.borderRadius.small,
   },
   form: {
     rowGap: 15,

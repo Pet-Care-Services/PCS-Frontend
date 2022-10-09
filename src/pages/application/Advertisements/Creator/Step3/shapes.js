@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import locationShape from 'shapes/locationShape';
+import pinShape from 'shapes/pinShape';
 
 const availabilitiesShape = PropTypes.arrayOf(
   PropTypes.shape({
@@ -15,7 +17,8 @@ const initialValuesShape = PropTypes.shape({
     amount: PropTypes.string,
     type: PropTypes.string,
   }),
-  location: PropTypes.string,
+  location: locationShape,
+  pin: pinShape,
   availabilities: availabilitiesShape,
   capacity: PropTypes.string,
 });
