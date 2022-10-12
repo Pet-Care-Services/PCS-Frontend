@@ -9,17 +9,22 @@ import Icon from 'components/Icon';
 import { numberOfTiles } from './consts';
 import { daysAvailabilitiesShape } from './shapes';
 import useStyles from './styles';
-import { getDayNumbersBetween, isTimeAvailable } from './utils';
+import {
+  getWeekdayToDateMap,
+  getTimeEntry,
+  isTimeAvailable,
+  getDayNumber,
+} from './utils';
 
-const AvailabilityGraph = ({
+const WeekAvailabilityView = ({
   readOnly,
   daysAvailabilities,
   dateFrom,
-  dateTo,
   onArrowClick,
+  onTimeClick,
 }) => {
   const styles = useStyles(readOnly);
-  const dayNumbers = getDayNumbersBetween(dateFrom, dateTo);
+  const weekdayToDateMap = getWeekdayToDateMap(dateFrom);
 
   return (
     <Box sx={styles.root}>
@@ -36,15 +41,26 @@ const AvailabilityGraph = ({
               ...(isToday(add(dateFrom, { days: index })) && styles.active),
             }}
           >
-            {dayNumbers[index]}
+            {getDayNumber(weekdayToDateMap[day])}
           </Typography>
           <Box sx={styles.availabilityBox}>
-            {map(range(numberOfTiles), (timeIndex) => (
+            {map(range(numberOfTiles), (tileIndex) => (
               <Box
-                key={timeIndex}
+                key={tileIndex}
+                onClick={() => {
+                  if (readOnly) {
+                    return;
+                  }
+
+                  const clickedTile = getTimeEntry(
+                    tileIndex,
+                    daysAvailabilities[day]
+                  );
+                  onTimeClick(weekdayToDateMap[day], clickedTile);
+                }}
                 sx={{
                   ...styles.intervalTile,
-                  ...(isTimeAvailable(timeIndex, daysAvailabilities[day]) &&
+                  ...(isTimeAvailable(tileIndex, daysAvailabilities[day]) &&
                     styles.available),
                 }}
               ></Box>
@@ -60,17 +76,18 @@ const AvailabilityGraph = ({
   );
 };
 
-AvailabilityGraph.propTypes = {
+WeekAvailabilityView.propTypes = {
   daysAvailabilities: daysAvailabilitiesShape.isRequired,
   dateFrom: PropTypes.instanceOf(Date).isRequired,
-  dateTo: PropTypes.instanceOf(Date).isRequired,
   readOnly: PropTypes.bool,
   onArrowClick: PropTypes.func,
+  onTimeClick: PropTypes.func,
 };
 
-AvailabilityGraph.defaultProps = {
+WeekAvailabilityView.defaultProps = {
   readOnly: false,
   onArrowClick: noop,
+  onTimeClick: noop,
 };
 
-export default AvailabilityGraph;
+export default WeekAvailabilityView;

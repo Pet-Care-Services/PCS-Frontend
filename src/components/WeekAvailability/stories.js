@@ -4,7 +4,7 @@ import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 
 export default {
-  title: 'Components/AvailabilityGraph',
+  title: 'Components/WeekAvailability',
   component: Component,
 };
 
