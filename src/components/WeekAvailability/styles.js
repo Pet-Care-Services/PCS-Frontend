@@ -58,4 +58,7 @@ export default (readOnly) => ({
       },
     }),
   },
+  error: {
+    color: (theme) => theme.palette.error.main,
+  },
 });

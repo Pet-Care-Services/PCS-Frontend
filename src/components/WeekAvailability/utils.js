@@ -1,6 +1,6 @@
 import { add, format, isAfter } from 'date-fns';
 import set from 'date-fns/set';
-import { find, findIndex, split, toInteger } from 'lodash';
+import { find, findIndex, slice, split, toInteger } from 'lodash';
 import { tileInterval } from './consts';
 
 const getDayNumber = (date) => format(date, 'd');
@@ -42,18 +42,42 @@ const getTimeEntry = (tileIndex, dayAvailabilities) => {
 
 const getNumberOfIntervalsBetween = (timeFrom, timeTo) => {
   const [fromHour, fromMinute] = split(timeFrom, ':');
-  const abstractDate = set(new Date(), {
+  let abstractDate = set(new Date(), {
     hours: fromHour,
     minutes: fromMinute,
+    seconds: 0,
   });
   let numberOfIntervals = 1;
 
   while (format(abstractDate, 'HH:mm:ss') !== timeTo) {
-    add(abstractDate, { minutes: tileInterval });
+    abstractDate = add(abstractDate, { minutes: tileInterval });
     numberOfIntervals++;
   }
 
   return numberOfIntervals;
+};
+
+const weekdays = [
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday',
+  'sunday',
+];
+
+const getDayAvailabilities = (date, daysAvailabilities) => {
+  const weekdayIndex = toInteger(format(date, 'i')) - 1;
+  const weekdayName = weekdays[weekdayIndex];
+  return daysAvailabilities[weekdayName];
+};
+
+const getTimeframeIndex = (timeframe, dayAvailabilities) => {
+  return findIndex(
+    dayAvailabilities,
+    (tf) => tf.from === timeframe.from && tf.to === timeframe.to
+  );
 };
 
 const isContinouslyAvailable = (
@@ -62,16 +86,9 @@ const isContinouslyAvailable = (
   timeframe1,
   timeframe2
 ) => {
-  const weekdayIndex = toInteger(format(date, 'i')) - 1;
-  const timeframes = daysAvailabilities[weekdayIndex];
-  const timeframe1Index = findIndex(
-    timeframes,
-    (tf) => tf.from === timeframe1.from && tf.to === timeframe1.to
-  );
-  const timeframe2Index = findIndex(
-    timeframes,
-    (tf) => tf.from === timeframe2.from && tf.to === timeframe2.to
-  );
+  const timeframes = getDayAvailabilities(date, daysAvailabilities);
+  const timeframe1Index = getTimeframeIndex(timeframe1, timeframes);
+  const timeframe2Index = getTimeframeIndex(timeframe2, timeframes);
 
   if (timeframe1Index < 0 || timeframe2Index < 0) {
     // nie powinno się zdarzyć
@@ -82,6 +99,7 @@ const isContinouslyAvailable = (
     timeframe1.from,
     timeframe2.from
   );
+
   if (timeframe2Index - timeframe1Index + 1 !== expectedNumberOfIntervals) {
     return false;
   }
@@ -104,6 +122,30 @@ const areTimesInProperOrder = (timeframe1, timeframe2) => {
   return isAfter(abstractDate2, abstractDate1);
 };
 
+const getTimeframesBetween = (
+  daysAvailabilities,
+  date,
+  timeframe1,
+  timeframe2
+) => {
+  const timeframes = getDayAvailabilities(date, daysAvailabilities);
+  const timeframe1Index = getTimeframeIndex(timeframe1, timeframes);
+  const timeframe2Index = getTimeframeIndex(timeframe2, timeframes);
+
+  return slice(timeframes, timeframe1Index, timeframe2Index + 1);
+};
+
+const isSelectedTile = (tile, selectedTiles) => {
+  if (!tile) {
+    return false;
+  }
+
+  return (
+    findIndex(selectedTiles, (t) => t.from === tile.from && t.to === tile.to) >=
+    0
+  );
+};
+
 export {
   getWeekdayToDateMap,
   isTimeAvailable,
@@ -111,4 +153,6 @@ export {
   getDayNumber,
   isContinouslyAvailable,
   areTimesInProperOrder,
+  getTimeframesBetween,
+  isSelectedTile,
 };

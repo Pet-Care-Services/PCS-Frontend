@@ -1,11 +1,14 @@
-import React, { createRef, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Field as FormikField } from 'formik';
-import { get, isFunction, map, range } from 'lodash';
+import { isEqual, omit } from 'lodash';
 import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
-import { Box } from '@mui/system';
 import styles from './styles';
-import { areTimesInProperOrder, isContinouslyAvailable } from './utils';
+import {
+  areTimesInProperOrder,
+  getTimeframesBetween,
+  isContinouslyAvailable,
+} from './utils';
 import WeekAvailabilityView from './view';
 
 const WeekAvailability = ({ name, ...props }) => {
@@ -13,12 +16,13 @@ const WeekAvailability = ({ name, ...props }) => {
   const [tileTo, setTileTo] = useState(null);
 
   const onChange = (date, timeframe, setFieldValue) => {
-    let tileFromNewValue, tileToNewValue;
+    let tileFromNewValue = tileFrom;
+    let tileToNewValue = tileTo;
 
     if (
       (tileFrom && tileTo) ||
-      (tileFrom?.date &&
-        (tileFrom.date !== date ||
+      (tileFrom &&
+        (!isEqual(tileFrom.date, date) ||
           !isContinouslyAvailable(
             props.daysAvailabilities,
             date,
@@ -32,25 +36,30 @@ const WeekAvailability = ({ name, ...props }) => {
       // lub gdy wybrano nieciągły obszar
       tileFromNewValue = null;
       tileToNewValue = null;
-    } else if (!tileFrom) {
+      setFieldValue(name, { date: null, timeframes: [] });
+    }
+    if (!tileFromNewValue) {
       // gdy wybieramy początek
       tileFromNewValue = {
         date,
         timeframe,
       };
       tileToNewValue = null;
-    } else if (!tileTo) {
+      setFieldValue(name, { date, timeframes: [tileFromNewValue.timeframe] });
+    } else if (!tileToNewValue) {
       // gdy wybieramy koniec
       tileToNewValue = {
         date,
         timeframe,
       };
-    }
 
-    if (tileFromNewValue && tileToNewValue) {
-      // TODO
-      // const timeframes = getTimeframesBetween(tileFromNewValue.timeframe, timeToNewValue.timeframe);
-      // setFieldValue(name, { date: tileFromNewValue, timeframes });
+      const timeframes = getTimeframesBetween(
+        props.daysAvailabilities,
+        date,
+        tileFromNewValue.timeframe,
+        tileToNewValue.timeframe
+      );
+      setFieldValue(name, { date, timeframes });
     }
 
     setTileFrom(tileFromNewValue);
@@ -59,11 +68,21 @@ const WeekAvailability = ({ name, ...props }) => {
 
   return (
     <FormikField name={name} {...props}>
-      {({ form: { setFieldValue }, meta: { error } }) => (
-        <WeekAvailabilityView
-          onTimeClick={(...props) => onChange(...props, setFieldValue)}
-          {...props}
-        />
+      {({ field: { value }, form: { setFieldValue }, meta: { error } }) => (
+        <>
+          <WeekAvailabilityView
+            {...props}
+            onTimeClick={(...callbackProps) =>
+              onChange(...callbackProps, setFieldValue)
+            }
+            value={value}
+          />
+          {error && (
+            <Typography variant="tiny" sx={styles.error}>
+              {error}
+            </Typography>
+          )}
+        </>
       )}
     </FormikField>
   );
@@ -71,7 +90,7 @@ const WeekAvailability = ({ name, ...props }) => {
 
 WeekAvailability.propTypes = {
   name: PropTypes.string.isRequired,
-  ...WeekAvailabilityView.propTypes,
+  ...omit(WeekAvailabilityView.propTypes, 'value'),
 };
 
 WeekAvailability.defaultProps = {

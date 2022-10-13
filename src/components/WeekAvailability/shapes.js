@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const dayAvailabilities = PropTypes.arrayOf(
+const timeframesShape = PropTypes.arrayOf(
   PropTypes.exact({
     from: PropTypes.string,
     to: PropTypes.string,
@@ -8,13 +8,18 @@ const dayAvailabilities = PropTypes.arrayOf(
 );
 
 const daysAvailabilitiesShape = PropTypes.exact({
-  monday: dayAvailabilities,
-  tuesday: dayAvailabilities,
-  wednesday: dayAvailabilities,
-  thursday: dayAvailabilities,
-  friday: dayAvailabilities,
-  saturday: dayAvailabilities,
-  sunday: dayAvailabilities,
+  monday: timeframesShape,
+  tuesday: timeframesShape,
+  wednesday: timeframesShape,
+  thursday: timeframesShape,
+  friday: timeframesShape,
+  saturday: timeframesShape,
+  sunday: timeframesShape,
 });
 
-export { daysAvailabilitiesShape };
+const valueShape = PropTypes.exact({
+  date: PropTypes.instanceOf(Date),
+  timeframes: timeframesShape,
+});
+
+export { daysAvailabilitiesShape, valueShape };
