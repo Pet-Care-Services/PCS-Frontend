@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { Field as FormikField } from 'formik';
-import { isEqual, omit } from 'lodash';
+import { omit } from 'lodash';
 import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 import styles from './styles';
-import {
-  areTimesInProperOrder,
-  getTimeframesBetween,
-  isContinouslyAvailable,
-} from './utils';
+import { getTimeframesBetween, isInvalidClick } from './utils';
 import WeekAvailabilityView from './view';
 
 const WeekAvailability = ({ name, ...props }) => {
@@ -20,16 +16,13 @@ const WeekAvailability = ({ name, ...props }) => {
     let tileToNewValue = tileTo;
 
     if (
-      (tileFrom && tileTo) ||
-      (tileFrom &&
-        (!isEqual(tileFrom.date, date) ||
-          !isContinouslyAvailable(
-            props.daysAvailabilities,
-            date,
-            tileFrom.timeframe,
-            timeframe
-          ) ||
-          !areTimesInProperOrder(tileFrom.timeframe, timeframe)))
+      isInvalidClick(
+        tileFrom,
+        tileTo,
+        date,
+        timeframe,
+        props.daysAvailabilities
+      )
     ) {
       // gdy oba są wybrane
       // lub gdy koniec jest w innym dniu
@@ -72,7 +65,7 @@ const WeekAvailability = ({ name, ...props }) => {
         <>
           <WeekAvailabilityView
             {...props}
-            onTimeClick={(...callbackProps) =>
+            onTileClick={(...callbackProps) =>
               onChange(...callbackProps, setFieldValue)
             }
             value={value}
@@ -95,6 +88,7 @@ WeekAvailability.propTypes = {
 
 WeekAvailability.defaultProps = {
   ...WeekAvailabilityView.defaultProps,
+  readOnly: false,
 };
 
 export default WeekAvailability;

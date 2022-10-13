@@ -1,21 +1,15 @@
 import React from 'react';
 import { add, format, isToday } from 'date-fns';
-import { keys, map, noop, range, toInteger } from 'lodash';
+import { keys, map, noop, toInteger } from 'lodash';
 import PropTypes from 'prop-types';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { Box, Typography } from '@mui/material';
 import Icon from 'components/Icon';
-import { numberOfTiles } from './consts';
+import DayTimeframes from './components/DayTimeframes';
 import { daysAvailabilitiesShape, valueShape } from './shapes';
-import useStyles from './styles';
-import {
-  getWeekdayToDateMap,
-  getTimeEntry,
-  isTimeAvailable,
-  getDayNumber,
-  isSelectedTile,
-} from './utils';
+import styles from './styles';
+import { getWeekdayToDateMap, getDayNumber } from './utils';
 
 const WeekAvailabilityView = ({
   value,
@@ -23,11 +17,10 @@ const WeekAvailabilityView = ({
   daysAvailabilities,
   dateFrom,
   onArrowClick,
-  onTimeClick,
+  onTileClick,
 }) => {
-  const styles = useStyles(readOnly);
   const weekdayToDateMap = getWeekdayToDateMap(dateFrom);
-  console.log(value);
+
   return (
     <Box sx={styles.root}>
       <Icon
@@ -36,7 +29,9 @@ const WeekAvailabilityView = ({
       />
       {map(keys(daysAvailabilities), (day, index) => {
         const isSelectionInThisDay =
-          value.date && index === toInteger(format(value.date, 'i')) - 1;
+          !readOnly &&
+          !!value.date &&
+          index === toInteger(format(value.date, 'i')) - 1;
 
         return (
           <Box sx={styles.dayBoxRoot} key={day}>
@@ -49,35 +44,14 @@ const WeekAvailabilityView = ({
             >
               {getDayNumber(weekdayToDateMap[day])}
             </Typography>
-            <Box sx={styles.availabilityBox}>
-              {map(range(numberOfTiles), (tileIndex) => {
-                const tileData = getTimeEntry(
-                  tileIndex,
-                  daysAvailabilities[day]
-                );
-
-                return (
-                  <Box
-                    key={tileIndex}
-                    onClick={() => {
-                      if (readOnly || !tileData) {
-                        return;
-                      }
-
-                      onTimeClick(weekdayToDateMap[day], tileData);
-                    }}
-                    sx={{
-                      ...styles.intervalTile,
-                      ...(isTimeAvailable(tileIndex, daysAvailabilities[day]) &&
-                        styles.available),
-                      ...(isSelectionInThisDay &&
-                        isSelectedTile(tileData, value.timeframes) &&
-                        styles.active),
-                    }}
-                  ></Box>
-                );
-              })}
-            </Box>
+            <DayTimeframes
+              date={weekdayToDateMap[day]}
+              readOnly={readOnly}
+              dayAvailabilities={daysAvailabilities[day]}
+              isSelectionInThisDay={isSelectionInThisDay}
+              value={value}
+              onTileClick={onTileClick}
+            />
           </Box>
         );
       })}
@@ -90,18 +64,19 @@ const WeekAvailabilityView = ({
 };
 
 WeekAvailabilityView.propTypes = {
-  value: valueShape.isRequired,
+  value: valueShape,
   daysAvailabilities: daysAvailabilitiesShape.isRequired,
   dateFrom: PropTypes.instanceOf(Date).isRequired,
   readOnly: PropTypes.bool,
   onArrowClick: PropTypes.func,
-  onTimeClick: PropTypes.func,
+  onTileClick: PropTypes.func,
 };
 
 WeekAvailabilityView.defaultProps = {
-  readOnly: false,
+  value: null,
+  readOnly: true,
   onArrowClick: noop,
-  onTimeClick: noop,
+  onTileClick: noop,
 };
 
 export default WeekAvailabilityView;

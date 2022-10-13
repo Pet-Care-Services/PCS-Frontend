@@ -1,7 +1,9 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
+import { omit } from 'lodash';
 import AppThemeProvider from 'providers/Theme';
 import Component from '.';
+import ComponentView from './view';
 
 export default {
   title: 'Components/WeekAvailability',
@@ -21,12 +23,18 @@ const Template = (args) => (
   </AppThemeProvider>
 );
 
+const TemplateReadOnly = (args) => (
+  <AppThemeProvider>
+    <ComponentView {...args} />
+  </AppThemeProvider>
+);
+
 const Default = Template.bind({});
+const ReadOnly = TemplateReadOnly.bind({});
 
 Default.args = {
   name: 'availability',
   dateFrom: new Date('10/10/2022'),
-  dateTo: new Date('10/16/2022'),
   daysAvailabilities: {
     monday: [
       { from: '00:00:00', to: '00:15:00' },
@@ -51,4 +59,8 @@ Default.args = {
   },
 };
 
-export { Default };
+ReadOnly.args = {
+  ...omit(Default.args, 'name'),
+};
+
+export { Default, ReadOnly };

@@ -1,4 +1,4 @@
-import { add, format, isAfter } from 'date-fns';
+import { add, format, isAfter, isEqual as isEqualDates } from 'date-fns';
 import set from 'date-fns/set';
 import { find, findIndex, slice, split, toInteger } from 'lodash';
 import { tileInterval } from './consts';
@@ -146,13 +146,43 @@ const isSelectedTile = (tile, selectedTiles) => {
   );
 };
 
+const isInvalidClick = (
+  tileFrom,
+  tileTo,
+  clickedDate,
+  clickedTimeframe,
+  daysAvailabilities
+) => {
+  const isTileFromPresent = !!tileFrom;
+  const fromAndToAlreadySelected = isTileFromPresent && !!tileTo;
+  const differentDateSelected =
+    isTileFromPresent && !isEqualDates(tileFrom.date, clickedDate);
+  const isNotContinuous =
+    isTileFromPresent &&
+    !isContinouslyAvailable(
+      daysAvailabilities,
+      clickedDate,
+      tileFrom.timeframe,
+      clickedTimeframe
+    );
+  const isInvalidTilesOrder =
+    isTileFromPresent &&
+    !areTimesInProperOrder(tileFrom.timeframe, clickedTimeframe);
+
+  return (
+    fromAndToAlreadySelected ||
+    differentDateSelected ||
+    isNotContinuous ||
+    isInvalidTilesOrder
+  );
+};
+
 export {
   getWeekdayToDateMap,
   isTimeAvailable,
   getTimeEntry,
   getDayNumber,
-  isContinouslyAvailable,
-  areTimesInProperOrder,
   getTimeframesBetween,
   isSelectedTile,
+  isInvalidClick,
 };

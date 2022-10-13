@@ -22,4 +22,4 @@ const valueShape = PropTypes.exact({
   timeframes: timeframesShape,
 });
 
-export { daysAvailabilitiesShape, valueShape };
+export { daysAvailabilitiesShape, valueShape, timeframesShape };
