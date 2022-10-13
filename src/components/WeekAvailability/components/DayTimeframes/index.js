@@ -2,6 +2,7 @@ import React from 'react';
 import { map, range } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
+import Tooltip from 'components/Tooltip';
 import { numberOfTiles } from 'components/WeekAvailability/consts';
 import {
   timeframesShape,
@@ -29,26 +30,30 @@ const DayTimeframes = ({
       {map(range(numberOfTiles), (tileIndex) => {
         const tileData = getTimeEntry(tileIndex, dayAvailabilities);
 
-        return (
-          <Box
-            key={tileIndex}
-            onClick={() => {
-              if (readOnly || !tileData) {
-                return;
-              }
+        const OptionalTooltip = tileData ? Tooltip : React.Fragment;
+        const props = tileData ? { title: tileData?.from } : {};
 
-              onTileClick(date, tileData);
-            }}
-            sx={{
-              ...styles.intervalTile,
-              ...(isTimeAvailable(tileIndex, dayAvailabilities) &&
-                styles.available),
-              ...(isSelectionInThisDay &&
-                !readOnly &&
-                isSelectedTile(tileData, value.timeframes) &&
-                styles.active),
-            }}
-          ></Box>
+        return (
+          <OptionalTooltip {...props} key={tileIndex}>
+            <Box
+              onClick={() => {
+                if (readOnly || !tileData) {
+                  return;
+                }
+
+                onTileClick(date, tileData);
+              }}
+              sx={{
+                ...styles.intervalTile,
+                ...(isTimeAvailable(tileIndex, dayAvailabilities) &&
+                  styles.available),
+                ...(isSelectionInThisDay &&
+                  !readOnly &&
+                  isSelectedTile(tileData, value.timeframes) &&
+                  styles.active),
+              }}
+            />
+          </OptionalTooltip>
         );
       })}
     </Box>
