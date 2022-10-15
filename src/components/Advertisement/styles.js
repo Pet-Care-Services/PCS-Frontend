@@ -66,4 +66,10 @@ export default {
   fakeAvailabilityArea: {
     height: availabilityComponentHeight,
   },
+  textAvailability: {
+    marginTop: 10,
+    display: 'flex',
+    alignItems: 'center',
+    columnGap: 10,
+  },
 };
