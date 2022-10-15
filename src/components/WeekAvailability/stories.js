@@ -92,6 +92,10 @@ Default.args = {
         from: new Date('2022-10-11T12:45:00.000Z'),
         to: new Date('2022-10-11T13:00:00.000Z'),
       },
+      {
+        from: new Date('2022-10-11T21:45:00.000Z'),
+        to: new Date('2022-10-11T22:00:00.000Z'),
+      },
     ],
     [WEEKDAY.WEDNESDAY]: [],
     [WEEKDAY.THURSDAY]: [

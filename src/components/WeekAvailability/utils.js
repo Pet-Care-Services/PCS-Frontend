@@ -1,6 +1,5 @@
 import { add, format, isAfter, isEqual as isEqualDates } from 'date-fns';
-import set from 'date-fns/set';
-import { find, findIndex, slice, toInteger, values } from 'lodash';
+import { findIndex, slice, toInteger, values } from 'lodash';
 import { WEEKDAY } from 'consts/enums';
 import { tileInterval } from './consts';
 
@@ -18,26 +17,6 @@ const getWeekdayToDateMap = (dateFrom) => {
   };
 
   return mapping;
-};
-
-const getTimeByTileIndex = (date, tileIndex) => {
-  return add(set(date, { hours: 0, minutes: 0, seconds: 0 }), {
-    minutes: tileIndex * tileInterval,
-  });
-};
-
-const isTimeAvailable = (date, tileIndex, dayAvailabilities) => {
-  const time = getTimeByTileIndex(date, tileIndex);
-
-  return (
-    findIndex(dayAvailabilities, ({ from }) => isEqualDates(from, time)) >= 0
-  );
-};
-
-const getTimeEntry = (date, tileIndex, dayAvailabilities) => {
-  const time = getTimeByTileIndex(date, tileIndex);
-
-  return find(dayAvailabilities, ({ from }) => isEqualDates(from, time));
 };
 
 const getNumberOfIntervalsBetween = (datetimeFrom, datetimeTo) => {
@@ -157,8 +136,6 @@ const isInvalidClick = (
 
 export {
   getWeekdayToDateMap,
-  isTimeAvailable,
-  getTimeEntry,
   getDayNumber,
   getTimeframesBetween,
   isSelectedTile,

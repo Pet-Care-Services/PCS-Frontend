@@ -1,5 +1,5 @@
 import React from 'react';
-import { map, range } from 'lodash';
+import { map } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 import Tooltip from 'components/Tooltip';
@@ -8,13 +8,10 @@ import {
   timeframesShape,
   valueShape,
 } from 'components/WeekAvailability/shapes';
-import {
-  getTimeEntry,
-  isTimeAvailable,
-  isSelectedTile,
-} from 'components/WeekAvailability/utils';
+import { isSelectedTile } from 'components/WeekAvailability/utils';
+import { TILE_HEIGHT } from './consts';
 import useStyles from './styles';
-import { formatTooltipMessage } from './utils';
+import { formatTooltipMessage, getDayTimeframeIndex } from './utils';
 
 const DayTimeframes = ({
   date,
@@ -27,36 +24,35 @@ const DayTimeframes = ({
   const styles = useStyles(readOnly);
 
   return (
-    <Box sx={styles.availabilityBox}>
-      {map(range(numberOfTiles), (tileIndex) => {
-        const tileData = getTimeEntry(date, tileIndex, dayAvailabilities);
-
-        const OptionalTooltip = tileData ? Tooltip : React.Fragment;
-        const props = tileData && {
-          title: formatTooltipMessage(tileData.from, tileData.to),
-        };
+    <Box sx={styles.root}>
+      {map(dayAvailabilities, (timeframe, index) => {
+        const dayTimeframeIndex = getDayTimeframeIndex(timeframe);
 
         return (
-          <OptionalTooltip {...props} key={tileIndex}>
+          <Tooltip
+            title={formatTooltipMessage(timeframe.from, timeframe.to)}
+            key={index}
+          >
             <Box
               onClick={(e) => {
-                if (readOnly || !tileData) {
+                if (readOnly) {
                   return;
                 }
                 e.stopPropagation();
-                onTileClick(date, tileData);
+                onTileClick(date, timeframe);
               }}
               sx={{
                 ...styles.intervalTile,
-                ...(isTimeAvailable(date, tileIndex, dayAvailabilities) &&
-                  styles.available),
+                ...(dayTimeframeIndex === 0 && styles.first),
+                ...(dayTimeframeIndex === numberOfTiles - 1 && styles.last),
+                top: getDayTimeframeIndex(timeframe) * TILE_HEIGHT,
                 ...(isSelectionInThisDay &&
                   !readOnly &&
-                  isSelectedTile(tileData, value.timeframes) &&
+                  isSelectedTile(timeframe, value.timeframes) &&
                   styles.active),
               }}
             />
-          </OptionalTooltip>
+          </Tooltip>
         );
       })}
     </Box>
