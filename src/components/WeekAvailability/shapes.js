@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 
 const timeframesShape = PropTypes.arrayOf(
   PropTypes.exact({
-    from: PropTypes.string,
-    to: PropTypes.string,
+    from: PropTypes.instanceOf(Date),
+    to: PropTypes.instanceOf(Date),
   })
 );
 

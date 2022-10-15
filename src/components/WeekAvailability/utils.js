@@ -1,6 +1,6 @@
 import { add, format, isAfter, isEqual as isEqualDates } from 'date-fns';
 import set from 'date-fns/set';
-import { find, findIndex, slice, split, toInteger } from 'lodash';
+import { find, findIndex, slice, toInteger } from 'lodash';
 import { tileInterval } from './consts';
 
 const getDayNumber = (date) => format(date, 'd');
@@ -19,38 +19,35 @@ const getWeekdayToDateMap = (dateFrom) => {
   return mapping;
 };
 
-const getTimeByTileIndex = (tileIndex) => {
-  return format(
-    add(set(new Date(), { hours: 0, minutes: 0, seconds: 0 }), {
-      minutes: tileIndex * tileInterval,
-    }),
-    'HH:mm:ss'
+const getTimeByTileIndex = (date, tileIndex) => {
+  return add(set(date, { hours: 0, minutes: 0, seconds: 0 }), {
+    minutes: tileIndex * tileInterval,
+  });
+};
+
+const isTimeAvailable = (date, tileIndex, dayAvailabilities) => {
+  const time = getTimeByTileIndex(date, tileIndex);
+
+  return (
+    findIndex(dayAvailabilities, ({ from }) => isEqualDates(from, time)) >= 0
   );
 };
 
-const isTimeAvailable = (tileIndex, dayAvailabilities) => {
-  const time = getTimeByTileIndex(tileIndex);
+const getTimeEntry = (date, tileIndex, dayAvailabilities) => {
+  const time = getTimeByTileIndex(date, tileIndex);
 
-  return findIndex(dayAvailabilities, ({ from }) => from === time) >= 0;
+  return find(dayAvailabilities, ({ from }) => isEqualDates(from, time));
 };
 
-const getTimeEntry = (tileIndex, dayAvailabilities) => {
-  const time = getTimeByTileIndex(tileIndex);
-
-  return find(dayAvailabilities, ({ from }) => from === time);
-};
-
-const getNumberOfIntervalsBetween = (timeFrom, timeTo) => {
-  const [fromHour, fromMinute] = split(timeFrom, ':');
-  let abstractDate = set(new Date(), {
-    hours: fromHour,
-    minutes: fromMinute,
-    seconds: 0,
-  });
+const getNumberOfIntervalsBetween = (datetimeFrom, datetimeTo) => {
+  let iteratingDate = datetimeFrom;
   let numberOfIntervals = 1;
 
-  while (format(abstractDate, 'HH:mm:ss') !== timeTo) {
-    abstractDate = add(abstractDate, { minutes: tileInterval });
+  while (
+    !isEqualDates(iteratingDate, datetimeTo) &&
+    isAfter(datetimeTo, iteratingDate)
+  ) {
+    iteratingDate = add(iteratingDate, { minutes: tileInterval });
     numberOfIntervals++;
   }
 
@@ -76,7 +73,8 @@ const getDayAvailabilities = (date, daysAvailabilities) => {
 const getTimeframeIndex = (timeframe, dayAvailabilities) => {
   return findIndex(
     dayAvailabilities,
-    (tf) => tf.from === timeframe.from && tf.to === timeframe.to
+    (tf) =>
+      isEqualDates(tf.from, timeframe.from) && isEqualDates(tf.to, timeframe.to)
   );
 };
 
@@ -107,21 +105,6 @@ const isContinouslyAvailable = (
   return true;
 };
 
-const areTimesInProperOrder = (timeframe1, timeframe2) => {
-  const [fromHour1, fromMinute1] = split(timeframe1.from, ':');
-  const [fromHour2, fromMinute2] = split(timeframe2.from, ':');
-  const abstractDate1 = set(new Date(), {
-    hours: fromHour1,
-    minutes: fromMinute1,
-  });
-  const abstractDate2 = set(new Date(), {
-    hours: fromHour2,
-    minutes: fromMinute2,
-  });
-
-  return isAfter(abstractDate2, abstractDate1);
-};
-
 const getTimeframesBetween = (
   daysAvailabilities,
   date,
@@ -141,8 +124,10 @@ const isSelectedTile = (tile, selectedTiles) => {
   }
 
   return (
-    findIndex(selectedTiles, (t) => t.from === tile.from && t.to === tile.to) >=
-    0
+    findIndex(
+      selectedTiles,
+      (t) => isEqualDates(t.from, tile.from) && isEqualDates(t.to, tile.to)
+    ) >= 0
   );
 };
 
@@ -167,7 +152,7 @@ const isInvalidClick = (
     );
   const isInvalidTilesOrder =
     isTileFromPresent &&
-    !areTimesInProperOrder(tileFrom.timeframe, clickedTimeframe);
+    !isAfter(clickedTimeframe.from, tileFrom.timeframe.from);
 
   return (
     fromAndToAlreadySelected ||

@@ -1,4 +1,5 @@
 import React from 'react';
+import { format } from 'date-fns';
 import { map, range } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
@@ -28,10 +29,10 @@ const DayTimeframes = ({
   return (
     <Box sx={styles.availabilityBox}>
       {map(range(numberOfTiles), (tileIndex) => {
-        const tileData = getTimeEntry(tileIndex, dayAvailabilities);
+        const tileData = getTimeEntry(date, tileIndex, dayAvailabilities);
 
         const OptionalTooltip = tileData ? Tooltip : React.Fragment;
-        const props = tileData ? { title: tileData?.from } : {};
+        const props = tileData ? { title: format(tileData.from, 'HH:mm') } : {};
 
         return (
           <OptionalTooltip {...props} key={tileIndex}>
@@ -45,7 +46,7 @@ const DayTimeframes = ({
               }}
               sx={{
                 ...styles.intervalTile,
-                ...(isTimeAvailable(tileIndex, dayAvailabilities) &&
+                ...(isTimeAvailable(date, tileIndex, dayAvailabilities) &&
                   styles.available),
                 ...(isSelectionInThisDay &&
                   !readOnly &&

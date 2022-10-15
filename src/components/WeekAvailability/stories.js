@@ -34,25 +34,71 @@ const ReadOnly = TemplateReadOnly.bind({});
 
 Default.args = {
   name: 'availability',
-  dateFrom: new Date('10/10/2022'),
+  dateFrom: new Date('2022-10-09T22:00:00.000Z'),
   daysAvailabilities: {
     monday: [
-      { from: '00:00:00', to: '00:15:00' },
-      { from: '10:00:00', to: '10:15:00' },
-      { from: '10:15:00', to: '10:30:00' },
-      { from: '10:30:00', to: '10:45:00' },
-      { from: '23:45:00', to: '00:00:00' },
+      {
+        from: new Date('2022-10-09T22:00:00.000Z'),
+        to: new Date('2022-10-09T22:15:00.000Z'),
+      },
+      {
+        from: new Date('2022-10-10T10:00:00.000Z'),
+        to: new Date('2022-10-10T10:15:00.000Z'),
+      },
+      {
+        from: new Date('2022-10-10T10:15:00.000Z'),
+        to: new Date('2022-10-10T10:30:00.000Z'),
+      },
+      {
+        from: new Date('2022-10-10T10:30:00.000Z'),
+        to: new Date('2022-10-10T10:45:00.000Z'),
+      },
+      {
+        from: new Date('2022-10-10T10:45:00.000Z'),
+        to: new Date('2022-10-10T11:00:00.000Z'),
+      },
     ],
     tuesday: [
-      { from: '10:00:00', to: '10:15:00' },
-      { from: '10:15:00', to: '10:30:00' },
-      { from: '10:30:00', to: '10:45:00' },
-      { from: '10:45:00', to: '11:00:00' },
-      { from: '11:00:00', to: '11:15:00' },
-      { from: '11:15:00', to: '11:30:00' },
+      {
+        from: new Date('2022-10-11T10:00:00.000Z'),
+        to: new Date('2022-10-11T10:15:00.000Z'),
+      },
+      {
+        from: new Date('2022-10-11T10:15:00.000Z'),
+        to: new Date('2022-10-11T10:30:00.000Z'),
+      },
+      {
+        from: new Date('2022-10-11T10:30:00.000Z'),
+        to: new Date('2022-10-11T10:45:00.000Z'),
+      },
+      {
+        from: new Date('2022-10-11T10:45:00.000Z'),
+        to: new Date('2022-10-11T11:00:00.000Z'),
+      },
+      {
+        from: new Date('2022-10-11T12:00:00.000Z'),
+        to: new Date('2022-10-11T12:15:00.000Z'),
+      },
+      {
+        from: new Date('2022-10-11T12:15:00.000Z'),
+        to: new Date('2022-10-11T12:30:00.000Z'),
+      },
+      {
+        from: new Date('2022-10-11T12:30:00.000Z'),
+        to: new Date('2022-10-11T12:45:00.000Z'),
+      },
+      {
+        from: new Date('2022-10-11T12:45:00.000Z'),
+        to: new Date('2022-10-11T13:00:00.000Z'),
+      },
     ],
     wednesday: [],
-    thursday: [{ from: '12:00:00', to: '12:15:00' }],
+    thursday: [
+      {
+        from: new Date('2022-10-13T00:00:00.000Z'),
+        to: new Date('2022-10-13T00:15:00.000Z'),
+      },
+    ],
     friday: [],
     saturday: [],
     sunday: [],
