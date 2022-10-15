@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 import { omit } from 'lodash';
+import { WEEKDAY } from 'consts/enums';
 import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 import ComponentView from './view';
@@ -36,7 +37,7 @@ Default.args = {
   name: 'availability',
   dateFrom: new Date('2022-10-09T22:00:00.000Z'),
   daysAvailabilities: {
-    monday: [
+    [WEEKDAY.MONDAY]: [
       {
         from: new Date('2022-10-09T22:00:00.000Z'),
         to: new Date('2022-10-09T22:15:00.000Z'),
@@ -58,7 +59,7 @@ Default.args = {
         to: new Date('2022-10-10T11:00:00.000Z'),
       },
     ],
-    tuesday: [
+    [WEEKDAY.TUESDAY]: [
       {
         from: new Date('2022-10-11T10:00:00.000Z'),
         to: new Date('2022-10-11T10:15:00.000Z'),
@@ -92,16 +93,16 @@ Default.args = {
         to: new Date('2022-10-11T13:00:00.000Z'),
       },
     ],
-    wednesday: [],
-    thursday: [
+    [WEEKDAY.WEDNESDAY]: [],
+    [WEEKDAY.THURSDAY]: [
       {
         from: new Date('2022-10-13T00:00:00.000Z'),
         to: new Date('2022-10-13T00:15:00.000Z'),
       },
     ],
-    friday: [],
-    saturday: [],
-    sunday: [],
+    [WEEKDAY.FRIDAY]: [],
+    [WEEKDAY.SATURDAY]: [],
+    [WEEKDAY.SUNDAY]: [],
   },
 };
 

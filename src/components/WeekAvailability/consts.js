@@ -4,4 +4,11 @@ const tileInterval = 15;
 
 const numberOfTiles = minutesInDay / tileInterval;
 
-export { minutesInDay, tileInterval, numberOfTiles };
+const availabilityComponentHeight = 550;
+
+export {
+  minutesInDay,
+  tileInterval,
+  numberOfTiles,
+  availabilityComponentHeight,
+};

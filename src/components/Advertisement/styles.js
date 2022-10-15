@@ -1,3 +1,5 @@
+import { availabilityComponentHeight } from 'components/WeekAvailability/consts';
+
 export default {
   activitiesTags: {
     backgroundColor: (theme) => theme.palette.secondary.dark,
@@ -61,8 +63,7 @@ export default {
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
-  availabilityBox: {
-    height: 200,
-    border: 1,
+  fakeAvailabilityArea: {
+    height: availabilityComponentHeight,
   },
 };

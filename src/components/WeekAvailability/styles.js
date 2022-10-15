@@ -1,8 +1,10 @@
 import commonStyles from 'consts/commonStyles';
+import { availabilityComponentHeight } from './consts';
 
 export default {
   root: {
     width: '100%',
+    height: availabilityComponentHeight,
     display: 'flex',
     padding: 10,
     borderRadius: (theme) => theme.borderRadius.small,

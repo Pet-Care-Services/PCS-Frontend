@@ -39,7 +39,7 @@ const DatePickerView = ({ field, name, withTime, ...props }) => {
       inputFormat={inputFormats[withTime ? 'withTime' : 'onlyDate']}
       open={open}
       onClose={() => setOpen(false)}
-      minutesStep={5}
+      minutesStep={15}
       mask={null}
     />
   );

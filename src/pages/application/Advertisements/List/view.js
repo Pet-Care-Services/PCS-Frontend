@@ -10,6 +10,7 @@ import Icon from 'components/Icon';
 import Loader from 'components/Loader';
 import Map from 'components/Map';
 import TileWrapper from 'components/TileWrapper';
+import { ITEM_TYPE } from 'consts/enums';
 import optionsShape from 'shapes/optionsShape';
 import { getFiltersFields } from './consts';
 import { filtersInitialValuesShape, dataShape, itemTypeShape } from './shapes';
@@ -78,6 +79,7 @@ const ListView = ({
           <Advertisement
             key={index}
             {...adverisement}
+            isService={itemType === ITEM_TYPE.SERVICE}
             isExpanded={expandedAdvertisementIndex === index}
             onBoxClick={() => {
               if (index === expandedAdvertisementIndex) {

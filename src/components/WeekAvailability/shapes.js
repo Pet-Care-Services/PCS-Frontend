@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { WEEKDAY } from 'consts/enums';
 
 const timeframesShape = PropTypes.arrayOf(
   PropTypes.exact({
@@ -8,13 +9,13 @@ const timeframesShape = PropTypes.arrayOf(
 );
 
 const daysAvailabilitiesShape = PropTypes.exact({
-  monday: timeframesShape,
-  tuesday: timeframesShape,
-  wednesday: timeframesShape,
-  thursday: timeframesShape,
-  friday: timeframesShape,
-  saturday: timeframesShape,
-  sunday: timeframesShape,
+  [WEEKDAY.MONDAY]: timeframesShape,
+  [WEEKDAY.TUESDAY]: timeframesShape,
+  [WEEKDAY.WEDNESDAY]: timeframesShape,
+  [WEEKDAY.THURSDAY]: timeframesShape,
+  [WEEKDAY.FRIDAY]: timeframesShape,
+  [WEEKDAY.SATURDAY]: timeframesShape,
+  [WEEKDAY.SUNDAY]: timeframesShape,
 });
 
 const valueShape = PropTypes.exact({

@@ -9,6 +9,8 @@ import Icon from 'components/Icon';
 import PriceRange from 'components/PriceRange';
 import Rating from 'components/Rating';
 import TileWrapper from 'components/TileWrapper';
+import WeekAvailabilityView from 'components/WeekAvailability/view';
+import { daysAvailabilitiesShape } from '../WeekAvailability/shapes';
 import styles from './styles';
 import renderTags from './utils';
 
@@ -21,10 +23,24 @@ const Advertisement = ({
   image,
   description,
   isExpanded,
+  weekAvailability,
+  isService,
   onBoxClick,
   onContactClick,
 }) => {
   const { t } = useTranslation();
+
+  let availability = 'printed version';
+  if (isService) {
+    availability = isExpanded ? (
+      <WeekAvailabilityView
+        dateFrom={weekAvailability.dateFrom}
+        daysAvailabilities={weekAvailability.daysAvailabilities}
+      />
+    ) : (
+      <Box sx={styles.fakeAvailabilityArea} />
+    );
+  }
 
   return (
     <TileWrapper>
@@ -53,7 +69,7 @@ const Advertisement = ({
           </Box>
           <Box sx={styles.expandedBox}>
             <Typography variant="h2">{description}</Typography>
-            <Box sx={styles.availabilityBox}>Availability</Box>
+            {availability}
             <Box sx={styles.justifyEndBox}>
               <Button sx={styles.contactButton} onClick={onContactClick}>
                 {t('contact')}
@@ -73,6 +89,11 @@ Advertisement.propTypes = {
   price: PropTypes.object.isRequired,
   location: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
+  weekAvailability: PropTypes.exact({
+    dateFrom: PropTypes.instanceOf(Date),
+    daysAvailabilities: daysAvailabilitiesShape,
+  }).isRequired,
+  isService: PropTypes.bool.isRequired,
   description: PropTypes.string,
   isExpanded: PropTypes.bool,
   onContactClick: PropTypes.func,

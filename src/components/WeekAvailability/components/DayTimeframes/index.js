@@ -1,5 +1,4 @@
 import React from 'react';
-import { format } from 'date-fns';
 import { map, range } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
@@ -15,6 +14,7 @@ import {
   isSelectedTile,
 } from 'components/WeekAvailability/utils';
 import useStyles from './styles';
+import { formatTooltipMessage } from './utils';
 
 const DayTimeframes = ({
   date,
@@ -32,16 +32,18 @@ const DayTimeframes = ({
         const tileData = getTimeEntry(date, tileIndex, dayAvailabilities);
 
         const OptionalTooltip = tileData ? Tooltip : React.Fragment;
-        const props = tileData ? { title: format(tileData.from, 'HH:mm') } : {};
+        const props = tileData && {
+          title: formatTooltipMessage(tileData.from, tileData.to),
+        };
 
         return (
           <OptionalTooltip {...props} key={tileIndex}>
             <Box
-              onClick={() => {
+              onClick={(e) => {
                 if (readOnly || !tileData) {
                   return;
                 }
-
+                e.stopPropagation();
                 onTileClick(date, tileData);
               }}
               sx={{

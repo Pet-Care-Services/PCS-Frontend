@@ -25,7 +25,10 @@ const WeekAvailabilityView = ({
     <Box sx={styles.root}>
       <Icon
         Component={KeyboardDoubleArrowLeftIcon}
-        onClick={() => onArrowClick(-1)}
+        onClick={(e) => {
+          e.stopPropagation();
+          onArrowClick(-1);
+        }}
       />
       {map(keys(daysAvailabilities), (day, index) => {
         const isSelectionInThisDay =
@@ -57,7 +60,10 @@ const WeekAvailabilityView = ({
       })}
       <Icon
         Component={KeyboardDoubleArrowRightIcon}
-        onClick={() => onArrowClick(1)}
+        onClick={(e) => {
+          e.stopPropagation();
+          onArrowClick(1);
+        }}
       />
     </Box>
   );

@@ -1,19 +1,20 @@
 import { add, format, isAfter, isEqual as isEqualDates } from 'date-fns';
 import set from 'date-fns/set';
-import { find, findIndex, slice, toInteger } from 'lodash';
+import { find, findIndex, slice, toInteger, values } from 'lodash';
+import { WEEKDAY } from 'consts/enums';
 import { tileInterval } from './consts';
 
 const getDayNumber = (date) => format(date, 'd');
 
 const getWeekdayToDateMap = (dateFrom) => {
   const mapping = {
-    monday: dateFrom,
-    tuesday: add(dateFrom, { days: 1 }),
-    wednesday: add(dateFrom, { days: 2 }),
-    thursday: add(dateFrom, { days: 3 }),
-    friday: add(dateFrom, { days: 4 }),
-    saturday: add(dateFrom, { days: 5 }),
-    sunday: add(dateFrom, { days: 6 }),
+    [WEEKDAY.MONDAY]: dateFrom,
+    [WEEKDAY.TUESDAY]: add(dateFrom, { days: 1 }),
+    [WEEKDAY.WEDNESDAY]: add(dateFrom, { days: 2 }),
+    [WEEKDAY.THURSDAY]: add(dateFrom, { days: 3 }),
+    [WEEKDAY.FRIDAY]: add(dateFrom, { days: 4 }),
+    [WEEKDAY.SATURDAY]: add(dateFrom, { days: 5 }),
+    [WEEKDAY.SUNDAY]: add(dateFrom, { days: 6 }),
   };
 
   return mapping;
@@ -54,15 +55,7 @@ const getNumberOfIntervalsBetween = (datetimeFrom, datetimeTo) => {
   return numberOfIntervals;
 };
 
-const weekdays = [
-  'monday',
-  'tuesday',
-  'wednesday',
-  'thursday',
-  'friday',
-  'saturday',
-  'sunday',
-];
+const weekdays = values(WEEKDAY);
 
 const getDayAvailabilities = (date, daysAvailabilities) => {
   const weekdayIndex = toInteger(format(date, 'i')) - 1;
