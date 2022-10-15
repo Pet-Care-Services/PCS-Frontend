@@ -1,15 +1,14 @@
 import { format } from 'date-fns';
 import { toInteger } from 'lodash';
-
-const timeFormat = 'HH:mm';
+import { hourFormat, minuteFormat, timeFormat } from 'consts/dateFormats';
 
 const formatTooltipMessage = (dateFrom, dateTo) => {
   return `${format(dateFrom, timeFormat)} - ${format(dateTo, timeFormat)}`;
 };
 
 const getDayTimeframeIndex = (timeframe) => {
-  const hours = toInteger(format(timeframe.from, 'HH'));
-  const minutes = toInteger(format(timeframe.from, 'mm'));
+  const hours = toInteger(format(timeframe.from, hourFormat));
+  const minutes = toInteger(format(timeframe.from, minuteFormat));
 
   return hours * 4 + minutes / 15;
 };
