@@ -9,6 +9,7 @@ import Icon from 'components/Icon';
 import PriceRange from 'components/PriceRange';
 import Rating from 'components/Rating';
 import TileWrapper from 'components/TileWrapper';
+import priceShape from 'shapes/priceShape';
 import styles from './styles';
 import renderTags from './utils';
 
@@ -70,7 +71,7 @@ Advertisement.propTypes = {
   activities: PropTypes.array.isRequired,
   animals: PropTypes.array.isRequired,
   starsValue: PropTypes.number.isRequired,
-  price: PropTypes.object.isRequired,
+  price: priceShape.isRequired,
   location: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   description: PropTypes.string,

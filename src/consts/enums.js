@@ -3,4 +3,10 @@ const ITEM_TYPE = {
   REQUEST: 'REQUEST',
 };
 
-export { ITEM_TYPE };
+const OFFER_STATUS = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+};
+
+export { ITEM_TYPE, OFFER_STATUS };

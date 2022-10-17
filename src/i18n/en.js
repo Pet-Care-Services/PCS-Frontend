@@ -135,5 +135,9 @@ export default {
     redirectInXSeconds:
       'You will be redirected to the main page in {{value}} seconds.',
     map: 'Map',
+    accept: 'Accept',
+    accepted: 'Accepted',
+    reject: 'Reject',
+    rejected: 'Rejected',
   },
 };

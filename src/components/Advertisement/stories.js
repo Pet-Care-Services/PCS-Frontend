@@ -22,7 +22,7 @@ Advertisement.args = {
   price: {
     from: 10,
     to: 20,
-    priceType: 'hourly',
+    priceType: 'HOURLY',
   },
   location: 'Kraków',
   image:

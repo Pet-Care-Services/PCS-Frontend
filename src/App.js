@@ -10,6 +10,9 @@ import AllProviders from 'providers';
 const queryClient = new QueryClient();
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+axios.defaults.headers.common = {
+  Authorization: localStorage.getItem('token'),
+};
 
 const App = () => {
   return (
