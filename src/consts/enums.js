@@ -9,4 +9,14 @@ const OFFER_STATUS = {
   REJECTED: 'REJECTED',
 };
 
-export { ITEM_TYPE, OFFER_STATUS };
+const WEEKDAY = {
+  MONDAY: 'monday',
+  TUESDAY: 'tuesday',
+  WEDNESDAY: 'wednesday',
+  THURSDAY: 'thursday',
+  FRIDAY: 'friday',
+  SATURDAY: 'saturday',
+  SUNDAY: 'sunday',
+};
+
+export { ITEM_TYPE, WEEKDAY, OFFER_STATUS };

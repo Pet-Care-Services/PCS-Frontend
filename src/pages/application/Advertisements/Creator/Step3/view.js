@@ -100,6 +100,7 @@ const Step3 = ({
                     </Typography>
                   }
                   sx={styles.narrowField}
+                  onlyNumbers
                 />
               )}
             </Box>

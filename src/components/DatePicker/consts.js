@@ -3,9 +3,4 @@ const views = {
   onlyDate: ['month', 'year', 'day'],
 };
 
-const inputFormats = {
-  withTime: 'dd - MM - yyyy, HH:mm',
-  onlyDate: 'dd - MM - yyyy',
-};
-
-export { views, inputFormats };
+export { views };
