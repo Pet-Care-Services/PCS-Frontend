@@ -45,7 +45,7 @@ const DayTimeframes = ({
                 ...styles.intervalTile,
                 ...(dayTimeframeIndex === 0 && styles.first),
                 ...(dayTimeframeIndex === numberOfTiles - 1 && styles.last),
-                top: getDayTimeframeIndex(timeframe) * TILE_HEIGHT,
+                top: dayTimeframeIndex * TILE_HEIGHT,
                 ...(isSelectionInThisDay &&
                   !readOnly &&
                   isSelectedTile(timeframe, value.timeframes) &&
