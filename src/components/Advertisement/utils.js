@@ -1,6 +1,8 @@
 import React from 'react';
+import { format } from 'date-fns';
 import { Box } from '@mui/system';
 import Tag from 'components/Tag';
+import { datetimeFormat } from 'consts/dateFormats';
 import styles from './styles';
 
 const styleMap = {
@@ -43,4 +45,10 @@ const renderTags = (tagLabels, modelKey, amountToFit, t) => {
   );
 };
 
-export default renderTags;
+const formatDateRange = (from, to) =>
+  `${format(new Date(from), datetimeFormat)} - ${format(
+    new Date(to),
+    datetimeFormat
+  )}`;
+
+export { renderTags, formatDateRange };

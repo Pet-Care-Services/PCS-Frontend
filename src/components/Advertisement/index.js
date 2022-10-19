@@ -1,16 +1,21 @@
 import React from 'react';
-import { noop } from 'lodash';
+import { map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
+import RepeatIcon from '@mui/icons-material/Repeat';
 import { Box, Typography, Collapse } from '@mui/material';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
 import PriceRange from 'components/PriceRange';
 import Rating from 'components/Rating';
 import TileWrapper from 'components/TileWrapper';
+import WeekAvailabilityView from 'components/WeekAvailability/view';
+import { availabilitiesShape } from '../../pages/application/Advertisements/Creator/Step3/shapes';
+import { daysAvailabilitiesShape } from '../WeekAvailability/shapes';
+import { getPeriodToLabelMap } from './consts';
 import styles from './styles';
-import renderTags from './utils';
+import { formatDateRange, renderTags } from './utils';
 
 const Advertisement = ({
   activities,
@@ -21,10 +26,41 @@ const Advertisement = ({
   image,
   description,
   isExpanded,
+  availabilities,
+  weekAvailability,
+  isService,
   onBoxClick,
   onContactClick,
 }) => {
   const { t } = useTranslation();
+
+  let availability;
+  if (isService) {
+    availability = isExpanded ? (
+      <WeekAvailabilityView
+        dateFrom={weekAvailability.dateFrom}
+        daysAvailabilities={weekAvailability.daysAvailabilities}
+      />
+    ) : (
+      <Box sx={styles.fakeAvailabilityArea} />
+    );
+  } else {
+    const periodToLabelMap = getPeriodToLabelMap(t);
+    availability = map(
+      availabilities,
+      ({ from, to, cyclic, period }, index) => (
+        <Box key={index} sx={styles.textAvailability}>
+          {formatDateRange(from, to)}
+          {cyclic && (
+            <>
+              <Icon Component={RepeatIcon} />
+              {periodToLabelMap[period]}
+            </>
+          )}
+        </Box>
+      )
+    );
+  }
 
   return (
     <TileWrapper>
@@ -53,7 +89,7 @@ const Advertisement = ({
           </Box>
           <Box sx={styles.expandedBox}>
             <Typography variant="h2">{description}</Typography>
-            <Box sx={styles.availabilityBox}>Availability</Box>
+            {availability}
             <Box sx={styles.justifyEndBox}>
               <Button sx={styles.contactButton} onClick={onContactClick}>
                 {t('contact')}
@@ -73,6 +109,12 @@ Advertisement.propTypes = {
   price: PropTypes.object.isRequired,
   location: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
+  availabilities: availabilitiesShape.isRequired,
+  weekAvailability: PropTypes.exact({
+    dateFrom: PropTypes.instanceOf(Date),
+    daysAvailabilities: daysAvailabilitiesShape,
+  }),
+  isService: PropTypes.bool.isRequired,
   description: PropTypes.string,
   isExpanded: PropTypes.bool,
   onContactClick: PropTypes.func,
@@ -80,6 +122,7 @@ Advertisement.propTypes = {
 };
 
 Advertisement.defaultProps = {
+  weekAvailability: null,
   description: '',
   isExpanded: false,
   onContactClick: noop,

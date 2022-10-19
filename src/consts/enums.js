@@ -3,4 +3,14 @@ const ITEM_TYPE = {
   REQUEST: 'REQUEST',
 };
 
-export { ITEM_TYPE };
+const WEEKDAY = {
+  MONDAY: 'monday',
+  TUESDAY: 'tuesday',
+  WEDNESDAY: 'wednesday',
+  THURSDAY: 'thursday',
+  FRIDAY: 'friday',
+  SATURDAY: 'saturday',
+  SUNDAY: 'sunday',
+};
+
+export { ITEM_TYPE, WEEKDAY };
