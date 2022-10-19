@@ -1,15 +1,7 @@
 import PropTypes from 'prop-types';
+import availabilitiesShape from 'shapes/availabilitiesShape';
 import locationShape from 'shapes/locationShape';
 import pinShape from 'shapes/pinShape';
-
-const availabilitiesShape = PropTypes.arrayOf(
-  PropTypes.shape({
-    from: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
-    to: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
-    cyclic: PropTypes.bool,
-    period: PropTypes.string,
-  })
-);
 
 const initialValuesShape = PropTypes.shape({
   activity: PropTypes.string,
@@ -23,4 +15,4 @@ const initialValuesShape = PropTypes.shape({
   capacity: PropTypes.string,
 });
 
-export { availabilitiesShape, initialValuesShape };
+export { initialValuesShape };

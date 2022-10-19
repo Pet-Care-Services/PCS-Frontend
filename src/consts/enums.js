@@ -19,4 +19,9 @@ const WEEKDAY = {
   SUNDAY: 'sunday',
 };
 
-export { ITEM_TYPE, WEEKDAY, OFFER_STATUS };
+const PERIOD = {
+  WEEK: 'WEEK',
+  MONTH: 'MONTH',
+};
+
+export { ITEM_TYPE, WEEKDAY, OFFER_STATUS, PERIOD };

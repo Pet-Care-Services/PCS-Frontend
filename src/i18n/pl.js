@@ -60,6 +60,15 @@ export default {
     distance: {
       m: 'm',
     },
+    weekday: {
+      monday: 'Poniedziałek',
+      tuesday: 'Wtorek',
+      wednesday: 'Środa',
+      thursday: 'Czwartek',
+      friday: 'Piątek',
+      saturday: 'Sobota',
+      sunday: 'Niedziela',
+    },
     optional: 'Opcjonalnie',
     filters: 'Filtry',
     apply: 'Zastosuj',

@@ -7,12 +7,21 @@ import { Box } from '@mui/system';
 import Button from 'components/Button';
 import PriceRange from 'components/PriceRange';
 import Tag from 'components/Tag';
+import TextAvailability from 'components/TextAvailability';
 import { OFFER_STATUS } from 'consts/enums';
 import useTheme from 'hooks/useTheme';
+import availabilitiesShape from 'shapes/availabilitiesShape';
 import priceShape from 'shapes/priceShape';
 import styles from './styles';
 
-const ChatOffer = ({ image, price, status, onAccept, onReject }) => {
+const ChatOffer = ({
+  image,
+  price,
+  status,
+  availabilities,
+  onAccept,
+  onReject,
+}) => {
   const theme = useTheme();
   const isRejected = status === OFFER_STATUS.REJECTED;
   const isPending = status === OFFER_STATUS.PENDING;
@@ -28,7 +37,7 @@ const ChatOffer = ({ image, price, status, onAccept, onReject }) => {
             type={price.priceType}
             textVariant="h3"
           />
-          <Typography variant="h4">availability rows</Typography>
+          <TextAvailability availabilities={availabilities} />
         </Box>
       </Box>
       <Box sx={styles.buttons}>
@@ -59,6 +68,7 @@ ChatOffer.propTypes = {
   image: PropTypes.string.isRequired,
   price: priceShape.isRequired,
   status: PropTypes.oneOf(['PENDING', 'ACCEPTED', 'REJECTED']).isRequired,
+  availabilities: availabilitiesShape.isRequired,
   onAccept: PropTypes.func,
   onReject: PropTypes.func,
 };
