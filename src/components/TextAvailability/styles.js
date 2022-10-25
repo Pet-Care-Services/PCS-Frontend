@@ -4,6 +4,6 @@ export default {
     display: 'flex',
     alignItems: 'center',
     columnGap: 10,
-    height: 30,
+    height: 15,
   },
 };

@@ -2,9 +2,10 @@ import React from 'react';
 import { t } from 'i18next';
 import { noop } from 'lodash';
 import PropTypes from 'prop-types';
-import { Typography } from '@mui/material';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box } from '@mui/system';
 import Button from 'components/Button';
+import Icon from 'components/Icon';
 import PriceRange from 'components/PriceRange';
 import Tag from 'components/Tag';
 import TextAvailability from 'components/TextAvailability';
@@ -21,15 +22,31 @@ const ChatOffer = ({
   availabilities,
   onAccept,
   onReject,
+  onLinkClick,
 }) => {
   const theme = useTheme();
   const isRejected = status === OFFER_STATUS.REJECTED;
   const isPending = status === OFFER_STATUS.PENDING;
+  const isAccepted = status === OFFER_STATUS.ACCEPTED;
 
   return (
-    <Box sx={{ ...styles.root, ...(isPending && styles.pending) }}>
+    <Box
+      sx={{
+        ...styles.root,
+        ...(isRejected && styles.rejected),
+        ...(isAccepted && styles.accepted),
+      }}
+    >
       <Box sx={styles.content}>
-        <Box component="img" sx={styles.image} src={image} />
+        <Box sx={styles.imageWrapper}>
+          <Box component="img" sx={styles.image} src={image} />
+          <Icon
+            Component={OpenInNewIcon}
+            size="small"
+            onClick={onLinkClick}
+            sx={styles.openIcon}
+          />
+        </Box>
         <Box sx={styles.details}>
           <PriceRange
             from={price.from}
@@ -71,11 +88,13 @@ ChatOffer.propTypes = {
   availabilities: availabilitiesShape.isRequired,
   onAccept: PropTypes.func,
   onReject: PropTypes.func,
+  onLinkClick: PropTypes.func,
 };
 
 ChatOffer.defaultProps = {
   onAccept: noop,
   onReject: noop,
+  onLinkClick: noop,
 };
 
 export default ChatOffer;
