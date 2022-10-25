@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 import priceTypeShape from 'shapes/priceTypeShape';
 
-const PriceRange = ({ from, to, type, currency }) => {
+const PriceRange = ({ from, to, type, currency, textVariant }) => {
   const { t } = useTranslation();
   const typeIntervalMap = {
     SINGLE: '',
@@ -16,7 +16,7 @@ const PriceRange = ({ from, to, type, currency }) => {
   const intervalType = typeIntervalMap[type];
   const priceInterval = from + intervalEnd + currency + intervalType;
 
-  return <Typography variant="h1">{priceInterval}</Typography>;
+  return <Typography variant={textVariant}>{priceInterval}</Typography>;
 };
 
 PriceRange.propTypes = {
@@ -24,12 +24,14 @@ PriceRange.propTypes = {
   to: PropTypes.number,
   type: priceTypeShape,
   currency: PropTypes.string,
+  textVariant: PropTypes.string,
 };
 
 PriceRange.defaultProps = {
   to: null,
   type: 'SINGLE',
   currency: 'zł',
+  textVariant: 'h1',
 };
 
 //TODO [PCS-22] Currencies

@@ -1,21 +1,21 @@
 import React from 'react';
-import { map, noop } from 'lodash';
+import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
-import RepeatIcon from '@mui/icons-material/Repeat';
 import { Box, Typography, Collapse } from '@mui/material';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
 import PriceRange from 'components/PriceRange';
 import Rating from 'components/Rating';
+import TextAvailability from 'components/TextAvailability';
 import TileWrapper from 'components/TileWrapper';
+import { daysAvailabilitiesShape } from 'components/WeekAvailability/shapes';
 import WeekAvailabilityView from 'components/WeekAvailability/view';
-import { availabilitiesShape } from '../../pages/application/Advertisements/Creator/Step3/shapes';
-import { daysAvailabilitiesShape } from '../WeekAvailability/shapes';
-import { getPeriodToLabelMap } from './consts';
+import availabilitiesShape from 'shapes/availabilitiesShape';
+import priceShape from 'shapes/priceShape';
 import styles from './styles';
-import { formatDateRange, renderTags } from './utils';
+import { renderTags } from './utils';
 
 const Advertisement = ({
   activities,
@@ -45,21 +45,7 @@ const Advertisement = ({
       <Box sx={styles.fakeAvailabilityArea} />
     );
   } else {
-    const periodToLabelMap = getPeriodToLabelMap(t);
-    availability = map(
-      availabilities,
-      ({ from, to, cyclic, period }, index) => (
-        <Box key={index} sx={styles.textAvailability}>
-          {formatDateRange(from, to)}
-          {cyclic && (
-            <>
-              <Icon Component={RepeatIcon} />
-              {periodToLabelMap[period]}
-            </>
-          )}
-        </Box>
-      )
-    );
+    availability = <TextAvailability availabilities={availabilities} />;
   }
 
   return (
@@ -106,7 +92,7 @@ Advertisement.propTypes = {
   activities: PropTypes.array.isRequired,
   animals: PropTypes.array.isRequired,
   starsValue: PropTypes.number.isRequired,
-  price: PropTypes.object.isRequired,
+  price: priceShape.isRequired,
   location: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   availabilities: availabilitiesShape.isRequired,

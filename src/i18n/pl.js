@@ -60,6 +60,15 @@ export default {
     distance: {
       m: 'm',
     },
+    weekday: {
+      monday: 'Poniedziałek',
+      tuesday: 'Wtorek',
+      wednesday: 'Środa',
+      thursday: 'Czwartek',
+      friday: 'Piątek',
+      saturday: 'Sobota',
+      sunday: 'Niedziela',
+    },
     optional: 'Opcjonalnie',
     filters: 'Filtry',
     apply: 'Zastosuj',
@@ -135,5 +144,9 @@ export default {
     redirectInXSeconds:
       'Zostaniesz przekierowany na stronę główną za {{value}} sekund.',
     map: 'Mapa',
+    accept: 'Akceptuj',
+    accepted: 'Zaakceptowano',
+    reject: 'Odrzuć',
+    rejected: 'Odrzucono',
   },
 };

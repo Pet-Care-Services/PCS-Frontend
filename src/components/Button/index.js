@@ -25,7 +25,7 @@ const Button = ({ color, variant, onClick, children, type, small, sx }) => {
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func,
-  color: PropTypes.oneOf(['primary', 'secondary', 'neutral']),
+  color: PropTypes.oneOf(['primary', 'secondary', 'neutral', 'error']),
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
   variant: PropTypes.oneOf(['contained', 'text', 'outlined']),
   small: PropTypes.bool,

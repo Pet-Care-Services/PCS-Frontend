@@ -12,9 +12,9 @@ import Icon from 'components/Icon';
 import IconCheck from 'components/IconCheck';
 import Select from 'components/Select';
 import commonStyles from 'consts/commonStyles';
+import availabilitiesShape from 'shapes/availabilitiesShape';
 import optionsShape from 'shapes/optionsShape';
 import { initialAvailabilityData } from '../consts';
-import { availabilitiesShape } from '../shapes';
 import styles from '../styles';
 
 const AvailabilitiesFieldArray = ({
