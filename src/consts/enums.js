@@ -24,4 +24,9 @@ const PERIOD = {
   MONTH: 'MONTH',
 };
 
-export { ITEM_TYPE, WEEKDAY, OFFER_STATUS, PERIOD };
+const ENV = {
+  PRODUCTION: 'production',
+  DEVELOPMENT: 'development',
+};
+
+export { ITEM_TYPE, WEEKDAY, OFFER_STATUS, PERIOD, ENV };
