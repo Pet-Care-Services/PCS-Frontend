@@ -48,8 +48,10 @@ const formatWeekAvailability = ({ dateRange, ...weekdaysData }) => ({
   },
 });
 
-const formatData = (advertisements) =>
-  map(advertisements, (entry) => ({
+const formatData = (advertisements, onContactClick) => {
+  const mockImage = require('assets/mockPhoto.jpg');
+
+  return map(advertisements, (entry) => ({
     ...entry,
     id: entry.id,
     activities: map(entry.activities, ({ name }) => name),
@@ -57,9 +59,11 @@ const formatData = (advertisements) =>
     starsValue: 5,
     price: formatPrice(entry.price),
     location: formatLocationText(entry.location),
-    image: require('assets/mockPhoto.jpg'),
+    image: mockImage,
     weekAvailability:
       entry.weekAvailability && formatWeekAvailability(entry.weekAvailability),
+    onContactClick: () => onContactClick({ ...entry, image: mockImage }),
   }));
+};
 
 export { formatData };

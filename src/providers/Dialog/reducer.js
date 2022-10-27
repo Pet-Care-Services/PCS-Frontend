@@ -11,6 +11,7 @@ const reducer = (state, action) => {
         open: true,
         content: action.payload,
         closable: action.closable ?? true,
+        width: action.width,
       };
     }
 

@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import { useFormikContext } from 'formik';
 import { noop, toInteger } from 'lodash';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
@@ -11,6 +12,7 @@ const InputView = forwardRef(
   (
     {
       field,
+      name,
       error,
       type,
       helperText,
@@ -34,6 +36,7 @@ const InputView = forwardRef(
     },
     ref
   ) => {
+    const { setFieldValue } = useFormikContext();
     const borderDefaultStyle = {
       borderColor: (theme) => theme.palette.neutral.dark,
       borderWidth: 1,
@@ -43,6 +46,7 @@ const InputView = forwardRef(
       <TextField
         {...field}
         {...props}
+        name={name}
         ref={ref}
         value={value}
         onChange={(e) => {
@@ -52,6 +56,7 @@ const InputView = forwardRef(
             if (onlyNumbers && !isEmpty(e.target.value)) {
               e.target.value = toInteger(e.target.value);
             }
+            setFieldValue(name, e.target.value);
             onChange(e);
           }
         }}
@@ -144,6 +149,7 @@ const InputView = forwardRef(
 
 InputView.propTypes = {
   label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   field: PropTypes.any,
   error: PropTypes.string,
   helperText: PropTypes.string,

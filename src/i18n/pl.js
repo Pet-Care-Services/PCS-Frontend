@@ -148,5 +148,6 @@ export default {
     accepted: 'Zaakceptowano',
     reject: 'Odrzuć',
     rejected: 'Odrzucono',
+    submit: 'Wyślij',
   },
 };

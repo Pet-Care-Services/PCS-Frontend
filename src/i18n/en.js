@@ -148,5 +148,6 @@ export default {
     accepted: 'Accepted',
     reject: 'Reject',
     rejected: 'Rejected',
+    submit: 'Submit',
   },
 };

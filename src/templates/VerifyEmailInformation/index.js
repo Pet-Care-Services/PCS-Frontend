@@ -36,7 +36,7 @@ const VerifyEmailInformation = () => {
 
   useEffect(() => {
     if (emailVerified && smsVerified === false) {
-      openDialog(<MobileVerification />, false);
+      openDialog({ content: <MobileVerification />, closable: false });
     }
   }, [emailVerified]);
 

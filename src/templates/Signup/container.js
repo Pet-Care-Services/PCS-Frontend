@@ -21,7 +21,7 @@ const SignupContainer = () => {
       onSuccess: (res) => {
         const bearerToken = `Bearer ${res.data.token}`;
         setToken(bearerToken);
-        openDialog(<VerifyEmailInformation />, false);
+        openDialog({ content: <VerifyEmailInformation />, closable: false });
       },
       onError: (err) => {
         if (err.response.status === 400) {
@@ -38,7 +38,7 @@ const SignupContainer = () => {
   };
 
   const onGoToLogin = () => {
-    openDialog(<Login />);
+    openDialog({ content: <Login /> });
   };
 
   return (

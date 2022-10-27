@@ -10,7 +10,7 @@ import Icon from 'components/Icon';
 import Loader from 'components/Loader';
 import Map from 'components/Map';
 import TileWrapper from 'components/TileWrapper';
-import { ITEM_TYPE } from 'consts/enums';
+import { ENV, ITEM_TYPE } from 'consts/enums';
 import optionsShape from 'shapes/optionsShape';
 import { getFiltersFields } from './consts';
 import { filtersInitialValuesShape, dataShape, itemTypeShape } from './shapes';
@@ -21,7 +21,6 @@ const ListView = ({
   filtersInitialValues,
   onFiltersSubmit,
   onFiltersClear,
-  onContactClick,
   data,
   animalsOptions,
   activitiesOptions,
@@ -47,6 +46,9 @@ const ListView = ({
     radius: advertisement.pin.radius,
   }));
 
+  const isMapMountedInHTML =
+    isMapVisible || process.env.REACT_APP_ENV === ENV.PRODUCTION;
+
   return (
     <Box sx={styles.root}>
       <Filters
@@ -65,7 +67,7 @@ const ListView = ({
         />
         <Collapse in={isMapVisible} sx={styles.mapCollapse}>
           <TileWrapper sx={styles.mapWrapper}>
-            <Map markers={markers} sx={styles.map} />
+            {isMapMountedInHTML && <Map markers={markers} sx={styles.map} />}
           </TileWrapper>
         </Collapse>
         {isLoading && <Loader />}
@@ -75,10 +77,10 @@ const ListView = ({
             <Typography>{t('noResults')}</Typography>
           </Box>
         )}
-        {map(data, (adverisement, index) => (
+        {map(data, (advertisement, index) => (
           <Advertisement
             key={index}
-            {...adverisement}
+            {...advertisement}
             isService={itemType === ITEM_TYPE.SERVICE}
             isExpanded={expandedAdvertisementIndex === index}
             onBoxClick={() => {
@@ -88,7 +90,7 @@ const ListView = ({
                 setExpandedAdvertisementIndex(index);
               }
             }}
-            onContactClick={() => onContactClick(adverisement.userId)}
+            onContactClick={advertisement.onContactClick}
           />
         ))}
       </Box>
@@ -103,7 +105,6 @@ ListView.propTypes = {
   data: dataShape,
   onFiltersSubmit: PropTypes.func,
   onFiltersClear: PropTypes.func,
-  onContactClick: PropTypes.func,
   animalsOptions: optionsShape,
   activitiesOptions: optionsShape,
 };
@@ -111,7 +112,6 @@ ListView.propTypes = {
 ListView.defaultProps = {
   onFiltersSubmit: noop,
   onFiltersClear: noop,
-  onContactClick: noop,
   data: [],
   animalsOptions: [],
   activitiesOptions: [],

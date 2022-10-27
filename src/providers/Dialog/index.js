@@ -7,6 +7,7 @@ const initialState = {
   open: false,
   content: null,
   closable: true,
+  width: undefined,
 };
 
 const DialogContext = React.createContext({});
@@ -26,7 +27,12 @@ const DialogProvider = ({ children }) => {
   return (
     <DialogContext.Provider value={value}>
       {children}
-      <Dialog onClose={handleClose} open={state.open} content={state.content} />
+      <Dialog
+        onClose={handleClose}
+        open={state.open}
+        content={state.content}
+        width={state.width}
+      />
     </DialogContext.Provider>
   );
 };
