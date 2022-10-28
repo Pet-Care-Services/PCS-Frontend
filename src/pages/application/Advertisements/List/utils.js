@@ -1,5 +1,6 @@
-import { isArray, map, mapValues, split } from 'lodash';
+import { isArray, map } from 'lodash';
 import formatLocation from 'utils/formatLocation';
+import formatWeekAvailability from 'utils/formatWeekAvailability';
 
 const formatPrice = (data) => {
   let priceObject;
@@ -33,20 +34,6 @@ const formatLocationText = (locationData) => {
     return formatLocation(locationData);
   }
 };
-
-const API_DATERANGE_SEPARATOR = '/';
-
-const formatWeekAvailability = ({ dateRange, ...weekdaysData }) => ({
-  dateFrom: new Date(split(dateRange, API_DATERANGE_SEPARATOR)[0]),
-  daysAvailabilities: {
-    ...mapValues(weekdaysData, (dateRangeStringList) => {
-      return map(dateRangeStringList, (dateRangeString) => {
-        const [from, to] = split(dateRangeString, API_DATERANGE_SEPARATOR);
-        return { from: new Date(from), to: new Date(to) };
-      });
-    }),
-  },
-});
 
 const formatData = (advertisements, onContactClick) => {
   const mockImage = require('assets/mockPhoto.jpg');

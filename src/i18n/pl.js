@@ -149,5 +149,7 @@ export default {
     reject: 'Odrzuć',
     rejected: 'Odrzucono',
     submit: 'Wyślij',
+    negotiate: 'Negocjuj',
+    default: 'Domyślnie',
   },
 };

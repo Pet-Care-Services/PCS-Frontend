@@ -33,7 +33,7 @@ const WeekAvailabilityView = ({
       />
       {map(keys(daysAvailabilities), (day, index) => {
         const isSelectionInThisDay =
-          !readOnly && !!value.date && index === getWeekdayIndex(value.date);
+          !readOnly && !!value?.date && index === getWeekdayIndex(value.date);
 
         return (
           <Box sx={styles.dayBoxRoot} key={day}>

@@ -54,7 +54,7 @@ const ListContainer = ({ itemType }) => {
     if (isLoggedIn) {
       openDialog({
         content: <OfferCreator advertisement={advertisement} />,
-        width: 800,
+        width: 1000,
       });
     } else {
       openDialog({ content: <Login /> });

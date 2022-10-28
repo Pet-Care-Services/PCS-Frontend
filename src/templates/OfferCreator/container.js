@@ -3,12 +3,11 @@ import { get, isNil } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
-import availabilitiesShape from 'shapes/availabilitiesShape';
-import priceShape from 'shapes/priceShape';
 // import { useMutation } from 'react-query';
 // import useChat from 'hooks/useChat';
 // import { postConversation } from './queries';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
+import formatWeekAvailability from 'utils/formatWeekAvailability';
 import mapDictionaryToOptions from 'utils/mapDictionaryToOptions';
 import {
   getServiceActivitiesQuery,
@@ -53,7 +52,7 @@ const OfferCreatorContainer = ({ advertisement }) => {
   //   },
   // });
 
-  const { price, availabilities, animals, image } = advertisement;
+  const { description, animals, image } = advertisement;
   // console.log(advertisement);
 
   const onSubmit = (values) => {
@@ -69,11 +68,6 @@ const OfferCreatorContainer = ({ advertisement }) => {
     setChosenActivityId(activityId);
   };
 
-  const initialValues = {
-    animalId: '',
-    activityId: '',
-  };
-
   const activitiesOptions = mapDictionaryToOptions(
     get(activitiesData, 'data'),
     'activity',
@@ -81,29 +75,40 @@ const OfferCreatorContainer = ({ advertisement }) => {
   );
 
   const service = get(serviceData, 'data');
+  const price = get(service, 'price');
+
+  const initialValues = {
+    animalId: chosenAnimalId || '',
+    activityId: chosenActivityId || '',
+    price: get(price, 'from', 10),
+    weekAvailability: null,
+  };
+  const isSingleServiceFetched = !isNil(service);
   const isLoading = isLoadingActivities || isLoadingService;
 
   return (
     <OfferCreatorView
       animalOptions={mapDictionaryToOptions(animals, 'animal', t)}
       activityOptions={activitiesOptions}
-      price={price.from}
-      availabilities={availabilities}
       initialValues={initialValues}
       onAnimalChange={onAnimalChange}
       onActivityChange={onActivityChange}
       isAnimalSelected={!isNil(chosenAnimalId)}
-      isSingleServiceFetched={!isNil(service)}
+      isSingleServiceFetched={isSingleServiceFetched}
       isLoading={isLoading}
       image={image}
+      priceType={get(price, 'type')}
+      description={description}
+      weekAvailability={
+        isSingleServiceFetched &&
+        formatWeekAvailability(service.weekAvailability)
+      }
     />
   );
 };
 
 OfferCreatorContainer.propTypes = {
   advertisement: PropTypes.shape({
-    price: priceShape,
-    availabilities: availabilitiesShape,
     servicesIndices: PropTypes.arrayOf(PropTypes.number),
     userId: stringOrNumberShape,
     animals: PropTypes.arrayOf(
@@ -113,6 +118,7 @@ OfferCreatorContainer.propTypes = {
       })
     ),
     image: PropTypes.string,
+    description: PropTypes.string,
   }),
 };
 

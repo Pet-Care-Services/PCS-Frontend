@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Formik } from 'formik';
 import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Loader from 'components/Loader';
 import Select from 'components/Select';
-import availabilitiesShape from 'shapes/availabilitiesShape';
+import WeekAvailability from 'components/WeekAvailability';
+import { daysAvailabilitiesShape } from 'components/WeekAvailability/shapes';
+import getPriceTypeToAbbreviationMap from 'consts/getPriceTypeToAbbreviationMap';
 import optionsShape from 'shapes/optionsShape';
 import priceShape from 'shapes/priceShape';
+import priceTypeShape from 'shapes/priceTypeShape';
+import stringOrNumberShape from 'shapes/stringOrNumberShape';
 import styles from './styles';
+import getValidation from './validation';
 
 const OfferCreatorView = ({
   animalOptions,
@@ -24,15 +30,31 @@ const OfferCreatorView = ({
   isSingleServiceFetched,
   isLoading,
   image,
+  priceType,
+  description,
+  weekAvailability,
 }) => {
   const { t } = useTranslation();
+  const [isNegotiatingPrice, setIsNegotiatingPrice] = useState(false);
+  const priceTypeToAbbreviationMap = getPriceTypeToAbbreviationMap(t);
+
+  const inputAdornment = `${t('currency.pln')}${
+    priceTypeToAbbreviationMap[priceType]
+  }`;
 
   return (
     <Box sx={styles.root}>
       <Box sx={styles.sideColumn}>
         <Box component="img" src={image} sx={styles.image} />
+        <Typography variant="body">{description}</Typography>
       </Box>
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={getValidation(t)}
+        validateOnChange={false}
+        enableReinitialize
+      >
         {({ setFieldValue }) => (
           <Box component={Form} sx={styles.form}>
             <Select
@@ -58,10 +80,37 @@ const OfferCreatorView = ({
             )}
             {isLoading && <Loader />}
             {isSingleServiceFetched && (
-              <Input label={t('price')} name="price" endAdornment="todo" />
-            )}
-            {isSingleServiceFetched && (
-              <Button type="submit">{t('submit')}</Button>
+              <>
+                <Box sx={styles.rowFields}>
+                  <Input
+                    label={t('price')}
+                    name="price"
+                    endAdornment={
+                      <Box sx={styles.inputAdornment}>{inputAdornment}</Box>
+                    }
+                    disabled={!isNegotiatingPrice}
+                  />
+                  <Button
+                    onClick={() => {
+                      if (isNegotiatingPrice) {
+                        setFieldValue('price', initialValues.price);
+                      }
+                      setIsNegotiatingPrice((v) => !v);
+                    }}
+                    small
+                  >
+                    {t(isNegotiatingPrice ? 'default' : 'negotiate')}
+                  </Button>
+                </Box>
+                <WeekAvailability
+                  name="weekAvailability"
+                  daysAvailabilities={weekAvailability.daysAvailabilities}
+                  dateFrom={weekAvailability.dateFrom}
+                />
+                <Button type="submit" sx={styles.submit}>
+                  {t('submit')}
+                </Button>
+              </>
             )}
           </Box>
         )}
@@ -73,6 +122,9 @@ const OfferCreatorView = ({
 OfferCreatorView.propTypes = {
   initialValues: PropTypes.shape({
     price: PropTypes.number,
+    animalId: stringOrNumberShape,
+    activityId: stringOrNumberShape,
+    weekAvailability: PropTypes.shape({}),
   }).isRequired,
   animalOptions: optionsShape.isRequired,
   activityOptions: optionsShape.isRequired,
@@ -80,11 +132,16 @@ OfferCreatorView.propTypes = {
   onAnimalChange: PropTypes.func,
   onActivityChange: PropTypes.func,
   price: priceShape,
-  availabilities: availabilitiesShape,
   isAnimalSelected: PropTypes.bool,
   isSingleServiceFetched: PropTypes.bool,
   isLoading: PropTypes.bool,
   image: PropTypes.string,
+  description: PropTypes.string,
+  priceType: priceTypeShape,
+  weekAvailability: {
+    daysAvailabilities: daysAvailabilitiesShape,
+    dateFrom: PropTypes.instanceOf(Date),
+  },
 };
 
 OfferCreatorView.defaultProps = {

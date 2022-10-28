@@ -149,5 +149,7 @@ export default {
     reject: 'Reject',
     rejected: 'Rejected',
     submit: 'Submit',
+    negotiate: 'Negotiate',
+    default: 'Default',
   },
 };

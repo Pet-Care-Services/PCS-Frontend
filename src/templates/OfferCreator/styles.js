@@ -21,4 +21,15 @@ export default {
     objectFit: 'cover',
     borderRadius: (theme) => theme.borderRadius.tiny,
   },
+  rowFields: {
+    display: 'flex',
+    columnGap: 10,
+    alignItems: 'center',
+  },
+  inputAdornment: {
+    marginRight: 10,
+  },
+  submit: {
+    alignSelf: 'center',
+  },
 };
