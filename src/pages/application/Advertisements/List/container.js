@@ -13,7 +13,7 @@ import useDialog from 'hooks/useDialog';
 import useURLParams from 'hooks/useURLParams';
 import useUserData from 'hooks/useUserData';
 import Login from 'templates/Login';
-import OfferCreator from 'templates/OfferCreator';
+import OfferCreator from 'templates/ServiceOfferCreator';
 import mapDictionaryToOptions from 'utils/mapDictionaryToOptions';
 import { ADVERTISEMENTS_KEY, getAdvertisements } from './queries';
 import { itemTypeShape } from './shapes';

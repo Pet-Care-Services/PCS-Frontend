@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { get, isNil } from 'lodash';
+import { get, isNil, pick } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
@@ -15,9 +15,9 @@ import {
   SERVICE_ACTIVITIES_KEY,
   IDENTIFIED_SERVICE_KEY,
 } from './queries';
-import OfferCreatorView from './view';
+import ServiceOfferCreatorView from './view';
 
-const OfferCreatorContainer = ({ advertisement }) => {
+const ServiceOfferCreatorContainer = ({ advertisement }) => {
   const { t } = useTranslation();
   const [chosenAnimalId, setChosenAnimalId] = useState(null);
   const [chosenActivityId, setChosenActivityId] = useState(null);
@@ -56,7 +56,13 @@ const OfferCreatorContainer = ({ advertisement }) => {
   // console.log(advertisement);
 
   const onSubmit = (values) => {
-    console.log(values);
+    const data = {
+      ...pick(values, ['price', 'weekAvailability', 'activityId']),
+      serviceId: service.id,
+    };
+    console.log(data);
+
+    // TODO request with data
   };
 
   const onAnimalChange = (animalId) => {
@@ -87,12 +93,13 @@ const OfferCreatorContainer = ({ advertisement }) => {
   const isLoading = isLoadingActivities || isLoadingService;
 
   return (
-    <OfferCreatorView
+    <ServiceOfferCreatorView
       animalOptions={mapDictionaryToOptions(animals, 'animal', t)}
       activityOptions={activitiesOptions}
       initialValues={initialValues}
       onAnimalChange={onAnimalChange}
       onActivityChange={onActivityChange}
+      onSubmit={onSubmit}
       isAnimalSelected={!isNil(chosenAnimalId)}
       isSingleServiceFetched={isSingleServiceFetched}
       isLoading={isLoading}
@@ -100,14 +107,15 @@ const OfferCreatorContainer = ({ advertisement }) => {
       priceType={get(price, 'type')}
       description={description}
       weekAvailability={
-        isSingleServiceFetched &&
-        formatWeekAvailability(service.weekAvailability)
+        isSingleServiceFetched
+          ? formatWeekAvailability(service.weekAvailability)
+          : null
       }
     />
   );
 };
 
-OfferCreatorContainer.propTypes = {
+ServiceOfferCreatorContainer.propTypes = {
   advertisement: PropTypes.shape({
     servicesIndices: PropTypes.arrayOf(PropTypes.number),
     userId: stringOrNumberShape,
@@ -122,4 +130,4 @@ OfferCreatorContainer.propTypes = {
   }),
 };
 
-export default OfferCreatorContainer;
+export default ServiceOfferCreatorContainer;

@@ -19,7 +19,7 @@ import stringOrNumberShape from 'shapes/stringOrNumberShape';
 import styles from './styles';
 import getValidation from './validation';
 
-const OfferCreatorView = ({
+const ServiceOfferCreatorView = ({
   animalOptions,
   activityOptions,
   onSubmit,
@@ -119,7 +119,7 @@ const OfferCreatorView = ({
   );
 };
 
-OfferCreatorView.propTypes = {
+ServiceOfferCreatorView.propTypes = {
   initialValues: PropTypes.shape({
     price: PropTypes.number,
     animalId: stringOrNumberShape,
@@ -138,13 +138,13 @@ OfferCreatorView.propTypes = {
   image: PropTypes.string,
   description: PropTypes.string,
   priceType: priceTypeShape,
-  weekAvailability: {
+  weekAvailability: PropTypes.shape({
     daysAvailabilities: daysAvailabilitiesShape,
     dateFrom: PropTypes.instanceOf(Date),
-  },
+  }),
 };
 
-OfferCreatorView.defaultProps = {
+ServiceOfferCreatorView.defaultProps = {
   onSubmit: noop,
   onAnimalChange: noop,
   onActivityChange: noop,
@@ -154,4 +154,4 @@ OfferCreatorView.defaultProps = {
   image: '',
 };
 
-export default OfferCreatorView;
+export default ServiceOfferCreatorView;
