@@ -15,8 +15,14 @@ import useTheme from 'hooks/useTheme';
 import availabilitiesShape from 'shapes/availabilitiesShape';
 import dictionaryValueShape from 'shapes/dictionaryValueShape';
 import priceTypeShape from 'shapes/priceTypeShape';
-import styles from './styles';
+import commonStyles from '../styles';
+import componentStyles from './styles';
 import getValidation from './validation';
+
+const styles = {
+  ...commonStyles,
+  ...componentStyles,
+};
 
 const RequestOfferCreatorView = ({
   image,

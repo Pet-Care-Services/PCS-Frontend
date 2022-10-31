@@ -15,7 +15,7 @@ import getPriceTypeToAbbreviationMap from 'consts/getPriceTypeToAbbreviationMap'
 import optionsShape from 'shapes/optionsShape';
 import priceTypeShape from 'shapes/priceTypeShape';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
-import styles from './styles';
+import styles from '../styles';
 import getValidation from './validation';
 
 const ServiceOfferCreatorView = ({
