@@ -62,4 +62,21 @@ const formatData = (advertisements) =>
       entry.weekAvailability && formatWeekAvailability(entry.weekAvailability),
   }));
 
-export { formatData };
+const formatMarkers = (advertisements) =>
+  map(advertisements, (entry) => ({
+    position: {
+      lat: entry.pin.latitude,
+      lng: entry.pin.longitude,
+    },
+    radius: entry.pin.radius,
+    data: {
+      servicesIndices: entry.servicesIndices,
+      requestId: entry.id,
+      activities: map(entry.activities, ({ name }) => name),
+      animals: formatAnimals(entry.animals || entry.animal),
+      starsValue: 5,
+      price: formatPrice(entry.price),
+    },
+  }));
+
+export { formatData, formatMarkers };

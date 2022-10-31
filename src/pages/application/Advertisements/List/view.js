@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { isEmpty, map, noop } from 'lodash';
+import { findIndex, isEmpty, map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Box, Collapse, Typography } from '@mui/material';
@@ -11,6 +11,8 @@ import Loader from 'components/Loader';
 import Map from 'components/Map';
 import TileWrapper from 'components/TileWrapper';
 import { ITEM_TYPE } from 'consts/enums';
+import useURLParams from 'hooks/useURLParams';
+import { markersShape } from 'shapes/markerShapes';
 import optionsShape from 'shapes/optionsShape';
 import { getFiltersFields } from './consts';
 import { filtersInitialValuesShape, dataShape, itemTypeShape } from './shapes';
@@ -22,7 +24,9 @@ const ListView = ({
   onFiltersSubmit,
   onFiltersClear,
   onContactClick,
+  onMarkerClick,
   data,
+  markers,
   animalsOptions,
   activitiesOptions,
   isLoading,
@@ -32,6 +36,7 @@ const ListView = ({
   const [expandedAdvertisementIndex, setExpandedAdvertisementIndex] =
     useState(null);
   const [isMapVisible, setIsMapVisible] = useState(false);
+  const { params, updateParams } = useURLParams();
 
   useEffect(() => {
     if (expandedAdvertisementIndex !== null) {
@@ -39,13 +44,18 @@ const ListView = ({
     }
   }, [itemType]);
 
-  const markers = map(data, (advertisement) => ({
-    position: {
-      lat: advertisement.pin.latitude,
-      lng: advertisement.pin.longitude,
-    },
-    radius: advertisement.pin.radius,
-  }));
+  useEffect(() => {
+    const expandedParam = params.expanded;
+    const index = findIndex(data, ({ servicesIndices, id }) =>
+      isService ? `${servicesIndices}` === expandedParam : expandedParam === id
+    );
+
+    if (index >= 0) {
+      setExpandedAdvertisementIndex(index);
+    }
+  }, [params.expanded]);
+
+  const isService = itemType === ITEM_TYPE.SERVICE;
 
   return (
     <Box sx={styles.root}>
@@ -65,7 +75,14 @@ const ListView = ({
         />
         <Collapse in={isMapVisible} sx={styles.mapCollapse}>
           <TileWrapper sx={styles.mapWrapper}>
-            <Map markers={markers} sx={styles.map} />
+            <Map
+              markers={markers}
+              onMarkerClick={(...args) => {
+                setIsMapVisible(false);
+                onMarkerClick(...args);
+              }}
+              sx={styles.map}
+            />
           </TileWrapper>
         </Collapse>
         {isLoading && <Loader />}
@@ -79,11 +96,14 @@ const ListView = ({
           <Advertisement
             key={index}
             {...adverisement}
-            isService={itemType === ITEM_TYPE.SERVICE}
+            isService={isService}
             isExpanded={expandedAdvertisementIndex === index}
             onBoxClick={() => {
               if (index === expandedAdvertisementIndex) {
                 setExpandedAdvertisementIndex(null);
+                if (params.expanded) {
+                  updateParams({ expanded: '' });
+                }
               } else {
                 setExpandedAdvertisementIndex(index);
               }
@@ -101,9 +121,11 @@ ListView.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   itemType: itemTypeShape.isRequired,
   data: dataShape,
+  markers: markersShape,
   onFiltersSubmit: PropTypes.func,
   onFiltersClear: PropTypes.func,
   onContactClick: PropTypes.func,
+  onMarkerClick: PropTypes.func,
   animalsOptions: optionsShape,
   activitiesOptions: optionsShape,
 };
@@ -112,7 +134,9 @@ ListView.defaultProps = {
   onFiltersSubmit: noop,
   onFiltersClear: noop,
   onContactClick: noop,
+  onMarkerClick: noop,
   data: [],
+  markers: [],
   animalsOptions: [],
   activitiesOptions: [],
 };

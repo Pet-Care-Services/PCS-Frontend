@@ -12,10 +12,11 @@ import TextAvailability from 'components/TextAvailability';
 import TileWrapper from 'components/TileWrapper';
 import { daysAvailabilitiesShape } from 'components/WeekAvailability/shapes';
 import WeekAvailabilityView from 'components/WeekAvailability/view';
+import useTheme from 'hooks/useTheme';
 import availabilitiesShape from 'shapes/availabilitiesShape';
 import priceShape from 'shapes/priceShape';
+import TagList from '../TagList';
 import styles from './styles';
-import { renderTags } from './utils';
 
 const Advertisement = ({
   activities,
@@ -33,6 +34,7 @@ const Advertisement = ({
   onContactClick,
 }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
 
   let availability;
   if (isService) {
@@ -56,8 +58,16 @@ const Advertisement = ({
             <Box component="img" sx={styles.imageBox} src={image} />
             <Box sx={styles.centerColumnBox}>
               <Box sx={styles.tagsBox}>
-                {renderTags(activities, 'activity', 2, t)}
-                {renderTags(animals, 'animal', 2, t)}
+                <TagList
+                  labels={activities}
+                  modelKey="activity"
+                  color={theme.palette.neutral.main}
+                />
+                <TagList
+                  labels={animals}
+                  modelKey="animal"
+                  color={theme.palette.secondary.dark}
+                />
               </Box>
               <Box sx={styles.locationBox}>
                 <Icon Component={FmdGoodIcon} size={'large'} />

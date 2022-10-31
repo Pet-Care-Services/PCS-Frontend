@@ -1,12 +1,6 @@
 import { availabilityComponentHeight } from 'components/WeekAvailability/consts';
 
 export default {
-  activitiesTags: {
-    backgroundColor: (theme) => theme.palette.secondary.dark,
-  },
-  animalsTags: {
-    backgroundColor: (theme) => theme.palette.neutral.main,
-  },
   contactButton: {
     width: 300,
     marginTop: 10,

@@ -3,6 +3,7 @@ import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery } from 'react-query';
 import Loader from 'components/Loader';
+import { ITEM_TYPE } from 'consts/enums';
 import {
   ACTIVITIES_KEY,
   ANIMALS_KEY,
@@ -18,7 +19,7 @@ import {
   postConversation,
 } from './queries';
 import { itemTypeShape } from './shapes';
-import { formatData } from './utils';
+import { formatData, formatMarkers } from './utils';
 import ListView from './view';
 
 const ListContainer = ({ itemType }) => {
@@ -61,6 +62,14 @@ const ListContainer = ({ itemType }) => {
     });
   };
 
+  const onMarkerClick = ({ servicesIndices, requestId }) => {
+    if (itemType === ITEM_TYPE.SERVICE) {
+      updateParams({ expanded: `${servicesIndices}` });
+    } else {
+      updateParams({ expanded: requestId });
+    }
+  };
+
   const filtersInitialValues = {
     animalId: params.animalId || '',
     location: params.location || '',
@@ -81,7 +90,9 @@ const ListContainer = ({ itemType }) => {
       onFiltersSubmit={updateParams}
       onFiltersClear={clearParams}
       onContactClick={onContactClick}
+      onMarkerClick={onMarkerClick}
       data={formatData(items)}
+      markers={formatMarkers(items)}
       animalsOptions={mapDictionaryToOptions(animalsData.data, 'animal', t)}
       activitiesOptions={mapDictionaryToOptions(
         activitiesData.data,
