@@ -12,6 +12,7 @@ import TextAvailability from 'components/TextAvailability';
 import TileWrapper from 'components/TileWrapper';
 import { daysAvailabilitiesShape } from 'components/WeekAvailability/shapes';
 import WeekAvailabilityView from 'components/WeekAvailability/view';
+import useWeekAvailability from 'hooks/useWeekAvailability';
 import availabilitiesShape from 'shapes/availabilitiesShape';
 import priceShape from 'shapes/priceShape';
 import styles from './styles';
@@ -27,12 +28,16 @@ const Advertisement = ({
   description,
   isExpanded,
   availabilities,
-  weekAvailability,
   isService,
+  servicesIndices,
   onBoxClick,
   onContactClick,
 }) => {
   const { t } = useTranslation();
+  const { weekAvailability, isLoading, changeWeek } = useWeekAvailability(
+    servicesIndices,
+    isExpanded && isService
+  );
 
   let availability;
   if (isService) {
@@ -40,6 +45,8 @@ const Advertisement = ({
       <WeekAvailabilityView
         dateFrom={weekAvailability.dateFrom}
         daysAvailabilities={weekAvailability.daysAvailabilities}
+        onArrowClick={(offset) => changeWeek(offset)}
+        isLoading={isLoading}
       />
     ) : (
       <Box sx={styles.fakeAvailabilityArea} />
@@ -103,6 +110,7 @@ Advertisement.propTypes = {
   isService: PropTypes.bool.isRequired,
   description: PropTypes.string,
   isExpanded: PropTypes.bool,
+  servicesIndices: PropTypes.arrayOf(PropTypes.number),
   onContactClick: PropTypes.func,
   onBoxClick: PropTypes.func,
 };

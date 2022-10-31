@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { WEEKDAY } from 'consts/enums';
 import mapParamsForAPI from 'utils/mapParamsForAPI';
 
 const getServiceActivitiesQuery = (animalId, serviceIds) => {
@@ -21,25 +20,10 @@ const getServiceQuery = (userId, animalId, activityId) => {
   return new Promise((resolve) =>
     resolve({
       data: {
-        serviceId: 1,
+        id: 1,
         price: {
           from: 20,
           type: 'SINGLE',
-        },
-        weekAvailability: {
-          dateRange: '2022-10-23T22:00:00.000Z/2022-10-30T22:59:59.059Z',
-          [WEEKDAY.MONDAY]: [
-            '2022-10-26T12:00:00.000Z/2022-10-26T12:15:00.000Z',
-            '2022-10-26T12:15:00.000Z/2022-10-26T12:30:00.000Z',
-            '2022-10-26T12:30:00.000Z/2022-10-26T12:45:00.000Z',
-            '2022-10-26T12:45:00.000Z/2022-10-26T13:00:00.000Z',
-          ],
-          [WEEKDAY.TUESDAY]: [],
-          [WEEKDAY.WEDNESDAY]: [],
-          [WEEKDAY.THURSDAY]: [],
-          [WEEKDAY.FRIDAY]: [],
-          [WEEKDAY.SATURDAY]: [],
-          [WEEKDAY.SUNDAY]: [],
         },
       },
     })

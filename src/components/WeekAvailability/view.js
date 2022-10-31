@@ -6,6 +6,8 @@ import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { Box, Typography } from '@mui/material';
 import Icon from 'components/Icon';
+import Loader from 'components/Loader';
+import { WEEKDAY } from 'consts/enums';
 import getWeekdayIndex from 'utils/getWeekdayIndex';
 import DayTimeframes from './components/DayTimeframes';
 import { daysAvailabilitiesShape, valueShape } from './shapes';
@@ -17,6 +19,7 @@ const WeekAvailabilityView = ({
   readOnly,
   daysAvailabilities,
   dateFrom,
+  isLoading,
   onArrowClick,
   onTileClick,
 }) => {
@@ -46,14 +49,18 @@ const WeekAvailabilityView = ({
             >
               {getDayNumber(weekdayToDateMap[day])}
             </Typography>
-            <DayTimeframes
-              date={weekdayToDateMap[day]}
-              readOnly={readOnly}
-              dayAvailabilities={daysAvailabilities[day]}
-              isSelectionInThisDay={isSelectionInThisDay}
-              value={value}
-              onTileClick={onTileClick}
-            />
+            {!isLoading && (
+              <DayTimeframes
+                date={weekdayToDateMap[day]}
+                readOnly={readOnly}
+                dayAvailabilities={daysAvailabilities[day]}
+                isSelectionInThisDay={isSelectionInThisDay}
+                value={value}
+                onTileClick={onTileClick}
+              />
+            )}
+            {/* Loader just in middle day */}
+            {isLoading && index === 3 && <Loader />}
           </Box>
         );
       })}
@@ -70,16 +77,27 @@ const WeekAvailabilityView = ({
 
 WeekAvailabilityView.propTypes = {
   value: valueShape,
-  daysAvailabilities: daysAvailabilitiesShape.isRequired,
+  daysAvailabilities: daysAvailabilitiesShape,
   dateFrom: PropTypes.instanceOf(Date).isRequired,
   readOnly: PropTypes.bool,
+  isLoading: PropTypes.bool,
   onArrowClick: PropTypes.func,
   onTileClick: PropTypes.func,
 };
 
 WeekAvailabilityView.defaultProps = {
+  daysAvailabilities: {
+    [WEEKDAY.MONDAY]: [],
+    [WEEKDAY.TUESDAY]: [],
+    [WEEKDAY.WEDNESDAY]: [],
+    [WEEKDAY.THURSDAY]: [],
+    [WEEKDAY.FRIDAY]: [],
+    [WEEKDAY.SATURDAY]: [],
+    [WEEKDAY.SUNDAY]: [],
+  },
   value: null,
   readOnly: true,
+  isLoading: false,
   onArrowClick: noop,
   onTileClick: noop,
 };

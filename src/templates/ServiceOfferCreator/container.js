@@ -6,8 +6,8 @@ import { useQuery } from 'react-query';
 // import { useMutation } from 'react-query';
 // import useChat from 'hooks/useChat';
 // import { postConversation } from './queries';
+import useWeekAvailability from 'hooks/useWeekAvailability';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
-import formatWeekAvailability from 'utils/formatWeekAvailability';
 import mapDictionaryToOptions from 'utils/mapDictionaryToOptions';
 import {
   getServiceActivitiesQuery,
@@ -21,6 +21,7 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
   const { t } = useTranslation();
   const [chosenAnimalId, setChosenAnimalId] = useState(null);
   const [chosenActivityId, setChosenActivityId] = useState(null);
+
   const { data: activitiesData, isLoading: isLoadingActivities } = useQuery(
     [SERVICE_ACTIVITIES_KEY, chosenAnimalId],
     () =>
@@ -45,6 +46,16 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
       enabled: !isNil(chosenAnimalId) && !isNil(chosenActivityId),
     }
   );
+
+  const service = get(serviceData, 'data');
+  const price = get(service, 'price');
+  const serviceId = get(service, 'id');
+
+  const {
+    weekAvailability,
+    changeWeek,
+    isLoading: isLoadingWeek,
+  } = useWeekAvailability(serviceId);
   // const { openChat } = useChat();
   // const { mutate: createConversation } = useMutation(postConversation, {
   //   onSuccess: () => {
@@ -58,7 +69,7 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
   const onSubmit = (values) => {
     const data = {
       ...pick(values, ['price', 'weekAvailability', 'activityId']),
-      serviceId: service.id,
+      serviceId,
     };
     console.log(data);
 
@@ -80,15 +91,13 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
     t
   );
 
-  const service = get(serviceData, 'data');
-  const price = get(service, 'price');
-
   const initialValues = {
     animalId: chosenAnimalId || '',
     activityId: chosenActivityId || '',
     price: get(price, 'from', 10),
     weekAvailability: null,
   };
+
   const isSingleServiceFetched = !isNil(service);
   const isLoading = isLoadingActivities || isLoadingService;
 
@@ -99,18 +108,16 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
       initialValues={initialValues}
       onAnimalChange={onAnimalChange}
       onActivityChange={onActivityChange}
+      onWeekChange={(offset) => changeWeek(offset)}
       onSubmit={onSubmit}
       isAnimalSelected={!isNil(chosenAnimalId)}
       isSingleServiceFetched={isSingleServiceFetched}
       isLoading={isLoading}
+      isLoadingWeek={isLoadingWeek}
       image={image}
       priceType={get(price, 'type')}
       description={description}
-      weekAvailability={
-        isSingleServiceFetched
-          ? formatWeekAvailability(service.weekAvailability)
-          : null
-      }
+      weekAvailability={weekAvailability}
     />
   );
 };

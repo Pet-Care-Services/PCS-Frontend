@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Formik } from 'formik';
-import { noop } from 'lodash';
+import { get, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
@@ -26,13 +26,16 @@ const ServiceOfferCreatorView = ({
   initialValues,
   onAnimalChange,
   onActivityChange,
+  onWeekChange,
   isAnimalSelected,
   isSingleServiceFetched,
   isLoading,
+  isLoadingWeek,
   image,
   priceType,
   description,
   weekAvailability,
+  currentWeekStartDate,
 }) => {
   const { t } = useTranslation();
   const [isNegotiatingPrice, setIsNegotiatingPrice] = useState(false);
@@ -53,6 +56,7 @@ const ServiceOfferCreatorView = ({
         onSubmit={onSubmit}
         validationSchema={getValidation(t)}
         validateOnChange={false}
+        validateOnBlur={false}
         enableReinitialize
       >
         {({ setFieldValue }) => (
@@ -78,7 +82,7 @@ const ServiceOfferCreatorView = ({
                 }}
               />
             )}
-            {isLoading && <Loader />}
+
             {isSingleServiceFetched && (
               <>
                 <Box sx={styles.rowFields}>
@@ -102,15 +106,26 @@ const ServiceOfferCreatorView = ({
                     {t(isNegotiatingPrice ? 'default' : 'negotiate')}
                   </Button>
                 </Box>
+
                 <WeekAvailability
                   name="weekAvailability"
-                  daysAvailabilities={weekAvailability.daysAvailabilities}
-                  dateFrom={weekAvailability.dateFrom}
+                  daysAvailabilities={get(
+                    weekAvailability,
+                    'daysAvailabilities'
+                  )}
+                  isLoading={isLoadingWeek}
+                  dateFrom={
+                    get(weekAvailability, 'dateFrom') || currentWeekStartDate
+                  }
+                  onArrowClick={onWeekChange}
                 />
-                <Button type="submit" sx={styles.submit}>
-                  {t('submit')}
-                </Button>
               </>
+            )}
+            {isLoading && <Loader />}
+            {isSingleServiceFetched && (
+              <Button type="submit" sx={styles.submit}>
+                {t('submit')}
+              </Button>
             )}
           </Box>
         )}
@@ -131,10 +146,12 @@ ServiceOfferCreatorView.propTypes = {
   onSubmit: PropTypes.func,
   onAnimalChange: PropTypes.func,
   onActivityChange: PropTypes.func,
+  onWeekChange: PropTypes.func,
   price: priceShape,
   isAnimalSelected: PropTypes.bool,
   isSingleServiceFetched: PropTypes.bool,
   isLoading: PropTypes.bool,
+  isLoadingWeek: PropTypes.bool,
   image: PropTypes.string,
   description: PropTypes.string,
   priceType: priceTypeShape,
@@ -142,15 +159,18 @@ ServiceOfferCreatorView.propTypes = {
     daysAvailabilities: daysAvailabilitiesShape,
     dateFrom: PropTypes.instanceOf(Date),
   }),
+  currentWeekStartDate: PropTypes.instanceOf(Date),
 };
 
 ServiceOfferCreatorView.defaultProps = {
   onSubmit: noop,
   onAnimalChange: noop,
   onActivityChange: noop,
+  onWeekChange: noop,
   isAnimalSelected: false,
   isSingleServiceFetched: false,
   isLoading: false,
+  isLoadingWeek: false,
   image: '',
 };
 
