@@ -3,6 +3,7 @@ import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import Loader from 'components/Loader';
+import { ITEM_TYPE } from 'consts/enums';
 import {
   ACTIVITIES_KEY,
   ANIMALS_KEY,
@@ -13,7 +14,8 @@ import useDialog from 'hooks/useDialog';
 import useURLParams from 'hooks/useURLParams';
 import useUserData from 'hooks/useUserData';
 import Login from 'templates/Login';
-import OfferCreator from 'templates/ServiceOfferCreator';
+import RequestOfferCreator from 'templates/RequestOfferCreator';
+import ServiceOfferCreator from 'templates/ServiceOfferCreator';
 import mapDictionaryToOptions from 'utils/mapDictionaryToOptions';
 import { ADVERTISEMENTS_KEY, getAdvertisements } from './queries';
 import { itemTypeShape } from './shapes';
@@ -52,8 +54,14 @@ const ListContainer = ({ itemType }) => {
 
   const onContactClick = (advertisement) => {
     if (isLoggedIn) {
+      const content =
+        itemType === ITEM_TYPE.SERVICE ? (
+          <ServiceOfferCreator advertisement={advertisement} />
+        ) : (
+          <RequestOfferCreator advertisement={advertisement} />
+        );
       openDialog({
-        content: <OfferCreator advertisement={advertisement} />,
+        content,
         width: 1000,
       });
     } else {

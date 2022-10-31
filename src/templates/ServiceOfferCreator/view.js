@@ -13,7 +13,6 @@ import WeekAvailability from 'components/WeekAvailability';
 import { daysAvailabilitiesShape } from 'components/WeekAvailability/shapes';
 import getPriceTypeToAbbreviationMap from 'consts/getPriceTypeToAbbreviationMap';
 import optionsShape from 'shapes/optionsShape';
-import priceShape from 'shapes/priceShape';
 import priceTypeShape from 'shapes/priceTypeShape';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
 import styles from './styles';
@@ -35,7 +34,6 @@ const ServiceOfferCreatorView = ({
   priceType,
   description,
   weekAvailability,
-  currentWeekStartDate,
 }) => {
   const { t } = useTranslation();
   const [isNegotiatingPrice, setIsNegotiatingPrice] = useState(false);
@@ -89,6 +87,7 @@ const ServiceOfferCreatorView = ({
                   <Input
                     label={t('price')}
                     name="price"
+                    onlyNumbers
                     endAdornment={
                       <Box sx={styles.inputAdornment}>{inputAdornment}</Box>
                     }
@@ -114,9 +113,7 @@ const ServiceOfferCreatorView = ({
                     'daysAvailabilities'
                   )}
                   isLoading={isLoadingWeek}
-                  dateFrom={
-                    get(weekAvailability, 'dateFrom') || currentWeekStartDate
-                  }
+                  dateFrom={get(weekAvailability, 'dateFrom')}
                   onArrowClick={onWeekChange}
                 />
               </>
@@ -147,7 +144,6 @@ ServiceOfferCreatorView.propTypes = {
   onAnimalChange: PropTypes.func,
   onActivityChange: PropTypes.func,
   onWeekChange: PropTypes.func,
-  price: priceShape,
   isAnimalSelected: PropTypes.bool,
   isSingleServiceFetched: PropTypes.bool,
   isLoading: PropTypes.bool,
@@ -159,7 +155,6 @@ ServiceOfferCreatorView.propTypes = {
     daysAvailabilities: daysAvailabilitiesShape,
     dateFrom: PropTypes.instanceOf(Date),
   }),
-  currentWeekStartDate: PropTypes.instanceOf(Date),
 };
 
 ServiceOfferCreatorView.defaultProps = {
