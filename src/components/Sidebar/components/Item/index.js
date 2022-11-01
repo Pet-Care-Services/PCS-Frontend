@@ -1,37 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
+import Icon from 'components/Icon';
 
-const Item = ({ Icon, title, onClick }) => (
-  <Box
-    sx={{
-      width: '100%',
-      height: 50,
-      display: 'flex',
-      alignItems: 'center',
-      borderTopLeftRadius: 20,
-      borderBottomLeftRadius: 20,
-      paddingLeft: 20,
-      columnGap: 10,
-      cursor: 'pointer',
-      transition: '0.2s',
-      color: (theme) => theme.palette.white,
-      '&:hover': {
-        backgroundColor: (theme) => theme.palette.white,
-        color: (theme) => theme.palette.black,
-      },
-    }}
-    onClick={onClick}
-  >
-    {<Icon />}
-    {title}
-  </Box>
-);
+const Item = ({ iconSrc, title, onClick }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  // TODO active by url
+  return (
+    <Box
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      sx={{
+        width: '100%',
+        height: 50,
+        display: 'flex',
+        alignItems: 'center',
+        borderTopLeftRadius: 20,
+        borderBottomLeftRadius: 20,
+        paddingLeft: 20,
+        columnGap: 10,
+        cursor: 'pointer',
+        transition: (theme) => theme.transition.fast,
+        color: (theme) => theme.palette.white,
+        '&:hover': {
+          backgroundColor: (theme) => theme.palette.white,
+          color: (theme) => theme.palette.black,
+        },
+      }}
+      onClick={onClick}
+    >
+      {
+        <Icon
+          Component="img"
+          componentProps={{ src: iconSrc }}
+          active={isHovered}
+        />
+      }
+      {title}
+    </Box>
+  );
+};
 
 Item.propTypes = {
   title: PropTypes.string.isRequired,
-  Icon: PropTypes.elementType.isRequired,
+  iconSrc: PropTypes.string.isRequired,
   onClick: PropTypes.func,
 };
 

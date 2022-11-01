@@ -40,7 +40,7 @@ const Sidebar = ({
           <Item
             key={item.id}
             title={t(item.titleKey)}
-            Icon={item.Icon}
+            iconSrc={item.iconSrc}
             onClick={() => {
               item.onClick();
               onItemClick();
@@ -64,7 +64,7 @@ Sidebar.propTypes = {
     PropTypes.exact({
       id: PropTypes.number,
       titleKey: PropTypes.string,
-      Icon: PropTypes.elementType,
+      iconSrc: PropTypes.string,
       onClick: PropTypes.func,
       isLoginRequired: PropTypes.bool,
     })

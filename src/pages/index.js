@@ -7,11 +7,12 @@ import { ITEM_TYPE } from 'consts/enums';
 import useDialog from 'hooks/useDialog';
 import useUserData from 'hooks/useUserData';
 import ApplicationLayout from 'layouts/ApplicationLayout';
+import Account from 'pages/application/Account';
 import AdvertismentCreator from 'pages/application/Advertisements/Creator';
 import AdvertismentsList from 'pages/application/Advertisements/List';
+import EmailVerification from 'pages/application/Verification/EmailVerification';
 import MobileVerification from 'templates/MobileVerification';
 import VerifyEmailInformation from 'templates/VerifyEmailInformation';
-import EmailVerification from './application/Verification/EmailVerification';
 
 const Routing = () => {
   const { emailVerified, smsVerified } = useUserData();
@@ -44,6 +45,14 @@ const Routing = () => {
           element={
             <ProtectedRoute>
               <AdvertismentCreator />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="account"
+          element={
+            <ProtectedRoute>
+              <Account />
             </ProtectedRoute>
           }
         />
