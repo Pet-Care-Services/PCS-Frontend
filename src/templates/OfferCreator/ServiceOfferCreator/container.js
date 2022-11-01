@@ -63,13 +63,17 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
   //   },
   // });
 
-  const { description, animals, image } = advertisement;
+  const { description, animals, image, userId } = advertisement;
   // console.log(advertisement);
 
   const onSubmit = (values) => {
+    const timeframes = values.weekAvailability.timeframes;
     const data = {
-      ...pick(values, ['price', 'weekAvailability', 'activityId']),
+      ...pick(values, ['price', 'activityId']),
+      timeFrom: timeframes[0].from,
+      timeTo: timeframes[timeframes.length - 1].to,
       serviceId,
+      userId,
     };
     console.log(data);
 
