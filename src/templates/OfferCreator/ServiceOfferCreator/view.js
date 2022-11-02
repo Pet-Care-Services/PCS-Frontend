@@ -108,7 +108,12 @@ const ServiceOfferCreatorView = ({
                     {t(isNegotiatingPrice ? 'default' : 'negotiate')}
                   </Button>
                 </Box>
-                <Input label={t('message')} name="message" multiline />
+                <Input
+                  label={t('message')}
+                  name="message"
+                  helperText={t('optional')}
+                  multiline
+                />
 
                 <WeekAvailability
                   name="weekAvailability"

@@ -9,12 +9,12 @@ import useDialog from 'hooks/useDialog';
 import useWeekAvailability from 'hooks/useWeekAvailability';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
 import mapDictionaryToOptions from 'utils/mapDictionaryToOptions';
+import { postOffer } from '../queries';
 import {
   getServiceActivitiesQuery,
   getServiceQuery,
   SERVICE_ACTIVITIES_KEY,
   IDENTIFIED_SERVICE_KEY,
-  postOffer,
 } from './queries';
 import ServiceOfferCreatorView from './view';
 
@@ -50,12 +50,15 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
     }
   );
 
-  const { mutate: submitOffer } = useMutation(postOffer, {
-    onSuccess: () => {
-      closeDialog();
-      openChat();
-    },
-  });
+  const { mutate: submitOffer, isLoading: isSubmitting } = useMutation(
+    postOffer,
+    {
+      onSuccess: () => {
+        closeDialog();
+        openChat();
+      },
+    }
+  );
 
   const service = get(serviceData, 'data');
   const price = get(service, 'price');
@@ -109,11 +112,12 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
     animalId: chosenAnimalId || '',
     activityId: chosenActivityId || '',
     price: get(price, 'from', 10),
+    message: '',
     weekAvailability: null,
   };
 
   const isSingleServiceFetched = !isNil(service);
-  const isLoading = isLoadingActivities || isLoadingService;
+  const isLoading = isLoadingActivities || isLoadingService || isSubmitting;
 
   return (
     <ServiceOfferCreatorView

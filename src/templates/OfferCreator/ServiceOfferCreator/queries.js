@@ -38,15 +38,10 @@ const postConversation = ({ userId }) => {
   });
 };
 
-const postOffer = (data) => {
-  return axios.post('/messages/offer', data);
-};
-
 export {
   getServiceActivitiesQuery,
   postConversation,
   getServiceQuery,
-  postOffer,
   SERVICE_ACTIVITIES_KEY,
   IDENTIFIED_SERVICE_KEY,
 };

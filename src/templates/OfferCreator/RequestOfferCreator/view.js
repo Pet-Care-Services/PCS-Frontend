@@ -69,7 +69,10 @@ const RequestOfferCreatorView = ({
         validationSchema={getValidation(t)}
       >
         {({ setFieldValue }) => (
-          <Box component={Form} sx={styles.form}>
+          <Box
+            component={Form}
+            sx={{ ...styles.form, ...styles.fieldsWrapper }}
+          >
             <Box sx={styles.rowFields}>
               <Input
                 label={t('price')}
@@ -92,6 +95,12 @@ const RequestOfferCreatorView = ({
                 {t(isNegotiatingPrice ? 'default' : 'negotiate')}
               </Button>
             </Box>
+            <Input
+              label={t('message')}
+              name="message"
+              helperText={t('optional')}
+              multiline
+            />
             <Typography variant="h2">{t('availability')}</Typography>
             <TextAvailability availabilities={availabilities} />
             {isLoading && <Loader />}
