@@ -72,4 +72,7 @@ export default {
     alignItems: 'center',
     columnGap: 10,
   },
+  description: {
+    marginBottom: 10,
+  },
 };

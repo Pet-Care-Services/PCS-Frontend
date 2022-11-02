@@ -11,8 +11,11 @@ export default {
   },
   form: {
     flex: 1,
+  },
+  fieldsWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    height: '100%',
     rowGap: 10,
   },
   image: {

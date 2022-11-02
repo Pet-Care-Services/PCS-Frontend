@@ -81,7 +81,9 @@ const Advertisement = ({
             </Box>
           </Box>
           <Box sx={styles.expandedBox}>
-            <Typography variant="h2">{description}</Typography>
+            <Typography variant="h2" sx={styles.description}>
+              {description}
+            </Typography>
             {availability}
             <Box sx={styles.justifyEndBox}>
               <Button sx={styles.contactButton} onClick={onContactClick}>

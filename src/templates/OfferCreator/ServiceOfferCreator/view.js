@@ -58,7 +58,10 @@ const ServiceOfferCreatorView = ({
         enableReinitialize
       >
         {({ setFieldValue }) => (
-          <Box component={Form} sx={styles.form}>
+          <Box
+            component={Form}
+            sx={{ ...styles.form, ...styles.fieldsWrapper }}
+          >
             <Select
               label={t('animalLabel')}
               name="animalId"
@@ -82,7 +85,7 @@ const ServiceOfferCreatorView = ({
             )}
 
             {isSingleServiceFetched && (
-              <>
+              <Box sx={styles.fieldsWrapper}>
                 <Box sx={styles.rowFields}>
                   <Input
                     label={t('price')}
@@ -105,6 +108,7 @@ const ServiceOfferCreatorView = ({
                     {t(isNegotiatingPrice ? 'default' : 'negotiate')}
                   </Button>
                 </Box>
+                <Input label={t('message')} name="message" multiline />
 
                 <WeekAvailability
                   name="weekAvailability"
@@ -116,7 +120,7 @@ const ServiceOfferCreatorView = ({
                   dateFrom={get(weekAvailability, 'dateFrom')}
                   onArrowClick={onWeekChange}
                 />
-              </>
+              </Box>
             )}
             {isLoading && <Loader />}
             {isSingleServiceFetched && (

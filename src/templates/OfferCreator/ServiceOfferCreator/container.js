@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { get, isNil, pick } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { useQuery } from 'react-query';
-// import { useMutation } from 'react-query';
-// import useChat from 'hooks/useChat';
-// import { postConversation } from './queries';
+import { useMutation, useQuery } from 'react-query';
+import { ITEM_TYPE } from 'consts/enums';
+import useChat from 'hooks/useChat';
+import useDialog from 'hooks/useDialog';
 import useWeekAvailability from 'hooks/useWeekAvailability';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
 import mapDictionaryToOptions from 'utils/mapDictionaryToOptions';
@@ -14,6 +14,7 @@ import {
   getServiceQuery,
   SERVICE_ACTIVITIES_KEY,
   IDENTIFIED_SERVICE_KEY,
+  postOffer,
 } from './queries';
 import ServiceOfferCreatorView from './view';
 
@@ -21,6 +22,8 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
   const { t } = useTranslation();
   const [chosenAnimalId, setChosenAnimalId] = useState(null);
   const [chosenActivityId, setChosenActivityId] = useState(null);
+  const { closeDialog } = useDialog();
+  const { openChat } = useChat();
 
   const { data: activitiesData, isLoading: isLoadingActivities } = useQuery(
     [SERVICE_ACTIVITIES_KEY, chosenAnimalId],
@@ -47,6 +50,13 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
     }
   );
 
+  const { mutate: submitOffer } = useMutation(postOffer, {
+    onSuccess: () => {
+      closeDialog();
+      openChat();
+    },
+  });
+
   const service = get(serviceData, 'data');
   const price = get(service, 'price');
   const serviceId = get(service, 'id');
@@ -56,28 +66,28 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
     changeWeek,
     isLoading: isLoadingWeek,
   } = useWeekAvailability(serviceId);
-  // const { openChat } = useChat();
-  // const { mutate: createConversation } = useMutation(postConversation, {
-  //   onSuccess: () => {
-  //     openChat();
-  //   },
-  // });
 
   const { description, animals, image, userId } = advertisement;
-  // console.log(advertisement);
 
   const onSubmit = (values) => {
     const timeframes = values.weekAvailability.timeframes;
     const data = {
-      ...pick(values, ['price', 'activityId']),
-      timeFrom: timeframes[0].from,
-      timeTo: timeframes[timeframes.length - 1].to,
-      serviceId,
-      userId,
+      user: {
+        userId,
+      },
+      message: {
+        text: values.message,
+        offer: {
+          offerType: ITEM_TYPE.SERVICE,
+          offerId: serviceId,
+          ...pick(values, ['price', 'activityId']),
+          startTime: timeframes[0].from,
+          endTime: timeframes[timeframes.length - 1].to,
+        },
+      },
     };
-    console.log(data);
 
-    // TODO request with data
+    submitOffer(data);
   };
 
   const onAnimalChange = (animalId) => {

@@ -29,6 +29,7 @@ Pending.args = {
     priceType: 'HOURLY',
   },
   status: OFFER_STATUS.PENDING,
+  message: 'Some message from client',
   availabilities: [
     {
       from: '2022-10-17T13:00:00.000Z',
