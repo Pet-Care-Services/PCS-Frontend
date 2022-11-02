@@ -148,5 +148,7 @@ export default {
     accepted: 'Zaakceptowano',
     reject: 'Odrzuć',
     rejected: 'Odrzucono',
+    upload: 'Wgraj',
+    emailVerification: 'Weryfikacja email',
   },
 };
