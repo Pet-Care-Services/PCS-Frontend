@@ -10,6 +10,7 @@ const getSidebarItems = (navigate) => [
     titleKey: 'services',
     iconSrc: ServiceIconSrc,
     onClick: () => navigate('/application/services'),
+    activeUrl: '/application/services',
     isLoginRequired: false,
   },
   {
@@ -17,6 +18,7 @@ const getSidebarItems = (navigate) => [
     titleKey: 'requests',
     iconSrc: RequestIconSrc,
     onClick: () => navigate('/application/requests'),
+    activeUrl: '/application/requests',
     isLoginRequired: false,
   },
   {
@@ -24,6 +26,7 @@ const getSidebarItems = (navigate) => [
     titleKey: 'history',
     iconSrc: HistoryIconSrc,
     onClick: () => navigate('/application/history'),
+    activeUrl: '/application/history',
     isLoginRequired: true,
   },
   {
@@ -31,6 +34,7 @@ const getSidebarItems = (navigate) => [
     titleKey: 'newAdvertisement',
     iconSrc: AddIconSrc,
     onClick: () => navigate('/application/creator'),
+    activeUrl: '/application/creator',
     isLoginRequired: true,
   },
   {
@@ -38,6 +42,7 @@ const getSidebarItems = (navigate) => [
     titleKey: 'account',
     iconSrc: AccountIconSrc,
     onClick: () => navigate('/application/account'),
+    activeUrl: '/application/account',
     isLoginRequired: true,
   },
 ];

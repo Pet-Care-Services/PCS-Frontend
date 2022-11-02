@@ -4,9 +4,14 @@ import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 import Icon from 'components/Icon';
 
-const Item = ({ iconSrc, title, onClick }) => {
+const Item = ({ iconSrc, title, active, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
-  // TODO active by url
+
+  const activeStyles = {
+    backgroundColor: (theme) => theme.palette.white,
+    color: (theme) => theme.palette.black,
+  };
+
   return (
     <Box
       onMouseEnter={() => setIsHovered(true)}
@@ -23,10 +28,8 @@ const Item = ({ iconSrc, title, onClick }) => {
         cursor: 'pointer',
         transition: (theme) => theme.transition.fast,
         color: (theme) => theme.palette.white,
-        '&:hover': {
-          backgroundColor: (theme) => theme.palette.white,
-          color: (theme) => theme.palette.black,
-        },
+        '&:hover': activeStyles,
+        ...(active && activeStyles),
       }}
       onClick={onClick}
     >
@@ -34,7 +37,7 @@ const Item = ({ iconSrc, title, onClick }) => {
         <Icon
           Component="img"
           componentProps={{ src: iconSrc }}
-          active={isHovered}
+          active={active || isHovered}
         />
       }
       {title}
@@ -45,11 +48,13 @@ const Item = ({ iconSrc, title, onClick }) => {
 Item.propTypes = {
   title: PropTypes.string.isRequired,
   iconSrc: PropTypes.string.isRequired,
+  active: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
 Item.defaultProps = {
   onClick: noop,
+  active: false,
 };
 
 export default Item;

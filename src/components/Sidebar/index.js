@@ -2,6 +2,7 @@ import React from 'react';
 import { filter, map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Box } from '@mui/material';
 import Button from 'components/Button';
@@ -20,6 +21,7 @@ const Sidebar = ({
   onItemClick,
 }) => {
   const { t } = useTranslation();
+  const { pathname } = useLocation();
 
   const visibleItems = filter(
     items,
@@ -39,6 +41,7 @@ const Sidebar = ({
         {map(visibleItems, (item) => (
           <Item
             key={item.id}
+            active={pathname.startsWith(item.activeUrl)}
             title={t(item.titleKey)}
             iconSrc={item.iconSrc}
             onClick={() => {
@@ -66,6 +69,7 @@ Sidebar.propTypes = {
       titleKey: PropTypes.string,
       iconSrc: PropTypes.string,
       onClick: PropTypes.func,
+      activeUrl: PropTypes.string,
       isLoginRequired: PropTypes.bool,
     })
   ),
