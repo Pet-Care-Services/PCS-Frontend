@@ -12,6 +12,7 @@ import Map from 'components/Map';
 import TileWrapper from 'components/TileWrapper';
 import { ENV, ITEM_TYPE } from 'consts/enums';
 import useURLParams from 'hooks/useURLParams';
+import useUserData from 'hooks/useUserData';
 import { markersShape } from 'shapes/markerShapes';
 import optionsShape from 'shapes/optionsShape';
 import { getFiltersFields } from './consts';
@@ -37,6 +38,7 @@ const ListView = ({
     useState(null);
   const [isMapVisible, setIsMapVisible] = useState(false);
   const { params, updateParams } = useURLParams();
+  const { userId } = useUserData();
 
   useEffect(() => {
     if (expandedAdvertisementIndex !== null) {
@@ -104,6 +106,7 @@ const ListView = ({
           <Advertisement
             key={index}
             {...advertisement}
+            belongsToMe={advertisement.userId === userId}
             isService={isService}
             isExpanded={expandedAdvertisementIndex === index}
             onBoxClick={() => {

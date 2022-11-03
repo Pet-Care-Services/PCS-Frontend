@@ -145,6 +145,7 @@ export default {
       'Zostaniesz przekierowany na stronę główną za {{value}} sekund.',
     map: 'Mapa',
     accept: 'Akceptuj',
+    pending: 'Oczekuje',
     accepted: 'Zaakceptowano',
     reject: 'Odrzuć',
     rejected: 'Odrzucono',

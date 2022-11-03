@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { format } from 'date-fns';
 import mapParamsForAPI from 'utils/mapParamsForAPI';
-import { WEEKDAY } from './enums';
+import { weekIdentifierDateFormat } from './dateFormats';
 
 const getAnimals = () => {
   return axios.get('/animals');
@@ -38,38 +39,12 @@ const getPinByAddressFromGoogleAPI = async (address) => {
 };
 
 const getWeekAvailability = (serviceId, weekIdentifier) => {
-  console.log('request week', serviceId, weekIdentifier);
-
-  // const params = mapParamsForAPI({
-  //   date: weekIdentifier.toISOString(),
-  //   servicesIndices: serviceId,
-  // });
-  // return axios.get('/serviceAdvertisements/weekAvailability', {
-  //   params,
-  // });
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-          dateRange: '2022-10-23T22:00:00.000Z/2022-10-30T22:59:59.059Z',
-          [WEEKDAY.MONDAY]: [
-            '2022-10-26T12:15:00.000Z/2022-10-26T12:30:00.000Z',
-            '2022-10-26T12:30:00.000Z/2022-10-26T12:45:00.000Z',
-          ],
-          [WEEKDAY.TUESDAY]: [],
-          [WEEKDAY.WEDNESDAY]: [
-            '2022-10-26T12:00:00.000Z/2022-10-26T12:15:00.000Z',
-            '2022-10-26T12:15:00.000Z/2022-10-26T12:30:00.000Z',
-            '2022-10-26T12:30:00.000Z/2022-10-26T12:45:00.000Z',
-            '2022-10-26T12:45:00.000Z/2022-10-26T13:00:00.000Z',
-          ],
-          [WEEKDAY.THURSDAY]: [],
-          [WEEKDAY.FRIDAY]: [],
-          [WEEKDAY.SATURDAY]: [],
-          [WEEKDAY.SUNDAY]: [],
-        },
-      });
-    }, 1500);
+  const params = mapParamsForAPI({
+    date: format(weekIdentifier, weekIdentifierDateFormat),
+    servicesIndices: serviceId,
+  });
+  return axios.get('/services/weekAvailability', {
+    params,
   });
 };
 

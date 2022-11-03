@@ -14,20 +14,9 @@ const SERVICE_ACTIVITIES_KEY = 'SERVICE_ACTIVITIES';
 const getServiceQuery = (userId, animalId, activityId) => {
   const params = { userId, animalId, activityId };
 
-  // const serviceIdData = await axios.get('/services/identifyService', {
-  //   params: mapParamsForAPI(params),
-  // });
-  return new Promise((resolve) =>
-    resolve({
-      data: {
-        id: 1,
-        price: {
-          from: 20,
-          type: 'SINGLE',
-        },
-      },
-    })
-  );
+  return axios.get('/services/identifyService', {
+    params: mapParamsForAPI(params),
+  });
 };
 
 const IDENTIFIED_SERVICE_KEY = 'IDENTIFIED_SERVICE';

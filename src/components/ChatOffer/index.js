@@ -22,6 +22,7 @@ const ChatOffer = ({
   status,
   availabilities,
   message,
+  showButtons,
   onAccept,
   onReject,
   onLinkClick,
@@ -30,6 +31,16 @@ const ChatOffer = ({
   const isRejected = status === OFFER_STATUS.REJECTED;
   const isPending = status === OFFER_STATUS.PENDING;
   const isAccepted = status === OFFER_STATUS.ACCEPTED;
+
+  let tagLabel = t('pending');
+  let tagColor = theme.palette.neutral.main;
+  if (isRejected) {
+    tagLabel = t('rejected');
+    tagColor = theme.palette.error.dark;
+  } else if (isAccepted) {
+    tagLabel = t('accepted');
+    tagColor = theme.palette.primary.dark;
+  }
 
   return (
     <Box
@@ -63,7 +74,7 @@ const ChatOffer = ({
         </Box>
       </Box>
       <Box sx={styles.buttons}>
-        {isPending ? (
+        {showButtons && isPending ? (
           <>
             <Button onClick={onReject} color="error" small>
               {t('reject')}
@@ -74,11 +85,9 @@ const ChatOffer = ({
           </>
         ) : (
           <Tag
-            label={isRejected ? t('rejected') : t('accepted')}
-            color={
-              isRejected ? theme.palette.error.dark : theme.palette.primary.dark
-            }
-            labelColor={theme.palette.white}
+            label={tagLabel}
+            color={tagColor}
+            labelColor={isPending ? theme.palette.black : theme.palette.white}
           />
         )}
       </Box>
@@ -92,12 +101,14 @@ ChatOffer.propTypes = {
   status: PropTypes.oneOf(['PENDING', 'ACCEPTED', 'REJECTED']).isRequired,
   availabilities: availabilitiesShape,
   message: PropTypes.string,
+  showButtons: PropTypes.bool,
   onAccept: PropTypes.func,
   onReject: PropTypes.func,
   onLinkClick: PropTypes.func,
 };
 
 ChatOffer.defaultProps = {
+  showButtons: false,
   onAccept: noop,
   onReject: noop,
   onLinkClick: noop,

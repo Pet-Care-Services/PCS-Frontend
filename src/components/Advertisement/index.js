@@ -31,6 +31,7 @@ const Advertisement = ({
   availabilities,
   isService,
   servicesIndices,
+  belongsToMe,
   onBoxClick,
   onContactClick,
 }) => {
@@ -95,11 +96,13 @@ const Advertisement = ({
               {description}
             </Typography>
             {availability}
-            <Box sx={styles.justifyEndBox}>
-              <Button sx={styles.contactButton} onClick={onContactClick}>
-                {t('contact')}
-              </Button>
-            </Box>
+            {!belongsToMe && (
+              <Box sx={styles.justifyEndBox}>
+                <Button sx={styles.contactButton} onClick={onContactClick}>
+                  {t('contact')}
+                </Button>
+              </Box>
+            )}
           </Box>
         </Box>
       </Collapse>
@@ -122,6 +125,7 @@ Advertisement.propTypes = {
   isService: PropTypes.bool.isRequired,
   description: PropTypes.string,
   isExpanded: PropTypes.bool,
+  belongsToMe: PropTypes.bool,
   servicesIndices: PropTypes.arrayOf(PropTypes.number),
   onContactClick: PropTypes.func,
   onBoxClick: PropTypes.func,
@@ -131,6 +135,7 @@ Advertisement.defaultProps = {
   weekAvailability: null,
   description: '',
   isExpanded: false,
+  belongsToMe: false,
   onContactClick: noop,
   onBoxClick: noop,
 };

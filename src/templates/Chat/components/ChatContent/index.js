@@ -50,6 +50,7 @@ const ChatContent = ({
           >
             {message.offer ? (
               <ChatOffer
+                showButtons={!message.isMyMessage}
                 onAccept={() => onAcceptOffer(message.id)}
                 onReject={() => onRejectOffer(message.id)}
                 onLinkClick={() =>

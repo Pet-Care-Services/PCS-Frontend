@@ -62,7 +62,8 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
 
   const service = get(serviceData, 'data');
   const price = get(service, 'price');
-  const serviceId = get(service, 'id');
+  const priceType = get(service, 'priceType');
+  const serviceId = get(service, 'serviceId');
 
   const {
     weekAvailability,
@@ -111,7 +112,7 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
   const initialValues = {
     animalId: chosenAnimalId || '',
     activityId: chosenActivityId || '',
-    price: get(price, 'from', 10),
+    price: price || 10,
     message: '',
     weekAvailability: null,
   };
@@ -133,7 +134,7 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
       isLoading={isLoading}
       isLoadingWeek={isLoadingWeek}
       image={image}
-      priceType={get(price, 'type')}
+      priceType={priceType}
       description={description}
       weekAvailability={weekAvailability}
     />

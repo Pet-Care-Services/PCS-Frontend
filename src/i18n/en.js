@@ -145,6 +145,7 @@ export default {
       'You will be redirected to the main page in {{value}} seconds.',
     map: 'Map',
     accept: 'Accept',
+    pending: 'Pending',
     accepted: 'Accepted',
     reject: 'Reject',
     rejected: 'Rejected',
