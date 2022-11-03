@@ -148,5 +148,7 @@ export default {
     accepted: 'Accepted',
     reject: 'Reject',
     rejected: 'Rejected',
+    upload: 'Upload',
+    emailVerification: 'Email verification',
   },
 };
