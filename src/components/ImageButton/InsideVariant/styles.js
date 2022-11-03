@@ -43,7 +43,7 @@ export default {
     backgroundColor: (theme) => addOpacity(theme.palette.neutral.main, 60),
     position: 'absolute',
     borderRadius: '50%',
-    transition: (theme) => theme.transition,
+    transition: (theme) => theme.transition.normal,
     opacity: 0,
   },
   faded: {
