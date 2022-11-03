@@ -15,7 +15,8 @@ const filtersInitialValuesShape = PropTypes.exact({
 });
 
 const advertisementShape = PropTypes.shape({
-  id: PropTypes.number,
+  requestId: PropTypes.number,
+  servicesIndices: PropTypes.arrayOf(PropTypes.number),
   activities: PropTypes.arrayOf(PropTypes.string),
   animals: PropTypes.arrayOf(PropTypes.string),
   starsValue: PropTypes.number,

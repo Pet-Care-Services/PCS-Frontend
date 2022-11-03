@@ -1,4 +1,4 @@
-import { isArray, map } from 'lodash';
+import { isArray, map, split, toString } from 'lodash';
 import formatLocation from 'utils/formatLocation';
 import formatWeekAvailability from 'utils/formatWeekAvailability';
 
@@ -35,12 +35,25 @@ const formatLocationText = (locationData) => {
   }
 };
 
+const compareArrayWithString = (array, string) => {
+  if (!array || !string) {
+    return false;
+  }
+  const arrayToCompare = split(string, ',');
+
+  return (
+    array.length === arrayToCompare.length &&
+    array.every(
+      (value, index) => toString(value) === toString(arrayToCompare[index])
+    )
+  );
+};
+
 const formatData = (advertisements, onContactClick) => {
   const mockImage = require('assets/mockPhoto.jpg');
 
   return map(advertisements, (entry) => ({
     ...entry,
-    id: entry.id,
     activities: map(entry.activities, ({ name }) => name),
     animals: formatAnimals(entry.animals || entry.animal),
     starsValue: 5,
@@ -62,7 +75,7 @@ const formatMarkers = (advertisements) =>
     radius: entry.pin.radius,
     data: {
       servicesIndices: entry.servicesIndices,
-      requestId: entry.id,
+      requestId: entry.requestId,
       activities: map(entry.activities, ({ name }) => name),
       animals: formatAnimals(entry.animals || entry.animal),
       starsValue: 5,
@@ -70,4 +83,4 @@ const formatMarkers = (advertisements) =>
     },
   }));
 
-export { formatData, formatMarkers };
+export { formatData, formatMarkers, compareArrayWithString };

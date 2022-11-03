@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { findIndex, isEmpty, map, noop } from 'lodash';
+import { findIndex, isEmpty, map, noop, toString } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Box, Collapse, Typography } from '@mui/material';
@@ -17,6 +17,7 @@ import optionsShape from 'shapes/optionsShape';
 import { getFiltersFields } from './consts';
 import { filtersInitialValuesShape, dataShape, itemTypeShape } from './shapes';
 import styles from './styles';
+import { compareArrayWithString } from './utils';
 import { getFiltersValidation } from './validation';
 
 const ListView = ({
@@ -45,8 +46,11 @@ const ListView = ({
 
   useEffect(() => {
     const expandedParam = params.expanded;
-    const index = findIndex(data, ({ servicesIndices, id }) =>
-      isService ? `${servicesIndices}` === expandedParam : expandedParam === id
+
+    const index = findIndex(data, ({ servicesIndices, requestId }) =>
+      isService
+        ? compareArrayWithString(servicesIndices, expandedParam)
+        : toString(expandedParam) === toString(requestId)
     );
 
     if (index >= 0) {
