@@ -56,7 +56,9 @@ const ChatOffer = ({
             type={price.priceType}
             textVariant="h3"
           />
-          <TextAvailability availabilities={availabilities} />
+          {availabilities && (
+            <TextAvailability availabilities={availabilities} />
+          )}
           {message && <Typography variant="h4">{message}</Typography>}
         </Box>
       </Box>
@@ -88,7 +90,7 @@ ChatOffer.propTypes = {
   image: PropTypes.string.isRequired,
   price: priceShape.isRequired,
   status: PropTypes.oneOf(['PENDING', 'ACCEPTED', 'REJECTED']).isRequired,
-  availabilities: availabilitiesShape.isRequired,
+  availabilities: availabilitiesShape,
   message: PropTypes.string,
   onAccept: PropTypes.func,
   onReject: PropTypes.func,

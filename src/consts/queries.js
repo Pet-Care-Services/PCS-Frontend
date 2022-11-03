@@ -1,4 +1,5 @@
 import axios from 'axios';
+import mapParamsForAPI from 'utils/mapParamsForAPI';
 import { WEEKDAY } from './enums';
 
 const getAnimals = () => {
@@ -37,7 +38,15 @@ const getPinByAddressFromGoogleAPI = async (address) => {
 };
 
 const getWeekAvailability = (serviceId, weekIdentifier) => {
-  console.log('request week');
+  console.log('request week', serviceId, weekIdentifier);
+
+  // const params = mapParamsForAPI({
+  //   date: weekIdentifier.toISOString(),
+  //   servicesIndices: serviceId,
+  // });
+  // return axios.get('/serviceAdvertisements/weekAvailability', {
+  //   params,
+  // });
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({

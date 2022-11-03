@@ -31,7 +31,7 @@ const RequestOfferCreatorContainer = ({ advertisement }) => {
         text: values.message,
         offer: {
           offerType: ITEM_TYPE.REQUEST,
-          offerId: 123, // TODO Reqeust Id
+          offerId: advertisement.requestId,
           price: values.price,
         },
       },
@@ -62,7 +62,7 @@ const RequestOfferCreatorContainer = ({ advertisement }) => {
 
 RequestOfferCreatorContainer.propTypes = {
   advertisement: PropTypes.shape({
-    id: stringOrNumberShape,
+    requestId: stringOrNumberShape,
     userId: stringOrNumberShape,
     animal: dictionaryValueShape,
     activities: PropTypes.arrayOf(dictionaryValueShape),
