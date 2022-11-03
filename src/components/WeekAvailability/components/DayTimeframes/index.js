@@ -31,6 +31,7 @@ const DayTimeframes = ({
         return (
           <Tooltip
             title={formatTooltipMessage(timeframe.from, timeframe.to)}
+            placement="right"
             key={index}
           >
             <Box

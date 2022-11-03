@@ -1,24 +1,18 @@
 import axios from 'axios';
-
-const ANIMALS_KEY = 'ANIMALS';
+import mapParamsForAPI from 'utils/mapParamsForAPI';
+import { WEEKDAY } from './enums';
 
 const getAnimals = () => {
   return axios.get('/animals');
 };
 
-const ACTIVITIES_KEY = 'ACTIVITIES';
-
 const getActivities = () => {
   return axios.get('/activities');
 };
 
-const ME_QUERY_KEY = 'ME_QUERY';
-
 const getMe = () => {
   return axios.get('/user/me');
 };
-
-const GOOGLE_API_AUTOCOMPLETE_KEY = 'GOOGLE_API_AUTOCOMPLETE';
 
 const getAddressesFromGoogleAPI = (phrase, types) => {
   const AutocompleteService =
@@ -43,14 +37,58 @@ const getPinByAddressFromGoogleAPI = async (address) => {
   return latLng;
 };
 
+const getWeekAvailability = (serviceId, weekIdentifier) => {
+  console.log('request week', serviceId, weekIdentifier);
+
+  // const params = mapParamsForAPI({
+  //   date: weekIdentifier.toISOString(),
+  //   servicesIndices: serviceId,
+  // });
+  // return axios.get('/serviceAdvertisements/weekAvailability', {
+  //   params,
+  // });
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+          dateRange: '2022-10-23T22:00:00.000Z/2022-10-30T22:59:59.059Z',
+          [WEEKDAY.MONDAY]: [
+            '2022-10-26T12:15:00.000Z/2022-10-26T12:30:00.000Z',
+            '2022-10-26T12:30:00.000Z/2022-10-26T12:45:00.000Z',
+          ],
+          [WEEKDAY.TUESDAY]: [],
+          [WEEKDAY.WEDNESDAY]: [
+            '2022-10-26T12:00:00.000Z/2022-10-26T12:15:00.000Z',
+            '2022-10-26T12:15:00.000Z/2022-10-26T12:30:00.000Z',
+            '2022-10-26T12:30:00.000Z/2022-10-26T12:45:00.000Z',
+            '2022-10-26T12:45:00.000Z/2022-10-26T13:00:00.000Z',
+          ],
+          [WEEKDAY.THURSDAY]: [],
+          [WEEKDAY.FRIDAY]: [],
+          [WEEKDAY.SATURDAY]: [],
+          [WEEKDAY.SUNDAY]: [],
+        },
+      });
+    }, 1500);
+  });
+};
+
+const WEEK_AVAILABILITY_KEY = 'WEEK_AVAILABILITY';
+const ANIMALS_KEY = 'ANIMALS';
+const ACTIVITIES_KEY = 'ACTIVITIES';
+const ME_QUERY_KEY = 'ME_QUERY';
+const GOOGLE_API_AUTOCOMPLETE_KEY = 'GOOGLE_API_AUTOCOMPLETE';
+
 export {
-  ANIMALS_KEY,
   getAnimals,
-  ACTIVITIES_KEY,
   getActivities,
-  ME_QUERY_KEY,
   getMe,
-  GOOGLE_API_AUTOCOMPLETE_KEY,
   getAddressesFromGoogleAPI,
   getPinByAddressFromGoogleAPI,
+  getWeekAvailability,
+  ANIMALS_KEY,
+  ACTIVITIES_KEY,
+  ME_QUERY_KEY,
+  GOOGLE_API_AUTOCOMPLETE_KEY,
+  WEEK_AVAILABILITY_KEY,
 };

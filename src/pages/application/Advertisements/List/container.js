@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useMutation, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import Loader from 'components/Loader';
 import { ITEM_TYPE } from 'consts/enums';
 import {
@@ -10,14 +10,14 @@ import {
   getActivities,
   getAnimals,
 } from 'consts/queries';
-import useChat from 'hooks/useChat';
+import useDialog from 'hooks/useDialog';
 import useURLParams from 'hooks/useURLParams';
+import useUserData from 'hooks/useUserData';
+import Login from 'templates/Login';
+import RequestOfferCreator from 'templates/OfferCreator/RequestOfferCreator';
+import ServiceOfferCreator from 'templates/OfferCreator/ServiceOfferCreator';
 import mapDictionaryToOptions from 'utils/mapDictionaryToOptions';
-import {
-  ADVERTISEMENTS_KEY,
-  getAdvertisements,
-  postConversation,
-} from './queries';
+import { ADVERTISEMENTS_KEY, getAdvertisements } from './queries';
 import { itemTypeShape } from './shapes';
 import { formatData, formatMarkers } from './utils';
 import ListView from './view';
@@ -25,7 +25,9 @@ import ListView from './view';
 const ListContainer = ({ itemType }) => {
   const { t } = useTranslation();
   const { params, updateParams, clearParams } = useURLParams();
-  const { openChat } = useChat();
+  const { isLoggedIn } = useUserData();
+
+  const { openDialog } = useDialog();
   const {
     data: advertisementsData,
     isLoading: isLoadingAdvertisements,
@@ -46,20 +48,25 @@ const ListContainer = ({ itemType }) => {
     { refetchOnWindowFocus: false }
   );
 
-  const { mutate: createConversation } = useMutation(postConversation, {
-    onSuccess: () => {
-      openChat();
-    },
-  });
-
   useEffect(() => {
     refetch();
   }, [itemType, params]);
 
-  const onContactClick = (userId) => {
-    createConversation({
-      userId,
-    });
+  const onContactClick = (advertisement) => {
+    if (isLoggedIn) {
+      const content =
+        itemType === ITEM_TYPE.SERVICE ? (
+          <ServiceOfferCreator advertisement={advertisement} />
+        ) : (
+          <RequestOfferCreator advertisement={advertisement} />
+        );
+      openDialog({
+        content,
+        width: 1000,
+      });
+    } else {
+      openDialog({ content: <Login /> });
+    }
   };
 
   const onMarkerClick = ({ servicesIndices, requestId }) => {
@@ -91,8 +98,8 @@ const ListContainer = ({ itemType }) => {
       onFiltersClear={clearParams}
       onContactClick={onContactClick}
       onMarkerClick={onMarkerClick}
-      data={formatData(items)}
       markers={formatMarkers(items)}
+      data={formatData(items, onContactClick)}
       animalsOptions={mapDictionaryToOptions(animalsData.data, 'animal', t)}
       activitiesOptions={mapDictionaryToOptions(
         activitiesData.data,

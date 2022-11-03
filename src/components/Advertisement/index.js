@@ -13,6 +13,7 @@ import TileWrapper from 'components/TileWrapper';
 import { daysAvailabilitiesShape } from 'components/WeekAvailability/shapes';
 import WeekAvailabilityView from 'components/WeekAvailability/view';
 import useTheme from 'hooks/useTheme';
+import useWeekAvailability from 'hooks/useWeekAvailability';
 import availabilitiesShape from 'shapes/availabilitiesShape';
 import priceShape from 'shapes/priceShape';
 import TagList from '../TagList';
@@ -28,13 +29,17 @@ const Advertisement = ({
   description,
   isExpanded,
   availabilities,
-  weekAvailability,
   isService,
+  servicesIndices,
   onBoxClick,
   onContactClick,
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const { weekAvailability, isLoading, changeWeek } = useWeekAvailability(
+    servicesIndices,
+    isExpanded && isService
+  );
 
   let availability;
   if (isService) {
@@ -42,6 +47,8 @@ const Advertisement = ({
       <WeekAvailabilityView
         dateFrom={weekAvailability.dateFrom}
         daysAvailabilities={weekAvailability.daysAvailabilities}
+        onArrowClick={(offset) => changeWeek(offset)}
+        isLoading={isLoading}
       />
     ) : (
       <Box sx={styles.fakeAvailabilityArea} />
@@ -84,7 +91,9 @@ const Advertisement = ({
             </Box>
           </Box>
           <Box sx={styles.expandedBox}>
-            <Typography variant="h2">{description}</Typography>
+            <Typography variant="h2" sx={styles.description}>
+              {description}
+            </Typography>
             {availability}
             <Box sx={styles.justifyEndBox}>
               <Button sx={styles.contactButton} onClick={onContactClick}>
@@ -113,6 +122,7 @@ Advertisement.propTypes = {
   isService: PropTypes.bool.isRequired,
   description: PropTypes.string,
   isExpanded: PropTypes.bool,
+  servicesIndices: PropTypes.arrayOf(PropTypes.number),
   onContactClick: PropTypes.func,
   onBoxClick: PropTypes.func,
 };

@@ -12,7 +12,7 @@ const TextAvailability = ({ availabilities }) => {
   const periodToLabelMap = getPeriodToLabelMap();
 
   return (
-    <>
+    <Box sx={styles.root}>
       {map(availabilities, ({ from, to, cyclic, period }, index) => {
         return (
           <Box key={index} sx={styles.row}>
@@ -28,7 +28,7 @@ const TextAvailability = ({ availabilities }) => {
           </Box>
         );
       })}
-    </>
+    </Box>
   );
 };
 

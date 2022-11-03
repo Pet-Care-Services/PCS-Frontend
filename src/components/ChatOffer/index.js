@@ -3,6 +3,7 @@ import { t } from 'i18next';
 import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
@@ -20,6 +21,7 @@ const ChatOffer = ({
   price,
   status,
   availabilities,
+  message,
   onAccept,
   onReject,
   onLinkClick,
@@ -54,7 +56,10 @@ const ChatOffer = ({
             type={price.priceType}
             textVariant="h3"
           />
-          <TextAvailability availabilities={availabilities} />
+          {availabilities && (
+            <TextAvailability availabilities={availabilities} />
+          )}
+          {message && <Typography variant="h4">{message}</Typography>}
         </Box>
       </Box>
       <Box sx={styles.buttons}>
@@ -85,7 +90,8 @@ ChatOffer.propTypes = {
   image: PropTypes.string.isRequired,
   price: priceShape.isRequired,
   status: PropTypes.oneOf(['PENDING', 'ACCEPTED', 'REJECTED']).isRequired,
-  availabilities: availabilitiesShape.isRequired,
+  availabilities: availabilitiesShape,
+  message: PropTypes.string,
   onAccept: PropTypes.func,
   onReject: PropTypes.func,
   onLinkClick: PropTypes.func,

@@ -16,6 +16,8 @@ const ChatView = ({
   messages,
   onConversationClick,
   onSendMessage,
+  onAcceptOffer,
+  onRejectOffer,
   isLoadingConversations,
   isLoadingMessages,
 }) => {
@@ -28,7 +30,12 @@ const ChatView = ({
         onConversationClick={onConversationClick}
       />
       <Box sx={styles.rightContent}>
-        <ChatContent messages={messages} loading={isLoadingMessages} />
+        <ChatContent
+          onAcceptOffer={onAcceptOffer}
+          onRejectOffer={onRejectOffer}
+          messages={messages}
+          loading={isLoadingMessages}
+        />
         <MessageSender onSubmit={onSendMessage} />
       </Box>
     </Box>
@@ -41,6 +48,8 @@ ChatView.propTypes = {
   messages: messagesShape,
   onConversationClick: PropTypes.func,
   onSendMessage: PropTypes.func,
+  onAcceptOffer: PropTypes.func,
+  onRejectOffer: PropTypes.func,
   isLoadingConversations: PropTypes.bool,
   isLoadingMessages: PropTypes.bool,
 };
@@ -51,6 +60,8 @@ ChatView.defaultProps = {
   messages: [],
   onConversationClick: noop,
   onSendMessage: noop,
+  onAcceptOffer: noop,
+  onRejectOffer: noop,
   isLoadingConversations: true,
   isLoadingMessages: true,
 };

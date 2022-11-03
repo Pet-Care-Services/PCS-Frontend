@@ -1,5 +1,6 @@
-import { isArray, map, mapValues, split } from 'lodash';
+import { isArray, map } from 'lodash';
 import formatLocation from 'utils/formatLocation';
+import formatWeekAvailability from 'utils/formatWeekAvailability';
 
 const formatPrice = (data) => {
   let priceObject;
@@ -34,22 +35,10 @@ const formatLocationText = (locationData) => {
   }
 };
 
-const API_DATERANGE_SEPARATOR = '/';
+const formatData = (advertisements, onContactClick) => {
+  const mockImage = require('assets/mockPhoto.jpg');
 
-const formatWeekAvailability = ({ dateRange, ...weekdaysData }) => ({
-  dateFrom: new Date(split(dateRange, API_DATERANGE_SEPARATOR)[0]),
-  daysAvailabilities: {
-    ...mapValues(weekdaysData, (dateRangeStringList) => {
-      return map(dateRangeStringList, (dateRangeString) => {
-        const [from, to] = split(dateRangeString, API_DATERANGE_SEPARATOR);
-        return { from: new Date(from), to: new Date(to) };
-      });
-    }),
-  },
-});
-
-const formatData = (advertisements) =>
-  map(advertisements, (entry) => ({
+  return map(advertisements, (entry) => ({
     ...entry,
     id: entry.id,
     activities: map(entry.activities, ({ name }) => name),
@@ -57,10 +46,12 @@ const formatData = (advertisements) =>
     starsValue: 5,
     price: formatPrice(entry.price),
     location: formatLocationText(entry.location),
-    image: require('assets/mockPhoto.jpg'),
+    image: mockImage,
     weekAvailability:
       entry.weekAvailability && formatWeekAvailability(entry.weekAvailability),
+    onContactClick: () => onContactClick({ ...entry, image: mockImage }),
   }));
+};
 
 const formatMarkers = (advertisements) =>
   map(advertisements, (entry) => ({

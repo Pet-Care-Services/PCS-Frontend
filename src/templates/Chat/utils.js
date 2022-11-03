@@ -11,6 +11,7 @@ const prepareMessages = (data) =>
     id: message.messageId,
     content: message.text,
     isMyMessage: message.isMyMessage,
+    offer: message.offer,
   }));
 
 export { prepareConversationOptions, prepareMessages };
