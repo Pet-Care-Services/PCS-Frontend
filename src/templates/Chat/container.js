@@ -1,7 +1,9 @@
 import React, { useMemo, useState } from 'react';
 import { isNil } from 'lodash';
 import { useMutation, useQuery } from 'react-query';
-import { OFFER_STATUS } from 'consts/enums';
+import { useNavigate } from 'react-router-dom';
+import { ITEM_TYPE, OFFER_STATUS } from 'consts/enums';
+import useChat from 'hooks/useChat';
 import {
   getConversations,
   getMessages,
@@ -14,6 +16,8 @@ import { prepareConversationOptions, prepareMessages } from './utils';
 import ChatView from './view';
 
 const ChatContainer = () => {
+  const navigate = useNavigate();
+  const { closeChat } = useChat();
   const [activeConversationId, setActiveConversationId] = useState(null);
 
   const { data: conversationsData, isLoading: isLoadingConversations } =
@@ -67,6 +71,14 @@ const ChatContainer = () => {
     makeDecision({ messageId, status: OFFER_STATUS.REJECTED });
   };
 
+  const onOfferLinkClick = (offerType, offerId) => {
+    closeChat();
+    const urlItemType =
+      offerType === ITEM_TYPE.SERVICE ? 'services' : 'requests';
+
+    navigate(`/application/${urlItemType}?expanded=${offerId}`);
+  };
+
   const conversationOptions = prepareConversationOptions(
     conversationsData?.data
   );
@@ -83,6 +95,7 @@ const ChatContainer = () => {
       onSendMessage={onSendMessage}
       onAcceptOffer={onAcceptOffer}
       onRejectOffer={onRejectOffer}
+      onOfferLinkClick={onOfferLinkClick}
       messages={messages}
       isLoadingConversations={isLoadingConversations}
       isLoadingMessages={isLoadingMessages}

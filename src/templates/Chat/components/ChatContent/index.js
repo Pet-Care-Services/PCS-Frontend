@@ -9,7 +9,13 @@ import { ITEM_TYPE } from 'consts/enums';
 import { messagesShape } from './shapes';
 import styles from './styles';
 
-const ChatContent = ({ onAcceptOffer, onRejectOffer, messages, loading }) => {
+const ChatContent = ({
+  onAcceptOffer,
+  onRejectOffer,
+  onOfferLinkClick,
+  messages,
+  loading,
+}) => {
   const endRef = useRef();
 
   useEffect(() => {
@@ -42,6 +48,12 @@ const ChatContent = ({ onAcceptOffer, onRejectOffer, messages, loading }) => {
               <ChatOffer
                 onAccept={() => onAcceptOffer(message.id)}
                 onReject={() => onRejectOffer(message.id)}
+                onLinkClick={() =>
+                  onOfferLinkClick(
+                    message.offer.offerType,
+                    message.offer.offerId
+                  )
+                }
                 image={require('assets/mockPhoto.jpg')}
                 status={message.offer.status}
                 price={{ from: message.offer.price }}
@@ -66,6 +78,7 @@ ChatContent.propTypes = {
   loading: PropTypes.bool,
   onAcceptOffer: PropTypes.func,
   onRejectOffer: PropTypes.func,
+  onOfferLinkClick: PropTypes.func,
 };
 
 ChatContent.defaultProps = {
@@ -73,6 +86,7 @@ ChatContent.defaultProps = {
   loading: true,
   onAcceptOffer: noop,
   onRejectOffer: noop,
+  onOfferLinkClick: noop,
 };
 
 export default ChatContent;

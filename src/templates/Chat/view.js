@@ -18,6 +18,7 @@ const ChatView = ({
   onSendMessage,
   onAcceptOffer,
   onRejectOffer,
+  onOfferLinkClick,
   isLoadingConversations,
   isLoadingMessages,
 }) => {
@@ -33,6 +34,7 @@ const ChatView = ({
         <ChatContent
           onAcceptOffer={onAcceptOffer}
           onRejectOffer={onRejectOffer}
+          onOfferLinkClick={onOfferLinkClick}
           messages={messages}
           loading={isLoadingMessages}
         />
@@ -50,6 +52,7 @@ ChatView.propTypes = {
   onSendMessage: PropTypes.func,
   onAcceptOffer: PropTypes.func,
   onRejectOffer: PropTypes.func,
+  onOfferLinkClick: PropTypes.func,
   isLoadingConversations: PropTypes.bool,
   isLoadingMessages: PropTypes.bool,
 };
@@ -62,6 +65,7 @@ ChatView.defaultProps = {
   onSendMessage: noop,
   onAcceptOffer: noop,
   onRejectOffer: noop,
+  onOfferLinkClick: noop,
   isLoadingConversations: true,
   isLoadingMessages: true,
 };
