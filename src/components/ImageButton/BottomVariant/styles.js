@@ -27,7 +27,7 @@ export default {
     position: 'absolute',
     top: 0,
     borderRadius: '50%',
-    transition: (theme) => theme.transition,
+    transition: (theme) => theme.transition.normal,
     opacity: 0,
   },
   faded: {
@@ -37,7 +37,7 @@ export default {
     position: 'relative',
   },
   title: {
-    transition: (theme) => theme.transition,
+    transition: (theme) => theme.transition.normal,
   },
   textFaded: {
     color: (theme) => addOpacity(theme.palette.black, 60),

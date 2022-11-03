@@ -151,5 +151,7 @@ export default {
     submit: 'Submit',
     negotiate: 'Negotiate',
     default: 'Default',
+    upload: 'Upload',
+    emailVerification: 'Email verification',
   },
 };

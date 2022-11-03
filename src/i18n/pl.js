@@ -151,5 +151,7 @@ export default {
     submit: 'Wyślij',
     negotiate: 'Negocjuj',
     default: 'Domyślnie',
+    upload: 'Wgraj',
+    emailVerification: 'Weryfikacja email',
   },
 };

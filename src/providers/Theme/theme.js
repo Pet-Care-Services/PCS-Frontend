@@ -110,7 +110,7 @@ const common = {
   shape: {
     borderRadius: 1,
   },
-  transition: '0.5s',
+  transition: { normal: '0.5s', fast: '0.2s' },
 };
 
 const decoratePalette = (colors) => ({

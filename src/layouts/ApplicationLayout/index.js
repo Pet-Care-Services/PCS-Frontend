@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Box } from '@mui/system';
 import Topbar from 'components/Topbar';
 import useChat from 'hooks/useChat';
@@ -10,6 +10,7 @@ const ApplicationLayout = () => {
   const { openSidebar } = useSidebar();
   const { openChat } = useChat();
   const { isLoggedIn } = useUserData();
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -24,6 +25,7 @@ const ApplicationLayout = () => {
       <Topbar
         onMenuClick={openSidebar}
         onChatClick={openChat}
+        onAccountClick={() => navigate('/application/account')}
         withRightIcons={isLoggedIn}
       />
       <Box sx={{ flex: 1, padding: 40 }}>
