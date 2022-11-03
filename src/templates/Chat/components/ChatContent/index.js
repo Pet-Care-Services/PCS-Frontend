@@ -29,12 +29,16 @@ const ChatContent = ({
         const isServiceOffer =
           get(message, 'offer.offerType') === ITEM_TYPE.SERVICE;
 
-        const availabilities = [
-          {
-            from: new Date(message.offer.startTime),
-            to: new Date(message.offer.endTime),
-          },
-        ];
+        let availabilities;
+
+        if (isServiceOffer) {
+          availabilities = [
+            {
+              from: new Date(message.offer.startTime),
+              to: new Date(message.offer.endTime),
+            },
+          ];
+        }
 
         return (
           <Box
