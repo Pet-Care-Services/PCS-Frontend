@@ -1,6 +1,6 @@
 const anchorPoint = {
-  lat: 50.061,
-  lng: 19.943,
+  lat: 52.229,
+  lng: 21.011,
 };
 
 const zoom = 12;

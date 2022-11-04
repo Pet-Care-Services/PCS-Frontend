@@ -1,10 +1,12 @@
 import React, { memo, useState } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { isFunction, map, noop } from 'lodash';
+import { isFunction, map, noop, omit } from 'lodash';
 import PropTypes from 'prop-types';
 import Loader from 'components/Loader';
+import useUserLocation from 'hooks/useUserLocation';
 import { markersShape } from 'shapes/markerShapes';
 import Marker from './components/Marker';
+import UserLocationPoint from './components/UserLocationPoint';
 import { anchorPoint, zoom } from './consts';
 
 const Map = ({ markers, onMarkerClick, onClick, sx }) => {
@@ -13,6 +15,7 @@ const Map = ({ markers, onMarkerClick, onClick, sx }) => {
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
+  const userPositionData = useUserLocation();
 
   if (!isLoaded) {
     return <Loader />;
@@ -27,6 +30,10 @@ const Map = ({ markers, onMarkerClick, onClick, sx }) => {
     }
   };
 
+  const userPositionCoords = userPositionData
+    ? omit(userPositionData, 'accuracy')
+    : null;
+
   return (
     <GoogleMap
       mapContainerStyle={{
@@ -34,11 +41,18 @@ const Map = ({ markers, onMarkerClick, onClick, sx }) => {
         height: '100%',
         ...sx,
       }}
-      center={anchorPoint}
+      center={userPositionCoords || anchorPoint}
       zoom={zoom}
       clickableIcons={false}
       onClick={onMapClick}
     >
+      {userPositionData && (
+        <UserLocationPoint
+          position={userPositionCoords}
+          accuracy={userPositionData.accuracy}
+          onMapClick={onMapClick}
+        />
+      )}
       {map(markers, (marker, index) => (
         <Marker
           key={index}

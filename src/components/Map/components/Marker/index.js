@@ -8,6 +8,7 @@ import PriceRange from 'components/PriceRange';
 import Rating from 'components/Rating';
 import TagList from 'components/TagList';
 import { markerDataShape } from 'shapes/markerShapes';
+import { getCircleOptions } from '../utils';
 import styles from './styles';
 
 const Marker = ({
@@ -78,12 +79,10 @@ const Marker = ({
           onClick={onMapClick}
           center={position}
           radius={radius}
-          options={{
-            fillColor: theme.palette.primary.main,
-            strokeColor: theme.palette.primary.dark,
-            strokeWeight: 1,
-            strokeOpacity: 0.5,
-          }}
+          options={getCircleOptions(
+            theme.palette.primary.main,
+            theme.palette.primary.dark
+          )}
         />
       </>
     </OverlayView>
