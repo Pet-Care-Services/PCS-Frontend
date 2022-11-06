@@ -10,6 +10,7 @@ export default {
       fieldTooShort: '{{field}} must be at least {{value}} characters long',
       invalidTextLength: '{{field}} must have {{value}} characters',
       invalidCode: 'The code is invalid',
+      invalidFileType: 'The file format is invalid',
     },
     error: {
       unknown: 'Something went wrong...',
