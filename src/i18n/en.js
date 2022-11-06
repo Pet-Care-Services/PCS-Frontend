@@ -155,5 +155,6 @@ export default {
     default: 'Default',
     upload: 'Upload',
     emailVerification: 'Email verification',
+    choosePhoto: 'Choose photo',
   },
 };

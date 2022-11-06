@@ -7,6 +7,7 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Autocomplete from 'components/Autocomplete';
 import Button from 'components/Button';
+import FileUpload from 'components/FileUpload';
 import Input from 'components/Input';
 import Select from 'components/Select';
 import TileWrapper from 'components/TileWrapper';
@@ -45,12 +46,19 @@ const Step3 = ({
         {({ values, errors, setFieldValue }) => (
           <Box component={Form} sx={styles.form}>
             <Typography variant="h2">{t('information')}</Typography>
-            <ActivitiesFieldArray
-              activitiesOptions={activitiesOptions}
-              errors={errors}
-              activities={values.activities}
-            />
-            {/* TODO activity tags as list */}
+            <Box sx={styles.spaceBetween}>
+              <ActivitiesFieldArray
+                activitiesOptions={activitiesOptions}
+                errors={errors}
+                activities={values.activities}
+              />
+              {/* TODO activity tags as list */}
+              <Box
+                component="img"
+                src={values.image.localUrl}
+                sx={styles.image}
+              />
+            </Box>
             <Box sx={styles.multiFieldLine}>
               <Input
                 label={t('price')}
@@ -139,6 +147,7 @@ const Step3 = ({
                 onlyNumbers
               />
             )}
+            <FileUpload name="image" label={t('choosePhoto')} />
 
             <Typography variant="h2">{t('availability')}</Typography>
             <AvailabilitiesFieldArray

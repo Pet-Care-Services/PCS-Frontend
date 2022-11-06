@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import Loader from 'components/Loader';
+import { IMG_PLACEHOLDER_PUBLIC_URL } from 'consts/config';
 import { ITEM_TYPE } from 'consts/enums';
 import getPeriodOptions from 'consts/getPeriodOptions';
 import getPriceTypes from 'consts/getPriceTypesOptions';
@@ -70,6 +71,10 @@ const Step3Container = ({ onSubmit, isService }) => {
     availabilities: [initialAvailabilityData],
     capacity: '',
     description: '',
+    image: {
+      localUrl: IMG_PLACEHOLDER_PUBLIC_URL,
+      file: null,
+    },
   };
 
   return (

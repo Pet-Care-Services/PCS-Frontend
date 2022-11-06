@@ -11,7 +11,7 @@ const generateObjectKey = (filename, userId, destination) => {
   return `${destination}/${userId}-${Date.now()}.${extension}`;
 };
 
-const useAWSUpload = (onUploadEnd) => {
+const useAWSUpload = () => {
   const { userId } = useUserData();
   const [progress, setProgress] = useState(0);
   const myBucketRef = useRef();
@@ -28,7 +28,7 @@ const useAWSUpload = (onUploadEnd) => {
     });
   }, []);
 
-  const uploadFileToS3 = (file, destination) => {
+  const uploadFileToS3 = (file, destination, onUploadEnd) => {
     if (!includes(values(S3_DIRECTORY), destination)) {
       throw new Error(`Wrong S3 destination: ${destination}!`);
     }
