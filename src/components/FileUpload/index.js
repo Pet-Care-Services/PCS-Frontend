@@ -7,6 +7,9 @@ import { Box } from '@mui/material';
 import Button from 'components/Button';
 import useSnackbar from 'hooks/useSnackbar';
 
+const MAX_FILE_SIZE_MEGABYTES = 5;
+const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MEGABYTES * 1024 * 1024;
+
 const FileUpload = ({ name, label, ...props }) => {
   const { t } = useTranslation();
   const { openSnackbar } = useSnackbar();
@@ -27,6 +30,13 @@ const FileUpload = ({ name, label, ...props }) => {
                 !startsWith(e.target.files[0].type, 'image')
               ) {
                 openSnackbar(t('validation.invalidFileType'));
+                return;
+              }
+
+              if (e.target.files[0].size > MAX_FILE_SIZE_BYTES) {
+                openSnackbar(
+                  t('validation.fileTooBig', { max: MAX_FILE_SIZE_MEGABYTES })
+                );
                 return;
               }
 

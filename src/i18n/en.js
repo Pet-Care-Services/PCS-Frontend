@@ -11,6 +11,7 @@ export default {
       invalidTextLength: '{{field}} must have {{value}} characters',
       invalidCode: 'The code is invalid',
       invalidFileType: 'The file format is invalid',
+      fileTooBig: 'Uploaded file is too big. Maximum size is {{max}}MB',
     },
     error: {
       unknown: 'Something went wrong...',

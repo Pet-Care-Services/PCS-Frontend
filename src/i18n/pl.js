@@ -11,6 +11,7 @@ export default {
       invalidTextLength: '{{field}} musi mieć dokładnie {{value}} znaków',
       invalidCode: 'Kod jest niepoprawny',
       invalidFileType: 'Format pliku jest niepoprawny',
+      fileTooBig: 'Plik jest za duży. Maksymalny rozmiar to {{max}}MB',
     },
     error: {
       unknown: 'Coś poszło nie tak...',
