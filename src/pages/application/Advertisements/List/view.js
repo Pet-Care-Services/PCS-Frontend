@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { findIndex, isEmpty, map, noop, toString } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import InfiniteScroll from 'react-infinite-scroller';
 import { Box, Collapse, Typography } from '@mui/material';
 import mapIconSrc from 'assets/icons/map.png';
 import Advertisement from 'components/Advertisement';
@@ -32,6 +33,8 @@ const ListView = ({
   activitiesOptions,
   isLoading,
   itemType,
+  onLoadMore,
+  hasNextPage,
 }) => {
   const { t } = useTranslation();
   const [expandedAdvertisementIndex, setExpandedAdvertisementIndex] =
@@ -74,7 +77,7 @@ const ListView = ({
         onSubmit={onFiltersSubmit}
         onClear={onFiltersClear}
       />
-      <Box sx={styles.contentWrapper}>
+      <Box sx={{ ...styles.contentWrapper, ...styles.flexColumn }}>
         <Icon
           Component="img"
           size="large"
@@ -102,26 +105,35 @@ const ListView = ({
             <Typography>{t('noResults')}</Typography>
           </Box>
         )}
-        {map(data, (advertisement, index) => (
-          <Advertisement
-            key={index}
-            {...advertisement}
-            belongsToMe={advertisement.userId === userId}
-            isService={isService}
-            isExpanded={expandedAdvertisementIndex === index}
-            onBoxClick={() => {
-              if (index === expandedAdvertisementIndex) {
-                setExpandedAdvertisementIndex(null);
-                if (params.expanded) {
-                  updateParams({ expanded: '' });
+        <Box
+          component={InfiniteScroll}
+          pageStart={0}
+          loadMore={onLoadMore}
+          hasMore={hasNextPage}
+          loader={<Loader key="loader" sx={styles.loadMoreLoader} />}
+          sx={styles.flexColumn}
+        >
+          {map(data, (advertisement, index) => (
+            <Advertisement
+              key={index}
+              {...advertisement}
+              belongsToMe={advertisement.userId === userId}
+              isService={isService}
+              isExpanded={expandedAdvertisementIndex === index}
+              onBoxClick={() => {
+                if (index === expandedAdvertisementIndex) {
+                  setExpandedAdvertisementIndex(null);
+                  if (params.expanded) {
+                    updateParams({ expanded: '' });
+                  }
+                } else {
+                  setExpandedAdvertisementIndex(index);
                 }
-              } else {
-                setExpandedAdvertisementIndex(index);
-              }
-            }}
-            onContactClick={advertisement.onContactClick}
-          />
-        ))}
+              }}
+              onContactClick={advertisement.onContactClick}
+            />
+          ))}
+        </Box>
       </Box>
     </Box>
   );
@@ -136,6 +148,8 @@ ListView.propTypes = {
   onFiltersSubmit: PropTypes.func,
   onFiltersClear: PropTypes.func,
   onMarkerClick: PropTypes.func,
+  onLoadMore: PropTypes.func,
+  hasNextPage: PropTypes.bool,
   animalsOptions: optionsShape,
   activitiesOptions: optionsShape,
 };
@@ -144,10 +158,12 @@ ListView.defaultProps = {
   onFiltersSubmit: noop,
   onFiltersClear: noop,
   onMarkerClick: noop,
+  onLoadMore: noop,
   data: [],
   markers: [],
   animalsOptions: [],
   activitiesOptions: [],
+  hasNextPage: false,
 };
 
 export default ListView;

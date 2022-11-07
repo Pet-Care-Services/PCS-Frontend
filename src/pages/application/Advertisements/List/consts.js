@@ -42,4 +42,6 @@ const getFiltersFields = (t, animalsOptions, activitiesOptions) => [
   ],
 ];
 
-export { getFiltersFields };
+const PAGE_SIZE = 1;
+
+export { getFiltersFields, PAGE_SIZE };

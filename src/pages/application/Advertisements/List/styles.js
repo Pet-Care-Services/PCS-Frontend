@@ -8,6 +8,8 @@ export default {
   contentWrapper: {
     flex: 1,
     minWidth: 600,
+  },
+  flexColumn: {
     display: 'flex',
     flexDirection: 'column',
     rowGap: 20,
@@ -27,5 +29,8 @@ export default {
   },
   mapCollapse: {
     margin: (theme) => theme.spacing(-15, 0),
+  },
+  loadMoreLoader: {
+    marginTop: 10,
   },
 };
