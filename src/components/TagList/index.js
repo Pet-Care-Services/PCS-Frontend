@@ -32,7 +32,7 @@ const TagList = ({ labels, modelKey, color, amountToFit }) => {
   }
 
   return (
-    <Box display={'flex'} p={3} gap={5}>
+    <Box display={'flex'} gap={5}>
       {tags}
     </Box>
   );

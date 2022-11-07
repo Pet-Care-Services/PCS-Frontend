@@ -51,4 +51,8 @@ export default {
     flexDirection: 'column',
     rowGap: 15,
   },
+  tags: {
+    display: 'flex',
+    columnGap: 10,
+  },
 };
