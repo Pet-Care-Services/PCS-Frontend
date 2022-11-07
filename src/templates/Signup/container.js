@@ -1,6 +1,9 @@
 import React from 'react';
 import { noop } from 'lodash';
 import { useMutation } from 'react-query';
+import { AVATAR_PLACEHOLDER_PUBLIC_URL } from 'consts/config';
+import { S3_DIRECTORY } from 'consts/enums';
+import useAWSUpload from 'hooks/useAWSUpload';
 import useDialog from 'hooks/useDialog';
 import useUserData from 'hooks/useUserData';
 import Login from 'templates/Login';
@@ -12,8 +15,8 @@ let formikSetFieldError = noop;
 
 const SignupContainer = () => {
   const { openDialog } = useDialog();
-
   const { setToken } = useUserData();
+  const { uploadFileToS3 } = useAWSUpload();
 
   const { mutate: signup, isLoading: isLoadingSignup } = useMutation(
     postSignup,
@@ -24,7 +27,7 @@ const SignupContainer = () => {
         openDialog({ content: <VerifyEmailInformation />, closable: false });
       },
       onError: (err) => {
-        if (err.response.status === 400) {
+        if (err.response.status === 409) {
           // TODO lepsza walidacja od API
           formikSetFieldError('email', err.response.data);
         }
@@ -33,7 +36,15 @@ const SignupContainer = () => {
   );
 
   const onSubmit = (values, { setFieldError }) => {
-    signup(values);
+    const submit = (publicAvatarUrl) => {
+      signup({ ...values, avatar: publicAvatarUrl });
+    };
+
+    if (values.avatar.file) {
+      uploadFileToS3(values.avatar.file, S3_DIRECTORY.AVATARS, submit);
+    } else {
+      submit(AVATAR_PLACEHOLDER_PUBLIC_URL);
+    }
     formikSetFieldError = setFieldError;
   };
 

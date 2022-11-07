@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import AWS from 'aws-sdk';
-import { includes, split, values } from 'lodash';
+import { includes, isNil, split, uniqueId, values } from 'lodash';
 import { S3_DIRECTORY } from 'consts/enums';
 import useUserData from './useUserData';
 
 const generateObjectKey = (filename, userId, destination) => {
   const splittedByDot = split(filename, '.');
   const extension = splittedByDot[splittedByDot.length - 1];
+  const userIdPart = !isNil(userId) ? `${userId}-` : '';
 
-  return `${destination}/${userId}-${Date.now()}.${extension}`;
+  return `${destination}/${userIdPart}${uniqueId()}-${Date.now()}.${extension}`;
 };
 
 const useAWSUpload = () => {

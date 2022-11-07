@@ -157,5 +157,6 @@ export default {
     upload: 'Upload',
     emailVerification: 'Email verification',
     choosePhoto: 'Choose photo',
+    chooseAvatar: 'Choose avatar',
   },
 };
