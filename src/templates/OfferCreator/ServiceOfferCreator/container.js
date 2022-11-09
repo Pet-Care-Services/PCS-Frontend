@@ -85,9 +85,11 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
           offerType: ITEM_TYPE.SERVICE,
           offerId: serviceId,
           price: values.price,
-          activity: {
-            id: values.activityId,
-          },
+          activities: [
+            {
+              id: values.activityId,
+            },
+          ],
           animal: {
             id: values.animalId,
           },

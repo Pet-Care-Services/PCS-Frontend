@@ -1,6 +1,6 @@
 import React from 'react';
 import { t } from 'i18next';
-import { noop } from 'lodash';
+import { map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Typography } from '@mui/material';
@@ -22,7 +22,7 @@ const ChatOffer = ({
   image,
   price,
   status,
-  activity,
+  activities,
   animal,
   availabilities,
   message,
@@ -86,7 +86,7 @@ const ChatOffer = ({
               amountToFit={2}
               color={theme.palette.neutral.main}
               modelKey="activity"
-              labels={[activity.name]}
+              labels={map(activities, ({ name }) => name)}
             />
           </Box>
           {availabilities && (
@@ -121,7 +121,7 @@ ChatOffer.propTypes = {
   image: PropTypes.string.isRequired,
   price: priceShape.isRequired,
   status: PropTypes.oneOf(['PENDING', 'ACCEPTED', 'REJECTED']).isRequired,
-  activity: dictionaryValueShape,
+  activities: PropTypes.arrayOf(dictionaryValueShape),
   animal: dictionaryValueShape,
   availabilities: availabilitiesShape,
   message: PropTypes.string,
