@@ -14,10 +14,6 @@ export default {
     alignItems: 'center',
     rowGap: 15,
   },
-  horizontalFieldsWrapper: {
-    display: 'flex',
-    columnGap: 10,
-  },
   buttons: {
     marginTop: 10,
     display: 'flex',

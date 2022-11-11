@@ -1,3 +1,6 @@
+import React from 'react';
+import { Box } from '@mui/material';
+import mapIconSrc from 'assets/icons/map.png';
 import { FIELD_TYPES } from 'components/Filters/components/Field/consts';
 
 const getFiltersFields = (t, animalsOptions, activitiesOptions) => [
@@ -42,6 +45,72 @@ const getFiltersFields = (t, animalsOptions, activitiesOptions) => [
   ],
 ];
 
-const PAGE_SIZE = 1;
+const getSortOptions = (t) => [
+  {
+    value: 'price',
+    label: t('price'),
+  },
+  {
+    value: 'animal',
+    label: t('animalLabel'),
+  },
+  {
+    value: 'location',
+    label: t('location'),
+  },
+];
 
-export { getFiltersFields, PAGE_SIZE };
+const getOrderOptions = (t) => [
+  {
+    value: 'false',
+    label: t('ascending'),
+  },
+  {
+    value: 'true',
+    label: t('descending'),
+  },
+];
+
+const getOptionsFields = (t, onMapButtonClick, isMapVisible) => [
+  [
+    {
+      name: 'sort',
+      label: t('sortBy'),
+      fieldType: FIELD_TYPES.SELECT,
+      fieldProps: {
+        options: getSortOptions(t),
+      },
+    },
+    {
+      name: 'isDescending',
+      label: t('order'),
+      fieldType: FIELD_TYPES.SELECT,
+      fieldProps: {
+        options: getOrderOptions(t),
+      },
+    },
+  ],
+  {
+    name: 'mapButton',
+    fieldType: FIELD_TYPES.BUTTON,
+    fieldProps: {
+      onClick: onMapButtonClick,
+      adornment: (
+        <Box
+          component="img"
+          src={mapIconSrc}
+          sx={{ width: 20, height: 20, marginRight: 10 }}
+        />
+      ),
+      sx: {
+        alignSelf: 'flex-start',
+      },
+      children: t(isMapVisible ? 'hideMap' : 'showMap'),
+      color: isMapVisible ? 'primary' : 'neutral',
+    },
+  },
+];
+
+const PAGE_SIZE = 10;
+
+export { getFiltersFields, getOptionsFields, PAGE_SIZE };

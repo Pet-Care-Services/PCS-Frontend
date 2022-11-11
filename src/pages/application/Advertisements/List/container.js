@@ -99,6 +99,8 @@ const ListContainer = ({ itemType }) => {
     activityId: params.activityId || '',
     minPrice: params.minPrice || '',
     maxPrice: params.maxPrice || '',
+    sort: params.sort || '',
+    order: params.order || 'false',
   };
 
   const pages = get(advertisementsData, 'pages');

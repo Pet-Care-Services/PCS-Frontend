@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Box, Collapse, Typography } from '@mui/material';
-import mapIconSrc from 'assets/icons/map.png';
 import Advertisement from 'components/Advertisement';
 import Filters from 'components/Filters';
-import Icon from 'components/Icon';
 import Loader from 'components/Loader';
 import Map from 'components/Map';
 import TileWrapper from 'components/TileWrapper';
@@ -16,7 +14,7 @@ import useURLParams from 'hooks/useURLParams';
 import useUserData from 'hooks/useUserData';
 import { markersShape } from 'shapes/markerShapes';
 import optionsShape from 'shapes/optionsShape';
-import { getFiltersFields } from './consts';
+import { getFiltersFields, getOptionsFields } from './consts';
 import { filtersInitialValuesShape, dataShape, itemTypeShape } from './shapes';
 import styles from './styles';
 import { compareArrayWithString } from './utils';
@@ -71,19 +69,18 @@ const ListView = ({
   return (
     <Box sx={styles.root}>
       <Filters
-        rows={getFiltersFields(t, animalsOptions, activitiesOptions)}
+        filtersRows={getFiltersFields(t, animalsOptions, activitiesOptions)}
+        optionsRows={getOptionsFields(
+          t,
+          () => setIsMapVisible((v) => !v),
+          isMapVisible
+        )}
         initialValues={filtersInitialValues}
         validationSchema={getFiltersValidation(t)}
         onSubmit={onFiltersSubmit}
         onClear={onFiltersClear}
       />
       <Box sx={{ ...styles.contentWrapper, ...styles.flexColumn }}>
-        <Icon
-          Component="img"
-          size="large"
-          onClick={() => setIsMapVisible((v) => !v)}
-          componentProps={{ src: mapIconSrc, alt: t('map') }}
-        />
         <Collapse in={isMapVisible} sx={styles.mapCollapse}>
           <TileWrapper sx={styles.mapWrapper}>
             {isMapMountedInHTML && (

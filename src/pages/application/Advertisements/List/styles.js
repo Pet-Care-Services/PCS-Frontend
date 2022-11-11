@@ -28,7 +28,7 @@ export default {
     borderRadius: 10,
   },
   mapCollapse: {
-    margin: (theme) => theme.spacing(-15, 0),
+    margin: (theme) => theme.spacing(-10, 0),
   },
   loadMoreLoader: {
     marginTop: 10,
