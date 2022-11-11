@@ -1,17 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Chip } from '@mui/material';
+import { Chip, Typography } from '@mui/material';
+import useBreakpoints from 'hooks/useBreakpoints';
 import colorShape from 'shapes/colorShape';
 
 const Tag = ({ label, color, labelColor, sx }) => {
+  const { isMediumScreen } = useBreakpoints();
   return (
     <Chip
-      label={label}
+      label={
+        <Typography variant={isMediumScreen ? 'body' : 'h4'}>
+          {label}
+        </Typography>
+      }
       sx={{
         backgroundColor: color,
         color: labelColor,
         cursor: 'inherit',
         width: 'fit-content',
+        height: isMediumScreen ? 22 : 30,
         ...sx,
       }}
     />

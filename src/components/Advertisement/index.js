@@ -12,11 +12,13 @@ import TextAvailability from 'components/TextAvailability';
 import TileWrapper from 'components/TileWrapper';
 import { daysAvailabilitiesShape } from 'components/WeekAvailability/shapes';
 import WeekAvailabilityView from 'components/WeekAvailability/view';
+import useBreakpoints from 'hooks/useBreakpoints';
 import useTheme from 'hooks/useTheme';
 import useWeekAvailability from 'hooks/useWeekAvailability';
 import availabilitiesShape from 'shapes/availabilitiesShape';
 import priceShape from 'shapes/priceShape';
 import TagList from '../TagList';
+import { getCollapsedSize } from './consts';
 import styles from './styles';
 
 const Advertisement = ({
@@ -36,6 +38,9 @@ const Advertisement = ({
   onContactClick,
 }) => {
   const { t } = useTranslation();
+  const { isExtraLargeScreen, isLargeScreen, isMediumScreen } =
+    useBreakpoints();
+
   const theme = useTheme();
   const { weekAvailability, isLoading, changeWeek } = useWeekAvailability(
     servicesIndices,
@@ -60,7 +65,11 @@ const Advertisement = ({
 
   return (
     <TileWrapper>
-      <Collapse in={isExpanded} collapsedSize={170} sx={styles.collapse}>
+      <Collapse
+        in={isExpanded}
+        collapsedSize={getCollapsedSize(isLargeScreen, isMediumScreen)}
+        sx={styles.collapse}
+      >
         <Box onClick={onBoxClick} sx={styles.root}>
           <Box sx={styles.collapsedBox}>
             <Box component="img" sx={styles.imageBox} src={image} />
@@ -78,16 +87,29 @@ const Advertisement = ({
                 />
               </Box>
               <Box sx={styles.locationBox}>
-                <Icon Component={FmdGoodIcon} size={'large'} />
-                <Typography variant={'h1'}>{location}</Typography>
+                <Icon
+                  Component={FmdGoodIcon}
+                  size={isExtraLargeScreen ? 'large' : 'medium'}
+                />
+                <Typography
+                  noWrap
+                  variant={isExtraLargeScreen ? 'h1' : 'h3'}
+                  sx={styles.location}
+                >
+                  {location}
+                </Typography>
               </Box>
             </Box>
             <Box sx={styles.rightColumnBox}>
-              <Rating value={starsValue} />
+              <Rating
+                value={starsValue}
+                size={isLargeScreen ? 'small' : 'medium'}
+              />
               <PriceRange
                 from={price.from}
                 to={price.to}
                 type={price.priceType}
+                textVariant={isMediumScreen ? 'h4' : 'h2'}
               />
             </Box>
           </Box>

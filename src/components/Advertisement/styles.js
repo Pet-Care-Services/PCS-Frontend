@@ -1,4 +1,5 @@
 import { availabilityComponentHeight } from 'components/WeekAvailability/consts';
+import { lgBreakpoint, mdBreakpoint } from 'hooks/useBreakpoints';
 
 export default {
   contactButton: {
@@ -8,24 +9,37 @@ export default {
   collapse: {
     borderRadius: (theme) => theme.borderRadius.small,
   },
-  root: {
+  root: (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
     gap: 30,
     p: 15,
     cursor: 'pointer',
-  },
+
+    [mdBreakpoint(theme)]: {
+      p: 8,
+    },
+  }),
   collapsedBox: {
     display: 'flex',
     gap: 20,
   },
-  imageBox: {
+  imageBox: (theme) => ({
     height: 140,
     width: 180,
     objectFit: 'cover',
-    borderRadius: (theme) => theme.borderRadius.small,
-  },
+    borderRadius: theme.borderRadius.small,
+
+    [lgBreakpoint(theme)]: {
+      width: 150,
+      height: 110,
+    },
+    [mdBreakpoint(theme)]: {
+      width: 120,
+      height: 80,
+    },
+  }),
   centerColumnBox: {
     display: 'flex',
     flexGrow: 10,
@@ -70,4 +84,14 @@ export default {
   description: {
     marginBottom: 10,
   },
+  location: (theme) => ({
+    width: 400,
+
+    [lgBreakpoint(theme)]: {
+      width: 200,
+    },
+    [mdBreakpoint(theme)]: {
+      width: 150,
+    },
+  }),
 };

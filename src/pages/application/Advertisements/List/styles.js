@@ -7,7 +7,6 @@ export default {
   },
   contentWrapper: {
     flex: 1,
-    minWidth: 600,
     display: 'flex',
     flexDirection: 'column',
     rowGap: 20,
