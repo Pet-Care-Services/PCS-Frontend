@@ -4,7 +4,7 @@ import { Paper } from '@mui/material';
 import styles from './styles';
 
 const TileWrapper = ({ sx, children }) => (
-  <Paper sx={{ ...styles.root, ...sx }}>{children}</Paper>
+  <Paper sx={[styles.root, sx]}>{children}</Paper>
 );
 
 TileWrapper.propTypes = {

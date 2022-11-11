@@ -91,7 +91,7 @@ export default {
       width: 200,
     },
     [mdBreakpoint(theme)]: {
-      width: 150,
+      width: 170,
     },
   }),
 };
