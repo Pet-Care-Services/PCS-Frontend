@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Chip, Typography } from '@mui/material';
 import useBreakpoints from 'hooks/useBreakpoints';
 import colorShape from 'shapes/colorShape';
+import sxShape from 'shapes/sxShape';
 
 const Tag = ({ label, color, labelColor, sx }) => {
   const { isMediumScreen } = useBreakpoints();
@@ -13,14 +14,16 @@ const Tag = ({ label, color, labelColor, sx }) => {
           {label}
         </Typography>
       }
-      sx={{
-        backgroundColor: color,
-        color: labelColor,
-        cursor: 'inherit',
-        width: 'fit-content',
-        height: isMediumScreen ? 22 : 30,
-        ...sx,
-      }}
+      sx={[
+        {
+          backgroundColor: color,
+          color: labelColor,
+          cursor: 'inherit',
+          width: 'fit-content',
+          height: isMediumScreen ? 22 : 30,
+        },
+        sx,
+      ]}
     />
   );
 };
@@ -29,7 +32,7 @@ Tag.propTypes = {
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   color: colorShape,
   labelColor: colorShape,
-  sx: PropTypes.object,
+  sx: sxShape,
 };
 
 Tag.defaultProps = {

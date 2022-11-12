@@ -4,6 +4,7 @@ import { isFunction, map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import Loader from 'components/Loader';
 import { markersShape } from 'shapes/markerShapes';
+import sxShape from 'shapes/sxShape';
 import Marker from './components/Marker';
 import { anchorPoint, zoom } from './consts';
 
@@ -29,11 +30,13 @@ const Map = ({ markers, onMarkerClick, onClick, sx }) => {
 
   return (
     <GoogleMap
-      mapContainerStyle={{
-        width: '100%',
-        height: '100%',
-        ...sx,
-      }}
+      mapContainerStyle={[
+        {
+          width: '100%',
+          height: '100%',
+        },
+        sx,
+      ]}
       center={anchorPoint}
       zoom={zoom}
       clickableIcons={false}
@@ -59,7 +62,7 @@ Map.propTypes = {
   onClick: PropTypes.func,
   onMarkerClick: PropTypes.func,
   markers: markersShape,
-  sx: PropTypes.object,
+  sx: sxShape,
 };
 
 Map.defaultProps = {

@@ -2,17 +2,20 @@ import React from 'react';
 import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
+import sxShape from 'shapes/sxShape';
 
 const ActionText = ({ onClick, children, sx }) => {
   return (
     <Typography
       variant="h4"
       onClick={onClick}
-      sx={{
-        color: (theme) => theme.palette.action.main,
-        cursor: 'pointer',
-        ...sx,
-      }}
+      sx={[
+        {
+          color: (theme) => theme.palette.action.main,
+          cursor: 'pointer',
+        },
+        sx,
+      ]}
     >
       {children}
     </Typography>
@@ -22,7 +25,7 @@ const ActionText = ({ onClick, children, sx }) => {
 ActionText.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func,
-  sx: PropTypes.object,
+  sx: sxShape,
 };
 
 ActionText.defaultProps = {

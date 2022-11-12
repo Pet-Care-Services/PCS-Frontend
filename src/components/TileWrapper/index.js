@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Paper } from '@mui/material';
+import sxShape from 'shapes/sxShape';
 import styles from './styles';
 
 const TileWrapper = ({ sx, children }) => (
@@ -9,7 +10,7 @@ const TileWrapper = ({ sx, children }) => (
 
 TileWrapper.propTypes = {
   children: PropTypes.node.isRequired,
-  sx: PropTypes.object,
+  sx: sxShape,
 };
 
 TileWrapper.defaultProps = {

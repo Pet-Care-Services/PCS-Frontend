@@ -5,6 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
+import sxShape from 'shapes/sxShape';
 import { isStringNumber } from './utils';
 
 // eslint-disable-next-line react/display-name
@@ -69,10 +70,12 @@ const InputView = forwardRef(
         minRows={2}
         maxRows={999}
         variant="outlined"
-        sx={{
-          width: '100%',
-          ...sx,
-        }}
+        sx={[
+          {
+            width: '100%',
+          },
+          sx,
+        ]}
         inputProps={{
           onClick,
           maxLength,
@@ -168,7 +171,7 @@ InputView.propTypes = {
   endAdornment: PropTypes.node,
   value: stringOrNumberShape,
   type: PropTypes.oneOf(['text', 'password']),
-  sx: PropTypes.objectOf(PropTypes.any),
+  sx: sxShape,
 };
 
 InputView.defaultProps = {

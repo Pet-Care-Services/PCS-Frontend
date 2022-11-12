@@ -2,6 +2,7 @@ import React from 'react';
 import { Field as FormikField } from 'formik';
 import PropTypes from 'prop-types';
 import Icon from 'components/Icon';
+import sxShape from 'shapes/sxShape';
 
 const IconCheck = ({ Component, name, sx, ...props }) => {
   return (
@@ -21,7 +22,7 @@ const IconCheck = ({ Component, name, sx, ...props }) => {
 IconCheck.propTypes = {
   Component: PropTypes.elementType.isRequired,
   name: PropTypes.string.isRequired,
-  sx: PropTypes.object,
+  sx: sxShape,
 };
 
 IconCheck.defaultProps = {

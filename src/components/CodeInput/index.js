@@ -4,6 +4,7 @@ import { get, isFunction, map, range } from 'lodash';
 import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import sxShape from 'shapes/sxShape';
 import styles from './styles';
 
 const CodeInput = ({
@@ -70,7 +71,7 @@ CodeInput.propTypes = {
   numberOfBoxes: PropTypes.number,
   autoFocus: PropTypes.bool,
   fastSubmitAction: PropTypes.func,
-  sx: PropTypes.object,
+  sx: sxShape,
 };
 
 CodeInput.defaultProps = {
