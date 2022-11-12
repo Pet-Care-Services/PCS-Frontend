@@ -1,5 +1,9 @@
-import { availabilityComponentHeight } from 'components/WeekAvailability/consts';
-import { lgBreakpoint, mdBreakpoint } from 'hooks/useBreakpoints';
+import {
+  lgBreakpoint,
+  mdBreakpoint,
+  smBreakpoint,
+  xsBreakpoint,
+} from 'hooks/useBreakpoints';
 
 export default {
   contactButton: {
@@ -72,9 +76,16 @@ export default {
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
-  fakeAvailabilityArea: {
-    height: availabilityComponentHeight,
-  },
+  fakeAvailabilityArea: (theme) => ({
+    height: 550,
+
+    [smBreakpoint(theme)]: {
+      height: 540,
+    },
+    [xsBreakpoint(theme)]: {
+      height: 525,
+    },
+  }),
   textAvailability: {
     marginTop: 10,
     display: 'flex',

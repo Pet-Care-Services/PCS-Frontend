@@ -11,6 +11,7 @@ import Loader from 'components/Loader';
 import Tag from 'components/Tag';
 import TextAvailability from 'components/TextAvailability';
 import getPriceTypeToAbbreviationMap from 'consts/getPriceTypeToAbbreviationMap';
+import useBreakpoints from 'hooks/useBreakpoints';
 import useTheme from 'hooks/useTheme';
 import availabilitiesShape from 'shapes/availabilitiesShape';
 import dictionaryValueShape from 'shapes/dictionaryValueShape';
@@ -37,6 +38,7 @@ const RequestOfferCreatorView = ({
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const { isSmallScreen } = useBreakpoints();
   const [isNegotiatingPrice, setIsNegotiatingPrice] = useState(false);
   const priceTypeToAbbreviationMap = getPriceTypeToAbbreviationMap(t);
 
@@ -44,25 +46,30 @@ const RequestOfferCreatorView = ({
     priceTypeToAbbreviationMap[priceType]
   }`;
 
+  const descriptionView = <Typography variant="body">{description}</Typography>;
+
   return (
     <Box sx={styles.root}>
       <Box sx={styles.sideColumn}>
         <Box component="img" src={image} sx={styles.image} />
-        <Box sx={styles.tags}>
-          <Tag
-            label={t(`animal.${animal.name}`)}
-            color={theme.palette.neutral.main}
-          />
-          {map(activities, ({ id, name }) => (
+        <Box sx={styles.tagsAndDescriptionWrapper}>
+          <Box sx={styles.tags}>
             <Tag
-              key={id}
-              label={t(`activity.${name}`)}
-              color={theme.palette.secondary.dark}
+              label={t(`animal.${animal.name}`)}
+              color={theme.palette.neutral.main}
             />
-          ))}
+            {map(activities, ({ id, name }) => (
+              <Tag
+                key={id}
+                label={t(`activity.${name}`)}
+                color={theme.palette.secondary.dark}
+              />
+            ))}
+          </Box>
+          {!isSmallScreen && descriptionView}
         </Box>
-        <Typography variant="body">{description}</Typography>
       </Box>
+      {isSmallScreen && descriptionView}
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}

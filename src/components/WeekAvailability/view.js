@@ -8,6 +8,7 @@ import { Box, Typography } from '@mui/material';
 import Icon from 'components/Icon';
 import Loader from 'components/Loader';
 import { WEEKDAY } from 'consts/enums';
+import useBreakpoints from 'hooks/useBreakpoints';
 import getWeekdayIndex from 'utils/getWeekdayIndex';
 import DayTimeframes from './components/DayTimeframes';
 import { daysAvailabilitiesShape, valueShape } from './shapes';
@@ -24,11 +25,15 @@ const WeekAvailabilityView = ({
   onTileClick,
 }) => {
   const weekdayToDateMap = getWeekdayToDateMap(dateFrom);
+  const { isSmallScreen, isExtraSmallScreen } = useBreakpoints();
+
+  const iconSize = isSmallScreen ? 'small' : 'medium';
 
   return (
     <Box sx={styles.root}>
       <Icon
         Component={KeyboardDoubleArrowLeftIcon}
+        size={iconSize}
         onClick={(e) => {
           e.stopPropagation();
           onArrowClick(-1);
@@ -41,11 +46,11 @@ const WeekAvailabilityView = ({
         return (
           <Box sx={styles.dayBoxRoot} key={day}>
             <Typography
-              variant="h4"
-              sx={{
-                ...styles.dayNumber,
-                ...(isToday(add(dateFrom, { days: index })) && styles.active),
-              }}
+              variant={isExtraSmallScreen ? 'tiny' : 'h4'}
+              sx={[
+                styles.dayNumber,
+                isToday(add(dateFrom, { days: index })) && styles.active,
+              ]}
             >
               {getDayNumber(weekdayToDateMap[day])}
             </Typography>
@@ -66,6 +71,7 @@ const WeekAvailabilityView = ({
       })}
       <Icon
         Component={KeyboardDoubleArrowRightIcon}
+        size={iconSize}
         onClick={(e) => {
           e.stopPropagation();
           onArrowClick(1);

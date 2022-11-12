@@ -1,15 +1,22 @@
 import commonStyles from 'consts/commonStyles';
-import { availabilityComponentHeight } from './consts';
+import { smBreakpoint, xsBreakpoint } from 'hooks/useBreakpoints';
 
 export default {
-  root: {
+  root: (theme) => ({
     width: '100%',
-    height: availabilityComponentHeight,
     display: 'flex',
     padding: 10,
     borderRadius: (theme) => theme.borderRadius.small,
     columnGap: 10,
-  },
+    height: 550,
+
+    [smBreakpoint(theme)]: {
+      height: 540,
+    },
+    [xsBreakpoint(theme)]: {
+      height: 525,
+    },
+  }),
   dayBoxRoot: {
     flex: 1,
     display: 'flex',
@@ -17,7 +24,7 @@ export default {
     alignItems: 'center',
     rowGap: 10,
   },
-  dayNumber: {
+  dayNumber: (theme) => ({
     width: 40,
     minWidth: 40,
     height: 40,
@@ -25,7 +32,20 @@ export default {
     borderRadius: (theme) => theme.borderRadius.infinite,
     backgroundColor: (theme) => theme.palette.neutral.main,
     ...commonStyles.centered,
-  },
+
+    [smBreakpoint(theme)]: {
+      width: 30,
+      minWidth: 30,
+      height: 30,
+      minHeight: 30,
+    },
+    [xsBreakpoint(theme)]: {
+      width: 15,
+      minWidth: 15,
+      height: 15,
+      minHeight: 15,
+    },
+  }),
   active: {
     backgroundColor: (theme) => theme.palette.primary.main,
     color: (theme) => theme.palette.white,
