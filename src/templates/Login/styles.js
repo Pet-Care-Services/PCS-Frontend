@@ -1,3 +1,5 @@
+import { smBreakpoint } from 'hooks/useBreakpoints';
+
 export default {
   root: {
     width: '100%',
@@ -7,8 +9,12 @@ export default {
     alignItems: 'center',
     rowGap: 10,
   },
-  linkButton: {
+  linkButton: (theme) => ({
     marginBottom: -20,
     alignSelf: 'flex-end',
-  },
+
+    [smBreakpoint(theme)]: {
+      marginBottom: -10,
+    },
+  }),
 };

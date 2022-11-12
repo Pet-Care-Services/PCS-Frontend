@@ -1,11 +1,27 @@
+import { smBreakpoint } from 'hooks/useBreakpoints';
+
 export default {
-  linksWrapper: {
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  linksWrapper: (theme) => ({
     width: '100%',
     marginBottom: -20,
     display: 'flex',
     justifyContent: 'space-between',
-  },
+
+    [smBreakpoint(theme)]: {
+      marginBottom: -10,
+    },
+  }),
   rightLinkButton: {
     alignSelf: 'flex-end',
+  },
+  information: {
+    marginTop: 20,
+    marginBottom: 20,
   },
 };

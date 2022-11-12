@@ -2,6 +2,7 @@ import React from 'react';
 import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { Dialog as MUIDialog } from '@mui/material';
+import { smBreakpoint } from 'hooks/useBreakpoints';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
 
 const Dialog = ({ onClose, open, content, width }) => (
@@ -9,13 +10,17 @@ const Dialog = ({ onClose, open, content, width }) => (
     onClose={onClose}
     open={open}
     PaperProps={{
-      sx: {
+      sx: (theme) => ({
         width,
         maxWidth: '100%',
         height: 'auto',
         borderRadius: (theme) => theme.borderRadius.tiny,
         padding: 40,
-      },
+
+        [smBreakpoint(theme)]: {
+          padding: 20,
+        },
+      }),
     }}
   >
     {content}

@@ -20,11 +20,9 @@ const SimpleInfoDialogContent = ({
   const { closeDialog } = useDialog();
 
   return (
-    <Box
-      sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-    >
+    <Box sx={styles.root}>
       <Typography variant="h1">{title}</Typography>
-      <Typography variant="body" sx={{ marginTop: 20, marginBottom: 20 }}>
+      <Typography variant="body" sx={styles.information}>
         {information}
       </Typography>
       {onAccept && (
