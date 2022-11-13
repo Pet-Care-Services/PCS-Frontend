@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import useUserData from './useUserData';
 
 const useUserLocation = () => {
-  // const [data, setData] = useState(null);
   const { position: userPosition, setUserData } = useUserData();
 
   useEffect(() => {
@@ -14,7 +13,7 @@ const useUserLocation = () => {
     if (geolocationAPI) {
       geolocationAPI.getCurrentPosition((position) => {
         const { coords } = position;
-        console.log('odczytano', position);
+
         setUserData({
           position: {
             lat: coords.latitude,
