@@ -1,18 +1,19 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import { isArray, map, noop } from 'lodash';
+import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Button from 'components/Button';
 import TileWrapper from 'components/TileWrapper';
-import Field from './components/Field';
+import MappedRows from './components/MappedRows';
 import { rowsShape } from './shapes';
 import styles from './styles';
 
 const Filters = ({
-  rows,
+  filtersRows,
+  optionsRows,
   initialValues,
   validationSchema,
   onSubmit,
@@ -32,19 +33,11 @@ const Filters = ({
           <Form>
             <Box sx={styles.formContent}>
               <Typography variant="h2">{t('filters')}</Typography>
-              {map(rows, (row, index) => {
-                if (isArray(row)) {
-                  return (
-                    <Box sx={styles.horizontalFieldsWrapper} key={index}>
-                      {map(row, (field) => (
-                        <Field {...field} key={field.name} />
-                      ))}
-                    </Box>
-                  );
-                }
+              <MappedRows rows={filtersRows} />
 
-                return <Field {...row} key={index} />;
-              })}
+              <Typography variant="h2">{t('options')}</Typography>
+              <MappedRows rows={optionsRows} />
+
               <Box sx={styles.buttons}>
                 <Button
                   color="neutral"
@@ -69,7 +62,8 @@ const Filters = ({
 };
 
 Filters.propTypes = {
-  rows: rowsShape.isRequired,
+  filtersRows: rowsShape.isRequired,
+  optionsRows: rowsShape.isRequired,
   initialValues: PropTypes.object,
   validationSchema: PropTypes.object,
   onSubmit: PropTypes.func,
