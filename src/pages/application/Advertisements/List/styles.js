@@ -5,6 +5,11 @@ export default {
     display: 'flex',
     columnGap: 20,
   },
+  filtersWrapper: {
+    position: 'relative',
+    width: 380,
+    minWidth: 380,
+  },
   contentWrapper: {
     flex: 1,
     minWidth: 600,

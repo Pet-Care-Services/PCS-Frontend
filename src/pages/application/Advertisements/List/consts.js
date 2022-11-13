@@ -111,6 +111,6 @@ const getOptionsFields = (t, onMapButtonClick, isMapVisible) => [
   },
 ];
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 6;
 
 export { getFiltersFields, getOptionsFields, PAGE_SIZE };

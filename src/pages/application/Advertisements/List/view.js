@@ -68,18 +68,20 @@ const ListView = ({
 
   return (
     <Box sx={styles.root}>
-      <Filters
-        filtersRows={getFiltersFields(t, animalsOptions, activitiesOptions)}
-        optionsRows={getOptionsFields(
-          t,
-          () => setIsMapVisible((v) => !v),
-          isMapVisible
-        )}
-        initialValues={filtersInitialValues}
-        validationSchema={getFiltersValidation(t)}
-        onSubmit={onFiltersSubmit}
-        onClear={onFiltersClear}
-      />
+      <Box sx={styles.filtersWrapper}>
+        <Filters
+          filtersRows={getFiltersFields(t, animalsOptions, activitiesOptions)}
+          optionsRows={getOptionsFields(
+            t,
+            () => setIsMapVisible((v) => !v),
+            isMapVisible
+          )}
+          initialValues={filtersInitialValues}
+          validationSchema={getFiltersValidation(t)}
+          onSubmit={onFiltersSubmit}
+          onClear={onFiltersClear}
+        />
+      </Box>
       <Box sx={{ ...styles.contentWrapper, ...styles.flexColumn }}>
         <Collapse in={isMapVisible} sx={styles.mapCollapse}>
           <TileWrapper sx={styles.mapWrapper}>
