@@ -1,22 +1,18 @@
 export default {
   root: {
-    minWidth: 380,
-    width: 380,
-    height: '100%',
+    width: 'inherit',
+    height: 'fit-content',
     display: 'flex',
     flexDirection: 'column',
     padding: 20,
     boxSizing: 'border-box',
+    position: 'fixed',
   },
   formContent: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     rowGap: 15,
-  },
-  horizontalFieldsWrapper: {
-    display: 'flex',
-    columnGap: 10,
   },
   buttons: {
     marginTop: 10,

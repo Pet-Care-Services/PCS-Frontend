@@ -12,6 +12,8 @@ const filtersInitialValuesShape = PropTypes.exact({
   activityId: PropTypes.string,
   minPrice: PropTypes.string,
   maxPrice: PropTypes.string,
+  sort: PropTypes.string,
+  order: PropTypes.oneOf(['true', 'false']),
 });
 
 const advertisementShape = PropTypes.shape({
