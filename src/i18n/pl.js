@@ -154,5 +154,12 @@ export default {
     default: 'Domyślnie',
     upload: 'Wgraj',
     emailVerification: 'Weryfikacja email',
+    options: 'Opcje',
+    sortBy: 'Sortuj po',
+    order: 'Kolejność',
+    ascending: 'Rosnąco',
+    descending: 'Malejąco',
+    showMap: 'Pokaż mapę',
+    hideMap: 'Ukryj mapę',
   },
 };

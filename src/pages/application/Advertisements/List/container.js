@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 import Loader from 'components/Loader';
 import { ITEM_TYPE } from 'consts/enums';
 import {
@@ -17,24 +17,40 @@ import Login from 'templates/Login';
 import RequestOfferCreator from 'templates/OfferCreator/RequestOfferCreator';
 import ServiceOfferCreator from 'templates/OfferCreator/ServiceOfferCreator';
 import mapDictionaryToOptions from 'utils/mapDictionaryToOptions';
+import { PAGE_SIZE } from './consts';
 import { ADVERTISEMENTS_KEY, getAdvertisements } from './queries';
 import { itemTypeShape } from './shapes';
-import { formatData, formatMarkers } from './utils';
+import { formatData, formatMarkers, joinPages } from './utils';
 import ListView from './view';
 
 const ListContainer = ({ itemType }) => {
   const { t } = useTranslation();
   const { params, updateParams, clearParams } = useURLParams();
   const { isLoggedIn } = useUserData();
-
   const { openDialog } = useDialog();
+
   const {
     data: advertisementsData,
     isLoading: isLoadingAdvertisements,
     refetch,
-  } = useQuery(ADVERTISEMENTS_KEY, () => getAdvertisements(itemType, params), {
-    refetchOnWindowFocus: false,
-  });
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery(
+    ADVERTISEMENTS_KEY,
+    ({ pageParam = 0 }) =>
+      getAdvertisements(itemType, {
+        ...params,
+        page: pageParam,
+        size: PAGE_SIZE,
+      }),
+    {
+      refetchOnWindowFocus: false,
+      getNextPageParam: (lastPage) => {
+        const nextPage = get(lastPage, 'data.number') + 1;
+        return nextPage < lastPage.data.totalPages ? nextPage : undefined;
+      },
+    }
+  );
 
   const { data: animalsData, isLoading: isLoadingAnimals } = useQuery(
     ANIMALS_KEY,
@@ -83,9 +99,12 @@ const ListContainer = ({ itemType }) => {
     activityId: params.activityId || '',
     minPrice: params.minPrice || '',
     maxPrice: params.maxPrice || '',
+    sort: params.sort || '',
+    order: params.order || 'false',
   };
 
-  const items = get(advertisementsData, 'data');
+  const pages = get(advertisementsData, 'pages');
+  const items = joinPages(pages);
 
   if (isLoadingAnimals || isLoadingActivities) {
     return <Loader />;
@@ -108,6 +127,8 @@ const ListContainer = ({ itemType }) => {
       )}
       itemType={itemType}
       isLoading={isLoadingAdvertisements}
+      onLoadMore={fetchNextPage}
+      hasNextPage={hasNextPage}
     />
   );
 };

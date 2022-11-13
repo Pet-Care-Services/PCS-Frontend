@@ -154,5 +154,12 @@ export default {
     default: 'Default',
     upload: 'Upload',
     emailVerification: 'Email verification',
+    options: 'Options',
+    sortBy: 'Sort by',
+    order: 'Order',
+    ascending: 'Ascending',
+    descending: 'Descending',
+    showMap: 'Show the map',
+    hideMap: 'Hide the map',
   },
 };
