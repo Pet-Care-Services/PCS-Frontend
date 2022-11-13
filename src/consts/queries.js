@@ -1,24 +1,19 @@
 import axios from 'axios';
-
-const ANIMALS_KEY = 'ANIMALS';
+import { format } from 'date-fns';
+import mapParamsForAPI from 'utils/mapParamsForAPI';
+import { weekIdentifierDateFormat } from './dateFormats';
 
 const getAnimals = () => {
   return axios.get('/animals');
 };
 
-const ACTIVITIES_KEY = 'ACTIVITIES';
-
 const getActivities = () => {
   return axios.get('/activities');
 };
 
-const ME_QUERY_KEY = 'ME_QUERY';
-
 const getMe = () => {
   return axios.get('/user/me');
 };
-
-const GOOGLE_API_AUTOCOMPLETE_KEY = 'GOOGLE_API_AUTOCOMPLETE';
 
 const getAddressesFromGoogleAPI = (phrase, types) => {
   const AutocompleteService =
@@ -43,14 +38,32 @@ const getPinByAddressFromGoogleAPI = async (address) => {
   return latLng;
 };
 
+const getWeekAvailability = (serviceId, weekIdentifier) => {
+  const params = mapParamsForAPI({
+    date: format(weekIdentifier, weekIdentifierDateFormat),
+    servicesIndices: serviceId,
+  });
+  return axios.get('/services/weekAvailability', {
+    params,
+  });
+};
+
+const WEEK_AVAILABILITY_KEY = 'WEEK_AVAILABILITY';
+const ANIMALS_KEY = 'ANIMALS';
+const ACTIVITIES_KEY = 'ACTIVITIES';
+const ME_QUERY_KEY = 'ME_QUERY';
+const GOOGLE_API_AUTOCOMPLETE_KEY = 'GOOGLE_API_AUTOCOMPLETE';
+
 export {
-  ANIMALS_KEY,
   getAnimals,
-  ACTIVITIES_KEY,
   getActivities,
-  ME_QUERY_KEY,
   getMe,
-  GOOGLE_API_AUTOCOMPLETE_KEY,
   getAddressesFromGoogleAPI,
   getPinByAddressFromGoogleAPI,
+  getWeekAvailability,
+  ANIMALS_KEY,
+  ACTIVITIES_KEY,
+  ME_QUERY_KEY,
+  GOOGLE_API_AUTOCOMPLETE_KEY,
+  WEEK_AVAILABILITY_KEY,
 };

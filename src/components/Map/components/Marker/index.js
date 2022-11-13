@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Circle, OverlayView } from '@react-google-maps/api';
 import { noop } from 'lodash';
 import PropTypes from 'prop-types';
-import { useTheme } from '@mui/material';
+import { Collapse, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
+import PriceRange from 'components/PriceRange';
+import Rating from 'components/Rating';
+import TagList from 'components/TagList';
+import { markerDataShape } from 'shapes/markerShapes';
 import styles from './styles';
 
-const Marker = ({ position, radius, onMapClick, onMarkerClick }) => {
+const Marker = ({
+  data,
+  position,
+  radius,
+  reset,
+  onMapClick,
+  onMarkerClick,
+}) => {
   const theme = useTheme();
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    setIsActive(false);
+  }, [reset]);
 
   return (
     <OverlayView
@@ -15,13 +31,49 @@ const Marker = ({ position, radius, onMapClick, onMarkerClick }) => {
       mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
     >
       <>
+        <Box sx={styles.popupPosition}>
+          <Collapse in={isActive}>
+            <Box
+              sx={styles.popup}
+              onClick={() => {
+                setIsActive(false);
+                onMarkerClick({
+                  servicesIndices: data.servicesIndices,
+                  requestId: data.requestId,
+                });
+              }}
+            >
+              <Box sx={styles.popupRow}>
+                <Rating value={data.starsValue} />
+                <PriceRange
+                  from={data.price.from}
+                  to={data.price.to}
+                  type={data.price.type}
+                  textVariant="h3"
+                />
+              </Box>
+              <TagList
+                labels={data.activities}
+                modelKey="activity"
+                color={theme.palette.neutral.main}
+              />
+              <TagList
+                labels={data.animals}
+                modelKey="animal"
+                color={theme.palette.secondary.dark}
+              />
+            </Box>
+          </Collapse>
+        </Box>
         <Box
-          sx={styles.center}
+          sx={styles.clickableArea}
           onClick={(e) => {
             e.stopPropagation();
-            onMarkerClick(position);
+            setIsActive((v) => !v);
           }}
-        />
+        >
+          <Box sx={styles.center} />
+        </Box>
         <Circle
           onClick={onMapClick}
           center={position}
@@ -44,6 +96,8 @@ Marker.propTypes = {
     lng: PropTypes.number,
   }).isRequired,
   radius: PropTypes.number,
+  data: markerDataShape,
+  reset: PropTypes.bool,
   onMapClick: PropTypes.func,
   onMarkerClick: PropTypes.func,
 };

@@ -1,12 +1,6 @@
 import { availabilityComponentHeight } from 'components/WeekAvailability/consts';
 
 export default {
-  activitiesTags: {
-    backgroundColor: (theme) => theme.palette.secondary.dark,
-  },
-  animalsTags: {
-    backgroundColor: (theme) => theme.palette.neutral.main,
-  },
   contactButton: {
     width: 300,
     marginTop: 10,
@@ -41,6 +35,7 @@ export default {
   tagsBox: {
     display: 'flex',
     flexDirection: 'column',
+    rowGap: 5,
   },
   locationBox: {
     display: 'flex',
@@ -71,5 +66,8 @@ export default {
     display: 'flex',
     alignItems: 'center',
     columnGap: 10,
+  },
+  description: {
+    marginBottom: 10,
   },
 };

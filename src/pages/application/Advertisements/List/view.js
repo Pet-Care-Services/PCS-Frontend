@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { isEmpty, map, noop } from 'lodash';
+import { findIndex, isEmpty, map, noop, toString } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Box, Collapse, Typography } from '@mui/material';
@@ -10,19 +10,24 @@ import Icon from 'components/Icon';
 import Loader from 'components/Loader';
 import Map from 'components/Map';
 import TileWrapper from 'components/TileWrapper';
-import { ITEM_TYPE } from 'consts/enums';
+import { ENV, ITEM_TYPE } from 'consts/enums';
+import useURLParams from 'hooks/useURLParams';
+import useUserData from 'hooks/useUserData';
+import { markersShape } from 'shapes/markerShapes';
 import optionsShape from 'shapes/optionsShape';
 import { getFiltersFields } from './consts';
 import { filtersInitialValuesShape, dataShape, itemTypeShape } from './shapes';
 import styles from './styles';
+import { compareArrayWithString } from './utils';
 import { getFiltersValidation } from './validation';
 
 const ListView = ({
   filtersInitialValues,
   onFiltersSubmit,
   onFiltersClear,
-  onContactClick,
+  onMarkerClick,
   data,
+  markers,
   animalsOptions,
   activitiesOptions,
   isLoading,
@@ -32,6 +37,8 @@ const ListView = ({
   const [expandedAdvertisementIndex, setExpandedAdvertisementIndex] =
     useState(null);
   const [isMapVisible, setIsMapVisible] = useState(false);
+  const { params, updateParams } = useURLParams();
+  const { userId } = useUserData();
 
   useEffect(() => {
     if (expandedAdvertisementIndex !== null) {
@@ -39,13 +46,24 @@ const ListView = ({
     }
   }, [itemType]);
 
-  const markers = map(data, (advertisement) => ({
-    position: {
-      lat: advertisement.pin.latitude,
-      lng: advertisement.pin.longitude,
-    },
-    radius: advertisement.pin.radius,
-  }));
+  useEffect(() => {
+    const expandedParam = params.expanded;
+
+    const index = findIndex(data, ({ servicesIndices, requestId }) =>
+      isService
+        ? compareArrayWithString(servicesIndices, expandedParam)
+        : toString(expandedParam) === toString(requestId)
+    );
+
+    if (index >= 0) {
+      setExpandedAdvertisementIndex(index);
+    }
+  }, [params.expanded]);
+
+  const isService = itemType === ITEM_TYPE.SERVICE;
+
+  const isMapMountedInHTML =
+    isMapVisible || process.env.REACT_APP_ENV === ENV.PRODUCTION;
 
   return (
     <Box sx={styles.root}>
@@ -65,7 +83,16 @@ const ListView = ({
         />
         <Collapse in={isMapVisible} sx={styles.mapCollapse}>
           <TileWrapper sx={styles.mapWrapper}>
-            <Map markers={markers} sx={styles.map} />
+            {isMapMountedInHTML && (
+              <Map
+                markers={markers}
+                onMarkerClick={(...args) => {
+                  setIsMapVisible(false);
+                  onMarkerClick(...args);
+                }}
+                sx={styles.map}
+              />
+            )}
           </TileWrapper>
         </Collapse>
         {isLoading && <Loader />}
@@ -75,20 +102,24 @@ const ListView = ({
             <Typography>{t('noResults')}</Typography>
           </Box>
         )}
-        {map(data, (adverisement, index) => (
+        {map(data, (advertisement, index) => (
           <Advertisement
             key={index}
-            {...adverisement}
-            isService={itemType === ITEM_TYPE.SERVICE}
+            {...advertisement}
+            belongsToMe={advertisement.userId === userId}
+            isService={isService}
             isExpanded={expandedAdvertisementIndex === index}
             onBoxClick={() => {
               if (index === expandedAdvertisementIndex) {
                 setExpandedAdvertisementIndex(null);
+                if (params.expanded) {
+                  updateParams({ expanded: '' });
+                }
               } else {
                 setExpandedAdvertisementIndex(index);
               }
             }}
-            onContactClick={() => onContactClick(adverisement.userId)}
+            onContactClick={advertisement.onContactClick}
           />
         ))}
       </Box>
@@ -101,9 +132,10 @@ ListView.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   itemType: itemTypeShape.isRequired,
   data: dataShape,
+  markers: markersShape,
   onFiltersSubmit: PropTypes.func,
   onFiltersClear: PropTypes.func,
-  onContactClick: PropTypes.func,
+  onMarkerClick: PropTypes.func,
   animalsOptions: optionsShape,
   activitiesOptions: optionsShape,
 };
@@ -111,8 +143,9 @@ ListView.propTypes = {
 ListView.defaultProps = {
   onFiltersSubmit: noop,
   onFiltersClear: noop,
-  onContactClick: noop,
+  onMarkerClick: noop,
   data: [],
+  markers: [],
   animalsOptions: [],
   activitiesOptions: [],
 };

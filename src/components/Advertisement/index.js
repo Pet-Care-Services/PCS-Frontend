@@ -12,10 +12,12 @@ import TextAvailability from 'components/TextAvailability';
 import TileWrapper from 'components/TileWrapper';
 import { daysAvailabilitiesShape } from 'components/WeekAvailability/shapes';
 import WeekAvailabilityView from 'components/WeekAvailability/view';
+import useTheme from 'hooks/useTheme';
+import useWeekAvailability from 'hooks/useWeekAvailability';
 import availabilitiesShape from 'shapes/availabilitiesShape';
 import priceShape from 'shapes/priceShape';
+import TagList from '../TagList';
 import styles from './styles';
-import { renderTags } from './utils';
 
 const Advertisement = ({
   activities,
@@ -27,12 +29,18 @@ const Advertisement = ({
   description,
   isExpanded,
   availabilities,
-  weekAvailability,
   isService,
+  servicesIndices,
+  belongsToMe,
   onBoxClick,
   onContactClick,
 }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const { weekAvailability, isLoading, changeWeek } = useWeekAvailability(
+    servicesIndices,
+    isExpanded && isService
+  );
 
   let availability;
   if (isService) {
@@ -40,6 +48,8 @@ const Advertisement = ({
       <WeekAvailabilityView
         dateFrom={weekAvailability.dateFrom}
         daysAvailabilities={weekAvailability.daysAvailabilities}
+        onArrowClick={(offset) => changeWeek(offset)}
+        isLoading={isLoading}
       />
     ) : (
       <Box sx={styles.fakeAvailabilityArea} />
@@ -56,8 +66,16 @@ const Advertisement = ({
             <Box component="img" sx={styles.imageBox} src={image} />
             <Box sx={styles.centerColumnBox}>
               <Box sx={styles.tagsBox}>
-                {renderTags(activities, 'activity', 2, t)}
-                {renderTags(animals, 'animal', 2, t)}
+                <TagList
+                  labels={activities}
+                  modelKey="activity"
+                  color={theme.palette.neutral.main}
+                />
+                <TagList
+                  labels={animals}
+                  modelKey="animal"
+                  color={theme.palette.secondary.dark}
+                />
               </Box>
               <Box sx={styles.locationBox}>
                 <Icon Component={FmdGoodIcon} size={'large'} />
@@ -74,13 +92,17 @@ const Advertisement = ({
             </Box>
           </Box>
           <Box sx={styles.expandedBox}>
-            <Typography variant="h2">{description}</Typography>
+            <Typography variant="h2" sx={styles.description}>
+              {description}
+            </Typography>
             {availability}
-            <Box sx={styles.justifyEndBox}>
-              <Button sx={styles.contactButton} onClick={onContactClick}>
-                {t('contact')}
-              </Button>
-            </Box>
+            {!belongsToMe && (
+              <Box sx={styles.justifyEndBox}>
+                <Button sx={styles.contactButton} onClick={onContactClick}>
+                  {t('contact')}
+                </Button>
+              </Box>
+            )}
           </Box>
         </Box>
       </Collapse>
@@ -103,6 +125,8 @@ Advertisement.propTypes = {
   isService: PropTypes.bool.isRequired,
   description: PropTypes.string,
   isExpanded: PropTypes.bool,
+  belongsToMe: PropTypes.bool,
+  servicesIndices: PropTypes.arrayOf(PropTypes.number),
   onContactClick: PropTypes.func,
   onBoxClick: PropTypes.func,
 };
@@ -111,6 +135,7 @@ Advertisement.defaultProps = {
   weekAvailability: null,
   description: '',
   isExpanded: false,
+  belongsToMe: false,
   onContactClick: noop,
   onBoxClick: noop,
 };

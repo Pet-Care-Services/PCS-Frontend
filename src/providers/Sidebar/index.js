@@ -30,7 +30,7 @@ const SidebarProvider = ({ children }) => {
 
   const onLoginClick = () => {
     handleClose();
-    openDialog(<Login />);
+    openDialog({ content: <Login /> });
   };
 
   const onLogoutClick = () => {

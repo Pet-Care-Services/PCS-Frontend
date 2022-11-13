@@ -1,5 +1,6 @@
-import { isArray, map, mapValues, split } from 'lodash';
+import { isArray, map, split, toString } from 'lodash';
 import formatLocation from 'utils/formatLocation';
+import formatWeekAvailability from 'utils/formatWeekAvailability';
 
 const formatPrice = (data) => {
   let priceObject;
@@ -34,32 +35,52 @@ const formatLocationText = (locationData) => {
   }
 };
 
-const API_DATERANGE_SEPARATOR = '/';
+const compareArrayWithString = (array, string) => {
+  if (!array || !string) {
+    return false;
+  }
+  const arrayToCompare = split(string, ',');
 
-const formatWeekAvailability = ({ dateRange, ...weekdaysData }) => ({
-  dateFrom: new Date(split(dateRange, API_DATERANGE_SEPARATOR)[0]),
-  daysAvailabilities: {
-    ...mapValues(weekdaysData, (dateRangeStringList) => {
-      return map(dateRangeStringList, (dateRangeString) => {
-        const [from, to] = split(dateRangeString, API_DATERANGE_SEPARATOR);
-        return { from: new Date(from), to: new Date(to) };
-      });
-    }),
-  },
-});
+  return (
+    array.length === arrayToCompare.length &&
+    array.every(
+      (value, index) => toString(value) === toString(arrayToCompare[index])
+    )
+  );
+};
 
-const formatData = (advertisements) =>
-  map(advertisements, (entry) => ({
+const formatData = (advertisements, onContactClick) => {
+  const mockImage = require('assets/mockPhoto.jpg');
+
+  return map(advertisements, (entry) => ({
     ...entry,
-    id: entry.id,
     activities: map(entry.activities, ({ name }) => name),
     animals: formatAnimals(entry.animals || entry.animal),
     starsValue: 5,
     price: formatPrice(entry.price),
     location: formatLocationText(entry.location),
-    image: require('assets/mockPhoto.jpg'),
+    image: mockImage,
     weekAvailability:
       entry.weekAvailability && formatWeekAvailability(entry.weekAvailability),
+    onContactClick: () => onContactClick({ ...entry, image: mockImage }),
+  }));
+};
+
+const formatMarkers = (advertisements) =>
+  map(advertisements, (entry) => ({
+    position: {
+      lat: entry.pin.latitude,
+      lng: entry.pin.longitude,
+    },
+    radius: entry.pin.radius,
+    data: {
+      servicesIndices: entry.servicesIndices,
+      requestId: entry.requestId,
+      activities: map(entry.activities, ({ name }) => name),
+      animals: formatAnimals(entry.animals || entry.animal),
+      starsValue: 5,
+      price: formatPrice(entry.price),
+    },
   }));
 
-export { formatData };
+export { formatData, formatMarkers, compareArrayWithString };

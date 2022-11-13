@@ -11,11 +11,11 @@ const AllProviders = ({ children }) => (
   <UserDataProvider>
     <AppThemeProvider>
       <SnackbarProvider>
-        <DialogProvider>
-          <SidebarProvider>
-            <ChatProvider>{children}</ChatProvider>
-          </SidebarProvider>
-        </DialogProvider>
+        <ChatProvider>
+          <DialogProvider>
+            <SidebarProvider>{children}</SidebarProvider>
+          </DialogProvider>
+        </ChatProvider>
       </SnackbarProvider>
     </AppThemeProvider>
   </UserDataProvider>

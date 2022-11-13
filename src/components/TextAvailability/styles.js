@@ -1,6 +1,10 @@
 export default {
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: 10,
+  },
   row: {
-    marginTop: 10,
     display: 'flex',
     alignItems: 'center',
     columnGap: 10,

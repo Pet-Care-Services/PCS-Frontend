@@ -1,13 +1,14 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { isFunction, map } from 'lodash';
+import { isFunction, map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import Loader from 'components/Loader';
+import { markersShape } from 'shapes/markerShapes';
 import Marker from './components/Marker';
 import { anchorPoint, zoom } from './consts';
-import { markersShape } from './shapes';
 
-const Map = ({ markers, onClick, sx }) => {
+const Map = ({ markers, onMarkerClick, onClick, sx }) => {
+  const [reset, setReset] = useState(false);
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -26,10 +27,6 @@ const Map = ({ markers, onClick, sx }) => {
     }
   };
 
-  const onMarkerClick = ({ lat, lng }) => {
-    console.log('Marker: ', lat, lng);
-  };
-
   return (
     <GoogleMap
       mapContainerStyle={{
@@ -45,8 +42,12 @@ const Map = ({ markers, onClick, sx }) => {
       {map(markers, (marker, index) => (
         <Marker
           key={index}
+          reset={reset}
           onMapClick={onMapClick}
-          onMarkerClick={onMarkerClick}
+          onMarkerClick={(...args) => {
+            setReset((v) => !v);
+            onMarkerClick(...args);
+          }}
           {...marker}
         />
       ))}
@@ -56,12 +57,14 @@ const Map = ({ markers, onClick, sx }) => {
 
 Map.propTypes = {
   onClick: PropTypes.func,
+  onMarkerClick: PropTypes.func,
   markers: markersShape,
   sx: PropTypes.object,
 };
 
 Map.defaultProps = {
   onMapClick: null,
+  onMarkerClick: noop,
   markers: [],
   sx: {},
 };

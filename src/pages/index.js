@@ -22,9 +22,9 @@ const Routing = () => {
   useEffect(() => {
     if (!includes(pathname, 'verify-email')) {
       if (emailVerified === false) {
-        openDialog(<VerifyEmailInformation />, false);
+        openDialog({ content: <VerifyEmailInformation />, closable: false });
       } else if (smsVerified === false) {
-        openDialog(<MobileVerification />, false);
+        openDialog({ content: <MobileVerification />, closable: false });
       }
     }
   }, [emailVerified, smsVerified, pathname]);

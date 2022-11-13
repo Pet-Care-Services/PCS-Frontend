@@ -49,5 +49,10 @@ export default {
     marginTop: 10,
     display: 'flex',
     flexDirection: 'column',
+    rowGap: 15,
+  },
+  tags: {
+    display: 'flex',
+    columnGap: 10,
   },
 };

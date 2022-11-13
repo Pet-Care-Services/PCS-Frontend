@@ -1,17 +1,23 @@
 import React, { useMemo, useState } from 'react';
 import { isNil } from 'lodash';
 import { useMutation, useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { ITEM_TYPE, OFFER_STATUS } from 'consts/enums';
+import useChat from 'hooks/useChat';
 import {
   getConversations,
   getMessages,
   postMessage,
   CONVERSATIONS_KEY,
   MESSAGES_KEY,
+  postOfferDecision,
 } from './queries';
 import { prepareConversationOptions, prepareMessages } from './utils';
 import ChatView from './view';
 
 const ChatContainer = () => {
+  const navigate = useNavigate();
+  const { closeChat } = useChat();
   const [activeConversationId, setActiveConversationId] = useState(null);
 
   const { data: conversationsData, isLoading: isLoadingConversations } =
@@ -42,6 +48,12 @@ const ChatContainer = () => {
     },
   });
 
+  const { mutate: makeDecision } = useMutation(postOfferDecision, {
+    onSuccess: () => {
+      refetchMessages();
+    },
+  });
+
   const onConversationClick = (id) => {
     setActiveConversationId(id);
   };
@@ -49,6 +61,22 @@ const ChatContainer = () => {
   const onSendMessage = ({ message }, { resetForm }) => {
     sendMessage({ conversationId: activeConversationId, text: message });
     resetForm();
+  };
+
+  const onAcceptOffer = (messageId) => {
+    makeDecision({ messageId, status: OFFER_STATUS.ACCEPTED });
+  };
+
+  const onRejectOffer = (messageId) => {
+    makeDecision({ messageId, status: OFFER_STATUS.REJECTED });
+  };
+
+  const onOfferLinkClick = (offerType, offerId) => {
+    closeChat();
+    const urlItemType =
+      offerType === ITEM_TYPE.SERVICE ? 'services' : 'requests';
+
+    navigate(`/application/${urlItemType}?expanded=${offerId}`);
   };
 
   const conversationOptions = prepareConversationOptions(
@@ -65,6 +93,9 @@ const ChatContainer = () => {
       activeConversationId={activeConversationId}
       onConversationClick={onConversationClick}
       onSendMessage={onSendMessage}
+      onAcceptOffer={onAcceptOffer}
+      onRejectOffer={onRejectOffer}
+      onOfferLinkClick={onOfferLinkClick}
       messages={messages}
       isLoadingConversations={isLoadingConversations}
       isLoadingMessages={isLoadingMessages}

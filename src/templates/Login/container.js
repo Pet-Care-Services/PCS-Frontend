@@ -33,7 +33,7 @@ const LoginContainer = () => {
   };
 
   const onGoToSignup = () => {
-    openDialog(<Signup />);
+    openDialog({ content: <Signup /> });
   };
 
   return <LoginView onGoToSignup={onGoToSignup} onSubmit={onSubmit} />;
