@@ -1,4 +1,4 @@
-import { isArray, map, split, toString } from 'lodash';
+import { forEach, isArray, map, split, toString } from 'lodash';
 import formatLocation from 'utils/formatLocation';
 import formatWeekAvailability from 'utils/formatWeekAvailability';
 
@@ -83,4 +83,14 @@ const formatMarkers = (advertisements) =>
     },
   }));
 
-export { formatData, formatMarkers, compareArrayWithString };
+const joinPages = (pages) => {
+  const result = [];
+
+  forEach(pages, (page) => {
+    result.push(...page.data.content);
+  });
+
+  return result;
+};
+
+export { formatData, formatMarkers, compareArrayWithString, joinPages };

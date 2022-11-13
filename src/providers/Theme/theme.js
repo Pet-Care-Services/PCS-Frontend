@@ -33,9 +33,9 @@ const lightColors = {
     dark: '#B00020',
   },
   action: {
-    dark: NO_COLOR,
+    dark: '#0d5991',
     main: '#2579B7',
-    light: NO_COLOR,
+    light: '#61bcff',
   },
   white: WHITE,
   black: BLACK,

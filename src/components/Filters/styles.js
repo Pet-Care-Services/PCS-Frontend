@@ -2,12 +2,13 @@ import { mdBreakpoint } from 'hooks/useBreakpoints';
 
 export default {
   root: (theme) => ({
-    width: 380,
-    height: '100%',
+    width: 'inherit',
+    height: 'fit-content',
     display: 'flex',
     flexDirection: 'column',
     padding: 20,
     boxSizing: 'border-box',
+    position: 'fixed',
 
     [mdBreakpoint(theme)]: {
       width: 300,
@@ -19,10 +20,6 @@ export default {
     flexDirection: 'column',
     alignItems: 'center',
     rowGap: 15,
-  },
-  horizontalFieldsWrapper: {
-    display: 'flex',
-    columnGap: 10,
   },
   buttons: {
     marginTop: 10,

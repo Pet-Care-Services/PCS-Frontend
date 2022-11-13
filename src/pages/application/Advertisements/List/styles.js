@@ -11,8 +11,20 @@ export default {
       columnGap: 10,
     },
   }),
-  contentWrapper: (theme) => ({
+  filtersWrapper: (theme) => ({
+    position: 'relative',
+    width: 380,
+    minWidth: 380,
+
+    [mdBreakpoint(theme)]: {
+      width: 300,
+      minWidth: 300,
+    },
+  }),
+  contentWrapper: {
     flex: 1,
+  },
+  flexColumn: (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     rowGap: 20,
@@ -33,12 +45,16 @@ export default {
   },
   map: {
     borderRadius: 10,
+    marginTop: -5,
   },
   mapCollapse: (theme) => ({
-    margin: theme.spacing(-15, 0),
+    margin: theme.spacing(-10, 0),
 
     [mdBreakpoint(theme)]: {
-      margin: theme.spacing(-10, 0),
+      margin: theme.spacing(-5, 0),
     },
   }),
+  loadMoreLoader: {
+    marginTop: 10,
+  },
 };
