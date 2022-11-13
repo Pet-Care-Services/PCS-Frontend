@@ -3,8 +3,9 @@ import { findIndex, isEmpty, map, noop, toString } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroller';
-import { Box, Collapse, Typography } from '@mui/material';
+import { Box, Collapse } from '@mui/material';
 import Advertisement from 'components/Advertisement';
+import EmptyState from 'components/EmptyState';
 import Filters from 'components/Filters';
 import Loader from 'components/Loader';
 import Map from 'components/Map';
@@ -100,8 +101,7 @@ const ListView = ({
         {isLoading && <Loader />}
         {!isLoading && isEmpty(data) && (
           <Box sx={styles.centered}>
-            {/* TODO put EmptyState here */}
-            <Typography>{t('noResults')}</Typography>
+            <EmptyState />
           </Box>
         )}
         <Box
