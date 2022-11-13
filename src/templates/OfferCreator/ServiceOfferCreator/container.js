@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { get, isNil, pick } from 'lodash';
+import { get, isNil } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery } from 'react-query';
@@ -84,7 +84,15 @@ const ServiceOfferCreatorContainer = ({ advertisement }) => {
         offer: {
           offerType: ITEM_TYPE.SERVICE,
           offerId: serviceId,
-          ...pick(values, ['price', 'activityId']),
+          price: values.price,
+          activities: [
+            {
+              id: values.activityId,
+            },
+          ],
+          animal: {
+            id: values.animalId,
+          },
           startTime: timeframes[0].from,
           endTime: timeframes[timeframes.length - 1].to,
         },

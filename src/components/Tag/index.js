@@ -11,6 +11,7 @@ const Tag = ({ label, color, labelColor, sx }) => {
         backgroundColor: color,
         color: labelColor,
         cursor: 'inherit',
+        width: 'fit-content',
         ...sx,
       }}
     />
@@ -18,7 +19,7 @@ const Tag = ({ label, color, labelColor, sx }) => {
 };
 
 Tag.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   color: colorShape,
   labelColor: colorShape,
   sx: PropTypes.object,

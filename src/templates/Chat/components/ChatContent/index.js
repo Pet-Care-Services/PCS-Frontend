@@ -61,6 +61,8 @@ const ChatContent = ({
                 }
                 image={require('assets/mockPhoto.jpg')}
                 status={message.offer.status}
+                animal={message.offer.animal}
+                activities={message.offer.activities}
                 price={{ from: message.offer.price }}
                 availabilities={isServiceOffer ? availabilities : null}
                 message={message.content}

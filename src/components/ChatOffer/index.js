@@ -1,6 +1,6 @@
 import React from 'react';
 import { t } from 'i18next';
-import { noop } from 'lodash';
+import { map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Typography } from '@mui/material';
@@ -9,10 +9,12 @@ import Button from 'components/Button';
 import Icon from 'components/Icon';
 import PriceRange from 'components/PriceRange';
 import Tag from 'components/Tag';
+import TagList from 'components/TagList';
 import TextAvailability from 'components/TextAvailability';
 import { OFFER_STATUS } from 'consts/enums';
 import useTheme from 'hooks/useTheme';
 import availabilitiesShape from 'shapes/availabilitiesShape';
+import dictionaryValueShape from 'shapes/dictionaryValueShape';
 import priceShape from 'shapes/priceShape';
 import styles from './styles';
 
@@ -20,6 +22,8 @@ const ChatOffer = ({
   image,
   price,
   status,
+  activities,
+  animal,
   availabilities,
   message,
   showButtons,
@@ -61,12 +65,30 @@ const ChatOffer = ({
           />
         </Box>
         <Box sx={styles.details}>
-          <PriceRange
-            from={price.from}
-            to={price.to}
-            type={price.priceType}
-            textVariant="h3"
-          />
+          <Box sx={styles.tags}>
+            <Tag
+              label={
+                <PriceRange
+                  from={price.from}
+                  to={price.to}
+                  type={price.priceType}
+                  textVariant="h3"
+                />
+              }
+              color={theme.palette.action.main}
+              labelColor={theme.palette.white}
+            />
+            <Tag
+              label={t(`animal.${animal.name}`)}
+              color={theme.palette.secondary.dark}
+            />
+            <TagList
+              amountToFit={2}
+              color={theme.palette.neutral.main}
+              modelKey="activity"
+              labels={map(activities, ({ name }) => name)}
+            />
+          </Box>
           {availabilities && (
             <TextAvailability availabilities={availabilities} />
           )}
@@ -99,6 +121,8 @@ ChatOffer.propTypes = {
   image: PropTypes.string.isRequired,
   price: priceShape.isRequired,
   status: PropTypes.oneOf(['PENDING', 'ACCEPTED', 'REJECTED']).isRequired,
+  activities: PropTypes.arrayOf(dictionaryValueShape),
+  animal: dictionaryValueShape,
   availabilities: availabilitiesShape,
   message: PropTypes.string,
   showButtons: PropTypes.bool,

@@ -1,4 +1,5 @@
 import React from 'react';
+import { map } from 'lodash';
 import PropTypes from 'prop-types';
 import { useMutation } from 'react-query';
 import { ITEM_TYPE } from 'consts/enums';
@@ -30,6 +31,10 @@ const RequestOfferCreatorContainer = ({ advertisement }) => {
       message: {
         text: values.message,
         offer: {
+          activities: map(advertisement.activities, ({ id }) => ({ id })),
+          animal: {
+            id: advertisement.animal.id,
+          },
           offerType: ITEM_TYPE.REQUEST,
           offerId: advertisement.requestId,
           price: values.price,
