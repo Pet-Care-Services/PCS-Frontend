@@ -35,6 +35,7 @@ export default {
   tagsBox: {
     display: 'flex',
     flexDirection: 'column',
+    rowGap: 5,
   },
   locationBox: {
     display: 'flex',
