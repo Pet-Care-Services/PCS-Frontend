@@ -14,6 +14,7 @@ export default {
     height: 10,
     borderRadius: '50%',
     backgroundColor: (theme) => theme.palette.error.main,
+    border: (theme) => `${theme.spacing(2)} solid ${theme.palette.error.dark}`,
   },
   popupPosition: {
     position: 'absolute',

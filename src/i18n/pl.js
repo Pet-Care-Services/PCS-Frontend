@@ -158,5 +158,12 @@ export default {
     emailVerification: 'Weryfikacja email',
     choosePhoto: 'Wybierz zdjęcie',
     chooseAvatar: 'Wybierz avatar',
+    options: 'Opcje',
+    sortBy: 'Sortuj po',
+    order: 'Kolejność',
+    ascending: 'Rosnąco',
+    descending: 'Malejąco',
+    showMap: 'Pokaż mapę',
+    hideMap: 'Ukryj mapę',
   },
 };
