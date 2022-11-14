@@ -164,5 +164,8 @@ export default {
     noDescription: 'No description provided...',
     author: 'Author',
     comments: 'Comments',
+    editProfile: 'Edit profile',
+    save: 'Save',
+    cancel: 'Cancel',
   },
 };

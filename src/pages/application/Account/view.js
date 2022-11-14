@@ -1,17 +1,21 @@
 import React from 'react';
+import { Form, Formik } from 'formik';
 import { map, noop, range, values } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import EditIcon from '@mui/icons-material/Edit';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Advertisement from 'components/Advertisement';
+import Button from 'components/Button';
+import Icon from 'components/Icon';
+import Input from 'components/Input';
 import TileWrapper from 'components/TileWrapper';
 import commonStyles from 'consts/commonStyles';
 import { ITEM_TYPE } from 'consts/enums';
 import useExpandedAdvertisement from 'hooks/useExpandedAdvertisement';
 import advertisementsShape from 'shapes/advertisementsShape';
 import styles from './styles';
-
 const AccountView = ({
   isMyAccount,
   firstName,
@@ -21,12 +25,21 @@ const AccountView = ({
   itemType,
   advertisements,
   onSwitchButtonClick,
+  onSubmitProfileChanges,
+  toggleEditMode,
+  isEditMode,
 }) => {
   const { t } = useTranslation();
   const { expandedAdvertisementIndex, onAdvertisementClick } =
     useExpandedAdvertisement(advertisements, itemType);
 
   const username = `${firstName} ${lastName}`;
+
+  const initialValues = {
+    firstName,
+    lastName,
+    description,
+  };
 
   return (
     <Box sx={[styles.root, styles.column]}>
@@ -37,14 +50,50 @@ const AccountView = ({
             src={require('assets/mockPhoto.jpg')}
             sx={styles.image}
           />
-          <Box sx={styles.column}>
-            <Typography variant="h1">{username}</Typography>
 
-            <Typography variant="h4">
-              {isMyAccount && email}
-              {description || t('noDescription')}
-            </Typography>
-          </Box>
+          {!isEditMode ? (
+            <Box sx={styles.column}>
+              <Box sx={[styles.row, styles.nameAndEditIcon]}>
+                <Typography variant="h1">{username}</Typography>
+                {isMyAccount && (
+                  <Icon
+                    Component={EditIcon}
+                    onClick={toggleEditMode}
+                    sx={styles.editIcon}
+                  />
+                )}
+              </Box>
+
+              <Typography variant="h4">
+                {isMyAccount && email}
+                {description || t('noDescription')}
+              </Typography>
+            </Box>
+          ) : (
+            <Formik
+              initialValues={initialValues}
+              onSubmit={onSubmitProfileChanges}
+            >
+              <Box component={Form} sx={[styles.column, styles.form]}>
+                <Typography variant="h2">{t('editProfile')}</Typography>
+                <Input name="firstName" label={t('firstName')} />
+                <Input name="lastName" label={t('lastName')} />
+                <Box>
+                  <Input
+                    multiline
+                    name="description"
+                    label={t('description')}
+                  />
+                </Box>
+                <Box sx={[styles.row, styles.formButtons]}>
+                  <Button color="neutral" onClick={toggleEditMode}>
+                    {t('cancel')}
+                  </Button>
+                  <Button type="submit">{t('save')}</Button>
+                </Box>
+              </Box>
+            </Formik>
+          )}
         </TileWrapper>
         <Box sx={[styles.column, styles.comments]}>
           <Typography variant="h1">{t('comments')}</Typography>
@@ -113,6 +162,9 @@ AccountView.propTypes = {
   itemType: PropTypes.oneOf(values(ITEM_TYPE)),
   advertisements: advertisementsShape,
   onSwitchButtonClick: PropTypes.func,
+  onSubmitProfileChanges: PropTypes.func,
+  toggleEditMode: PropTypes.func,
+  isEditMode: PropTypes.bool,
 };
 
 AccountView.defaultProps = {
@@ -122,6 +174,9 @@ AccountView.defaultProps = {
   itemType: ITEM_TYPE.REQUEST,
   advertisements: [],
   onSwitchButtonClick: noop,
+  onSubmitProfileChanges: noop,
+  toggleEditMode: noop,
+  isEditMode: false,
 };
 
 export default AccountView;

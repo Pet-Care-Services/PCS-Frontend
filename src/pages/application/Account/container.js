@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { get, includes, toString, values } from 'lodash';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import Loader from 'components/Loader';
 import { ITEM_TYPE } from 'consts/enums';
@@ -11,7 +11,7 @@ import Login from 'templates/Login';
 import RequestOfferCreator from 'templates/OfferCreator/RequestOfferCreator';
 import ServiceOfferCreator from 'templates/OfferCreator/ServiceOfferCreator';
 import formatAdvertisements from 'utils/formatAdvertisements';
-import { getUserProfile, USER_PROFILE_KEY } from './queries';
+import { getUserProfile, postProfile, USER_PROFILE_KEY } from './queries';
 import AccountView from './view';
 
 const AccountContainer = () => {
@@ -19,14 +19,23 @@ const AccountContainer = () => {
   const { userId, isLoggedIn, email } = useUserData();
   const { params } = useURLParams();
   const { openDialog } = useDialog();
+  const [isEditMode, setIsEditMode] = useState(false);
   const [displayedItemType, setDisplayedItemType] = useState(ITEM_TYPE.REQUEST);
-  const { data: userProfileData, isLoading: isLoadingUserProfile } = useQuery(
-    [USER_PROFILE_KEY, id],
-    () => getUserProfile(id),
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
+  const {
+    refetch: refetchProfile,
+    data: userProfileData,
+    isLoading: isLoadingUserProfile,
+  } = useQuery([USER_PROFILE_KEY, id], () => getUserProfile(id), {
+    refetchOnWindowFocus: false,
+  });
+
+  const { mutate: submitProfile } = useMutation(postProfile, {
+    onSuccess: () => {
+      refetchProfile().then(() => {
+        setIsEditMode(false);
+      });
+    },
+  });
 
   useEffect(() => {
     if (includes(values(ITEM_TYPE), params.itemType)) {
@@ -57,6 +66,10 @@ const AccountContainer = () => {
     setDisplayedItemType(itemType);
   };
 
+  const onSubmitProfileChanges = (values) => {
+    submitProfile(values);
+  };
+
   const formattedRequests = useMemo(() => {
     if (isLoadingUserProfile) return [];
 
@@ -85,6 +98,9 @@ const AccountContainer = () => {
       isMyAccount={toString(userId) === toString(id)}
       itemType={displayedItemType}
       onSwitchButtonClick={onSwitchButtonClick}
+      onSubmitProfileChanges={onSubmitProfileChanges}
+      toggleEditMode={() => setIsEditMode((v) => !v)}
+      isEditMode={isEditMode}
       advertisements={
         displayedItemType === ITEM_TYPE.REQUEST
           ? formattedRequests

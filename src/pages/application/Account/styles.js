@@ -12,13 +12,18 @@ export default {
     width: '50%',
   },
   column: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     rowGap: 10,
   },
   row: {
+    width: '100%',
     display: 'flex',
     gap: 10,
+  },
+  nameAndEditIcon: {
+    alignItems: 'center',
   },
   leftColumn: {
     width: 300,
@@ -63,5 +68,15 @@ export default {
     '&:hover': {
       backgroundColor: (theme) => theme.palette.primary.main,
     },
+  },
+  editIcon: {
+    marginLeft: 'auto',
+  },
+  form: {
+    width: '100%',
+    height: '100%',
+  },
+  formButtons: {
+    justifyContent: 'center',
   },
 };

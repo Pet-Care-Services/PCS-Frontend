@@ -164,5 +164,8 @@ export default {
     noDescription: 'Brak opisu...',
     author: 'Autor',
     comments: 'Komentarze',
+    editProfile: 'Edytuj profil',
+    save: 'Zapisz',
+    cancel: 'Anuluj',
   },
 };

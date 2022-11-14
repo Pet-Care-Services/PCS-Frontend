@@ -4,4 +4,6 @@ const getUserProfile = (id) => axios.get(`/users/${id}`);
 
 const USER_PROFILE_KEY = 'USER_PROFILE';
 
-export { getUserProfile, USER_PROFILE_KEY };
+const postProfile = (values) => axios.post('/users/profileSettings', values);
+
+export { getUserProfile, postProfile, USER_PROFILE_KEY };
