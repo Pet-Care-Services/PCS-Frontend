@@ -49,7 +49,7 @@ const Routing = () => {
           }
         />
         <Route
-          path="account"
+          path="account/:id"
           element={
             <ProtectedRoute>
               <Account />

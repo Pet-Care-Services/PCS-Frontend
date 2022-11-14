@@ -12,7 +12,7 @@ const getActivities = () => {
 };
 
 const getMe = () => {
-  return axios.get('/user/me');
+  return axios.get('/users/me');
 };
 
 const getAddressesFromGoogleAPI = (phrase, types) => {
