@@ -39,7 +39,7 @@ const ListView = ({
   const [isMapVisible, setIsMapVisible] = useState(false);
   const { userId } = useUserData();
   const { expandedAdvertisementIndex, onAdvertisementClick } =
-    useExpandedAdvertisement(data, itemType);
+    useExpandedAdvertisement(data, itemType, isLoading);
 
   const isService = itemType === ITEM_TYPE.SERVICE;
 

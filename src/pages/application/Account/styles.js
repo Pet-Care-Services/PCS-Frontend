@@ -2,18 +2,23 @@ import commonStyles from 'consts/commonStyles';
 
 export default {
   root: {
-    maxWidth: 1000,
+    maxWidth: 1200,
     margin: 'auto',
   },
   mainTile: {
     display: 'flex',
     padding: 20,
-    gap: 10,
+    gap: 20,
+    width: '50%',
   },
   column: {
     display: 'flex',
     flexDirection: 'column',
     rowGap: 10,
+  },
+  row: {
+    display: 'flex',
+    gap: 10,
   },
   leftColumn: {
     width: 300,
@@ -24,6 +29,10 @@ export default {
     width: 150,
     height: 150,
     objectFit: 'cover',
+  },
+  comments: {
+    alignItems: 'center',
+    width: '50%',
   },
   switchButtons: {
     display: 'flex',

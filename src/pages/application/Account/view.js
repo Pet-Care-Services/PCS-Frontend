@@ -1,12 +1,12 @@
 import React from 'react';
-import { map, noop, values } from 'lodash';
+import { map, noop, range, values } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Advertisement from 'components/Advertisement';
-import Button from 'components/Button';
 import TileWrapper from 'components/TileWrapper';
+import commonStyles from 'consts/commonStyles';
 import { ITEM_TYPE } from 'consts/enums';
 import useExpandedAdvertisement from 'hooks/useExpandedAdvertisement';
 import advertisementsShape from 'shapes/advertisementsShape';
@@ -17,6 +17,7 @@ const AccountView = ({
   firstName,
   lastName,
   description,
+  email,
   itemType,
   advertisements,
   onSwitchButtonClick,
@@ -29,23 +30,41 @@ const AccountView = ({
 
   return (
     <Box sx={[styles.root, styles.column]}>
-      <TileWrapper sx={styles.mainTile}>
-        <Box sx={{ ...styles.column, ...styles.leftColumn }}>
+      <Box sx={styles.row}>
+        <TileWrapper sx={styles.mainTile}>
           <Box
             component="img"
             src={require('assets/mockPhoto.jpg')}
             sx={styles.image}
           />
-          <Button>{t('upload')}</Button>
-        </Box>
-        <Box sx={styles.column}>
-          <Typography variant="h1">{username}</Typography>
+          <Box sx={styles.column}>
+            <Typography variant="h1">{username}</Typography>
 
-          <Typography variant="h4">
-            {description || t('noDescription')}
-          </Typography>
+            <Typography variant="h4">
+              {isMyAccount && email}
+              {description || t('noDescription')}
+            </Typography>
+          </Box>
+        </TileWrapper>
+        <Box sx={[styles.column, styles.comments]}>
+          <Typography variant="h1">{t('comments')}</Typography>
+
+          {map(range(3), (i) => (
+            <Box
+              key={i}
+              sx={{
+                height: 100,
+                width: '100%',
+                backgroundColor: (theme) => theme.palette.neutral.main,
+                border: '1px solid black',
+                ...commonStyles.centered,
+              }}
+            >
+              Mocked comment box
+            </Box>
+          ))}
         </Box>
-      </TileWrapper>
+      </Box>
       <TileWrapper sx={styles.switchButtons}>
         <Box
           onClick={() => onSwitchButtonClick(ITEM_TYPE.REQUEST)}
@@ -89,6 +108,7 @@ AccountView.propTypes = {
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   description: PropTypes.string,
+  email: PropTypes.string,
   isMyAccount: PropTypes.bool,
   itemType: PropTypes.oneOf(values(ITEM_TYPE)),
   advertisements: advertisementsShape,
@@ -97,6 +117,7 @@ AccountView.propTypes = {
 
 AccountView.defaultProps = {
   description: '',
+  email: '',
   isMyAccount: false,
   itemType: ITEM_TYPE.REQUEST,
   advertisements: [],

@@ -163,5 +163,6 @@ export default {
     hideMap: 'Ukryj mapę',
     noDescription: 'Brak opisu...',
     author: 'Autor',
+    comments: 'Komentarze',
   },
 };

@@ -19,7 +19,7 @@ const compareArrayWithString = (array, string) => {
 
 const isEmptyValue = (value) => isNil(value) || value === '';
 
-const useExpandedAdvertisement = (advertisements, itemType) => {
+const useExpandedAdvertisement = (advertisements, itemType, isLoading) => {
   const { params, updateParams } = useURLParams();
   const [expandedAdvertisementIndex, setExpandedAdvertisementIndex] =
     useState(null);
@@ -45,7 +45,7 @@ const useExpandedAdvertisement = (advertisements, itemType) => {
     if (index >= 0) {
       setExpandedAdvertisementIndex(index);
     }
-  }, [expandedParam, advertisements, isService]);
+  }, [expandedParam, isLoading, isService]);
 
   const onAdvertisementClick = (index) => {
     if (index === expandedAdvertisementIndex) {

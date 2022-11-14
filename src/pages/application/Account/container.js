@@ -16,7 +16,7 @@ import AccountView from './view';
 
 const AccountContainer = () => {
   const { id } = useParams();
-  const { userId, isLoggedIn } = useUserData();
+  const { userId, isLoggedIn, email } = useUserData();
   const { params } = useURLParams();
   const { openDialog } = useDialog();
   const [displayedItemType, setDisplayedItemType] = useState(ITEM_TYPE.REQUEST);
@@ -81,6 +81,7 @@ const AccountContainer = () => {
       firstName={userProfile.firstName}
       lastName={userProfile.lastName}
       description={userProfile.description}
+      email={email}
       isMyAccount={toString(userId) === toString(id)}
       itemType={displayedItemType}
       onSwitchButtonClick={onSwitchButtonClick}
