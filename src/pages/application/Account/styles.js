@@ -1,8 +1,14 @@
+import commonStyles from 'consts/commonStyles';
+
 export default {
   root: {
+    maxWidth: 1000,
+    margin: 'auto',
+  },
+  mainTile: {
     display: 'flex',
-    columnGap: 20,
-    padding: '0 10%',
+    padding: 20,
+    gap: 10,
   },
   column: {
     display: 'flex',
@@ -19,14 +25,34 @@ export default {
     height: 150,
     objectFit: 'cover',
   },
-  inline: {
+  switchButtons: {
     display: 'flex',
-    columnGap: 10,
+    height: 50,
   },
-  check: {
-    color: (theme) => theme.palette.primary.main,
+  switchButton: {
+    flex: 1,
+    transition: (theme) => theme.transition.normal,
+    cursor: 'pointer',
+    ...commonStyles.centered,
+
+    '&:hover': {
+      backgroundColor: (theme) => theme.palette.primary.light,
+    },
   },
-  error: {
-    color: (theme) => theme.palette.error.main,
+  leftSwitchButton: {
+    borderTopLeftRadius: (theme) => theme.borderRadius.small,
+    borderBottomLeftRadius: (theme) => theme.borderRadius.small,
+  },
+  rightSwitchButton: {
+    borderTopRightRadius: (theme) => theme.borderRadius.small,
+    borderBottomRightRadius: (theme) => theme.borderRadius.small,
+  },
+  switchButtonActive: {
+    backgroundColor: (theme) => theme.palette.primary.main,
+    color: (theme) => theme.palette.white,
+
+    '&:hover': {
+      backgroundColor: (theme) => theme.palette.primary.main,
+    },
   },
 };

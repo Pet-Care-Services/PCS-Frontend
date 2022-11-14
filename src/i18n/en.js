@@ -161,5 +161,6 @@ export default {
     descending: 'Descending',
     showMap: 'Show the map',
     hideMap: 'Hide the map',
+    noDescription: 'No description provided...',
   },
 };

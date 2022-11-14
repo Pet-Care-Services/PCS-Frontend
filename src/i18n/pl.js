@@ -161,5 +161,6 @@ export default {
     descending: 'Malejąco',
     showMap: 'Pokaż mapę',
     hideMap: 'Ukryj mapę',
+    noDescription: 'Brak opisu...',
   },
 };
