@@ -162,5 +162,6 @@ export default {
     showMap: 'Show the map',
     hideMap: 'Hide the map',
     noDescription: 'No description provided...',
+    author: 'Author',
   },
 };

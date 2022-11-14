@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { isEmpty, map, noop } from 'lodash';
+import { isEmpty, map, noop, toString } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -95,7 +95,7 @@ const ListView = ({
             <Advertisement
               key={index}
               {...advertisement}
-              belongsToMe={advertisement.userId === userId}
+              belongsToMe={toString(advertisement.userId) === toString(userId)}
               isService={isService}
               isExpanded={expandedAdvertisementIndex === index}
               onBoxClick={() => onAdvertisementClick(index)}

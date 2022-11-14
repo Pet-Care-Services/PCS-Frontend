@@ -27,7 +27,9 @@ const Button = ({
       sx={{ ...styles.root, ...(small && styles.small), ...sx }}
     >
       {adornment}
-      <Typography variant="h3">{children}</Typography>
+      <Typography variant="h3" sx={styles.font}>
+        {children}
+      </Typography>
     </MUIButton>
   );
 };

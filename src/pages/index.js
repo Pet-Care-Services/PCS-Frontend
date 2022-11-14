@@ -40,19 +40,12 @@ const Routing = () => {
           path="requests"
           element={<AdvertismentsList itemType={ITEM_TYPE.REQUEST} />}
         />
+        <Route path="account/:id" element={<Account />} />
         <Route
           path="creator"
           element={
             <ProtectedRoute>
               <AdvertismentCreator />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="account/:id"
-          element={
-            <ProtectedRoute>
-              <Account />
             </ProtectedRoute>
           }
         />

@@ -42,6 +42,8 @@ export default (advertisements, onContactClick) => {
 
   return map(advertisements, (entry) => ({
     ...entry,
+    author: `${entry.firstName} ${entry.lastName}`,
+    userId: `${entry.userId}`,
     activities: map(entry.activities, ({ name }) => name),
     animals: formatAnimals(entry.animals || entry.animal),
     starsValue: 5,
