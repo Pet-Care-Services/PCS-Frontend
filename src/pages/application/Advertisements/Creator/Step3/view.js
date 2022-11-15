@@ -9,8 +9,10 @@ import Autocomplete from 'components/Autocomplete';
 import Button from 'components/Button';
 import FileUpload from 'components/FileUpload';
 import Input from 'components/Input';
+import Loader from 'components/Loader';
 import Select from 'components/Select';
 import TileWrapper from 'components/TileWrapper';
+import useUserData from 'hooks/useUserData';
 import optionsShape from 'shapes/optionsShape';
 import ActivitiesFieldArray from './components/ActivitiesFieldArray';
 import AvailabilitiesFieldArray from './components/AvailabilitiesFieldArray';
@@ -31,8 +33,12 @@ const Step3 = ({
   getCityOptions,
   cityOptions,
   isLoadingCityOptions,
+  isLoading,
+  isLoadingAWSSubmit,
+  progressAWSSubmit,
 }) => {
   const { t } = useTranslation();
+  const { imageUrl: userAvatar } = useUserData();
 
   return (
     <TileWrapper sx={styles.root}>
@@ -55,7 +61,7 @@ const Step3 = ({
               {/* TODO activity tags as list */}
               <Box
                 component="img"
-                src={values.image.localUrl}
+                src={isService ? userAvatar : values.image.localUrl}
                 sx={styles.image}
               />
             </Box>
@@ -147,7 +153,7 @@ const Step3 = ({
                 onlyNumbers
               />
             )}
-            <FileUpload name="image" label={t('choosePhoto')} />
+            {!isService && <FileUpload name="image" label={t('choosePhoto')} />}
 
             <Typography variant="h2">{t('availability')}</Typography>
             <AvailabilitiesFieldArray
@@ -159,6 +165,8 @@ const Step3 = ({
             <Button type="submit" sx={styles.submitButton}>
               {t('publish')}
             </Button>
+            {isLoadingAWSSubmit && <Loader progress={progressAWSSubmit} />}
+            {isLoading && <Loader />}
           </Box>
         )}
       </Formik>
@@ -169,6 +177,9 @@ const Step3 = ({
 Step3.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isService: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isLoadingAWSSubmit: PropTypes.bool.isRequired,
+  progressAWSSubmit: PropTypes.number.isRequired,
   activitiesOptions: optionsShape,
   priceTypeOptions: optionsShape,
   periodOptions: optionsShape,

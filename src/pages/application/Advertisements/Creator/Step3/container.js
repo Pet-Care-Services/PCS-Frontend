@@ -15,7 +15,13 @@ import { initialActivityData, initialAvailabilityData } from './consts';
 import { mapAddressOptions, mapCityOptions } from './utils';
 import Step3View from './view';
 
-const Step3Container = ({ onSubmit, isService }) => {
+const Step3Container = ({
+  onSubmit,
+  isService,
+  isLoading,
+  isLoadingAWSSubmit,
+  progressAWSSubmit,
+}) => {
   const { t } = useTranslation();
   const [addressValue, setAddressValue] = useState('');
   const [cityValue, setCityValue] = useState('');
@@ -91,6 +97,9 @@ const Step3Container = ({ onSubmit, isService }) => {
       getCityOptions={setCityValue}
       cityOptions={mapCityOptions(cityData)}
       isLoadingCityOptions={isLoadingCityOptions}
+      isLoading={isLoading}
+      isLoadingAWSSubmit={isLoadingAWSSubmit}
+      progressAWSSubmit={progressAWSSubmit}
     />
   );
 };
@@ -98,6 +107,9 @@ const Step3Container = ({ onSubmit, isService }) => {
 Step3Container.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isService: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isLoadingAWSSubmit: PropTypes.bool.isRequired,
+  progressAWSSubmit: PropTypes.number.isRequired,
 };
 
 export default Step3Container;

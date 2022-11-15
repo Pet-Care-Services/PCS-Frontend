@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { map } from 'lodash';
+import { map, omit } from 'lodash';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { IMG_PLACEHOLDER_PUBLIC_URL } from 'consts/config';
@@ -16,19 +16,25 @@ const AdvertismentCreator = () => {
   const [step, setStep] = useState(1);
   const [type, setType] = useState(null);
   const [animal, setAnimal] = useState(null);
-  const { uploadFileToS3 } = useAWSUpload();
+  const {
+    uploadFileToS3,
+    isLoading: isLoadingAWSSubmit,
+    progress: progressAWSSubmit,
+  } = useAWSUpload();
 
-  const { mutate: submitRequest } = useMutation(postRequest, {
-    onSuccess: () => {
-      navigate('/application/requests');
-    },
-  });
+  const { isLoading: isLoadingPostRequest, mutate: submitRequest } =
+    useMutation(postRequest, {
+      onSuccess: () => {
+        navigate('/application/requests');
+      },
+    });
 
-  const { mutate: submitService } = useMutation(postService, {
-    onSuccess: () => {
-      navigate('/application/services');
-    },
-  });
+  const { isLoading: isLoadingPostService, mutate: submitService } =
+    useMutation(postService, {
+      onSuccess: () => {
+        navigate('/application/services');
+      },
+    });
 
   const goBack = () => {
     const newStep = step - 1;
@@ -54,15 +60,16 @@ const AdvertismentCreator = () => {
       `${formatLocation(values.location)}, ${values.location.postalCode}`
     );
 
+    const isService = type === ITEM_TYPE.SERVICE;
+
     const submit = (publicImageUrl) => {
       const data = {
-        ...values,
-        description:
-          type === ITEM_TYPE.REQUEST ? values.description : undefined,
-        capacity: type === ITEM_TYPE.SERVICE ? values.capacity : undefined,
+        ...omit(values, 'image'),
+        description: !isService ? values.description : undefined,
+        capacity: isService ? values.capacity : undefined,
         animal: { id: animal },
         pin: { ...values.pin, ...latLng },
-        image: publicImageUrl,
+        imageUrl: publicImageUrl,
         availabilities: map(values.availabilities, (entry) => ({
           ...entry,
           from: setAPIDateFormat(entry.from),
@@ -70,14 +77,14 @@ const AdvertismentCreator = () => {
         })),
       };
 
-      if (type === ITEM_TYPE.REQUEST) {
-        submitRequest(data);
-      } else {
+      if (isService) {
         submitService(data);
+      } else {
+        submitRequest(data);
       }
     };
 
-    if (values.image.file) {
+    if (!isService && values.image.file) {
       uploadFileToS3(values.image.file, S3_DIRECTORY.ADVERTISEMENTS, submit);
     } else {
       submit(IMG_PLACEHOLDER_PUBLIC_URL);
@@ -92,6 +99,9 @@ const AdvertismentCreator = () => {
       handleDataSubmit={handleDataSubmit}
       goBack={goBack}
       type={type}
+      isLoading={isLoadingPostRequest || isLoadingPostService}
+      isLoadingAWSSubmit={isLoadingAWSSubmit}
+      progressAWSSubmit={progressAWSSubmit}
     />
   );
 };
