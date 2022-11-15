@@ -7,7 +7,6 @@ import { ITEM_TYPE } from 'consts/enums';
 import useDialog from 'hooks/useDialog';
 import useURLParams from 'hooks/useURLParams';
 import useUserData from 'hooks/useUserData';
-import ChangePasswordView from 'templates/ChangePassword';
 import Login from 'templates/Login';
 import RequestOfferCreator from 'templates/OfferCreator/RequestOfferCreator';
 import ServiceOfferCreator from 'templates/OfferCreator/ServiceOfferCreator';
@@ -78,12 +77,6 @@ const AccountContainer = () => {
     setDisplayedItemType(itemType);
   };
 
-  const onChangePasswordClick = () => {
-    openDialog({
-      content: <ChangePasswordView />,
-    });
-  };
-
   const onSubmitProfileChanges = (values) => {
     submitProfile(values);
   };
@@ -117,7 +110,6 @@ const AccountContainer = () => {
       itemType={displayedItemType}
       onSwitchButtonClick={onSwitchButtonClick}
       onSubmitProfileChanges={onSubmitProfileChanges}
-      onChangePasswordClick={onChangePasswordClick}
       toggleEditMode={() => setIsEditMode((v) => !v)}
       isEditMode={isEditMode}
       advertisements={
