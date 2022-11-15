@@ -109,6 +109,7 @@ export default {
     logout: 'Log out',
     email: 'Email',
     password: 'Password',
+    newPassword: 'New password',
     message: 'Message',
     contact: 'Contact',
     signup: 'Sign up',
@@ -168,5 +169,7 @@ export default {
     save: 'Save',
     cancel: 'Cancel',
     pageNotFound: 'Page not found',
+    changePassword: 'Change password',
+    yourPasswordHasBeenChanged: 'Your password has been changed',
   },
 };

@@ -27,6 +27,7 @@ const AccountView = ({
   advertisements,
   onSwitchButtonClick,
   onSubmitProfileChanges,
+  onChangePasswordClick,
   toggleEditMode,
   isEditMode,
 }) => {
@@ -86,6 +87,9 @@ const AccountView = ({
                     label={t('description')}
                   />
                 </Box>
+                <Button small onClick={onChangePasswordClick}>
+                  {t('changePassword')}
+                </Button>
                 <Box sx={[styles.row, styles.formButtons]}>
                   <Button color="neutral" onClick={toggleEditMode}>
                     {t('cancel')}
@@ -165,6 +169,7 @@ AccountView.propTypes = {
   advertisements: advertisementsShape,
   onSwitchButtonClick: PropTypes.func,
   onSubmitProfileChanges: PropTypes.func,
+  onChangePasswordClick: PropTypes.func,
   toggleEditMode: PropTypes.func,
   isEditMode: PropTypes.bool,
 };
@@ -177,6 +182,7 @@ AccountView.defaultProps = {
   advertisements: [],
   onSwitchButtonClick: noop,
   onSubmitProfileChanges: noop,
+  onChangePasswordClick: noop,
   toggleEditMode: noop,
   isEditMode: false,
 };

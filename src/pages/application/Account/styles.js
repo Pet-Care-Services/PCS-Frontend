@@ -78,5 +78,6 @@ export default {
   },
   formButtons: {
     justifyContent: 'center',
+    marginTop: 20,
   },
 };

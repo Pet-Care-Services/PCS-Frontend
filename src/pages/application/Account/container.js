@@ -7,6 +7,7 @@ import { ITEM_TYPE } from 'consts/enums';
 import useDialog from 'hooks/useDialog';
 import useURLParams from 'hooks/useURLParams';
 import useUserData from 'hooks/useUserData';
+import ChangePasswordView from 'templates/ChangePassword';
 import Login from 'templates/Login';
 import RequestOfferCreator from 'templates/OfferCreator/RequestOfferCreator';
 import ServiceOfferCreator from 'templates/OfferCreator/ServiceOfferCreator';
@@ -43,6 +44,12 @@ const AccountContainer = () => {
   });
 
   useEffect(() => {
+    if (!isLoggedIn && isEditMode) {
+      setIsEditMode(false);
+    }
+  }, [isLoggedIn]);
+
+  useEffect(() => {
     if (includes(values(ITEM_TYPE), params.itemType)) {
       setDisplayedItemType(params.itemType);
     }
@@ -69,6 +76,12 @@ const AccountContainer = () => {
 
   const onSwitchButtonClick = (itemType) => {
     setDisplayedItemType(itemType);
+  };
+
+  const onChangePasswordClick = () => {
+    openDialog({
+      content: <ChangePasswordView />,
+    });
   };
 
   const onSubmitProfileChanges = (values) => {
@@ -104,6 +117,7 @@ const AccountContainer = () => {
       itemType={displayedItemType}
       onSwitchButtonClick={onSwitchButtonClick}
       onSubmitProfileChanges={onSubmitProfileChanges}
+      onChangePasswordClick={onChangePasswordClick}
       toggleEditMode={() => setIsEditMode((v) => !v)}
       isEditMode={isEditMode}
       advertisements={

@@ -68,6 +68,9 @@ const useUserData = () => {
 
   const clearUserData = () => {
     localStorage.removeItem('token');
+    axios.defaults.headers.common = {
+      Authorization: null,
+    };
     context.dispatch({
       type: actions.CLEAR,
     });
