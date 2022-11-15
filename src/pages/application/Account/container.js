@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { get, includes, toString, values } from 'lodash';
 import { useMutation, useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Loader from 'components/Loader';
 import { ITEM_TYPE } from 'consts/enums';
 import useDialog from 'hooks/useDialog';
@@ -19,6 +19,7 @@ const AccountContainer = () => {
   const { userId, isLoggedIn, email } = useUserData();
   const { params } = useURLParams();
   const { openDialog } = useDialog();
+  const navigate = useNavigate();
   const [isEditMode, setIsEditMode] = useState(false);
   const [displayedItemType, setDisplayedItemType] = useState(ITEM_TYPE.REQUEST);
   const {
@@ -27,6 +28,10 @@ const AccountContainer = () => {
     isLoading: isLoadingUserProfile,
   } = useQuery([USER_PROFILE_KEY, id], () => getUserProfile(id), {
     refetchOnWindowFocus: false,
+    retry: false,
+    onError: () => {
+      navigate('/application/404');
+    },
   });
 
   const { mutate: submitProfile } = useMutation(postProfile, {

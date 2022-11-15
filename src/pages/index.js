@@ -13,6 +13,7 @@ import AdvertismentsList from 'pages/application/Advertisements/List';
 import EmailVerification from 'pages/application/Verification/EmailVerification';
 import MobileVerification from 'templates/MobileVerification';
 import VerifyEmailInformation from 'templates/VerifyEmailInformation';
+import Page404 from './application/404';
 
 const Routing = () => {
   const { emailVerified, smsVerified } = useUserData();
@@ -51,6 +52,8 @@ const Routing = () => {
         />
 
         <Route path="verify-email" element={<EmailVerification />} />
+        <Route path="404" element={<Page404 />} />
+
         <Route path="" element={<Navigate to={DEFAULT_ROUTE} replace />} />
       </Route>
 

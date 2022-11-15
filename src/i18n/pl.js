@@ -167,5 +167,6 @@ export default {
     editProfile: 'Edytuj profil',
     save: 'Zapisz',
     cancel: 'Anuluj',
+    pageNotFound: 'Nie znaleziono strony',
   },
 };
