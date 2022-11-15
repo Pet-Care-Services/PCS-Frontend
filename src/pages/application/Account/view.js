@@ -8,6 +8,7 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Advertisement from 'components/Advertisement';
 import Button from 'components/Button';
+import EmptyState from 'components/EmptyState';
 import Icon from 'components/Icon';
 import Input from 'components/Input';
 import TileWrapper from 'components/TileWrapper';
@@ -137,6 +138,7 @@ const AccountView = ({
         </Box>
       </TileWrapper>
       <Box sx={[styles.advertisementsWrapper, styles.column]}>
+        {advertisements.length === 0 && <EmptyState />}
         {map(advertisements, (advertisement, index) => (
           <Advertisement
             key={index}
