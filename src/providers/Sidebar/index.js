@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { Drawer } from '@mui/material';
 import Sidebar from 'components/Sidebar';
+import useBreakpoints from 'hooks/useBreakpoints';
 import useDialog from 'hooks/useDialog';
 import useUserData from 'hooks/useUserData';
 import Login from 'templates/Login';
@@ -21,6 +22,7 @@ const SidebarProvider = ({ children }) => {
   const value = { state, dispatch };
   const { isLoggedIn, clearUserData } = useUserData();
   const { openDialog } = useDialog();
+  const { isExtraSmallScreen } = useBreakpoints();
 
   const handleClose = () => {
     dispatch({
@@ -48,7 +50,7 @@ const SidebarProvider = ({ children }) => {
         open={state.open}
         PaperProps={{
           sx: {
-            width: 300,
+            width: isExtraSmallScreen ? '100%' : 300,
             backgroundColor: (theme) => theme.palette.primary.main,
           },
         }}

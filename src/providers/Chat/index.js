@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { Drawer } from '@mui/material';
+import useBreakpoints from 'hooks/useBreakpoints';
 import Chat from 'templates/Chat';
 import reducer, { actions } from './reducer';
 
@@ -13,6 +14,7 @@ const ChatContext = React.createContext({});
 const ChatProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const value = { state, dispatch };
+  const { isMediumScreen } = useBreakpoints();
 
   const handleClose = () => {
     dispatch({
@@ -28,8 +30,7 @@ const ChatProvider = ({ children }) => {
         open={state.open}
         PaperProps={{
           sx: {
-            width: '70%',
-            minWidth: 600,
+            width: isMediumScreen ? '100%' : '70%',
             backgroundColor: 'transparent',
             borderTopLeftRadius: 10,
             borderBottomLeftRadius: 10,

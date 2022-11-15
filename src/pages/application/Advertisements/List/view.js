@@ -110,28 +110,29 @@ const ListView = ({
           loadMore={onLoadMore}
           hasMore={hasNextPage}
           loader={<Loader key="loader" sx={styles.loadMoreLoader} />}
-          sx={styles.flexColumn}
         >
-          {map(data, (advertisement, index) => (
-            <Advertisement
-              key={index}
-              {...advertisement}
-              belongsToMe={advertisement.userId === userId}
-              isService={isService}
-              isExpanded={expandedAdvertisementIndex === index}
-              onBoxClick={() => {
-                if (index === expandedAdvertisementIndex) {
-                  setExpandedAdvertisementIndex(null);
-                  if (params.expanded) {
-                    updateParams({ expanded: '' });
+          <Box sx={styles.flexColumn}>
+            {map(data, (advertisement, index) => (
+              <Advertisement
+                key={index}
+                {...advertisement}
+                belongsToMe={advertisement.userId === userId}
+                isService={isService}
+                isExpanded={expandedAdvertisementIndex === index}
+                onBoxClick={() => {
+                  if (index === expandedAdvertisementIndex) {
+                    setExpandedAdvertisementIndex(null);
+                    if (params.expanded) {
+                      updateParams({ expanded: '' });
+                    }
+                  } else {
+                    setExpandedAdvertisementIndex(index);
                   }
-                } else {
-                  setExpandedAdvertisementIndex(index);
-                }
-              }}
-              onContactClick={advertisement.onContactClick}
-            />
-          ))}
+                }}
+                onContactClick={advertisement.onContactClick}
+              />
+            ))}
+          </Box>
         </Box>
       </Box>
     </Box>
