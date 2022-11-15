@@ -15,6 +15,7 @@ const generateObjectKey = (filename, userId, destination) => {
 const useAWSUpload = () => {
   const { userId } = useUserData();
   const [progress, setProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const myBucketRef = useRef();
 
   useEffect(() => {
@@ -33,6 +34,7 @@ const useAWSUpload = () => {
     if (!includes(values(S3_DIRECTORY), destination)) {
       throw new Error(`Wrong S3 destination: ${destination}!`);
     }
+    setIsLoading(true);
     const Key = generateObjectKey(file.name, userId, destination);
 
     const params = {
@@ -48,6 +50,7 @@ const useAWSUpload = () => {
       .send((err, data) => {
         if (err) console.log(err);
         else {
+          setIsLoading(false);
           onUploadEnd(data.Location);
         }
       });
@@ -55,6 +58,7 @@ const useAWSUpload = () => {
 
   return {
     uploadFileToS3,
+    isLoading,
     progress,
   };
 };

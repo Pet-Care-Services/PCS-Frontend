@@ -16,7 +16,11 @@ let formikSetFieldError = noop;
 const SignupContainer = () => {
   const { openDialog } = useDialog();
   const { setToken } = useUserData();
-  const { uploadFileToS3 } = useAWSUpload();
+  const {
+    uploadFileToS3,
+    progress: progressAWSSubmit,
+    isLoading: isLoadingAWSSubmit,
+  } = useAWSUpload();
 
   const { mutate: signup, isLoading: isLoadingSignup } = useMutation(
     postSignup,
@@ -37,11 +41,11 @@ const SignupContainer = () => {
 
   const onSubmit = (values, { setFieldError }) => {
     const submit = (publicAvatarUrl) => {
-      signup({ ...values, avatar: publicAvatarUrl });
+      signup({ ...values, imageUrl: publicAvatarUrl });
     };
 
-    if (values.avatar.file) {
-      uploadFileToS3(values.avatar.file, S3_DIRECTORY.AVATARS, submit);
+    if (values.imageUrl.file) {
+      uploadFileToS3(values.imageUrl.file, S3_DIRECTORY.AVATARS, submit);
     } else {
       submit(AVATAR_PLACEHOLDER_PUBLIC_URL);
     }
@@ -57,6 +61,8 @@ const SignupContainer = () => {
       onGoToLogin={onGoToLogin}
       onSubmit={onSubmit}
       isLoading={isLoadingSignup}
+      progress={progressAWSSubmit}
+      isLoadingAWSSubmit={isLoadingAWSSubmit}
     />
   );
 };

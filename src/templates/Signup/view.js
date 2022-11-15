@@ -16,7 +16,13 @@ import getGenderOptions from 'consts/getGenderOptions';
 import styles from './styles';
 import getValidation from './validation';
 
-const SignupView = ({ onGoToLogin, onSubmit, isLoading }) => {
+const SignupView = ({
+  onGoToLogin,
+  onSubmit,
+  isLoading,
+  isLoadingAWSSubmit,
+  progress,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -30,7 +36,7 @@ const SignupView = ({ onGoToLogin, onSubmit, isLoading }) => {
         mobile: '',
         gender: '',
         birthdate: '',
-        avatar: { localUrl: AVATAR_PLACEHOLDER_PUBLIC_URL, file: null },
+        imageUrl: { localUrl: AVATAR_PLACEHOLDER_PUBLIC_URL, file: null },
       }}
       validationSchema={getValidation(t)}
       validateOnChange={false}
@@ -62,13 +68,14 @@ const SignupView = ({ onGoToLogin, onSubmit, isLoading }) => {
             <Box sx={styles.rightSideFields}>
               <Box
                 component="img"
-                src={values.avatar.localUrl}
+                src={values.imageUrl.localUrl}
                 sx={styles.avatar}
               />
-              <FileUpload name="avatar" label={t('chooseAvatar')} />
+              <FileUpload name="imageUrl" label={t('chooseAvatar')} />
             </Box>
           </Box>
           <Button type="submit">{t('signup')}</Button>
+          {isLoadingAWSSubmit && <Loader progress={progress} />}
           {isLoading && <Loader />}
           <ActionText onClick={onGoToLogin} sx={styles.linkButton}>
             {t('haveAccountAlready')}
@@ -83,6 +90,13 @@ SignupView.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onGoToLogin: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  isLoadingAWSSubmit: PropTypes.bool,
+  progress: PropTypes.number,
+};
+
+SignupView.defaultProps = {
+  isLoadingAWSSubmit: false,
+  progress: undefined,
 };
 
 export default SignupView;
