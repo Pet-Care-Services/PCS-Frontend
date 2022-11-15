@@ -10,6 +10,7 @@ import Input from 'components/Input';
 import useDialog from 'hooks/useDialog';
 import useSnackbar from 'hooks/useSnackbar';
 import { postChangePassword } from './queries';
+import getValidation from './validation';
 
 const ChangePasswordView = () => {
   const { t } = useTranslation();
@@ -28,7 +29,11 @@ const ChangePasswordView = () => {
   };
 
   return (
-    <Formik initialValues={{ password: '' }} onSubmit={onSubmit}>
+    <Formik
+      initialValues={{ password: '' }}
+      onSubmit={onSubmit}
+      validationSchema={getValidation(t)}
+    >
       <Box
         component={Form}
         sx={{
@@ -44,9 +49,7 @@ const ChangePasswordView = () => {
           <Button onClick={closeDialog} color="neutral">
             {t('cancel')}
           </Button>
-          <Button onClick={onSubmit} type="submit">
-            {t('save')}
-          </Button>
+          <Button type="submit">{t('save')}</Button>
         </Box>
       </Box>
     </Formik>

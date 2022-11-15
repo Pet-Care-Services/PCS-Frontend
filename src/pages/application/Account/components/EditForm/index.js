@@ -5,11 +5,15 @@ import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Button from 'components/Button';
+import DatePicker from 'components/DatePicker';
 import Input from 'components/Input';
+import Select from 'components/Select';
+import getGenderOptions from 'consts/getGenderOptions';
 import useDialog from 'hooks/useDialog';
 import ChangePasswordView from 'templates/ChangePassword';
 import commonStyles from '../../styles';
 import styles from './styles';
+import getValidation from './validation';
 
 const EditFormView = ({
   initialValues,
@@ -26,14 +30,28 @@ const EditFormView = ({
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmitProfileChanges}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmitProfileChanges}
+      validationSchema={getValidation(t)}
+    >
       <Box component={Form} sx={[commonStyles.column, styles.form]}>
         <Typography variant="h2">{t('editProfile')}</Typography>
-        <Input name="firstName" label={t('firstName')} />
-        <Input name="lastName" label={t('lastName')} />
+        <Box sx={commonStyles.row}>
+          <Input name="firstName" label={t('firstName')} />
+          <Input name="lastName" label={t('lastName')} />
+        </Box>
         <Box>
           <Input multiline name="description" label={t('description')} />
         </Box>
+        <Input name="email" label={t('email')} />
+        <Input name="mobile" label={t('mobile')} onlyNumbers />
+        <Select
+          name="gender"
+          label={t('genderLabel')}
+          options={getGenderOptions(t)}
+        />
+        <DatePicker name="birthdate" label={t('birthdate')} withTime={false} />
         <Button small onClick={onChangePasswordClick}>
           {t('changePassword')}
         </Button>
