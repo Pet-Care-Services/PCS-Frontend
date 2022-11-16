@@ -29,9 +29,9 @@ export default {
       everyMonth: 'Every month',
     },
     gender: {
-      male: 'Male',
-      female: 'Female',
-      notGiven: 'Prefer not to answer',
+      MALE: 'Male',
+      FEMALE: 'Female',
+      RATHER_NOT_SAY: 'Prefer not to answer',
     },
     activity: {
       FEEDING: 'Feeding',

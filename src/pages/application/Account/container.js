@@ -16,7 +16,7 @@ import AccountView from './view';
 
 const AccountContainer = () => {
   const { id } = useParams();
-  const { userId, isLoggedIn, email } = useUserData();
+  const { userId, isLoggedIn, email, mobile } = useUserData();
   const { params } = useURLParams();
   const { openDialog } = useDialog();
   const navigate = useNavigate();
@@ -88,6 +88,7 @@ const AccountContainer = () => {
       onContactClick(ITEM_TYPE.REQUEST, request)
     );
   }, [userProfile]);
+
   const formattedServices = useMemo(() => {
     if (isLoadingUserProfile) return [];
 
@@ -105,7 +106,10 @@ const AccountContainer = () => {
       firstName={userProfile.firstName}
       lastName={userProfile.lastName}
       description={userProfile.description}
+      birthdate={new Date(userProfile.birthdate)}
+      gender={userProfile.gender}
       email={email}
+      mobile={mobile}
       isMyAccount={toString(userId) === toString(id)}
       itemType={displayedItemType}
       onSwitchButtonClick={onSwitchButtonClick}

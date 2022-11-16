@@ -17,4 +17,13 @@ export default {
   editIcon: {
     marginLeft: 'auto',
   },
+  propertyName: {
+    fontWeight: 500,
+    display: 'inline-flex',
+    marginRight: 10,
+  },
+  propertyValue: {
+    fontWeight: 300,
+    display: 'inline-flex',
+  },
 };

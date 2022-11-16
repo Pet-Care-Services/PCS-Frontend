@@ -2,7 +2,7 @@ import React from 'react';
 import { noop, values } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/system';
-import { ITEM_TYPE } from 'consts/enums';
+import { GENDER, ITEM_TYPE } from 'consts/enums';
 import advertisementsShape from 'shapes/advertisementsShape';
 import AdvertisementsView from './components/Advertisements';
 import CommentsView from './components/Comments';
@@ -15,6 +15,9 @@ const AccountView = ({
   lastName,
   description,
   email,
+  mobile,
+  birthdate,
+  gender,
   itemType,
   advertisements,
   onSwitchButtonClick,
@@ -32,6 +35,9 @@ const AccountView = ({
           lastName={lastName}
           toggleEditMode={toggleEditMode}
           email={email}
+          mobile={mobile}
+          birthdate={birthdate}
+          gender={gender}
           description={description}
           onSubmitProfileChanges={onSubmitProfileChanges}
         />
@@ -52,6 +58,9 @@ AccountView.propTypes = {
   lastName: PropTypes.string.isRequired,
   description: PropTypes.string,
   email: PropTypes.string,
+  mobile: PropTypes.string,
+  birthdate: PropTypes.instanceOf(Date),
+  gender: PropTypes.oneOf(values(GENDER)),
   isMyAccount: PropTypes.bool,
   itemType: PropTypes.oneOf(values(ITEM_TYPE)),
   advertisements: advertisementsShape,
@@ -64,6 +73,9 @@ AccountView.propTypes = {
 AccountView.defaultProps = {
   description: '',
   email: '',
+  mobile: '',
+  birthdate: '',
+  gender: '',
   isMyAccount: false,
   itemType: ITEM_TYPE.REQUEST,
   advertisements: [],

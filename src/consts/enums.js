@@ -24,9 +24,15 @@ const PERIOD = {
   MONTH: 'MONTH',
 };
 
+const GENDER = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
+  RATHER_NOT_SAY: 'RATHER_NOT_SAY',
+};
+
 const ENV = {
   PRODUCTION: 'production',
   DEVELOPMENT: 'development',
 };
 
-export { ITEM_TYPE, WEEKDAY, OFFER_STATUS, PERIOD, ENV };
+export { ITEM_TYPE, WEEKDAY, OFFER_STATUS, PERIOD, GENDER, ENV };

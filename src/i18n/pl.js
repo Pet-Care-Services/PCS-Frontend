@@ -29,9 +29,9 @@ export default {
       everyMonth: 'Co miesiąc',
     },
     gender: {
-      male: 'Mężczyzna',
-      female: 'Kobieta',
-      notGiven: 'Wolę nie podawać',
+      MALE: 'Mężczyzna',
+      FEMALE: 'Kobieta',
+      RATHER_NOT_SAY: 'Wolę nie podawać',
     },
     activity: {
       FEEDING: 'Karmienie',
