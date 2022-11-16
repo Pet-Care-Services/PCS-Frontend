@@ -10,6 +10,18 @@ export default {
     display: 'flex',
     flexDirection: 'column',
   },
+  spaceBetween: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  image: {
+    width: 140,
+    height: 108,
+    borderRadius: (theme) => theme.borderRadius.small,
+    border: (theme) =>
+      `${theme.spacing(1)} solid ${theme.palette.neutral.main}`,
+    objectFit: 'cover',
+  },
   multiFieldLine: {
     display: 'flex',
     columnGap: 15,

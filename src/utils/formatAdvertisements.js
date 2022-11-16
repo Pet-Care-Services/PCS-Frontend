@@ -38,20 +38,18 @@ const formatLocationText = (locationData) => {
 export { formatAnimals, formatPrice };
 
 export default (advertisements, onContactClick) => {
-  const mockImage = require('assets/mockPhoto.jpg');
-
   return map(advertisements, (entry) => ({
     ...entry,
     author: `${entry.firstName} ${entry.lastName}`,
-    userId: `${entry.userId}`,
     activities: map(entry.activities, ({ name }) => name),
     animals: formatAnimals(entry.animals || entry.animal),
     starsValue: 5,
     price: formatPrice(entry.price),
     location: formatLocationText(entry.location),
-    image: mockImage,
+    image: entry.imageUrl || entry.avatar,
     weekAvailability:
       entry.weekAvailability && formatWeekAvailability(entry.weekAvailability),
-    onContactClick: () => onContactClick({ ...entry, image: mockImage }),
+    onContactClick: () =>
+      onContactClick({ ...entry, image: entry.imageUrl || entry.avatar }),
   }));
 };

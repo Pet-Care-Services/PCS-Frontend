@@ -28,7 +28,7 @@ const AvailabilitiesFieldArray = ({
     <FieldArray
       name="availabilities"
       render={(arrayHelpers) => (
-        <>
+        <Box sx={styles.form}>
           {map(availabilities, (_, index) => {
             const withError = get(errors, `availabilities[${index}]`);
 
@@ -85,7 +85,7 @@ const AvailabilitiesFieldArray = ({
           >
             {t('add')}
           </Button>
-        </>
+        </Box>
       )}
     />
   );

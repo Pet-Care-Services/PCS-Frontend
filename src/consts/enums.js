@@ -35,4 +35,9 @@ const ENV = {
   DEVELOPMENT: 'development',
 };
 
-export { ITEM_TYPE, WEEKDAY, OFFER_STATUS, PERIOD, GENDER, ENV };
+const S3_DIRECTORY = {
+  AVATARS: 'avatars',
+  ADVERTISEMENTS: 'advertisements',
+};
+
+export { ITEM_TYPE, WEEKDAY, OFFER_STATUS, PERIOD, ENV, GENDER, S3_DIRECTORY };

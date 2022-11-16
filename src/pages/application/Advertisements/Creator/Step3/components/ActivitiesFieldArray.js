@@ -21,7 +21,7 @@ const ActivitiesFieldArray = ({ activities, activitiesOptions, errors }) => {
     <FieldArray
       name="activities"
       render={(arrayHelpers) => (
-        <>
+        <Box sx={styles.form}>
           {map(activities, (_, index) => {
             const withError = get(errors, `activities[${index}]`);
 
@@ -61,7 +61,7 @@ const ActivitiesFieldArray = ({ activities, activitiesOptions, errors }) => {
               {t('add')}
             </Button>
           )}
-        </>
+        </Box>
       )}
     />
   );
