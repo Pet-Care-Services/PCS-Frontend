@@ -6,6 +6,7 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Button from 'components/Button';
 import DatePicker from 'components/DatePicker';
+import FileUpload from 'components/FileUpload';
 import Input from 'components/Input';
 import Select from 'components/Select';
 import getGenderOptions from 'consts/getGenderOptions';
@@ -35,33 +36,47 @@ const EditFormView = ({
       onSubmit={onSubmitProfileChanges}
       validationSchema={getValidation(t)}
     >
-      <Box component={Form} sx={[commonStyles.column, styles.form]}>
-        <Typography variant="h2">{t('editProfile')}</Typography>
-        <Box sx={commonStyles.row}>
-          <Input name="firstName" label={t('firstName')} />
-          <Input name="lastName" label={t('lastName')} />
+      {({ values }) => (
+        <Box component={Form} sx={[commonStyles.column, styles.form]}>
+          <Typography variant="h2">{t('editProfile')}</Typography>
+          <Box sx={commonStyles.row}>
+            <Input name="firstName" label={t('firstName')} />
+            <Input name="lastName" label={t('lastName')} />
+          </Box>
+          <Box>
+            <Input multiline name="description" label={t('description')} />
+          </Box>
+          <Input name="email" label={t('email')} />
+          <Input name="mobile" label={t('mobile')} onlyNumbers />
+          <Select
+            name="gender"
+            label={t('genderLabel')}
+            options={getGenderOptions(t)}
+          />
+          <DatePicker
+            name="birthdate"
+            label={t('birthdate')}
+            withTime={false}
+          />
+          <Box sx={commonStyles.row}>
+            <FileUpload name="avatar" label={t('chooseAvatar')} />
+            <Button small onClick={onChangePasswordClick}>
+              {t('changePassword')}
+            </Button>
+          </Box>
+          {values.avatar.file !== null && (
+            <Box sx={styles.information}>
+              <Typography variant="h4">{t('saveFormToUploadPhoto')}</Typography>
+            </Box>
+          )}
+          <Box sx={[commonStyles.row, styles.formButtons]}>
+            <Button color="neutral" onClick={toggleEditMode}>
+              {t('cancel')}
+            </Button>
+            <Button type="submit">{t('save')}</Button>
+          </Box>
         </Box>
-        <Box>
-          <Input multiline name="description" label={t('description')} />
-        </Box>
-        <Input name="email" label={t('email')} />
-        <Input name="mobile" label={t('mobile')} onlyNumbers />
-        <Select
-          name="gender"
-          label={t('genderLabel')}
-          options={getGenderOptions(t)}
-        />
-        <DatePicker name="birthdate" label={t('birthdate')} withTime={false} />
-        <Button small onClick={onChangePasswordClick}>
-          {t('changePassword')}
-        </Button>
-        <Box sx={[commonStyles.row, styles.formButtons]}>
-          <Button color="neutral" onClick={toggleEditMode}>
-            {t('cancel')}
-          </Button>
-          <Button type="submit">{t('save')}</Button>
-        </Box>
-      </Box>
+      )}
     </Formik>
   );
 };

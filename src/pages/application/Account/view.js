@@ -18,12 +18,16 @@ const AccountView = ({
   mobile,
   birthdate,
   gender,
+  avatar,
   itemType,
   advertisements,
   onSwitchButtonClick,
   onSubmitProfileChanges,
   toggleEditMode,
   isEditMode,
+  isLoadingFormSubmit,
+  progressAWSSubmit,
+  isLoadingAWSSubmit,
 }) => {
   return (
     <Box sx={[styles.root, styles.column]}>
@@ -38,8 +42,12 @@ const AccountView = ({
           mobile={mobile}
           birthdate={birthdate}
           gender={gender}
+          avatar={avatar}
           description={description}
           onSubmitProfileChanges={onSubmitProfileChanges}
+          isLoadingFormSubmit={isLoadingFormSubmit}
+          progressAWSSubmit={progressAWSSubmit}
+          isLoadingAWSSubmit={isLoadingAWSSubmit}
         />
         <CommentsView />
       </Box>
@@ -59,6 +67,7 @@ AccountView.propTypes = {
   description: PropTypes.string,
   email: PropTypes.string,
   mobile: PropTypes.string,
+  avatar: PropTypes.string,
   birthdate: PropTypes.instanceOf(Date),
   gender: PropTypes.oneOf(values(GENDER)),
   isMyAccount: PropTypes.bool,
@@ -68,6 +77,9 @@ AccountView.propTypes = {
   onSubmitProfileChanges: PropTypes.func,
   toggleEditMode: PropTypes.func,
   isEditMode: PropTypes.bool,
+  isLoadingFormSubmit: PropTypes.bool,
+  progressAWSSubmit: PropTypes.number,
+  isLoadingAWSSubmit: PropTypes.bool,
 };
 
 AccountView.defaultProps = {
@@ -83,6 +95,9 @@ AccountView.defaultProps = {
   onSubmitProfileChanges: noop,
   toggleEditMode: noop,
   isEditMode: false,
+  isLoadingFormSubmit: false,
+  progressAWSSubmit: undefined,
+  isLoadingAWSSubmit: false,
 };
 
 export default AccountView;

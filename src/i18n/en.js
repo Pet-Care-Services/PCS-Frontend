@@ -175,5 +175,6 @@ export default {
     pageNotFound: 'Page not found',
     changePassword: 'Change password',
     yourPasswordHasBeenChanged: 'Your password has been changed',
+    saveFormToUploadPhoto: 'Save the form to upload new photo',
   },
 };

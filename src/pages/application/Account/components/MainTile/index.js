@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Icon from 'components/Icon';
+import Loader from 'components/Loader';
 import TileWrapper from 'components/TileWrapper';
 import { dateFormat } from 'consts/dateFormats';
 import commonStyles from '../../styles';
@@ -35,7 +36,11 @@ const MainTileView = ({
   mobile,
   birthdate,
   gender,
+  avatar,
   onSubmitProfileChanges,
+  isLoadingFormSubmit,
+  progressAWSSubmit,
+  isLoadingAWSSubmit,
 }) => {
   const { t } = useTranslation();
 
@@ -47,17 +52,17 @@ const MainTileView = ({
     mobile,
     gender,
     birthdate,
+    avatar: {
+      localUrl: '',
+      file: null,
+    },
   };
 
   const username = `${firstName} ${lastName}`;
 
   return (
     <TileWrapper sx={styles.mainTile}>
-      <Box
-        component="img"
-        src={require('assets/mockPhoto.jpg')}
-        sx={styles.image}
-      />
+      <Box component="img" src={avatar} sx={styles.image} />
 
       {!isEditMode ? (
         <Box sx={commonStyles.column}>
@@ -84,11 +89,15 @@ const MainTileView = ({
           />
         </Box>
       ) : (
-        <EditFormView
-          initialValues={initialValues}
-          toggleEditMode={toggleEditMode}
-          onSubmitProfileChanges={onSubmitProfileChanges}
-        />
+        <Box sx={commonStyles.column}>
+          <EditFormView
+            initialValues={initialValues}
+            toggleEditMode={toggleEditMode}
+            onSubmitProfileChanges={onSubmitProfileChanges}
+          />
+          {isLoadingFormSubmit && <Loader />}
+          {isLoadingAWSSubmit && <Loader progress={progressAWSSubmit} />}
+        </Box>
       )}
     </TileWrapper>
   );
@@ -101,11 +110,15 @@ MainTileView.propTypes = {
   lastName: PropTypes.string,
   email: PropTypes.string,
   mobile: PropTypes.string,
+  avatar: PropTypes.string,
   birthdate: PropTypes.instanceOf(Date),
   gender: PropTypes.string,
   description: PropTypes.string,
   toggleEditMode: PropTypes.func,
   onSubmitProfileChanges: PropTypes.func,
+  isLoadingFormSubmit: PropTypes.bool,
+  progressAWSSubmit: PropTypes.number,
+  isLoadingAWSSubmit: PropTypes.bool,
 };
 
 export default MainTileView;

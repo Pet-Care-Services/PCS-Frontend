@@ -175,5 +175,6 @@ export default {
     pageNotFound: 'Nie znaleziono strony',
     changePassword: 'Zmień hasło',
     yourPasswordHasBeenChanged: 'Twoje hasło zostało zmienione',
+    saveFormToUploadPhoto: 'Zapisz formularz aby zdjęcie zostało przesłane',
   },
 };

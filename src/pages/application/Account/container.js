@@ -3,7 +3,8 @@ import { get, includes, toString, values } from 'lodash';
 import { useMutation, useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import Loader from 'components/Loader';
-import { ITEM_TYPE } from 'consts/enums';
+import { ITEM_TYPE, S3_DIRECTORY } from 'consts/enums';
+import useAWSUpload from 'hooks/useAWSUpload';
 import useDialog from 'hooks/useDialog';
 import useURLParams from 'hooks/useURLParams';
 import useUserData from 'hooks/useUserData';
@@ -34,13 +35,22 @@ const AccountContainer = () => {
     },
   });
 
-  const { mutate: submitProfile } = useMutation(postProfile, {
-    onSuccess: () => {
-      Promise.all([refetchMe(), refetchProfile()]).then(() => {
-        setIsEditMode(false);
-      });
-    },
-  });
+  const { isLoading: isLoadingFormSubmit, mutate: submitProfile } = useMutation(
+    postProfile,
+    {
+      onSuccess: () => {
+        Promise.all([refetchMe(), refetchProfile()]).then(() => {
+          setIsEditMode(false);
+        });
+      },
+    }
+  );
+
+  const {
+    uploadFileToS3,
+    progress: progressAWSSubmit,
+    isLoading: isLoadingAWSSubmit,
+  } = useAWSUpload();
 
   useEffect(() => {
     if (!isLoggedIn && isEditMode) {
@@ -78,7 +88,15 @@ const AccountContainer = () => {
   };
 
   const onSubmitProfileChanges = (values) => {
-    submitProfile(values);
+    const submit = (publicAvatarUrl) => {
+      submitProfile({ ...values, avatar: publicAvatarUrl });
+    };
+
+    if (values.avatar.file) {
+      uploadFileToS3(values.avatar.file, S3_DIRECTORY.AVATARS, submit);
+    } else {
+      submit(undefined);
+    }
   };
 
   const formattedRequests = useMemo(() => {
@@ -107,6 +125,7 @@ const AccountContainer = () => {
       lastName={userProfile.lastName}
       description={userProfile.description}
       birthdate={new Date(userProfile.birthdate)}
+      avatar={userProfile.avatar}
       gender={userProfile.gender}
       email={email}
       mobile={mobile}
@@ -121,6 +140,9 @@ const AccountContainer = () => {
           ? formattedRequests
           : formattedServices
       }
+      isLoadingFormSubmit={isLoadingFormSubmit}
+      progressAWSSubmit={progressAWSSubmit}
+      isLoadingAWSSubmit={isLoadingAWSSubmit}
     />
   );
 };
