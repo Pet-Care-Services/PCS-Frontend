@@ -16,7 +16,7 @@ import AccountView from './view';
 
 const AccountContainer = () => {
   const { id } = useParams();
-  const { userId, isLoggedIn, email, mobile } = useUserData();
+  const { userId, isLoggedIn, email, mobile, refetchMe } = useUserData();
   const { params } = useURLParams();
   const { openDialog } = useDialog();
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const AccountContainer = () => {
 
   const { mutate: submitProfile } = useMutation(postProfile, {
     onSuccess: () => {
-      refetchProfile().then(() => {
+      Promise.all([refetchMe(), refetchProfile()]).then(() => {
         setIsEditMode(false);
       });
     },

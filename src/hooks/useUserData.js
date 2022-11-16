@@ -36,7 +36,7 @@ const useUserData = () => {
     });
   };
 
-  useQuery(ME_QUERY_KEY, getMe, {
+  const { refetch: refetchMe } = useQuery(ME_QUERY_KEY, getMe, {
     refetchInterval: isFullyVerified
       ? LONG_REFETCH_INTERVAL
       : SHORT_REFETCH_INTERVAL,
@@ -82,6 +82,7 @@ const useUserData = () => {
     setToken,
     setUserData,
     clearUserData,
+    refetchMe,
   };
 };
 

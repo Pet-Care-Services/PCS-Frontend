@@ -46,7 +46,7 @@ const MainTileView = ({
     email,
     mobile,
     gender,
-    birthdate: new Date(),
+    birthdate,
   };
 
   const username = `${firstName} ${lastName}`;
