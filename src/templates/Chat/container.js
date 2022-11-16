@@ -71,12 +71,12 @@ const ChatContainer = () => {
     makeDecision({ messageId, status: OFFER_STATUS.REJECTED });
   };
 
-  const onOfferLinkClick = (offerType, offerId) => {
+  const onOfferLinkClick = (offerUserId, offerType, offerId) => {
     closeChat();
-    const urlItemType =
-      offerType === ITEM_TYPE.SERVICE ? 'services' : 'requests';
 
-    navigate(`/application/${urlItemType}?expanded=${offerId}`);
+    navigate(
+      `/application/account/${offerUserId}?expanded=${offerId}&itemType=${offerType}`
+    );
   };
 
   const conversationOptions = prepareConversationOptions(

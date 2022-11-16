@@ -18,6 +18,7 @@ import useTheme from 'hooks/useTheme';
 import useWeekAvailability from 'hooks/useWeekAvailability';
 import availabilitiesShape from 'shapes/availabilitiesShape';
 import priceShape from 'shapes/priceShape';
+import stringOrNumberShape from 'shapes/stringOrNumberShape';
 import TagList from '../TagList';
 import styles from './styles';
 
@@ -130,7 +131,7 @@ const Advertisement = ({
 
 Advertisement.propTypes = {
   author: PropTypes.string.isRequired,
-  userId: PropTypes.string.isRequired,
+  userId: stringOrNumberShape.isRequired,
   activities: PropTypes.array.isRequired,
   animals: PropTypes.array.isRequired,
   starsValue: PropTypes.number.isRequired,

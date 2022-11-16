@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { findIndex, isNil, split } from 'lodash';
+import { findIndex, includes, isNil, split, toInteger } from 'lodash';
 import { ITEM_TYPE } from 'consts/enums';
 import useURLParams from './useURLParams';
 
@@ -36,10 +36,22 @@ const useExpandedAdvertisement = (advertisements, itemType, isLoading) => {
       return;
     }
 
-    const index = findIndex(advertisements, ({ servicesIndices, requestId }) =>
-      isService
-        ? compareArrayWithString(servicesIndices, expandedParam)
-        : toString(expandedParam) === toString(requestId)
+    const index = findIndex(
+      advertisements,
+      ({ servicesIndices, requestId }) => {
+        let boolValue = false;
+        if (isService) {
+          if (includes(expandedParam, ',')) {
+            boolValue = compareArrayWithString(servicesIndices, expandedParam);
+          } else {
+            boolValue = includes(servicesIndices, toInteger(expandedParam));
+          }
+        } else {
+          boolValue = toString(expandedParam) === toString(requestId);
+        }
+
+        return boolValue;
+      }
     );
 
     if (index >= 0) {
