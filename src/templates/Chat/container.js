@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { isNil } from 'lodash';
 import { useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { ITEM_TYPE, OFFER_STATUS } from 'consts/enums';
+import { OFFER_STATUS } from 'consts/enums';
 import useChat from 'hooks/useChat';
 import {
   getConversations,
