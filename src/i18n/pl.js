@@ -10,6 +10,8 @@ export default {
       fieldTooShort: '{{field}} musi mieć co najmniej {{value}} znaków',
       invalidTextLength: '{{field}} musi mieć dokładnie {{value}} znaków',
       invalidCode: 'Kod jest niepoprawny',
+      invalidFileType: 'Format pliku jest niepoprawny',
+      fileTooBig: 'Plik jest za duży. Maksymalny rozmiar to {{max}}MB',
     },
     error: {
       unknown: 'Coś poszło nie tak...',
@@ -154,6 +156,8 @@ export default {
     default: 'Domyślnie',
     upload: 'Wgraj',
     emailVerification: 'Weryfikacja email',
+    choosePhoto: 'Wybierz zdjęcie',
+    chooseAvatar: 'Wybierz avatar',
     options: 'Opcje',
     sortBy: 'Sortuj po',
     order: 'Kolejność',

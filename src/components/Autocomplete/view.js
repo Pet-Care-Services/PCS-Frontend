@@ -27,7 +27,6 @@ const Autocomplete = ({
   const styles = getStyles(error, helperText);
   const [open, setOpen] = useState(false);
   const { values, setFieldValue } = useFormikContext();
-
   const value = get(values, name, '');
 
   let noOptionsText = t('autocomplete.noOptions');
@@ -71,6 +70,7 @@ const Autocomplete = ({
             {...params}
             {...props}
             {...params.inputProps}
+            name={name}
             error={error}
             helperText={helperText}
             label={label}

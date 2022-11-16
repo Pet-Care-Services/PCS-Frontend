@@ -25,7 +25,8 @@ export default {
     minWidth: 250,
     padding: 10,
     backgroundColor: (theme) => theme.palette.white,
-    border: (theme) => `1px solid ${theme.palette.neutral.main}`,
+    border: (theme) =>
+      `${theme.spacing(1)} solid ${theme.palette.neutral.main}`,
     borderRadius: (theme) => theme.borderRadius.tiny,
     transition: (theme) => theme.transition,
     cursor: 'pointer',

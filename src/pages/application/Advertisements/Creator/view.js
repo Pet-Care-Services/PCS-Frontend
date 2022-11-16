@@ -17,6 +17,9 @@ const CreatorView = ({
   handleAnimalSelect,
   handleDataSubmit,
   type,
+  isLoading,
+  isLoadingAWSSubmit,
+  progressAWSSubmit,
 }) => {
   const { t } = useTranslation();
 
@@ -34,6 +37,9 @@ const CreatorView = ({
         <Step3
           onSubmit={handleDataSubmit}
           isService={type === ITEM_TYPE.SERVICE}
+          isLoading={isLoading}
+          isLoadingAWSSubmit={isLoadingAWSSubmit}
+          progressAWSSubmit={progressAWSSubmit}
         />
       )}
     </Box>
@@ -47,6 +53,9 @@ CreatorView.propTypes = {
   handleTypeSelect: PropTypes.func,
   handleAnimalSelect: PropTypes.func,
   handleDataSubmit: PropTypes.func,
+  isLoading: PropTypes.bool,
+  isLoadingAWSSubmit: PropTypes.bool,
+  progressAWSSubmit: PropTypes.number,
 };
 
 CreatorView.defaultProps = {
@@ -55,6 +64,9 @@ CreatorView.defaultProps = {
   handleTypeSelect: noop,
   handleAnimalSelect: noop,
   handleDataSubmit: noop,
+  isLoading: false,
+  isLoadingAWSSubmit: false,
+  progressAWSSubmit: undefined,
 };
 
 export default CreatorView;

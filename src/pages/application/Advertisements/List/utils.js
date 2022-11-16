@@ -50,8 +50,6 @@ const compareArrayWithString = (array, string) => {
 };
 
 const formatData = (advertisements, onContactClick) => {
-  const mockImage = require('assets/mockPhoto.jpg');
-
   return map(advertisements, (entry) => ({
     ...entry,
     activities: map(entry.activities, ({ name }) => name),
@@ -59,10 +57,11 @@ const formatData = (advertisements, onContactClick) => {
     starsValue: 5,
     price: formatPrice(entry.price),
     location: formatLocationText(entry.location),
-    image: mockImage,
+    image: entry.imageUrl || entry.avatar,
     weekAvailability:
       entry.weekAvailability && formatWeekAvailability(entry.weekAvailability),
-    onContactClick: () => onContactClick({ ...entry, image: mockImage }),
+    onContactClick: () =>
+      onContactClick({ ...entry, image: entry.imageUrl || entry.avatar }),
   }));
 };
 
