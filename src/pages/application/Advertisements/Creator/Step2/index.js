@@ -30,7 +30,7 @@ const Step2 = ({ onSubmit }) => {
         >
           <ImageButton
             title={t(`animal.${animal.name}`)}
-            img={require('assets/mockPhoto.jpg')}
+            img={require(`assets/animals/${animal.name}.jpg`)}
             variant="bottom"
             faded={hoverItemId !== null && hoverItemId !== animal.id}
             onClick={() => onSubmit(animal.id)}
