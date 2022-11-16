@@ -7,9 +7,12 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Autocomplete from 'components/Autocomplete';
 import Button from 'components/Button';
+import FileUpload from 'components/FileUpload';
 import Input from 'components/Input';
+import Loader from 'components/Loader';
 import Select from 'components/Select';
 import TileWrapper from 'components/TileWrapper';
+import useUserData from 'hooks/useUserData';
 import optionsShape from 'shapes/optionsShape';
 import ActivitiesFieldArray from './components/ActivitiesFieldArray';
 import AvailabilitiesFieldArray from './components/AvailabilitiesFieldArray';
@@ -30,8 +33,12 @@ const Step3 = ({
   getCityOptions,
   cityOptions,
   isLoadingCityOptions,
+  isLoading,
+  isLoadingAWSSubmit,
+  progressAWSSubmit,
 }) => {
   const { t } = useTranslation();
+  const { imageUrl: userAvatar } = useUserData();
 
   return (
     <TileWrapper sx={styles.root}>
@@ -45,12 +52,19 @@ const Step3 = ({
         {({ values, errors, setFieldValue }) => (
           <Box component={Form} sx={styles.form}>
             <Typography variant="h2">{t('information')}</Typography>
-            <ActivitiesFieldArray
-              activitiesOptions={activitiesOptions}
-              errors={errors}
-              activities={values.activities}
-            />
-            {/* TODO activity tags as list */}
+            <Box sx={styles.spaceBetween}>
+              <ActivitiesFieldArray
+                activitiesOptions={activitiesOptions}
+                errors={errors}
+                activities={values.activities}
+              />
+              {/* TODO activity tags as list */}
+              <Box
+                component="img"
+                src={isService ? userAvatar : values.image.localUrl}
+                sx={styles.image}
+              />
+            </Box>
             <Box sx={styles.multiFieldLine}>
               <Input
                 label={t('price')}
@@ -139,6 +153,7 @@ const Step3 = ({
                 onlyNumbers
               />
             )}
+            {!isService && <FileUpload name="image" label={t('choosePhoto')} />}
 
             <Typography variant="h2">{t('availability')}</Typography>
             <AvailabilitiesFieldArray
@@ -150,6 +165,8 @@ const Step3 = ({
             <Button type="submit" sx={styles.submitButton}>
               {t('publish')}
             </Button>
+            {isLoadingAWSSubmit && <Loader progress={progressAWSSubmit} />}
+            {isLoading && <Loader />}
           </Box>
         )}
       </Formik>
@@ -160,6 +177,9 @@ const Step3 = ({
 Step3.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isService: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isLoadingAWSSubmit: PropTypes.bool.isRequired,
+  progressAWSSubmit: PropTypes.number.isRequired,
   activitiesOptions: optionsShape,
   priceTypeOptions: optionsShape,
   periodOptions: optionsShape,

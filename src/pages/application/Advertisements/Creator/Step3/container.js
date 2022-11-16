@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import Loader from 'components/Loader';
+import { IMG_PLACEHOLDER_PUBLIC_URL } from 'consts/config';
 import { ITEM_TYPE } from 'consts/enums';
 import getPeriodOptions from 'consts/getPeriodOptions';
 import getPriceTypes from 'consts/getPriceTypesOptions';
@@ -14,7 +15,13 @@ import { initialActivityData, initialAvailabilityData } from './consts';
 import { mapAddressOptions, mapCityOptions } from './utils';
 import Step3View from './view';
 
-const Step3Container = ({ onSubmit, isService }) => {
+const Step3Container = ({
+  onSubmit,
+  isService,
+  isLoading,
+  isLoadingAWSSubmit,
+  progressAWSSubmit,
+}) => {
   const { t } = useTranslation();
   const [addressValue, setAddressValue] = useState('');
   const [cityValue, setCityValue] = useState('');
@@ -70,6 +77,10 @@ const Step3Container = ({ onSubmit, isService }) => {
     availabilities: [initialAvailabilityData],
     capacity: '',
     description: '',
+    image: {
+      localUrl: IMG_PLACEHOLDER_PUBLIC_URL,
+      file: null,
+    },
   };
 
   return (
@@ -86,6 +97,9 @@ const Step3Container = ({ onSubmit, isService }) => {
       getCityOptions={setCityValue}
       cityOptions={mapCityOptions(cityData)}
       isLoadingCityOptions={isLoadingCityOptions}
+      isLoading={isLoading}
+      isLoadingAWSSubmit={isLoadingAWSSubmit}
+      progressAWSSubmit={progressAWSSubmit}
     />
   );
 };
@@ -93,6 +107,9 @@ const Step3Container = ({ onSubmit, isService }) => {
 Step3Container.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isService: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isLoadingAWSSubmit: PropTypes.bool.isRequired,
+  progressAWSSubmit: PropTypes.number.isRequired,
 };
 
 export default Step3Container;
