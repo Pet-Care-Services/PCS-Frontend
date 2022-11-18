@@ -6,4 +6,6 @@ const USER_PROFILE_KEY = 'USER_PROFILE';
 
 const postProfile = (values) => axios.post('/users/profileSettings', values);
 
-export { getUserProfile, postProfile, USER_PROFILE_KEY };
+const postReview = (values) => axios.post('/reviews', values);
+
+export { getUserProfile, postProfile, postReview, USER_PROFILE_KEY };

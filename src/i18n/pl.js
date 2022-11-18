@@ -168,7 +168,7 @@ export default {
     hideMap: 'Ukryj mapę',
     noDescription: 'Brak opisu...',
     author: 'Autor',
-    comments: 'Komentarze',
+    reviews: 'Opinie',
     editProfile: 'Edytuj profil',
     save: 'Zapisz',
     cancel: 'Anuluj',
@@ -176,5 +176,7 @@ export default {
     changePassword: 'Zmień hasło',
     yourPasswordHasBeenChanged: 'Twoje hasło zostało zmienione',
     saveFormToUploadPhoto: 'Zapisz formularz aby zdjęcie zostało przesłane',
+    content: 'Treść',
+    addReview: 'Dodaj ocenę',
   },
 };

@@ -5,8 +5,9 @@ import { Box } from '@mui/system';
 import { GENDER, ITEM_TYPE } from 'consts/enums';
 import advertisementsShape from 'shapes/advertisementsShape';
 import AdvertisementsView from './components/Advertisements';
-import CommentsView from './components/Comments';
 import MainTileView from './components/MainTile';
+import ReviewsView from './components/Reviews';
+import { reviewsShape } from './shapes';
 import styles from './styles';
 
 const AccountView = ({
@@ -21,13 +22,16 @@ const AccountView = ({
   avatar,
   itemType,
   advertisements,
+  reviews,
   onSwitchButtonClick,
   onSubmitProfileChanges,
+  onSubmitReview,
   toggleEditMode,
   isEditMode,
   isLoadingFormSubmit,
   progressAWSSubmit,
   isLoadingAWSSubmit,
+  isLoadingReviewSubmit,
 }) => {
   return (
     <Box sx={[styles.root, styles.column]}>
@@ -49,7 +53,12 @@ const AccountView = ({
           progressAWSSubmit={progressAWSSubmit}
           isLoadingAWSSubmit={isLoadingAWSSubmit}
         />
-        <CommentsView />
+        <ReviewsView
+          reviews={reviews}
+          isMyAccount={isMyAccount}
+          isLoading={isLoadingReviewSubmit}
+          onSubmitReview={onSubmitReview}
+        />
       </Box>
       <AdvertisementsView
         onSwitchButtonClick={onSwitchButtonClick}
@@ -73,13 +82,16 @@ AccountView.propTypes = {
   isMyAccount: PropTypes.bool,
   itemType: PropTypes.oneOf(values(ITEM_TYPE)),
   advertisements: advertisementsShape,
+  reviews: reviewsShape,
   onSwitchButtonClick: PropTypes.func,
   onSubmitProfileChanges: PropTypes.func,
+  onSubmitReview: PropTypes.func,
   toggleEditMode: PropTypes.func,
   isEditMode: PropTypes.bool,
   isLoadingFormSubmit: PropTypes.bool,
   progressAWSSubmit: PropTypes.number,
   isLoadingAWSSubmit: PropTypes.bool,
+  isLoadingReviewSubmit: PropTypes.bool,
 };
 
 AccountView.defaultProps = {
@@ -91,13 +103,16 @@ AccountView.defaultProps = {
   isMyAccount: false,
   itemType: ITEM_TYPE.REQUEST,
   advertisements: [],
+  reviews: [],
   onSwitchButtonClick: noop,
   onSubmitProfileChanges: noop,
+  onSubmitReview: noop,
   toggleEditMode: noop,
   isEditMode: false,
   isLoadingFormSubmit: false,
   progressAWSSubmit: undefined,
   isLoadingAWSSubmit: false,
+  isLoadingReviewSubmit: false,
 };
 
 export default AccountView;

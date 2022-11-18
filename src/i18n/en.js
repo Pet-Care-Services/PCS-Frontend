@@ -168,7 +168,7 @@ export default {
     hideMap: 'Hide the map',
     noDescription: 'No description provided...',
     author: 'Author',
-    comments: 'Comments',
+    reviews: 'Reviews',
     editProfile: 'Edit profile',
     save: 'Save',
     cancel: 'Cancel',
@@ -176,5 +176,7 @@ export default {
     changePassword: 'Change password',
     yourPasswordHasBeenChanged: 'Your password has been changed',
     saveFormToUploadPhoto: 'Save the form to upload new photo',
+    content: 'Content',
+    addReview: 'Add review',
   },
 };

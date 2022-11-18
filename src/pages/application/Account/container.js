@@ -12,7 +12,12 @@ import Login from 'templates/Login';
 import RequestOfferCreator from 'templates/OfferCreator/RequestOfferCreator';
 import ServiceOfferCreator from 'templates/OfferCreator/ServiceOfferCreator';
 import formatAdvertisements from 'utils/formatAdvertisements';
-import { getUserProfile, postProfile, USER_PROFILE_KEY } from './queries';
+import {
+  getUserProfile,
+  postProfile,
+  postReview,
+  USER_PROFILE_KEY,
+} from './queries';
 import AccountView from './view';
 
 const AccountContainer = () => {
@@ -45,6 +50,13 @@ const AccountContainer = () => {
       },
     }
   );
+
+  const { isLoading: isLoadingReviewSubmit, mutate: submitReview } =
+    useMutation(postReview, {
+      onSuccess: () => {
+        refetchProfile();
+      },
+    });
 
   const {
     uploadFileToS3,
@@ -99,6 +111,10 @@ const AccountContainer = () => {
     }
   };
 
+  const onSubmitReview = (values) => {
+    submitReview({ ...values, userId: id });
+  };
+
   const formattedRequests = useMemo(() => {
     if (isLoadingUserProfile) return [];
 
@@ -133,6 +149,7 @@ const AccountContainer = () => {
       itemType={displayedItemType}
       onSwitchButtonClick={onSwitchButtonClick}
       onSubmitProfileChanges={onSubmitProfileChanges}
+      onSubmitReview={onSubmitReview}
       toggleEditMode={() => setIsEditMode((v) => !v)}
       isEditMode={isEditMode}
       advertisements={
@@ -140,9 +157,11 @@ const AccountContainer = () => {
           ? formattedRequests
           : formattedServices
       }
+      reviews={userProfile.reviews}
       isLoadingFormSubmit={isLoadingFormSubmit}
       progressAWSSubmit={progressAWSSubmit}
       isLoadingAWSSubmit={isLoadingAWSSubmit}
+      isLoadingReviewSubmit={isLoadingReviewSubmit}
     />
   );
 };
