@@ -9,6 +9,7 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import ActionText from 'components/ActionText';
 import Button from 'components/Button';
+import EmptyState from 'components/EmptyState';
 import Input from 'components/Input';
 import Loader from 'components/Loader';
 import Rating from 'components/Rating';
@@ -45,7 +46,7 @@ const ReviewsView = ({ reviews, isMyAccount, isLoading, onSubmitReview }) => {
           </Box>
         </Formik>
       )}
-
+      {reviews.length === 0 && <EmptyState />}
       {map(reviews, (review, index) => (
         <TileWrapper key={index} sx={styles.reviewRoot}>
           <Box sx={styles.reviewHeader}>
@@ -53,11 +54,11 @@ const ReviewsView = ({ reviews, isMyAccount, isLoading, onSubmitReview }) => {
               <ActionText
                 onClick={(e) => {
                   e.stopPropagation();
-                  navigate(`/application/account/${review.userId}`);
+                  navigate(`/application/account/${review.authorId}`);
                 }}
                 sx={styles.author}
               >
-                {review.author}
+                {review.authorName}
               </ActionText>
               <Typography variant="tiny">
                 {format(new Date(review.createdDate), datetimeFormat)}
