@@ -1,14 +1,16 @@
+import { GENDER } from './enums';
+
 export default (t) => [
   {
-    value: 'MALE',
-    label: t('gender.male'),
+    value: GENDER.MALE,
+    label: t('gender.MALE'),
   },
   {
-    value: 'FEMALE',
-    label: t('gender.female'),
+    value: GENDER.FEMALE,
+    label: t('gender.FEMALE'),
   },
   {
-    value: 'RATHER_NOT_SAY',
-    label: t('gender.notGiven'),
+    value: GENDER.RATHER_NOT_SAY,
+    label: t('gender.RATHER_NOT_SAY'),
   },
 ];

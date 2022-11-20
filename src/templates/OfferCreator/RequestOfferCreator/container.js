@@ -8,6 +8,7 @@ import useDialog from 'hooks/useDialog';
 import availabilitiesShape from 'shapes/availabilitiesShape';
 import dictionaryValueShape from 'shapes/dictionaryValueShape';
 import priceShape from 'shapes/priceShape';
+import priceTypeShape from 'shapes/priceTypeShape';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
 import { postOffer } from '../queries';
 import RequestOfferCreatorView from './view';
@@ -38,6 +39,7 @@ const RequestOfferCreatorContainer = ({ advertisement }) => {
           offerType: ITEM_TYPE.REQUEST,
           offerId: advertisement.requestId,
           price: values.price,
+          priceType: advertisement.price.type,
         },
       },
     };
@@ -72,6 +74,7 @@ RequestOfferCreatorContainer.propTypes = {
     animal: dictionaryValueShape,
     activities: PropTypes.arrayOf(dictionaryValueShape),
     price: priceShape,
+    priceType: priceTypeShape,
     availabilities: availabilitiesShape,
     image: PropTypes.string,
     description: PropTypes.string,

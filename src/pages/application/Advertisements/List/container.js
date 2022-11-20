@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { get } from 'lodash';
+import { get, omit } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useInfiniteQuery, useQuery } from 'react-query';
 import Loader from 'components/Loader';
@@ -16,11 +16,12 @@ import useUserData from 'hooks/useUserData';
 import Login from 'templates/Login';
 import RequestOfferCreator from 'templates/OfferCreator/RequestOfferCreator';
 import ServiceOfferCreator from 'templates/OfferCreator/ServiceOfferCreator';
+import formatAdvertisements from 'utils/formatAdvertisements';
 import mapDictionaryToOptions from 'utils/mapDictionaryToOptions';
 import { PAGE_SIZE } from './consts';
 import { ADVERTISEMENTS_KEY, getAdvertisements } from './queries';
 import { itemTypeShape } from './shapes';
-import { formatData, formatMarkers, joinPages } from './utils';
+import { formatMarkers, joinPages } from './utils';
 import ListView from './view';
 
 const ListContainer = ({ itemType }) => {
@@ -39,7 +40,7 @@ const ListContainer = ({ itemType }) => {
     ADVERTISEMENTS_KEY,
     ({ pageParam = 0 }) =>
       getAdvertisements(itemType, {
-        ...params,
+        ...omit(params, 'expanded'),
         page: pageParam,
         size: PAGE_SIZE,
       }),
@@ -118,7 +119,7 @@ const ListContainer = ({ itemType }) => {
       onContactClick={onContactClick}
       onMarkerClick={onMarkerClick}
       markers={formatMarkers(items)}
-      data={formatData(items, onContactClick)}
+      data={formatAdvertisements(items, onContactClick)}
       animalsOptions={mapDictionaryToOptions(animalsData.data, 'animal', t)}
       activitiesOptions={mapDictionaryToOptions(
         activitiesData.data,

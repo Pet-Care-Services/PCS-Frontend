@@ -90,6 +90,7 @@ const common = {
     },
     h3: {
       fontSize: 16,
+      fontWeight: 300,
     },
     h4: {
       fontSize: 14,

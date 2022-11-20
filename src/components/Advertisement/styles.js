@@ -17,7 +17,7 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
-    gap: 30,
+    gap: 20,
     p: 15,
     cursor: 'pointer',
 
@@ -75,6 +75,7 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    gap: 10,
   },
   fakeAvailabilityArea: (theme) => ({
     height: 550,
@@ -105,4 +106,11 @@ export default {
       width: 170,
     },
   }),
+  author: {
+    display: 'inline-flex',
+    color: (theme) => theme.palette.action.main,
+    '&:hover': {
+      color: (theme) => theme.palette.action.dark,
+    },
+  },
 };

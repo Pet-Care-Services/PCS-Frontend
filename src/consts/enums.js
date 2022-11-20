@@ -24,6 +24,12 @@ const PERIOD = {
   MONTH: 'MONTH',
 };
 
+const GENDER = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
+  RATHER_NOT_SAY: 'RATHER_NOT_SAY',
+};
+
 const ENV = {
   PRODUCTION: 'production',
   DEVELOPMENT: 'development',
@@ -34,4 +40,4 @@ const S3_DIRECTORY = {
   ADVERTISEMENTS: 'advertisements',
 };
 
-export { ITEM_TYPE, WEEKDAY, OFFER_STATUS, PERIOD, ENV, S3_DIRECTORY };
+export { ITEM_TYPE, WEEKDAY, OFFER_STATUS, PERIOD, ENV, GENDER, S3_DIRECTORY };

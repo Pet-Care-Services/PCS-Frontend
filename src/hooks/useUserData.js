@@ -36,7 +36,7 @@ const useUserData = () => {
     });
   };
 
-  useQuery(ME_QUERY_KEY, getMe, {
+  const { refetch: refetchMe } = useQuery(ME_QUERY_KEY, getMe, {
     refetchInterval: isFullyVerified
       ? LONG_REFETCH_INTERVAL
       : SHORT_REFETCH_INTERVAL,
@@ -68,6 +68,9 @@ const useUserData = () => {
 
   const clearUserData = () => {
     localStorage.removeItem('token');
+    axios.defaults.headers.common = {
+      Authorization: null,
+    };
     context.dispatch({
       type: actions.CLEAR,
     });
@@ -79,6 +82,7 @@ const useUserData = () => {
     setToken,
     setUserData,
     clearUserData,
+    refetchMe,
   };
 };
 

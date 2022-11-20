@@ -4,7 +4,7 @@ import HistoryIconSrc from 'assets/icons/history.png';
 import RequestIconSrc from 'assets/icons/request.png';
 import ServiceIconSrc from 'assets/icons/service.png';
 
-const getSidebarItems = (navigate) => [
+const getSidebarItems = (navigate, userId) => [
   {
     id: 0,
     titleKey: 'services',
@@ -41,8 +41,8 @@ const getSidebarItems = (navigate) => [
     id: 4,
     titleKey: 'account',
     iconSrc: AccountIconSrc,
-    onClick: () => navigate('/application/account'),
-    activeUrl: '/application/account',
+    onClick: () => navigate(`/application/account/${userId}`),
+    activeUrl: `/application/account/${userId}`,
     isLoginRequired: true,
   },
 ];

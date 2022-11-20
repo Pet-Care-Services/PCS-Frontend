@@ -64,6 +64,7 @@ const ChatContent = ({
                   onReject={() => onRejectOffer(message.id)}
                   onLinkClick={() =>
                     onOfferLinkClick(
+                      message.offer.userToId,
                       message.offer.offerType,
                       message.offer.offerId
                     )

@@ -72,7 +72,7 @@ const ChatOffer = ({
                   from={price.from}
                   to={price.to}
                   type={price.priceType}
-                  textVariant="h3"
+                  isTypography={false}
                 />
               }
               color={theme.palette.action.main}

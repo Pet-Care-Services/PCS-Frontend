@@ -14,4 +14,7 @@ export default (color) => ({
     height: 30,
     width: 'fit-content',
   },
+  font: {
+    fontWeight: 400,
+  },
 });
