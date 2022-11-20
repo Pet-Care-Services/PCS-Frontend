@@ -11,6 +11,7 @@ import Loader from 'components/Loader';
 import Map from 'components/Map';
 import TileWrapper from 'components/TileWrapper';
 import { ENV, ITEM_TYPE } from 'consts/enums';
+import useBreakpoints from 'hooks/useBreakpoints';
 import useExpandedAdvertisement from 'hooks/useExpandedAdvertisement';
 import useUserData from 'hooks/useUserData';
 import advertisementsShape from 'shapes/advertisementsShape';
@@ -36,6 +37,7 @@ const ListView = ({
   hasNextPage,
 }) => {
   const { t } = useTranslation();
+  const { isSmallScreen } = useBreakpoints();
   const [isMapVisible, setIsMapVisible] = useState(false);
   const { userId } = useUserData();
   const { expandedAdvertisementIndex, onAdvertisementClick } =
@@ -54,12 +56,14 @@ const ListView = ({
           optionsRows={getOptionsFields(
             t,
             () => setIsMapVisible((v) => !v),
-            isMapVisible
+            isMapVisible,
+            isSmallScreen
           )}
           initialValues={filtersInitialValues}
           validationSchema={getFiltersValidation(t)}
           onSubmit={onFiltersSubmit}
           onClear={onFiltersClear}
+          sx={styles.filters}
         />
       </Box>
       <Box sx={[styles.contentWrapper, styles.flexColumn]}>

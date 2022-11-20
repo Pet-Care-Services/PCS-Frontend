@@ -69,6 +69,14 @@ const Advertisement = ({
     availability = <TextAvailability availabilities={availabilities} />;
   }
 
+  let locationTextVariant = 'h1';
+  if (isLargeScreen) {
+    locationTextVariant = 'h3';
+  }
+  if (isMediumScreen) {
+    locationTextVariant = 'body';
+  }
+
   return (
     <TileWrapper>
       <Collapse
@@ -99,7 +107,7 @@ const Advertisement = ({
                 />
                 <Typography
                   noWrap
-                  variant={isExtraLargeScreen ? 'h1' : 'h3'}
+                  variant={locationTextVariant}
                   sx={styles.location}
                 >
                   {location}

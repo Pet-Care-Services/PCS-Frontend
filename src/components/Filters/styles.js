@@ -8,10 +8,8 @@ export default {
     flexDirection: 'column',
     padding: 20,
     boxSizing: 'border-box',
-    position: 'fixed',
 
     [mdBreakpoint(theme)]: {
-      width: 300,
       padding: 15,
     },
   }),
@@ -25,5 +23,13 @@ export default {
     marginTop: 10,
     display: 'flex',
     columnGap: 10,
+  },
+  collapse: {
+    borderRadius: (theme) => theme.borderRadius.small,
+  },
+  expandIcon: {
+    position: 'absolute',
+    top: 8,
+    right: 10,
   },
 };

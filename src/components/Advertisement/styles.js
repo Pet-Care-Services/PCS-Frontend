@@ -23,12 +23,17 @@ export default {
 
     [mdBreakpoint(theme)]: {
       p: 8,
+      gap: 10,
     },
   }),
-  collapsedBox: {
+  collapsedBox: (theme) => ({
     display: 'flex',
     gap: 20,
-  },
+
+    [mdBreakpoint(theme)]: {
+      gap: 10,
+    },
+  }),
   imageBox: (theme) => ({
     height: 140,
     width: 180,
@@ -59,13 +64,17 @@ export default {
     display: 'flex',
     alignItems: 'center',
   },
-  rightColumnBox: {
+  rightColumnBox: (theme) => ({
     display: 'flex',
     flexGrow: 4,
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-  },
+
+    [smBreakpoint(theme)]: {
+      marginLeft: -25,
+    },
+  }),
   justifyEndBox: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -103,7 +112,10 @@ export default {
       width: 200,
     },
     [mdBreakpoint(theme)]: {
-      width: 170,
+      width: 150,
+    },
+    [xsBreakpoint(theme)]: {
+      width: 100,
     },
   }),
   author: {

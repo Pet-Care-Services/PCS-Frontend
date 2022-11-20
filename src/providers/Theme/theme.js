@@ -116,6 +116,7 @@ const common = {
     values: {
       xs: 480,
       sm: 600,
+      smMid: 850,
       md: 1024,
       lg: 1280,
     },

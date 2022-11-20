@@ -1,14 +1,17 @@
-import { mdBreakpoint } from 'hooks/useBreakpoints';
+import { mdBreakpoint, smMidBreakpoint } from 'hooks/useBreakpoints';
 
 export default {
   root: (theme) => ({
     width: '100%',
     height: '100%',
     display: 'flex',
-    columnGap: 20,
+    gap: 20,
 
     [mdBreakpoint(theme)]: {
-      columnGap: 10,
+      gap: 10,
+    },
+    [smMidBreakpoint(theme)]: {
+      flexDirection: 'column',
     },
   }),
   filtersWrapper: (theme) => ({
@@ -19,6 +22,16 @@ export default {
     [mdBreakpoint(theme)]: {
       width: 300,
       minWidth: 300,
+    },
+    [smMidBreakpoint(theme)]: {
+      width: '100%',
+    },
+  }),
+  filters: (theme) => ({
+    position: 'fixed',
+
+    [smMidBreakpoint(theme)]: {
+      position: 'static',
     },
   }),
   contentWrapper: {
