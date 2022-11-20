@@ -29,10 +29,13 @@ const Filters = ({
   const { isSmallScreen, isSmallMidScreen } = useBreakpoints();
   const [isExpanded, setIsExpanded] = useState(false);
   const Wrapper = isSmallMidScreen ? Collapse : Box;
+  const wrapperProps = isSmallMidScreen
+    ? { in: isExpanded, collapsedSize: 20, sx: styles.collapse }
+    : {};
 
   return (
     <TileWrapper sx={[styles.root, sx]}>
-      <Wrapper in={isExpanded} collapsedSize={20} sx={styles.collapse}>
+      <Wrapper {...wrapperProps}>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
