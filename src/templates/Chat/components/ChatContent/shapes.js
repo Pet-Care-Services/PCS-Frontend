@@ -16,6 +16,7 @@ const messagesShape = PropTypes.arrayOf(
       status: PropTypes.oneOf(values(OFFER_STATUS)),
       offerType: PropTypes.oneOf(values(ITEM_TYPE)),
       offerId: stringOrNumberShape,
+      userToId: stringOrNumberShape,
       price: PropTypes.number,
       priceType: priceTypeShape,
       startTime: PropTypes.string,

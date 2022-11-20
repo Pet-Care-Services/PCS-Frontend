@@ -51,6 +51,7 @@ const useAWSUpload = () => {
         if (err) console.log(err);
         else {
           setIsLoading(false);
+          setProgress(0);
           onUploadEnd(data.Location);
         }
       });

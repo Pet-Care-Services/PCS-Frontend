@@ -9,7 +9,7 @@ import useUserData from 'hooks/useUserData';
 const ApplicationLayout = () => {
   const { openSidebar } = useSidebar();
   const { openChat } = useChat();
-  const { isLoggedIn } = useUserData();
+  const { isLoggedIn, userId } = useUserData();
   const navigate = useNavigate();
 
   return (
@@ -25,7 +25,7 @@ const ApplicationLayout = () => {
       <Topbar
         onMenuClick={openSidebar}
         onChatClick={openChat}
-        onAccountClick={() => navigate('/application/account')}
+        onAccountClick={() => navigate(`/application/account/${userId}`)}
         withRightIcons={isLoggedIn}
       />
       <Box sx={{ flex: 1, padding: 40 }}>

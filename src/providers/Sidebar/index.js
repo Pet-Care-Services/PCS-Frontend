@@ -19,7 +19,7 @@ const SidebarProvider = ({ children }) => {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, initialState);
   const value = { state, dispatch };
-  const { isLoggedIn, clearUserData } = useUserData();
+  const { isLoggedIn, clearUserData, userId } = useUserData();
   const { openDialog } = useDialog();
 
   const handleClose = () => {
@@ -38,7 +38,7 @@ const SidebarProvider = ({ children }) => {
     clearUserData();
   };
 
-  const sidebarItems = getSidebarItems(navigate);
+  const sidebarItems = getSidebarItems(navigate, userId);
 
   return (
     <SidebarContext.Provider value={value}>

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { findIndex, isEmpty, map, noop, toString } from 'lodash';
+import React, { useState } from 'react';
+import { isEmpty, map, noop, toString } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -11,14 +11,14 @@ import Loader from 'components/Loader';
 import Map from 'components/Map';
 import TileWrapper from 'components/TileWrapper';
 import { ENV, ITEM_TYPE } from 'consts/enums';
-import useURLParams from 'hooks/useURLParams';
+import useExpandedAdvertisement from 'hooks/useExpandedAdvertisement';
 import useUserData from 'hooks/useUserData';
+import advertisementsShape from 'shapes/advertisementsShape';
 import { markersShape } from 'shapes/markerShapes';
 import optionsShape from 'shapes/optionsShape';
 import { getFiltersFields, getOptionsFields } from './consts';
-import { filtersInitialValuesShape, dataShape, itemTypeShape } from './shapes';
+import { filtersInitialValuesShape, itemTypeShape } from './shapes';
 import styles from './styles';
-import { compareArrayWithString } from './utils';
 import { getFiltersValidation } from './validation';
 
 const ListView = ({
@@ -36,31 +36,10 @@ const ListView = ({
   hasNextPage,
 }) => {
   const { t } = useTranslation();
-  const [expandedAdvertisementIndex, setExpandedAdvertisementIndex] =
-    useState(null);
   const [isMapVisible, setIsMapVisible] = useState(false);
-  const { params, updateParams } = useURLParams();
   const { userId } = useUserData();
-
-  useEffect(() => {
-    if (expandedAdvertisementIndex !== null) {
-      setExpandedAdvertisementIndex(null);
-    }
-  }, [itemType]);
-
-  useEffect(() => {
-    const expandedParam = params.expanded;
-
-    const index = findIndex(data, ({ servicesIndices, requestId }) =>
-      isService
-        ? compareArrayWithString(servicesIndices, expandedParam)
-        : toString(expandedParam) === toString(requestId)
-    );
-
-    if (index >= 0) {
-      setExpandedAdvertisementIndex(index);
-    }
-  }, [params.expanded]);
+  const { expandedAdvertisementIndex, onAdvertisementClick } =
+    useExpandedAdvertisement(data, itemType, isLoading);
 
   const isService = itemType === ITEM_TYPE.SERVICE;
 
@@ -116,19 +95,10 @@ const ListView = ({
             <Advertisement
               key={index}
               {...advertisement}
-              belongsToMe={advertisement.userId === userId}
+              belongsToMe={toString(advertisement.userId) === toString(userId)}
               isService={isService}
               isExpanded={expandedAdvertisementIndex === index}
-              onBoxClick={() => {
-                if (index === expandedAdvertisementIndex) {
-                  setExpandedAdvertisementIndex(null);
-                  if (params.expanded) {
-                    updateParams({ expanded: '' });
-                  }
-                } else {
-                  setExpandedAdvertisementIndex(index);
-                }
-              }}
+              onBoxClick={() => onAdvertisementClick(index)}
               onContactClick={advertisement.onContactClick}
             />
           ))}
@@ -142,7 +112,7 @@ ListView.propTypes = {
   filtersInitialValues: filtersInitialValuesShape.isRequired,
   isLoading: PropTypes.bool.isRequired,
   itemType: itemTypeShape.isRequired,
-  data: dataShape,
+  data: advertisementsShape,
   markers: markersShape,
   onFiltersSubmit: PropTypes.func,
   onFiltersClear: PropTypes.func,

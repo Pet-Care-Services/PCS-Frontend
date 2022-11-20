@@ -2,8 +2,10 @@ import React from 'react';
 import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import { Box, Typography, Collapse } from '@mui/material';
+import ActionText from 'components/ActionText';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
 import PriceRange from 'components/PriceRange';
@@ -16,10 +18,13 @@ import useTheme from 'hooks/useTheme';
 import useWeekAvailability from 'hooks/useWeekAvailability';
 import availabilitiesShape from 'shapes/availabilitiesShape';
 import priceShape from 'shapes/priceShape';
+import stringOrNumberShape from 'shapes/stringOrNumberShape';
 import TagList from '../TagList';
 import styles from './styles';
 
 const Advertisement = ({
+  author,
+  userId,
   activities,
   animals,
   starsValue,
@@ -37,6 +42,7 @@ const Advertisement = ({
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const navigate = useNavigate();
   const { weekAvailability, isLoading, changeWeek } = useWeekAvailability(
     servicesIndices,
     isExpanded && isService
@@ -92,6 +98,19 @@ const Advertisement = ({
             </Box>
           </Box>
           <Box sx={styles.expandedBox}>
+            <Typography variant="h3">
+              {t('author')}:{' '}
+              <ActionText
+                isTypography={false}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/application/account/${userId}`);
+                }}
+                sx={styles.author}
+              >
+                {author}
+              </ActionText>
+            </Typography>
             <Typography variant="h2" sx={styles.description}>
               {description}
             </Typography>
@@ -111,6 +130,8 @@ const Advertisement = ({
 };
 
 Advertisement.propTypes = {
+  author: PropTypes.string.isRequired,
+  userId: stringOrNumberShape.isRequired,
   activities: PropTypes.array.isRequired,
   animals: PropTypes.array.isRequired,
   starsValue: PropTypes.number.isRequired,
