@@ -13,7 +13,12 @@ import getWeekdayIndex from 'utils/getWeekdayIndex';
 import DayTimeframes from './components/DayTimeframes';
 import { daysAvailabilitiesShape, valueShape } from './shapes';
 import styles from './styles';
-import { getWeekdayToDateMap, getDayNumber, getWeekdayName } from './utils';
+import {
+  getWeekdayToDateMap,
+  getDayNumber,
+  getWeekdayName,
+  getMonthLabel,
+} from './utils';
 
 const WeekAvailabilityView = ({
   value,
@@ -49,75 +54,83 @@ const WeekAvailabilityView = ({
 
   return (
     <Box sx={styles.root}>
-      <Icon
-        Component={KeyboardDoubleArrowLeftIcon}
-        size={iconSize}
-        onClick={(e) => {
-          e.stopPropagation();
-          if (isOneDayDisplayed) {
-            const newOneDisplayedDate = add(oneDisplayedDate, { days: -1 });
-            setOneDisplayedDate(newOneDisplayedDate);
+      <Typography>
+        {getMonthLabel(
+          isOneDayDisplayed ? oneDisplayedDate : dateFrom,
+          isOneDayDisplayed
+        )}
+      </Typography>
+      <Box sx={styles.content}>
+        <Icon
+          Component={KeyboardDoubleArrowLeftIcon}
+          size={iconSize}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (isOneDayDisplayed) {
+              const newOneDisplayedDate = add(oneDisplayedDate, { days: -1 });
+              setOneDisplayedDate(newOneDisplayedDate);
 
-            if (oneDisplayedWeekdayName === WEEKDAY.MONDAY) {
+              if (oneDisplayedWeekdayName === WEEKDAY.MONDAY) {
+                onArrowClick(-1);
+              }
+            } else {
               onArrowClick(-1);
             }
-          } else {
-            onArrowClick(-1);
-          }
-        }}
-      />
-      {map(keys(displayedDaysAvailabilities), (day, index) => {
-        const isSelectionInThisDay =
-          !readOnly &&
-          !!value?.date &&
-          (isOneDayDisplayed
-            ? isSameDay(oneDisplayedDate, value.date)
-            : index === getWeekdayIndex(value.date));
+          }}
+        />
+        {map(keys(displayedDaysAvailabilities), (day, index) => {
+          const isSelectionInThisDay =
+            !readOnly &&
+            !!value?.date &&
+            (isOneDayDisplayed
+              ? isSameDay(oneDisplayedDate, value.date)
+              : index === getWeekdayIndex(value.date));
 
-        const isThisDayToday = isOneDayDisplayed
-          ? isToday(oneDisplayedDate)
-          : isToday(add(dateFrom, { days: index }));
+          const isThisDayToday = isOneDayDisplayed
+            ? isToday(oneDisplayedDate)
+            : isToday(add(dateFrom, { days: index }));
 
-        return (
-          <Box sx={styles.dayBoxRoot} key={day}>
-            <Typography
-              variant="h4"
-              sx={[styles.dayNumber, isThisDayToday && styles.active]}
-            >
-              {getDayNumber(weekdayToDateMap[day])}
-            </Typography>
-            {!isLoading && (
-              <DayTimeframes
-                date={weekdayToDateMap[day]}
-                readOnly={readOnly}
-                dayAvailabilities={daysAvailabilities[day]}
-                isSelectionInThisDay={isSelectionInThisDay}
-                value={value}
-                onTileClick={onTileClick}
-              />
-            )}
-            {/* Loader just in middle day */}
-            {isLoading && index === 3 && <Loader />}
-          </Box>
-        );
-      })}
-      <Icon
-        Component={KeyboardDoubleArrowRightIcon}
-        size={iconSize}
-        onClick={(e) => {
-          e.stopPropagation();
-          if (isOneDayDisplayed) {
-            const newOneDisplayedDate = add(oneDisplayedDate, { days: 1 });
-            setOneDisplayedDate(newOneDisplayedDate);
+          return (
+            <Box sx={styles.dayBoxRoot} key={day}>
+              <Typography
+                variant="h4"
+                sx={[styles.dayNumber, isThisDayToday && styles.active]}
+              >
+                {getDayNumber(weekdayToDateMap[day])}
+              </Typography>
+              {!isLoading && (
+                <DayTimeframes
+                  date={weekdayToDateMap[day]}
+                  readOnly={readOnly}
+                  dayAvailabilities={daysAvailabilities[day]}
+                  isSelectionInThisDay={isSelectionInThisDay}
+                  value={value}
+                  onTileClick={onTileClick}
+                />
+              )}
+              {/* Loader just in middle day */}
+              {isLoading && index === 3 && <Loader />}
+            </Box>
+          );
+        })}
+        <Icon
+          Component={KeyboardDoubleArrowRightIcon}
+          size={iconSize}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (isOneDayDisplayed) {
+              const newOneDisplayedDate = add(oneDisplayedDate, { days: 1 });
+              setOneDisplayedDate(newOneDisplayedDate);
 
-            if (oneDisplayedWeekdayName === WEEKDAY.SUNDAY) {
+              if (oneDisplayedWeekdayName === WEEKDAY.SUNDAY) {
+                onArrowClick(1);
+              }
+            } else {
               onArrowClick(1);
             }
-          } else {
-            onArrowClick(1);
-          }
-        }}
-      />
+          }}
+        />
+      </Box>
     </Box>
   );
 };

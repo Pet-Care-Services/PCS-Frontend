@@ -2,10 +2,16 @@ import commonStyles from 'consts/commonStyles';
 import { smBreakpoint, xsBreakpoint } from 'hooks/useBreakpoints';
 
 export default {
-  root: (theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: 10,
+    gap: 10,
+  },
+  content: (theme) => ({
     width: '100%',
     display: 'flex',
-    padding: 10,
     borderRadius: (theme) => theme.borderRadius.small,
     columnGap: 10,
     height: 550,
