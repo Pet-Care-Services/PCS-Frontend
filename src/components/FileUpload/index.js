@@ -10,7 +10,7 @@ import useSnackbar from 'hooks/useSnackbar';
 const MAX_FILE_SIZE_MEGABYTES = 5;
 const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MEGABYTES * 1024 * 1024;
 
-const FileUpload = ({ name, label, ...props }) => {
+const FileUpload = ({ name, label, small, ...props }) => {
   const { t } = useTranslation();
   const { openSnackbar } = useSnackbar();
   const inputRef = useRef();
@@ -50,7 +50,7 @@ const FileUpload = ({ name, label, ...props }) => {
             sx={{ display: 'none' }}
           />
           <Button
-            small
+            small={small}
             onClick={() => {
               inputRef.current.click();
             }}
@@ -66,6 +66,11 @@ const FileUpload = ({ name, label, ...props }) => {
 FileUpload.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  small: PropTypes.bool,
+};
+
+FileUpload.defaultProps = {
+  small: true,
 };
 
 export default FileUpload;

@@ -13,6 +13,7 @@ import Loader from 'components/Loader';
 import Select from 'components/Select';
 import { AVATAR_PLACEHOLDER_PUBLIC_URL } from 'consts/config';
 import getGenderOptions from 'consts/getGenderOptions';
+import useBreakpoints from 'hooks/useBreakpoints';
 import styles from './styles';
 import getValidation from './validation';
 
@@ -24,6 +25,7 @@ const SignupView = ({
   progress,
 }) => {
   const { t } = useTranslation();
+  const { isExtraSmallScreen } = useBreakpoints();
 
   return (
     <Formik
@@ -42,46 +44,57 @@ const SignupView = ({
       validateOnChange={false}
       validateOnBlur={false}
     >
-      {({ values }) => (
-        <Box component={Form} sx={styles.root}>
-          <Typography variant="h1">{t('signup')}</Typography>
-          <Box sx={styles.dualField}>
-            <Input name="firstName" label={t('firstName')} />
-            <Input name="lastName" label={t('lastName')} />
+      {({ values }) => {
+        const avatarWithButton = (
+          <Box sx={styles.avatarFieldsWrapper}>
+            <Box
+              component="img"
+              src={values.imageUrl.localUrl}
+              sx={styles.avatar}
+            />
+            <FileUpload
+              name="imageUrl"
+              label={t('chooseAvatar')}
+              small={!isExtraSmallScreen}
+            />
           </Box>
-          <Input name="email" label={t('email')} />
-          <Input name="password" type="password" label={t('password')} />
-          <Box sx={styles.dualField}>
-            <Box sx={styles.leftSideFields}>
-              <Input name="mobile" label={t('mobile')} onlyNumbers />
-              <Select
-                name="gender"
-                label={t('genderLabel')}
-                options={getGenderOptions(t)}
-              />
-              <DatePicker
-                name="birthdate"
-                label={t('birthdate')}
-                withTime={false}
-              />
+        );
+
+        return (
+          <Box component={Form} sx={styles.root}>
+            <Typography variant="h1">{t('signup')}</Typography>
+            <Box sx={styles.dualField}>
+              <Input name="firstName" label={t('firstName')} />
+              <Input name="lastName" label={t('lastName')} />
             </Box>
-            <Box sx={styles.rightSideFields}>
-              <Box
-                component="img"
-                src={values.imageUrl.localUrl}
-                sx={styles.avatar}
-              />
-              <FileUpload name="imageUrl" label={t('chooseAvatar')} />
+            <Input name="email" label={t('email')} />
+            <Input name="password" type="password" label={t('password')} />
+            <Box sx={styles.dualField}>
+              <Box sx={styles.leftSideFields}>
+                <Input name="mobile" label={t('mobile')} onlyNumbers />
+                <Select
+                  name="gender"
+                  label={t('genderLabel')}
+                  options={getGenderOptions(t)}
+                />
+                <DatePicker
+                  name="birthdate"
+                  label={t('birthdate')}
+                  withTime={false}
+                />
+              </Box>
+              {!isExtraSmallScreen && avatarWithButton}
             </Box>
+            {isExtraSmallScreen && avatarWithButton}
+            <Button type="submit">{t('signup')}</Button>
+            {isLoadingAWSSubmit && <Loader progress={progress} />}
+            {isLoading && <Loader />}
+            <ActionText onClick={onGoToLogin} sx={styles.linkButton}>
+              {t('haveAccountAlready')}
+            </ActionText>
           </Box>
-          <Button type="submit">{t('signup')}</Button>
-          {isLoadingAWSSubmit && <Loader progress={progress} />}
-          {isLoading && <Loader />}
-          <ActionText onClick={onGoToLogin} sx={styles.linkButton}>
-            {t('haveAccountAlready')}
-          </ActionText>
-        </Box>
-      )}
+        );
+      }}
     </Formik>
   );
 };
