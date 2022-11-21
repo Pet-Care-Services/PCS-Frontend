@@ -61,7 +61,7 @@ const MainTileView = ({
   const username = `${firstName} ${lastName}`;
 
   return (
-    <TileWrapper sx={styles.mainTile}>
+    <TileWrapper sx={styles.root}>
       <Box component="img" src={avatar} sx={styles.image} />
 
       {!isEditMode ? (

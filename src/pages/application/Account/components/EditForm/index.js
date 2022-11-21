@@ -58,7 +58,7 @@ const EditFormView = ({
             label={t('birthdate')}
             withTime={false}
           />
-          <Box sx={commonStyles.row}>
+          <Box sx={[commonStyles.row, styles.avatarPasswordButtons]}>
             <FileUpload name="avatar" label={t('chooseAvatar')} />
             <Button small onClick={onChangePasswordClick}>
               {t('changePassword')}

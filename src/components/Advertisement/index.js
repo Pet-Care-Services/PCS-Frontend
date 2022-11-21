@@ -43,8 +43,12 @@ const Advertisement = ({
   onContactClick,
 }) => {
   const { t } = useTranslation();
-  const { isExtraLargeScreen, isLargeScreen, isMediumScreen } =
-    useBreakpoints();
+  const {
+    isExtraLargeScreen,
+    isLargeScreen,
+    isMediumScreen,
+    isExtraSmallScreen,
+  } = useBreakpoints();
 
   const theme = useTheme();
   const navigate = useNavigate();
@@ -93,11 +97,13 @@ const Advertisement = ({
                   labels={activities}
                   modelKey="activity"
                   color={theme.palette.neutral.main}
+                  amountToFit={isExtraSmallScreen ? 1 : 2}
                 />
                 <TagList
                   labels={animals}
                   modelKey="animal"
                   color={theme.palette.secondary.dark}
+                  amountToFit={isExtraSmallScreen ? 1 : 2}
                 />
               </Box>
               <Box sx={styles.locationBox}>

@@ -15,6 +15,7 @@ import Loader from 'components/Loader';
 import Rating from 'components/Rating';
 import TileWrapper from 'components/TileWrapper';
 import { datetimeFormat } from 'consts/dateFormats';
+import useBreakpoints from 'hooks/useBreakpoints';
 import { reviewsShape } from '../../shapes';
 import commonStyles from '../../styles';
 import styles from './styles';
@@ -22,6 +23,7 @@ import getValidation from './validation';
 
 const ReviewsView = ({ reviews, isMyAccount, isLoading, onSubmitReview }) => {
   const { t } = useTranslation();
+  const { isSmallScreen } = useBreakpoints();
   const navigate = useNavigate();
 
   return (
@@ -65,9 +67,14 @@ const ReviewsView = ({ reviews, isMyAccount, isLoading, onSubmitReview }) => {
               </Typography>
             </Box>
 
-            <Rating value={review.stars} />
+            <Rating
+              value={review.stars}
+              size={isSmallScreen ? 'small' : 'medium'}
+            />
           </Box>
-          {review.content}
+          <Typography variant={isSmallScreen ? 'h4' : 'h3'}>
+            {review.content}
+          </Typography>
         </TileWrapper>
       ))}
     </Box>

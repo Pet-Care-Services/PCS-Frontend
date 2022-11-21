@@ -3,6 +3,7 @@ import { noop, values } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/system';
 import { GENDER, ITEM_TYPE } from 'consts/enums';
+import useBreakpoints from 'hooks/useBreakpoints';
 import advertisementsShape from 'shapes/advertisementsShape';
 import AdvertisementsView from './components/Advertisements';
 import MainTileView from './components/MainTile';
@@ -33,9 +34,11 @@ const AccountView = ({
   isLoadingAWSSubmit,
   isLoadingReviewSubmit,
 }) => {
+  const { isMediumScreen } = useBreakpoints();
+
   return (
     <Box sx={[styles.root, styles.column]}>
-      <Box sx={styles.row}>
+      <Box sx={isMediumScreen ? styles.column : styles.row}>
         <MainTileView
           isEditMode={isEditMode}
           isMyAccount={isMyAccount}
