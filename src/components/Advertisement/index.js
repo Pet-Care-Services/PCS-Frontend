@@ -141,7 +141,10 @@ const Advertisement = ({
                 {author}
               </ActionText>
             </Typography>
-            <Typography variant="h2" sx={styles.description}>
+            <Typography
+              variant={isMediumScreen ? 'h4' : 'h2'}
+              sx={styles.description}
+            >
               {description}
             </Typography>
             {availability}

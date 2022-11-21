@@ -1,7 +1,10 @@
+import { lgBreakpoint } from 'hooks/useBreakpoints';
+
 export default {
   root: {
     borderTopLeftRadius: 10,
     flex: 1,
+    height: '100%',
   },
   column: {
     display: 'flex',
@@ -27,10 +30,14 @@ export default {
     rowGap: 10,
     overflowY: 'auto',
   },
-  messageWrapper: {
+  messageWrapper: (theme) => ({
     width: '70%',
     display: 'flex',
-  },
+
+    [lgBreakpoint(theme)]: {
+      width: '85%',
+    },
+  }),
   myMessage: {
     alignSelf: 'flex-end',
     justifyContent: 'flex-end',

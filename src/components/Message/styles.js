@@ -2,7 +2,7 @@ export default {
   root: {
     width: 'fit-content',
     backgroundColor: (theme) => theme.palette.neutral.main,
-    borderRadius: (theme) => theme.borderRadius.infinite,
+    borderRadius: (theme) => theme.borderRadius.small,
     padding: (theme) => theme.spacing(8, 15),
     minHeight: 38,
   },

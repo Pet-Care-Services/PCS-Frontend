@@ -9,6 +9,7 @@ import Loader from 'components/Loader';
 import Message from 'components/Message';
 import { ITEM_TYPE } from 'consts/enums';
 import useChat from 'hooks/useChat';
+import MessageSender from '../MessageSender';
 import { messagesShape } from './shapes';
 import styles from './styles';
 
@@ -16,6 +17,7 @@ const ChatContent = ({
   onAcceptOffer,
   onRejectOffer,
   onOfferLinkClick,
+  onSendMessage,
   messages,
   loading,
 }) => {
@@ -52,10 +54,10 @@ const ChatContent = ({
           return (
             <Box
               key={message.id}
-              sx={{
-                ...styles.messageWrapper,
-                ...(message.isMyMessage && styles.myMessage),
-              }}
+              sx={[
+                styles.messageWrapper,
+                message.isMyMessage && styles.myMessage,
+              ]}
             >
               {message.offer ? (
                 <ChatOffer
@@ -87,6 +89,7 @@ const ChatContent = ({
         })}
         <Box ref={endRef} />
       </Box>
+      <MessageSender onSubmit={onSendMessage} />
     </Box>
   );
 };
@@ -97,6 +100,7 @@ ChatContent.propTypes = {
   onAcceptOffer: PropTypes.func,
   onRejectOffer: PropTypes.func,
   onOfferLinkClick: PropTypes.func,
+  onSendMessage: PropTypes.func,
 };
 
 ChatContent.defaultProps = {
@@ -105,6 +109,7 @@ ChatContent.defaultProps = {
   onAcceptOffer: noop,
   onRejectOffer: noop,
   onOfferLinkClick: noop,
+  onSendMessage: noop,
 };
 
 export default ChatContent;
