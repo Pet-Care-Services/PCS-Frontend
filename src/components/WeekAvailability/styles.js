@@ -39,12 +39,6 @@ export default {
       height: 30,
       minHeight: 30,
     },
-    [xsBreakpoint(theme)]: {
-      width: 15,
-      minWidth: 15,
-      height: 15,
-      minHeight: 15,
-    },
   }),
   active: {
     backgroundColor: (theme) => theme.palette.primary.main,

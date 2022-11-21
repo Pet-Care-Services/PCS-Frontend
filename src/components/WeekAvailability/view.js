@@ -1,6 +1,6 @@
-import React from 'react';
-import { add, isToday } from 'date-fns';
-import { keys, map, noop } from 'lodash';
+import React, { useEffect, useState } from 'react';
+import { add, isSameDay, isToday } from 'date-fns';
+import { keys, map, noop, pick } from 'lodash';
 import PropTypes from 'prop-types';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
@@ -13,7 +13,7 @@ import getWeekdayIndex from 'utils/getWeekdayIndex';
 import DayTimeframes from './components/DayTimeframes';
 import { daysAvailabilitiesShape, valueShape } from './shapes';
 import styles from './styles';
-import { getWeekdayToDateMap, getDayNumber } from './utils';
+import { getWeekdayToDateMap, getDayNumber, getWeekdayName } from './utils';
 
 const WeekAvailabilityView = ({
   value,
@@ -24,10 +24,28 @@ const WeekAvailabilityView = ({
   onArrowClick,
   onTileClick,
 }) => {
+  const [oneDisplayedDate, setOneDisplayedDate] = useState(new Date());
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
   const weekdayToDateMap = getWeekdayToDateMap(dateFrom);
-  const { isSmallScreen, isExtraSmallScreen } = useBreakpoints();
+  const { isSmallScreen } = useBreakpoints();
 
   const iconSize = isSmallScreen ? 'small' : 'medium';
+  const isOneDayDisplayed = isSmallScreen;
+
+  const oneDisplayedWeekdayName = getWeekdayName(oneDisplayedDate);
+  const displayedDaysAvailabilities = isOneDayDisplayed
+    ? pick(daysAvailabilities, oneDisplayedWeekdayName)
+    : daysAvailabilities;
+
+  useEffect(() => {
+    if (!isFirstLoad && !isOneDayDisplayed) {
+      setOneDisplayedDate(dateFrom);
+    }
+  }, [dateFrom]);
+
+  useEffect(() => {
+    setIsFirstLoad(false);
+  }, [dateFrom]);
 
   return (
     <Box sx={styles.root}>
@@ -36,21 +54,35 @@ const WeekAvailabilityView = ({
         size={iconSize}
         onClick={(e) => {
           e.stopPropagation();
-          onArrowClick(-1);
+          if (isOneDayDisplayed) {
+            const newOneDisplayedDate = add(oneDisplayedDate, { days: -1 });
+            setOneDisplayedDate(newOneDisplayedDate);
+
+            if (oneDisplayedWeekdayName === WEEKDAY.MONDAY) {
+              onArrowClick(-1);
+            }
+          } else {
+            onArrowClick(-1);
+          }
         }}
       />
-      {map(keys(daysAvailabilities), (day, index) => {
+      {map(keys(displayedDaysAvailabilities), (day, index) => {
         const isSelectionInThisDay =
-          !readOnly && !!value?.date && index === getWeekdayIndex(value.date);
+          !readOnly &&
+          !!value?.date &&
+          (isOneDayDisplayed
+            ? isSameDay(oneDisplayedDate, value.date)
+            : index === getWeekdayIndex(value.date));
+
+        const isThisDayToday = isOneDayDisplayed
+          ? isToday(oneDisplayedDate)
+          : isToday(add(dateFrom, { days: index }));
 
         return (
           <Box sx={styles.dayBoxRoot} key={day}>
             <Typography
-              variant={isExtraSmallScreen ? 'tiny' : 'h4'}
-              sx={[
-                styles.dayNumber,
-                isToday(add(dateFrom, { days: index })) && styles.active,
-              ]}
+              variant="h4"
+              sx={[styles.dayNumber, isThisDayToday && styles.active]}
             >
               {getDayNumber(weekdayToDateMap[day])}
             </Typography>
@@ -74,7 +106,16 @@ const WeekAvailabilityView = ({
         size={iconSize}
         onClick={(e) => {
           e.stopPropagation();
-          onArrowClick(1);
+          if (isOneDayDisplayed) {
+            const newOneDisplayedDate = add(oneDisplayedDate, { days: 1 });
+            setOneDisplayedDate(newOneDisplayedDate);
+
+            if (oneDisplayedWeekdayName === WEEKDAY.SUNDAY) {
+              onArrowClick(1);
+            }
+          } else {
+            onArrowClick(1);
+          }
         }}
       />
     </Box>

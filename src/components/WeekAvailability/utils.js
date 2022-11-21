@@ -43,6 +43,12 @@ const getDayAvailabilities = (date, daysAvailabilities) => {
   return daysAvailabilities[weekdayName];
 };
 
+const getWeekdayName = (date) => {
+  const weekdayIndex = getWeekdayIndex(date);
+  const weekdayName = weekdays[weekdayIndex];
+  return weekdayName;
+};
+
 const getTimeframeIndex = (timeframe, dayAvailabilities) => {
   return findIndex(
     dayAvailabilities,
@@ -139,6 +145,7 @@ export {
   getWeekdayToDateMap,
   getDayNumber,
   getTimeframesBetween,
+  getWeekdayName,
   isSelectedTile,
   isInvalidClick,
 };
