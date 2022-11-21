@@ -1,13 +1,18 @@
+import { mdBreakpoint } from 'hooks/useBreakpoints';
+
 export default {
-  root: {
+  root: (theme) => ({
     width: 'inherit',
     height: 'fit-content',
     display: 'flex',
     flexDirection: 'column',
     padding: 20,
     boxSizing: 'border-box',
-    position: 'fixed',
-  },
+
+    [mdBreakpoint(theme)]: {
+      padding: 15,
+    },
+  }),
   formContent: {
     display: 'flex',
     flexDirection: 'column',
@@ -18,5 +23,13 @@ export default {
     marginTop: 10,
     display: 'flex',
     columnGap: 10,
+  },
+  collapse: {
+    borderRadius: (theme) => theme.borderRadius.small,
+  },
+  expandIcon: {
+    position: 'absolute',
+    top: 8,
+    right: 10,
   },
 };

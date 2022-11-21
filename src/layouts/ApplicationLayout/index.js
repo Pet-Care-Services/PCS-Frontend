@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Box } from '@mui/system';
 import Topbar from 'components/Topbar';
+import useBreakpoints from 'hooks/useBreakpoints';
 import useChat from 'hooks/useChat';
 import useSidebar from 'hooks/useSidebar';
 import useUserData from 'hooks/useUserData';
@@ -11,6 +12,7 @@ const ApplicationLayout = () => {
   const { openChat } = useChat();
   const { isLoggedIn, userId } = useUserData();
   const navigate = useNavigate();
+  const { isMediumScreen } = useBreakpoints();
 
   return (
     <Box
@@ -28,7 +30,12 @@ const ApplicationLayout = () => {
         onAccountClick={() => navigate(`/application/account/${userId}`)}
         withRightIcons={isLoggedIn}
       />
-      <Box sx={{ flex: 1, padding: 40 }}>
+      <Box
+        sx={{
+          flex: 1,
+          padding: isMediumScreen ? 20 : 40,
+        }}
+      >
         <Outlet />
       </Box>
     </Box>

@@ -3,9 +3,9 @@ import { Field as FormikField } from 'formik';
 import PropTypes from 'prop-types';
 import { Rating as MUIRating, Typography } from '@mui/material';
 
-const Rating = ({ name, value, isFormField, ...props }) => {
+const Rating = ({ name, value, size, isFormField, ...props }) => {
   if (!isFormField) {
-    return <MUIRating name={name} value={value} readOnly />;
+    return <MUIRating name={name} value={value} size={size} readOnly />;
   } else {
     return (
       <FormikField name={name} {...props}>
@@ -14,6 +14,7 @@ const Rating = ({ name, value, isFormField, ...props }) => {
             <MUIRating
               name={name}
               value={value}
+              size={size}
               onChange={(e, newValue) => {
                 setFieldValue(name, newValue);
               }}
@@ -36,12 +37,14 @@ const Rating = ({ name, value, isFormField, ...props }) => {
 Rating.propTypes = {
   name: PropTypes.string,
   value: PropTypes.number,
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
   isFormField: PropTypes.bool,
 };
 
 Rating.defaultProps = {
   name: 'rating',
   value: 0,
+  size: 'medium',
   isFormField: false,
 };
 

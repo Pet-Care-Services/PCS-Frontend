@@ -13,4 +13,7 @@ export default {
     backgroundColor: (theme) => theme.palette.secondary.main,
     width: 'fit-content',
   },
+  avatarPasswordButtons: {
+    flexWrap: 'wrap',
+  },
 };

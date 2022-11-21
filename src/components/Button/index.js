@@ -2,6 +2,7 @@ import React from 'react';
 import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { Button as MUIButton, Typography } from '@mui/material';
+import sxShape from 'shapes/sxShape';
 import getStyles from './styles';
 
 const Button = ({
@@ -24,7 +25,7 @@ const Button = ({
         onClick();
       }}
       variant={variant}
-      sx={{ ...styles.root, ...(small && styles.small), ...sx }}
+      sx={[styles.root, small && styles.small, sx]}
     >
       {adornment}
       <Typography variant="h3" sx={styles.font}>
@@ -42,7 +43,7 @@ Button.propTypes = {
   variant: PropTypes.oneOf(['contained', 'text', 'outlined']),
   small: PropTypes.bool,
   adornment: PropTypes.node,
-  sx: PropTypes.object,
+  sx: sxShape,
 };
 
 Button.defaultProps = {

@@ -9,6 +9,7 @@ import MUIAutocomplete from '@mui/material/Autocomplete';
 import InputView from 'components/Input/view';
 import { AUTOCOMPLETE_MIN_LENGTH_TO_SEARCH } from 'consts/config';
 import optionsShape from 'shapes/optionsShape';
+import sxShape from 'shapes/sxShape';
 import getStyles from './styles';
 import { getOptions, getOptionLabel } from './utils';
 
@@ -39,7 +40,7 @@ const Autocomplete = ({
 
   return (
     <MUIAutocomplete
-      sx={{ ...styles.root, ...sx }}
+      sx={[styles.root, sx]}
       ListboxProps={{
         sx: styles.listbox,
       }}
@@ -94,7 +95,7 @@ Autocomplete.propTypes = {
   helperText: PropTypes.string,
   isLoading: PropTypes.bool,
   onChange: PropTypes.func,
-  sx: PropTypes.object,
+  sx: sxShape,
 };
 
 Autocomplete.defaultProps = {

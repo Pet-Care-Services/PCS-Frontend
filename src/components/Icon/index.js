@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 import MuiIconButton from '@mui/material/IconButton';
+import sxShape from 'shapes/sxShape';
 import { sizes } from './consts';
 
 const Icon = ({
@@ -22,15 +23,15 @@ const Icon = ({
       onClick={onClick}
       disabled={disabled}
       disableRipple={!onClick || active}
-      sx={{
-        ...{ width: dimension.box, height: dimension.box },
-        ...(!onClick && { cursor: 'inherit', padding: 0 }),
-        ...(active && {
+      sx={[
+        { width: dimension.box, height: dimension.box },
+        !onClick && { cursor: 'inherit', padding: 0 },
+        active && {
           backgroundColor: (theme) => theme.palette.primary.main,
           color: (theme) => theme.palette.white,
-        }),
-        ...sx,
-      }}
+        },
+        sx,
+      ]}
     >
       <Box
         component={Component}
@@ -51,7 +52,7 @@ Icon.propTypes = {
   disabled: PropTypes.bool,
   active: PropTypes.bool,
   componentProps: PropTypes.object,
-  sx: PropTypes.object,
+  sx: sxShape,
 };
 
 Icon.defaultProps = {

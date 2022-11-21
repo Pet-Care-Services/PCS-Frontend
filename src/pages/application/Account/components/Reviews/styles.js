@@ -1,8 +1,14 @@
+import { mdBreakpoint } from 'hooks/useBreakpoints';
+
 export default {
-  root: {
+  root: (theme) => ({
     alignItems: 'center',
     width: '50%',
-  },
+
+    [mdBreakpoint(theme)]: {
+      width: '100%',
+    },
+  }),
   form: {
     width: '100%',
     display: 'flex',

@@ -19,10 +19,10 @@ const ConversationChooser = ({
       {map(options, ({ id, image }) => (
         <Box
           key={id}
-          sx={{
-            ...styles.imageWrapper,
-            ...(activeConversationId === id && styles.active),
-          }}
+          sx={[
+            styles.imageWrapper,
+            activeConversationId === id && styles.active,
+          ]}
         >
           <Box
             component="img"

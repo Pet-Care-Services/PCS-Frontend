@@ -1,5 +1,16 @@
-import { add, format, isAfter, isEqual as isEqualDates } from 'date-fns';
+import {
+  add,
+  format,
+  isAfter,
+  isEqual as isEqualDates,
+  nextSunday,
+} from 'date-fns';
 import { findIndex, slice, values } from 'lodash';
+import {
+  monthWrittenFormat,
+  monthYearFormat,
+  yearFormat,
+} from 'consts/dateFormats';
 import { WEEKDAY } from 'consts/enums';
 import getWeekdayIndex from 'utils/getWeekdayIndex';
 import { tileInterval } from './consts';
@@ -41,6 +52,12 @@ const getDayAvailabilities = (date, daysAvailabilities) => {
   const weekdayIndex = getWeekdayIndex(date);
   const weekdayName = weekdays[weekdayIndex];
   return daysAvailabilities[weekdayName];
+};
+
+const getWeekdayName = (date) => {
+  const weekdayIndex = getWeekdayIndex(date);
+  const weekdayName = weekdays[weekdayIndex];
+  return weekdayName;
 };
 
 const getTimeframeIndex = (timeframe, dayAvailabilities) => {
@@ -135,10 +152,33 @@ const isInvalidClick = (
   );
 };
 
+const getMonthLabel = (date, isOneDayDisplayed) => {
+  const sunday = nextSunday(date);
+  const mondayMonth = format(date, monthWrittenFormat);
+  const mondayYear = format(date, yearFormat);
+  const sundayMonth = format(sunday, monthWrittenFormat);
+  const sundayYear = format(sunday, yearFormat);
+
+  if (
+    isOneDayDisplayed ||
+    (mondayMonth === sundayMonth && mondayYear === sundayYear)
+  ) {
+    return format(date, monthYearFormat);
+  }
+
+  if (mondayYear === sundayYear) {
+    return `${mondayMonth}/${sundayMonth} ${mondayYear}`;
+  }
+
+  return `${mondayMonth}/${sundayMonth} ${mondayYear}/${sundayYear}`;
+};
+
 export {
   getWeekdayToDateMap,
   getDayNumber,
   getTimeframesBetween,
+  getWeekdayName,
   isSelectedTile,
   isInvalidClick,
+  getMonthLabel,
 };

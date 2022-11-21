@@ -13,6 +13,7 @@ import MuiAppBar from '@mui/material/AppBar';
 import MuiToolbar from '@mui/material/Toolbar';
 import Icon from 'components/Icon';
 import Input from 'components/Input';
+import useBreakpoints from 'hooks/useBreakpoints';
 import styles from './styles';
 
 const Topbar = ({
@@ -25,6 +26,7 @@ const Topbar = ({
   onAccountClick,
 }) => {
   const { t } = useTranslation();
+  const { isSmallScreen } = useBreakpoints();
 
   return (
     <MuiAppBar position="static" sx={styles.root}>
@@ -32,23 +34,25 @@ const Topbar = ({
         <Box sx={styles.icons}>
           <Icon size="large" Component={MenuIcon} onClick={onMenuClick} />
         </Box>
-        <Box sx={styles.searchWrapper}>
-          <Box sx={styles.formWrapper}>
-            <Formik initialValues={initialValues} onSubmit={onSearch}>
-              <Form>
-                <Input
-                  name="search"
-                  label={t('searchOffer')}
-                  endAdornment={<SearchOutlinedIcon sx={styles.inputIcon} />}
-                  shrink={false}
-                  small
-                  noBorderEffects
-                  rounded
-                />
-              </Form>
-            </Formik>
+        {!isSmallScreen && (
+          <Box sx={styles.searchWrapper}>
+            <Box sx={styles.formWrapper}>
+              <Formik initialValues={initialValues} onSubmit={onSearch}>
+                <Form>
+                  <Input
+                    name="search"
+                    label={t('searchOffer')}
+                    endAdornment={<SearchOutlinedIcon sx={styles.inputIcon} />}
+                    shrink={false}
+                    small
+                    noBorderEffects
+                    rounded
+                  />
+                </Form>
+              </Formik>
+            </Box>
           </Box>
-        </Box>
+        )}
         <Box sx={{ ...styles.icons, ...styles.rightIcons }}>
           {withRightIcons && (
             <>

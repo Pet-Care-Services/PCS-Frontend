@@ -112,6 +112,16 @@ const common = {
     borderRadius: 1,
   },
   transition: { normal: '0.5s', fast: '0.2s' },
+  breakpoints: {
+    values: {
+      xs: 480,
+      sm: 600,
+      smMid: 850,
+      md: 1024,
+      lg: 1280,
+      xl: 1720,
+    },
+  },
 };
 
 const decoratePalette = (colors) => ({

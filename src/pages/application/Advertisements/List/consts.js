@@ -71,7 +71,7 @@ const getOrderOptions = (t) => [
   },
 ];
 
-const getOptionsFields = (t, onMapButtonClick, isMapVisible) => [
+const getOptionsFields = (t, onMapButtonClick, isMapVisible, isSmallScreen) => [
   [
     {
       name: 'sort',
@@ -107,6 +107,7 @@ const getOptionsFields = (t, onMapButtonClick, isMapVisible) => [
       },
       children: t(isMapVisible ? 'hideMap' : 'showMap'),
       color: isMapVisible ? 'primary' : 'neutral',
+      small: isSmallScreen,
     },
   },
 ];

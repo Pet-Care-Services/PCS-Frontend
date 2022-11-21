@@ -11,6 +11,7 @@ import Loader from 'components/Loader';
 import Map from 'components/Map';
 import TileWrapper from 'components/TileWrapper';
 import { ENV, ITEM_TYPE } from 'consts/enums';
+import useBreakpoints from 'hooks/useBreakpoints';
 import useExpandedAdvertisement from 'hooks/useExpandedAdvertisement';
 import useUserData from 'hooks/useUserData';
 import advertisementsShape from 'shapes/advertisementsShape';
@@ -36,6 +37,7 @@ const ListView = ({
   hasNextPage,
 }) => {
   const { t } = useTranslation();
+  const { isSmallScreen, isExtraLargeScreen } = useBreakpoints();
   const [isMapVisible, setIsMapVisible] = useState(false);
   const { userId } = useUserData();
   const { expandedAdvertisementIndex, onAdvertisementClick } =
@@ -46,6 +48,31 @@ const ListView = ({
   const isMapMountedInHTML =
     isMapVisible || process.env.REACT_APP_ENV === ENV.PRODUCTION;
 
+  const mapView = (
+    <Collapse
+      in={isMapVisible}
+      orientation={isExtraLargeScreen ? 'horizontal' : 'vertical'}
+      timeout={500}
+      sx={[
+        styles.mapCollapse,
+        isExtraLargeScreen && !isMapVisible && styles.mapShifted,
+      ]}
+    >
+      <TileWrapper sx={styles.mapWrapper}>
+        {isMapMountedInHTML && (
+          <Map
+            markers={markers}
+            onMarkerClick={(...args) => {
+              setIsMapVisible(false);
+              onMarkerClick(...args);
+            }}
+            sx={styles.map}
+          />
+        )}
+      </TileWrapper>
+    </Collapse>
+  );
+
   return (
     <Box sx={styles.root}>
       <Box sx={styles.filtersWrapper}>
@@ -54,29 +81,26 @@ const ListView = ({
           optionsRows={getOptionsFields(
             t,
             () => setIsMapVisible((v) => !v),
-            isMapVisible
+            isMapVisible,
+            isSmallScreen
           )}
           initialValues={filtersInitialValues}
           validationSchema={getFiltersValidation(t)}
           onSubmit={onFiltersSubmit}
           onClear={onFiltersClear}
+          sx={styles.filters}
         />
       </Box>
-      <Box sx={{ ...styles.contentWrapper, ...styles.flexColumn }}>
-        <Collapse in={isMapVisible} sx={styles.mapCollapse}>
-          <TileWrapper sx={styles.mapWrapper}>
-            {isMapMountedInHTML && (
-              <Map
-                markers={markers}
-                onMarkerClick={(...args) => {
-                  setIsMapVisible(false);
-                  onMarkerClick(...args);
-                }}
-                sx={styles.map}
-              />
-            )}
-          </TileWrapper>
-        </Collapse>
+      <Box
+        sx={[
+          styles.contentWrapper,
+          styles.flexColumn,
+          isExtraLargeScreen &&
+            !isMapVisible &&
+            styles.contentExpandedOnMapArea,
+        ]}
+      >
+        {!isExtraLargeScreen && mapView}
         {isLoading && <Loader />}
         {!isLoading && isEmpty(data) && (
           <Box sx={styles.centered}>
@@ -89,21 +113,25 @@ const ListView = ({
           loadMore={onLoadMore}
           hasMore={hasNextPage}
           loader={<Loader key="loader" sx={styles.loadMoreLoader} />}
-          sx={styles.flexColumn}
         >
-          {map(data, (advertisement, index) => (
-            <Advertisement
-              key={index}
-              {...advertisement}
-              belongsToMe={toString(advertisement.userId) === toString(userId)}
-              isService={isService}
-              isExpanded={expandedAdvertisementIndex === index}
-              onBoxClick={() => onAdvertisementClick(index)}
-              onContactClick={advertisement.onContactClick}
-            />
-          ))}
+          <Box sx={styles.flexColumn}>
+            {map(data, (advertisement, index) => (
+              <Advertisement
+                key={index}
+                {...advertisement}
+                belongsToMe={
+                  toString(advertisement.userId) === toString(userId)
+                }
+                isService={isService}
+                isExpanded={expandedAdvertisementIndex === index}
+                onBoxClick={() => onAdvertisementClick(index)}
+                onContactClick={advertisement.onContactClick}
+              />
+            ))}
+          </Box>
         </Box>
       </Box>
+      {isExtraLargeScreen && <Box sx={styles.mapOnRightWrapper}>{mapView}</Box>}
     </Box>
   );
 };

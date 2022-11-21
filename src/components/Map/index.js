@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Loader from 'components/Loader';
 import useUserLocation from 'hooks/useUserLocation';
 import { markersShape } from 'shapes/markerShapes';
+import sxShape from 'shapes/sxShape';
 import Marker from './components/Marker';
 import UserLocationPoint from './components/UserLocationPoint';
 import { anchorPoint, zoom } from './consts';
@@ -39,7 +40,7 @@ const Map = ({ markers, onMarkerClick, onClick, sx }) => {
       mapContainerStyle={{
         width: '100%',
         height: '100%',
-        ...sx,
+        ...sx, // TODO sx as function?
       }}
       center={userPositionCoords || anchorPoint}
       zoom={zoom}
@@ -73,7 +74,7 @@ Map.propTypes = {
   onClick: PropTypes.func,
   onMarkerClick: PropTypes.func,
   markers: markersShape,
-  sx: PropTypes.object,
+  sx: sxShape,
 };
 
 Map.defaultProps = {

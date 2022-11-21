@@ -1,7 +1,8 @@
+import { mdBreakpoint, smBreakpoint } from 'hooks/useBreakpoints';
 import addOpacity from 'utils/addOpacity';
 
 export default {
-  root: {
+  root: (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     width: 110,
@@ -10,18 +11,31 @@ export default {
     backgroundColor: (theme) => theme.palette.primary.main,
     padding: 15,
     paddingRight: 0,
+    paddingTop: 55,
     boxSizing: 'border-box',
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
-  },
-  image: {
+
+    [mdBreakpoint(theme)]: {
+      borderRadius: 0,
+    },
+    [smBreakpoint(theme)]: {
+      width: 64,
+    },
+  }),
+  image: (theme) => ({
     width: 70,
     height: 70,
     borderRadius: '50%',
     objectFit: 'cover',
     cursor: 'pointer',
-  },
-  imageWrapper: {
+
+    [smBreakpoint(theme)]: {
+      width: 40,
+      height: 40,
+    },
+  }),
+  imageWrapper: (theme) => ({
     height: 80,
     width: 'calc(100% + 5)',
     display: 'flex',
@@ -33,7 +47,12 @@ export default {
     marginLeft: -5,
     marginTop: -5,
     backgroundColor: 'transparent',
-  },
+
+    [smBreakpoint(theme)]: {
+      marginLeft: -10,
+      height: 50,
+    },
+  }),
   active: {
     backgroundColor: (theme) => theme.palette.white,
     boxShadow: (theme) =>

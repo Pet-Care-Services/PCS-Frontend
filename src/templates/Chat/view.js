@@ -7,7 +7,6 @@ import ChatContent from './components/ChatContent';
 import { messagesShape } from './components/ChatContent/shapes';
 import ConversationChooser from './components/ConversationChooser';
 import { conversationOptionsShape } from './components/ConversationChooser/shapes';
-import MessageSender from './components/MessageSender';
 import styles from './styles';
 
 const ChatView = ({
@@ -37,8 +36,8 @@ const ChatView = ({
           onOfferLinkClick={onOfferLinkClick}
           messages={messages}
           loading={isLoadingMessages}
+          onSendMessage={onSendMessage}
         />
-        <MessageSender onSubmit={onSendMessage} />
       </Box>
     </Box>
   );

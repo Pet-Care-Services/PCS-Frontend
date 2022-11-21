@@ -1,19 +1,33 @@
+import { mdBreakpoint, smBreakpoint } from 'hooks/useBreakpoints';
+
 export default {
-  mainTile: {
+  root: (theme) => ({
     display: 'flex',
     padding: 20,
     gap: 20,
     width: '50%',
-  },
+
+    [mdBreakpoint(theme)]: {
+      width: '100%',
+    },
+    [smBreakpoint(theme)]: {
+      flexDirection: 'column',
+    },
+  }),
   nameAndEditIcon: {
     alignItems: 'center',
   },
-  image: {
+  image: (theme) => ({
     borderRadius: (theme) => theme.borderRadius.infinite,
     width: 150,
     height: 150,
     objectFit: 'cover',
-  },
+
+    [smBreakpoint(theme)]: {
+      width: 70,
+      height: 70,
+    },
+  }),
   editIcon: {
     marginLeft: 'auto',
   },

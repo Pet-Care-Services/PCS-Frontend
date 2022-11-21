@@ -1,4 +1,9 @@
-import { availabilityComponentHeight } from 'components/WeekAvailability/consts';
+import {
+  lgBreakpoint,
+  mdBreakpoint,
+  smBreakpoint,
+  xsBreakpoint,
+} from 'hooks/useBreakpoints';
 
 export default {
   contactButton: {
@@ -8,24 +13,42 @@ export default {
   collapse: {
     borderRadius: (theme) => theme.borderRadius.small,
   },
-  root: {
+  content: (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
     gap: 20,
     p: 15,
     cursor: 'pointer',
-  },
-  collapsedBox: {
+
+    [mdBreakpoint(theme)]: {
+      p: 8,
+      gap: 10,
+    },
+  }),
+  collapsedBox: (theme) => ({
     display: 'flex',
     gap: 20,
-  },
-  imageBox: {
+
+    [mdBreakpoint(theme)]: {
+      gap: 10,
+    },
+  }),
+  imageBox: (theme) => ({
     height: 140,
     width: 180,
     objectFit: 'cover',
-    borderRadius: (theme) => theme.borderRadius.small,
-  },
+    borderRadius: theme.borderRadius.small,
+
+    [lgBreakpoint(theme)]: {
+      width: 150,
+      height: 110,
+    },
+    [mdBreakpoint(theme)]: {
+      width: 120,
+      height: 80,
+    },
+  }),
   centerColumnBox: {
     display: 'flex',
     flexGrow: 10,
@@ -41,13 +64,17 @@ export default {
     display: 'flex',
     alignItems: 'center',
   },
-  rightColumnBox: {
+  rightColumnBox: (theme) => ({
     display: 'flex',
     flexGrow: 4,
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-  },
+
+    [smBreakpoint(theme)]: {
+      marginLeft: -25,
+    },
+  }),
   justifyEndBox: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -59,9 +86,16 @@ export default {
     justifyContent: 'space-between',
     gap: 10,
   },
-  fakeAvailabilityArea: {
-    height: availabilityComponentHeight,
-  },
+  fakeAvailabilityArea: (theme) => ({
+    height: 550,
+
+    [smBreakpoint(theme)]: {
+      height: 540,
+    },
+    [xsBreakpoint(theme)]: {
+      height: 525,
+    },
+  }),
   textAvailability: {
     marginTop: 10,
     display: 'flex',
@@ -71,6 +105,19 @@ export default {
   description: {
     marginBottom: 10,
   },
+  location: (theme) => ({
+    width: 400,
+
+    [lgBreakpoint(theme)]: {
+      width: 200,
+    },
+    [mdBreakpoint(theme)]: {
+      width: 150,
+    },
+    [xsBreakpoint(theme)]: {
+      width: 100,
+    },
+  }),
   author: {
     display: 'inline-flex',
     color: (theme) => theme.palette.action.main,

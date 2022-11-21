@@ -1,14 +1,27 @@
+import { mdBreakpoint, xsBreakpoint } from 'hooks/useBreakpoints';
+
 export default {
-  root: {
+  root: (theme) => ({
     display: 'flex',
-    columnGap: 20,
-  },
-  sideColumn: {
+    gap: 20,
+
+    [mdBreakpoint(theme)]: {
+      flexDirection: 'column',
+    },
+  }),
+  sideColumn: (theme) => ({
     display: 'flex',
     flexDirection: 'column',
-    rowGap: 10,
+    alignItems: 'flex-start',
+    gap: 10,
+    minWidth: 200,
     width: 200,
-  },
+
+    [mdBreakpoint(theme)]: {
+      flexDirection: 'row',
+      width: '100%',
+    },
+  }),
   form: {
     flex: 1,
   },
@@ -20,6 +33,8 @@ export default {
   },
   image: {
     width: '100%',
+    maxWidth: 200,
+    minWidth: 140,
     height: 140,
     objectFit: 'cover',
     borderRadius: (theme) => theme.borderRadius.tiny,
@@ -42,4 +57,9 @@ export default {
     rowGap: 10,
     columnGap: 10,
   },
+  availabilityWrapper: (theme) => ({
+    [xsBreakpoint(theme)]: {
+      marginX: -20,
+    },
+  }),
 };

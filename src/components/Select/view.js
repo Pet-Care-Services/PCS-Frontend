@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { MenuItem } from '@mui/material';
 import InputView from 'components/Input/view';
 import optionsShape from 'shapes/optionsShape';
+import sxShape from 'shapes/sxShape';
 
 const Select = ({ field, options, ...props }) => (
   <InputView {...field} {...props} isSelect>
@@ -39,7 +40,7 @@ Select.propTypes = {
   error: PropTypes.string,
   helperText: PropTypes.string,
   options: optionsShape.isRequired,
-  sx: PropTypes.objectOf(PropTypes.any),
+  sx: sxShape,
 };
 
 Select.defaultProps = {

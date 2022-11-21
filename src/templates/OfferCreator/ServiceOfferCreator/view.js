@@ -12,10 +12,12 @@ import Select from 'components/Select';
 import WeekAvailability from 'components/WeekAvailability';
 import { daysAvailabilitiesShape } from 'components/WeekAvailability/shapes';
 import getPriceTypeToAbbreviationMap from 'consts/getPriceTypeToAbbreviationMap';
+import useBreakpoints from 'hooks/useBreakpoints';
 import optionsShape from 'shapes/optionsShape';
 import priceTypeShape from 'shapes/priceTypeShape';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
-import styles from '../styles';
+import commonStyles from '../styles';
+import styles from './styles';
 import getValidation from './validation';
 
 const ServiceOfferCreatorView = ({
@@ -36,6 +38,7 @@ const ServiceOfferCreatorView = ({
   weekAvailability,
 }) => {
   const { t } = useTranslation();
+  const { isSmallScreen } = useBreakpoints();
   const [isNegotiatingPrice, setIsNegotiatingPrice] = useState(false);
   const priceTypeToAbbreviationMap = getPriceTypeToAbbreviationMap(t);
 
@@ -43,12 +46,19 @@ const ServiceOfferCreatorView = ({
     priceTypeToAbbreviationMap[priceType]
   }`;
 
+  const descriptionView = <Typography variant="body">{description}</Typography>;
+
   return (
-    <Box sx={styles.root}>
-      <Box sx={styles.sideColumn}>
-        <Box component="img" src={image} sx={styles.image} />
-        <Typography variant="body">{description}</Typography>
+    <Box sx={commonStyles.root}>
+      <Box sx={commonStyles.sideColumn}>
+        <Box
+          component="img"
+          src={image}
+          sx={[commonStyles.image, styles.imageInService]}
+        />
+        {!isSmallScreen && descriptionView}
       </Box>
+      {isSmallScreen && descriptionView}
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -60,7 +70,7 @@ const ServiceOfferCreatorView = ({
         {({ setFieldValue }) => (
           <Box
             component={Form}
-            sx={{ ...styles.form, ...styles.fieldsWrapper }}
+            sx={[commonStyles.form, commonStyles.fieldsWrapper]}
           >
             <Select
               label={t('animalLabel')}
@@ -85,14 +95,16 @@ const ServiceOfferCreatorView = ({
             )}
 
             {isSingleServiceFetched && (
-              <Box sx={styles.fieldsWrapper}>
-                <Box sx={styles.rowFields}>
+              <Box sx={commonStyles.fieldsWrapper}>
+                <Box sx={commonStyles.rowFields}>
                   <Input
                     label={t('price')}
                     name="price"
                     onlyNumbers
                     endAdornment={
-                      <Box sx={styles.inputAdornment}>{inputAdornment}</Box>
+                      <Box sx={commonStyles.inputAdornment}>
+                        {inputAdornment}
+                      </Box>
                     }
                     disabled={!isNegotiatingPrice}
                   />
@@ -115,21 +127,23 @@ const ServiceOfferCreatorView = ({
                   multiline
                 />
 
-                <WeekAvailability
-                  name="weekAvailability"
-                  daysAvailabilities={get(
-                    weekAvailability,
-                    'daysAvailabilities'
-                  )}
-                  isLoading={isLoadingWeek}
-                  dateFrom={get(weekAvailability, 'dateFrom')}
-                  onArrowClick={onWeekChange}
-                />
+                <Box sx={commonStyles.availabilityWrapper}>
+                  <WeekAvailability
+                    name="weekAvailability"
+                    daysAvailabilities={get(
+                      weekAvailability,
+                      'daysAvailabilities'
+                    )}
+                    isLoading={isLoadingWeek}
+                    dateFrom={get(weekAvailability, 'dateFrom')}
+                    onArrowClick={onWeekChange}
+                  />
+                </Box>
               </Box>
             )}
             {isLoading && <Loader />}
             {isSingleServiceFetched && (
-              <Button type="submit" sx={styles.submit}>
+              <Button type="submit" sx={commonStyles.submit}>
                 {t('submit')}
               </Button>
             )}

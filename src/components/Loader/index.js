@@ -7,7 +7,7 @@ import { Box } from '@mui/system';
 const Loader = ({ progress, sx }) => {
   return (
     <Box
-      sx={{ width: '100%', display: 'flex', justifyContent: 'center', ...sx }}
+      sx={[{ width: '100%', display: 'flex', justifyContent: 'center' }, sx]}
     >
       <CircularProgress
         size={20}
