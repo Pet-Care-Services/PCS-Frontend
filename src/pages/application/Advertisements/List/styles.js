@@ -1,4 +1,10 @@
-import { mdBreakpoint, smMidBreakpoint } from 'hooks/useBreakpoints';
+import {
+  mdBreakpoint,
+  smMidBreakpoint,
+  xlBreakpoint,
+} from 'hooks/useBreakpoints';
+
+const MAP_RIGHT_WIDTH = 400;
 
 export default {
   root: (theme) => ({
@@ -36,6 +42,10 @@ export default {
   }),
   contentWrapper: {
     flex: 1,
+    transition: (theme) => theme.transition.normal,
+  },
+  contentExpandedOnMapArea: {
+    marginRight: -MAP_RIGHT_WIDTH,
   },
   flexColumn: (theme) => ({
     display: 'flex',
@@ -51,23 +61,40 @@ export default {
     display: 'flex',
     justifyContent: 'center',
   },
-  mapWrapper: {
+  mapWrapper: (theme) => ({
     width: '100%',
-    height: 400,
+    height: MAP_RIGHT_WIDTH,
     margin: (theme) => theme.spacing(15, 0),
-  },
+
+    [xlBreakpoint(theme)]: {
+      width: MAP_RIGHT_WIDTH,
+      height: 'calc(100vh - 120px)',
+    },
+  }),
   map: {
     borderRadius: 10,
     marginTop: -5,
   },
   mapCollapse: (theme) => ({
+    transition: (theme) => theme.transition.normal,
     margin: theme.spacing(-10, 0),
 
+    [xlBreakpoint(theme)]: {
+      position: 'fixed',
+    },
     [mdBreakpoint(theme)]: {
       margin: theme.spacing(-5, 0),
     },
   }),
+  mapShifted: {
+    marginLeft: (theme) => `${theme.spacing(MAP_RIGHT_WIDTH)} !important`,
+  },
   loadMoreLoader: {
     marginTop: 10,
+  },
+  mapOnRightWrapper: {
+    width: MAP_RIGHT_WIDTH,
+    height: '100%',
+    position: 'relative',
   },
 };

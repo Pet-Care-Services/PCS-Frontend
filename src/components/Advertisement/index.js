@@ -43,12 +43,8 @@ const Advertisement = ({
   onContactClick,
 }) => {
   const { t } = useTranslation();
-  const {
-    isExtraLargeScreen,
-    isLargeScreen,
-    isMediumScreen,
-    isExtraSmallScreen,
-  } = useBreakpoints();
+  const { isLargeScreen, isMediumScreen, isExtraSmallScreen } =
+    useBreakpoints();
 
   const theme = useTheme();
   const navigate = useNavigate();
@@ -88,7 +84,7 @@ const Advertisement = ({
         collapsedSize={getCollapsedSize(isLargeScreen, isMediumScreen)}
         sx={styles.collapse}
       >
-        <Box onClick={onBoxClick} sx={styles.root}>
+        <Box onClick={onBoxClick} sx={styles.content}>
           <Box sx={styles.collapsedBox}>
             <Box component="img" sx={styles.imageBox} src={image} />
             <Box sx={styles.centerColumnBox}>
@@ -109,7 +105,7 @@ const Advertisement = ({
               <Box sx={styles.locationBox}>
                 <Icon
                   Component={FmdGoodIcon}
-                  size={isExtraLargeScreen ? 'large' : 'medium'}
+                  size={isLargeScreen ? 'medium' : 'large'}
                 />
                 <Typography
                   noWrap

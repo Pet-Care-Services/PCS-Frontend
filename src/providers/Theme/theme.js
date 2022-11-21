@@ -119,6 +119,7 @@ const common = {
       smMid: 850,
       md: 1024,
       lg: 1280,
+      xl: 1720,
     },
   },
 };

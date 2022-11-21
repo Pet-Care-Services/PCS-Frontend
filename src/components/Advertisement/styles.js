@@ -13,7 +13,7 @@ export default {
   collapse: {
     borderRadius: (theme) => theme.borderRadius.small,
   },
-  root: (theme) => ({
+  content: (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     height: '100%',

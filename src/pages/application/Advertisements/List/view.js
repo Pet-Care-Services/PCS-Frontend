@@ -37,7 +37,7 @@ const ListView = ({
   hasNextPage,
 }) => {
   const { t } = useTranslation();
-  const { isSmallScreen } = useBreakpoints();
+  const { isSmallScreen, isExtraLargeScreen } = useBreakpoints();
   const [isMapVisible, setIsMapVisible] = useState(false);
   const { userId } = useUserData();
   const { expandedAdvertisementIndex, onAdvertisementClick } =
@@ -47,6 +47,31 @@ const ListView = ({
 
   const isMapMountedInHTML =
     isMapVisible || process.env.REACT_APP_ENV === ENV.PRODUCTION;
+
+  const mapView = (
+    <Collapse
+      in={isMapVisible}
+      orientation={isExtraLargeScreen ? 'horizontal' : 'vertical'}
+      timeout={500}
+      sx={[
+        styles.mapCollapse,
+        isExtraLargeScreen && !isMapVisible && styles.mapShifted,
+      ]}
+    >
+      <TileWrapper sx={styles.mapWrapper}>
+        {isMapMountedInHTML && (
+          <Map
+            markers={markers}
+            onMarkerClick={(...args) => {
+              setIsMapVisible(false);
+              onMarkerClick(...args);
+            }}
+            sx={styles.map}
+          />
+        )}
+      </TileWrapper>
+    </Collapse>
+  );
 
   return (
     <Box sx={styles.root}>
@@ -66,21 +91,16 @@ const ListView = ({
           sx={styles.filters}
         />
       </Box>
-      <Box sx={[styles.contentWrapper, styles.flexColumn]}>
-        <Collapse in={isMapVisible} sx={styles.mapCollapse}>
-          <TileWrapper sx={styles.mapWrapper}>
-            {isMapMountedInHTML && (
-              <Map
-                markers={markers}
-                onMarkerClick={(...args) => {
-                  setIsMapVisible(false);
-                  onMarkerClick(...args);
-                }}
-                sx={styles.map}
-              />
-            )}
-          </TileWrapper>
-        </Collapse>
+      <Box
+        sx={[
+          styles.contentWrapper,
+          styles.flexColumn,
+          isExtraLargeScreen &&
+            !isMapVisible &&
+            styles.contentExpandedOnMapArea,
+        ]}
+      >
+        {!isExtraLargeScreen && mapView}
         {isLoading && <Loader />}
         {!isLoading && isEmpty(data) && (
           <Box sx={styles.centered}>
@@ -111,6 +131,7 @@ const ListView = ({
           </Box>
         </Box>
       </Box>
+      {isExtraLargeScreen && <Box sx={styles.mapOnRightWrapper}>{mapView}</Box>}
     </Box>
   );
 };
