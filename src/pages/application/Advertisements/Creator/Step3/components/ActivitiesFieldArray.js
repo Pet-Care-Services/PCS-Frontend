@@ -9,6 +9,7 @@ import Button from 'components/Button';
 import Icon from 'components/Icon';
 import Select from 'components/Select';
 import commonStyles from 'consts/commonStyles';
+import useBreakpoints from 'hooks/useBreakpoints';
 import optionsShape from 'shapes/optionsShape';
 import filterOptionsForNotUsed from 'utils/filterOptionsForNotUsed';
 import { initialActivityData } from '../consts';
@@ -16,6 +17,7 @@ import styles from '../styles';
 
 const ActivitiesFieldArray = ({ activities, activitiesOptions, errors }) => {
   const { t } = useTranslation();
+  const { isMediumScreen } = useBreakpoints();
 
   return (
     <FieldArray
@@ -26,7 +28,7 @@ const ActivitiesFieldArray = ({ activities, activitiesOptions, errors }) => {
             const withError = get(errors, `activities[${index}]`);
 
             return (
-              <Box sx={styles.multiFieldLine} key={index}>
+              <Box sx={[styles.multiFieldLine, styles.noWrap]} key={index}>
                 <Select
                   label={t('service')}
                   name={`activities[${index}].id`}
@@ -35,7 +37,7 @@ const ActivitiesFieldArray = ({ activities, activitiesOptions, errors }) => {
                     activities,
                     activities[index]
                   )}
-                  sx={styles.field}
+                  sx={isMediumScreen ? styles.fullWidthField : styles.field}
                 />
                 {activities.length > 1 && (
                   <Icon

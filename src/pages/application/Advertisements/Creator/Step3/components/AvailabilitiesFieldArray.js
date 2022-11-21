@@ -12,6 +12,7 @@ import Icon from 'components/Icon';
 import IconCheck from 'components/IconCheck';
 import Select from 'components/Select';
 import commonStyles from 'consts/commonStyles';
+import useBreakpoints from 'hooks/useBreakpoints';
 import availabilitiesShape from 'shapes/availabilitiesShape';
 import optionsShape from 'shapes/optionsShape';
 import { initialAvailabilityData } from '../consts';
@@ -23,17 +24,21 @@ const AvailabilitiesFieldArray = ({
   errors,
 }) => {
   const { t } = useTranslation();
+  const { isSmallScreen } = useBreakpoints();
 
   return (
     <FieldArray
       name="availabilities"
       render={(arrayHelpers) => (
-        <Box sx={styles.form}>
+        <Box sx={[styles.form, styles.largeGap]}>
           {map(availabilities, (_, index) => {
             const withError = get(errors, `availabilities[${index}]`);
 
             return (
-              <Box sx={styles.multiFieldLine} key={index}>
+              <Box
+                sx={isSmallScreen ? styles.column : styles.multiFieldLine}
+                key={index}
+              >
                 <DatePicker
                   label={t('from')}
                   name={`availabilities.${index}.from`}
@@ -44,33 +49,35 @@ const AvailabilitiesFieldArray = ({
                   name={`availabilities.${index}.to`}
                   sx={styles.dateField}
                 />
-                <IconCheck
-                  name={`availabilities.${index}.cyclic`}
-                  Component={RepeatIcon}
-                  sx={{
-                    ...styles.selfCentered,
-                    ...(withError && commonStyles.fixErrorShifting),
-                  }}
-                />
-                {availabilities[index].cyclic && (
-                  <Select
-                    label={t('repeat')}
-                    name={`availabilities.${index}.period`}
-                    options={periodOptions}
-                    sx={styles.narrowField}
-                  />
-                )}
-                {availabilities.length > 1 && (
-                  <Icon
-                    onClick={() => arrayHelpers.remove(index)}
-                    Component={DeleteIcon}
+                <Box sx={styles.row}>
+                  <IconCheck
+                    name={`availabilities.${index}.cyclic`}
+                    Component={RepeatIcon}
                     sx={{
-                      ...styles.deleteIcon,
                       ...styles.selfCentered,
                       ...(withError && commonStyles.fixErrorShifting),
                     }}
                   />
-                )}
+                  {availabilities[index].cyclic && (
+                    <Select
+                      label={t('repeat')}
+                      name={`availabilities.${index}.period`}
+                      options={periodOptions}
+                      sx={styles.narrowField}
+                    />
+                  )}
+                  {availabilities.length > 1 && (
+                    <Icon
+                      onClick={() => arrayHelpers.remove(index)}
+                      Component={DeleteIcon}
+                      sx={{
+                        ...styles.deleteIcon,
+                        ...styles.selfCentered,
+                        ...(withError && commonStyles.fixErrorShifting),
+                      }}
+                    />
+                  )}
+                </Box>
               </Box>
             );
           })}

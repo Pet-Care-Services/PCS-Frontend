@@ -1,15 +1,23 @@
+import { mdBreakpoint } from 'hooks/useBreakpoints';
 import addOpacity from 'utils/addOpacity';
 
 const SIZE = 300;
+const SMALL_SIZE = 200;
 const BOTTOM_BAR_SIZE = 80;
+const SMALL_BOTTOM_BAR_SIZE = 40;
 
 export default {
-  root: {
+  root: (theme) => ({
     position: 'relative',
     width: SIZE,
     height: SIZE,
     borderRadius: '50%',
-  },
+
+    [mdBreakpoint(theme)]: {
+      width: SMALL_SIZE,
+      height: SMALL_SIZE,
+    },
+  }),
   clickable: {
     cursor: 'pointer',
   },
@@ -22,7 +30,7 @@ export default {
     border: (theme) =>
       `${theme.spacing(3)} solid ${theme.palette.primary.main}`,
   },
-  bottomBar: {
+  bottomBar: (theme) => ({
     width: '100%',
     height: '100%',
     backgroundColor: (theme) => addOpacity(theme.palette.primary.main, 75),
@@ -31,12 +39,21 @@ export default {
     clipPath: `ellipse(50% 50% at 50% ${-BOTTOM_BAR_SIZE}px)`,
     display: 'flex',
     justifyContent: 'center',
-  },
-  title: {
+
+    [mdBreakpoint(theme)]: {
+      bottom: -SMALL_SIZE / 2 - SMALL_BOTTOM_BAR_SIZE,
+      clipPath: `ellipse(50% 50% at 50% ${-SMALL_BOTTOM_BAR_SIZE}px)`,
+    },
+  }),
+  title: (theme) => ({
     color: (theme) => theme.palette.white,
     marginTop: 20,
     height: 'fit-content',
-  },
+
+    [mdBreakpoint(theme)]: {
+      marginTop: 10,
+    },
+  }),
   fadeBlock: {
     width: '100%',
     height: '100%',
