@@ -5,6 +5,7 @@ const conversationOptionsShape = PropTypes.arrayOf(
   PropTypes.exact({
     id: stringOrNumberShape,
     image: PropTypes.string,
+    name: PropTypes.string,
   })
 );
 

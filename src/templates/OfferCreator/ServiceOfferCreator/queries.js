@@ -21,15 +21,8 @@ const getServiceQuery = (userId, animalId, activityId) => {
 
 const IDENTIFIED_SERVICE_KEY = 'IDENTIFIED_SERVICE';
 
-const postConversation = ({ userId }) => {
-  return axios.post('/conversations', {
-    userId,
-  });
-};
-
 export {
   getServiceActivitiesQuery,
-  postConversation,
   getServiceQuery,
   SERVICE_ACTIVITIES_KEY,
   IDENTIFIED_SERVICE_KEY,

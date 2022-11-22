@@ -1,9 +1,10 @@
 import { map } from 'lodash';
 
 const prepareConversationOptions = (data) =>
-  map(data, (id) => ({
-    id,
-    image: require('assets/mockPhoto.jpg'),
+  map(data, (conversation) => ({
+    id: conversation.conversationId,
+    image: conversation.avatar,
+    name: `${conversation.firstName} ${conversation.lastName}`,
   }));
 
 const prepareMessages = (data) =>

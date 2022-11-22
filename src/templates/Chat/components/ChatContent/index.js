@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { get, map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import CloseIcon from '@mui/icons-material/Close';
+import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import ChatOffer from 'components/ChatOffer';
 import Icon from 'components/Icon';
@@ -20,6 +21,7 @@ const ChatContent = ({
   onSendMessage,
   messages,
   loading,
+  name,
 }) => {
   const endRef = useRef();
   const { closeChat } = useChat();
@@ -31,7 +33,7 @@ const ChatContent = ({
   return (
     <Box sx={[styles.column, styles.root]}>
       <Box sx={styles.header}>
-        <Box>John Doe</Box>
+        <Typography variant="h2">{name}</Typography>
         <Icon Component={CloseIcon} onClick={closeChat} />
       </Box>
       <Box sx={[styles.column, styles.content]}>
@@ -101,6 +103,7 @@ ChatContent.propTypes = {
   onRejectOffer: PropTypes.func,
   onOfferLinkClick: PropTypes.func,
   onSendMessage: PropTypes.func,
+  name: PropTypes.string,
 };
 
 ChatContent.defaultProps = {
@@ -110,6 +113,7 @@ ChatContent.defaultProps = {
   onRejectOffer: noop,
   onOfferLinkClick: noop,
   onSendMessage: noop,
+  name: '',
 };
 
 export default ChatContent;
