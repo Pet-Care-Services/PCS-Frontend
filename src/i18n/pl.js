@@ -17,6 +17,7 @@ export default {
       unknown: 'Coś poszło nie tak...',
       sendEmail: 'Napotkaliśmy problem podczas wysyłania maila...',
       sessionExpired: 'Sesja wygasła. Zaloguj się ponownie',
+      pageNotFound: 'Nie znaleziono strony',
     },
     priceType: {
       single: 'Jednorazowo',
@@ -172,7 +173,6 @@ export default {
     editProfile: 'Edytuj profil',
     save: 'Zapisz',
     cancel: 'Anuluj',
-    pageNotFound: 'Nie znaleziono strony',
     changePassword: 'Zmień hasło',
     yourPasswordHasBeenChanged: 'Twoje hasło zostało zmienione',
     saveFormToUploadPhoto: 'Zapisz formularz aby zdjęcie zostało przesłane',
