@@ -6,6 +6,7 @@ import SidebarProvider from 'providers/Sidebar';
 import SnackbarProvider from 'providers/Snackbar';
 import AppThemeProvider from 'providers/Theme';
 import UserDataProvider from 'providers/UserData';
+import ErrorBoundary from './ErrorBoundary';
 
 const AllProviders = ({ children }) => (
   <UserDataProvider>
@@ -13,7 +14,9 @@ const AllProviders = ({ children }) => (
       <SnackbarProvider>
         <ChatProvider>
           <DialogProvider>
-            <SidebarProvider>{children}</SidebarProvider>
+            <SidebarProvider>
+              <ErrorBoundary>{children}</ErrorBoundary>
+            </SidebarProvider>
           </DialogProvider>
         </ChatProvider>
       </SnackbarProvider>

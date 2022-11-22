@@ -17,6 +17,7 @@ export default {
       unknown: 'Something went wrong...',
       sendEmail: 'We encountered an error while sending the email...',
       sessionExpired: 'Session expired. Please log in again',
+      pageNotFound: 'Page not found',
     },
     priceType: {
       single: 'Once',
@@ -172,7 +173,6 @@ export default {
     editProfile: 'Edit profile',
     save: 'Save',
     cancel: 'Cancel',
-    pageNotFound: 'Page not found',
     changePassword: 'Change password',
     yourPasswordHasBeenChanged: 'Your password has been changed',
     saveFormToUploadPhoto: 'Save the form to upload new photo',

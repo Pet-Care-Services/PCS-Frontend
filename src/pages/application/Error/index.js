@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
-const Page404 = () => {
+const Error = ({ code }) => {
   const { t } = useTranslation();
 
   return (
@@ -13,6 +14,7 @@ const Page404 = () => {
         flexDirection: 'column',
         gap: 10,
         alignItems: 'center',
+        paddingTop: 20,
       }}
     >
       <Box
@@ -22,9 +24,15 @@ const Page404 = () => {
         sx={{ width: 100 }}
       />
       <Typography variant="h2" sx={{ fontSize: 30 }}>
-        {t('pageNotFound')}
+        {code === 404 && t('error.pageNotFound')}
+        {code === 500 && t('error.unknown')}
       </Typography>
     </Box>
   );
 };
-export default Page404;
+
+Error.propTypes = {
+  code: PropTypes.oneOf([404, 500]).isRequired,
+};
+
+export default Error;
