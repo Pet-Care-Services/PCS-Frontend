@@ -41,6 +41,7 @@ export default {
     },
   }),
   contentWrapper: {
+    zIndex: 1,
     flex: 1,
     transition: (theme) => theme.transition.normal,
   },
