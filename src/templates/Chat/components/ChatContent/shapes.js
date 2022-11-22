@@ -21,6 +21,7 @@ const messagesShape = PropTypes.arrayOf(
       priceType: priceTypeShape,
       startTime: PropTypes.string,
       endTime: PropTypes.string,
+      oferPhoto: PropTypes.string,
     }),
   })
 );
