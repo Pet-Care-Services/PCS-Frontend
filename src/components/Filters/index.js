@@ -30,7 +30,7 @@ const Filters = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const Wrapper = isSmallMidScreen ? Collapse : Box;
   const wrapperProps = isSmallMidScreen
-    ? { in: isExpanded, collapsedSize: 20, sx: styles.collapse }
+    ? { in: isExpanded, collapsedSize: 25, sx: styles.collapse }
     : {};
 
   return (

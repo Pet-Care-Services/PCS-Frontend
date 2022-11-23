@@ -30,6 +30,9 @@ export default {
     borderRadius: (theme) => theme.borderRadius.tiny,
     transition: (theme) => theme.transition,
     cursor: 'pointer',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
 
     '&:hover': {
       backgroundColor: (theme) => theme.palette.secondary.main,

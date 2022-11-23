@@ -29,7 +29,7 @@ export default {
   },
   expandIcon: {
     position: 'absolute',
-    top: 8,
+    top: 10,
     right: 10,
   },
 };
