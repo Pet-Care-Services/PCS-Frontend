@@ -29,7 +29,7 @@ const Topbar = ({
   const { isSmallScreen } = useBreakpoints();
 
   return (
-    <MuiAppBar position="static" sx={styles.root}>
+    <MuiAppBar position="fixed" sx={styles.root}>
       <MuiToolbar sx={styles.toolbar}>
         <Box sx={styles.icons}>
           <Icon size="large" Component={MenuIcon} onClick={onMenuClick} />

@@ -14,6 +14,8 @@ const ApplicationLayout = () => {
   const navigate = useNavigate();
   const { isMediumScreen } = useBreakpoints();
 
+  const basePadding = isMediumScreen ? 20 : 40;
+
   return (
     <Box
       sx={{
@@ -33,7 +35,8 @@ const ApplicationLayout = () => {
       <Box
         sx={{
           flex: 1,
-          padding: isMediumScreen ? 20 : 40,
+          padding: basePadding,
+          paddingTop: basePadding + 50,
         }}
       >
         <Outlet />
