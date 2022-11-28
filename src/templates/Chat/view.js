@@ -12,6 +12,7 @@ import styles from './styles';
 const ChatView = ({
   conversationOptions,
   activeConversationId,
+  activeConversatorName,
   messages,
   onConversationClick,
   onSendMessage,
@@ -37,6 +38,7 @@ const ChatView = ({
           messages={messages}
           loading={isLoadingMessages}
           onSendMessage={onSendMessage}
+          name={activeConversatorName}
         />
       </Box>
     </Box>
@@ -54,6 +56,7 @@ ChatView.propTypes = {
   onOfferLinkClick: PropTypes.func,
   isLoadingConversations: PropTypes.bool,
   isLoadingMessages: PropTypes.bool,
+  activeConversatorName: PropTypes.string,
 };
 
 ChatView.defaultProps = {
@@ -67,6 +70,7 @@ ChatView.defaultProps = {
   onOfferLinkClick: noop,
   isLoadingConversations: true,
   isLoadingMessages: true,
+  activeConversatorName: '',
 };
 
 export default ChatView;

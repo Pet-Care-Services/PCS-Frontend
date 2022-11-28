@@ -18,13 +18,20 @@ import ChatView from './view';
 const ChatContainer = () => {
   const navigate = useNavigate();
   const { closeChat } = useChat();
-  const [activeConversationId, setActiveConversationId] = useState(null);
+  const [activeConversation, setActiveConversation] = useState({
+    id: null,
+    name: null,
+  });
 
   const { data: conversationsData, isLoading: isLoadingConversations } =
     useQuery(CONVERSATIONS_KEY, getConversations, {
       refetchOnWindowFocus: false,
       onSuccess: (data) => {
-        setActiveConversationId(data.data[0]);
+        const firstConversation = data.data[0];
+        setActiveConversation({
+          id: firstConversation.conversationId,
+          name: `${firstConversation.firstName} ${firstConversation.lastName}`,
+        });
       },
     });
 
@@ -33,12 +40,12 @@ const ChatContainer = () => {
     isLoading: isLoadingMessages,
     refetch: refetchMessages,
   } = useQuery(
-    [MESSAGES_KEY, activeConversationId],
-    () => getMessages(activeConversationId),
+    [MESSAGES_KEY, activeConversation.id],
+    () => getMessages(activeConversation.id),
     {
       refetchOnWindowFocus: false,
       refetchInterval: 5000, // TODO usunąć przy podejściu socketowym
-      enabled: !isNil(activeConversationId),
+      enabled: !isNil(activeConversation.id),
     }
   );
 
@@ -54,12 +61,12 @@ const ChatContainer = () => {
     },
   });
 
-  const onConversationClick = (id) => {
-    setActiveConversationId(id);
+  const onConversationClick = (data) => {
+    setActiveConversation(data);
   };
 
   const onSendMessage = ({ message }, { resetForm }) => {
-    sendMessage({ conversationId: activeConversationId, text: message });
+    sendMessage({ conversationId: activeConversation.id, text: message });
     resetForm();
   };
 
@@ -90,7 +97,8 @@ const ChatContainer = () => {
   return (
     <ChatView
       conversationOptions={conversationOptions}
-      activeConversationId={activeConversationId}
+      activeConversationId={activeConversation.id}
+      activeConversatorName={activeConversation.name}
       onConversationClick={onConversationClick}
       onSendMessage={onSendMessage}
       onAcceptOffer={onAcceptOffer}
