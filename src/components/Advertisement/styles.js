@@ -46,7 +46,11 @@ export default {
     },
     [mdBreakpoint(theme)]: {
       width: 120,
-      height: 80,
+      height: 90,
+    },
+    [smBreakpoint(theme)]: {
+      width: 80,
+      height: 105,
     },
   }),
   centerColumnBox: {
@@ -54,6 +58,7 @@ export default {
     flexGrow: 10,
     flexDirection: 'column',
     justifyContent: 'space-between',
+    gap: 5,
   },
   tagsBox: {
     display: 'flex',
@@ -78,6 +83,10 @@ export default {
   justifyEndBox: {
     display: 'flex',
     justifyContent: 'flex-end',
+  },
+  justifySpaceBetweenBox: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   expandedBox: {
     height: '100%',
@@ -114,8 +123,8 @@ export default {
     [mdBreakpoint(theme)]: {
       width: 150,
     },
-    [xsBreakpoint(theme)]: {
-      width: 100,
+    [smBreakpoint(theme)]: {
+      width: 180,
     },
   }),
   author: {

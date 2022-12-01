@@ -43,8 +43,7 @@ const Advertisement = ({
   onContactClick,
 }) => {
   const { t } = useTranslation();
-  const { isLargeScreen, isMediumScreen, isExtraSmallScreen } =
-    useBreakpoints();
+  const { isLargeScreen, isMediumScreen, isSmallScreen } = useBreakpoints();
 
   const theme = useTheme();
   const navigate = useNavigate();
@@ -70,36 +69,62 @@ const Advertisement = ({
   }
 
   let locationTextVariant = 'h1';
+  let priceTextVariant = 'h2';
   if (isLargeScreen) {
     locationTextVariant = 'h3';
+    priceTextVariant = 'h4';
   }
   if (isMediumScreen) {
     locationTextVariant = 'body';
   }
+  if (isSmallScreen) {
+    priceTextVariant = 'body';
+  }
+
+  const ratingAndPriceView = (
+    <>
+      <Rating value={starsValue} size={isLargeScreen ? 'small' : 'medium'} />
+      <PriceRange
+        from={price.from}
+        to={price.to}
+        type={price.priceType}
+        textVariant={priceTextVariant}
+      />
+    </>
+  );
 
   return (
     <TileWrapper>
       <Collapse
         in={isExpanded}
-        collapsedSize={getCollapsedSize(isLargeScreen, isMediumScreen)}
+        collapsedSize={getCollapsedSize(
+          isLargeScreen,
+          isMediumScreen,
+          isSmallScreen
+        )}
         sx={styles.collapse}
       >
         <Box onClick={onBoxClick} sx={styles.content}>
           <Box sx={styles.collapsedBox}>
             <Box component="img" sx={styles.imageBox} src={image} />
             <Box sx={styles.centerColumnBox}>
+              {isSmallScreen && (
+                <Box sx={styles.justifySpaceBetweenBox}>
+                  {ratingAndPriceView}
+                </Box>
+              )}
               <Box sx={styles.tagsBox}>
                 <TagList
                   labels={activities}
                   modelKey="activity"
                   color={theme.palette.neutral.main}
-                  amountToFit={isExtraSmallScreen ? 1 : 2}
+                  amountToFit={isSmallScreen ? 1 : 2}
                 />
                 <TagList
                   labels={animals}
                   modelKey="animal"
                   color={theme.palette.secondary.dark}
-                  amountToFit={isExtraSmallScreen ? 1 : 2}
+                  amountToFit={isSmallScreen ? 1 : 2}
                 />
               </Box>
               <Box sx={styles.locationBox}>
@@ -116,18 +141,9 @@ const Advertisement = ({
                 </Typography>
               </Box>
             </Box>
-            <Box sx={styles.rightColumnBox}>
-              <Rating
-                value={starsValue}
-                size={isLargeScreen ? 'small' : 'medium'}
-              />
-              <PriceRange
-                from={price.from}
-                to={price.to}
-                type={price.priceType}
-                textVariant={isMediumScreen ? 'h4' : 'h2'}
-              />
-            </Box>
+            {!isSmallScreen && (
+              <Box sx={styles.rightColumnBox}>{ratingAndPriceView}</Box>
+            )}
           </Box>
           <Box sx={styles.expandedBox}>
             <Typography variant="h3">
