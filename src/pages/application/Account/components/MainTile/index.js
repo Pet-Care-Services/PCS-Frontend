@@ -47,7 +47,7 @@ const MainTileView = ({
   const initialValues = {
     firstName,
     lastName,
-    description,
+    description: description || '',
     email,
     mobile,
     gender,

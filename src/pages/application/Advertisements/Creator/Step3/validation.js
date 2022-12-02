@@ -1,3 +1,4 @@
+import { isAfter } from 'date-fns';
 import * as Yup from 'yup';
 
 const getValidation = (t, isService) =>
@@ -24,8 +25,10 @@ const getValidation = (t, isService) =>
     }),
     availabilities: Yup.array().of(
       Yup.object({
-        from: Yup.string().required(t('validation.required')),
-        to: Yup.string().required(t('validation.required')),
+        from: Yup.date().required(t('validation.required')),
+        to: Yup.date()
+          .required(t('validation.required'))
+          .min(Yup.ref('from'), t('validation.endDate')),
         cyclic: Yup.bool().required(t('validation.required')),
         period: Yup.string().required(t('validation.required')),
       })
