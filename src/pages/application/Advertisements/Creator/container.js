@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { map, omit } from 'lodash';
+import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { IMG_PLACEHOLDER_PUBLIC_URL } from 'consts/config';
 import { ITEM_TYPE, S3_DIRECTORY } from 'consts/enums';
 import { getPinByAddressFromGoogleAPI } from 'consts/queries';
 import useAWSUpload from 'hooks/useAWSUpload';
+import useSnackbar from 'hooks/useSnackbar';
 import formatLocation from 'utils/formatLocation';
 import setAPIDateFormat from 'utils/setAPIDateFormat';
 import { postRequest, postService } from './queries';
@@ -21,6 +23,8 @@ const AdvertismentCreator = () => {
     isLoading: isLoadingAWSSubmit,
     progress: progressAWSSubmit,
   } = useAWSUpload();
+  const { openSnackbar } = useSnackbar();
+  const { t } = useTranslation();
 
   const { isLoading: isLoadingPostRequest, mutate: submitRequest } =
     useMutation(postRequest, {
@@ -56,9 +60,15 @@ const AdvertismentCreator = () => {
   };
 
   const handleDataSubmit = async (values) => {
-    const latLng = await getPinByAddressFromGoogleAPI(
-      `${formatLocation(values.location)}, ${values.location.postalCode}`
-    );
+    let latLng;
+    try {
+      latLng = await getPinByAddressFromGoogleAPI(
+        `${formatLocation(values.location)}, ${values.location.postalCode}`
+      );
+    } catch (err) {
+      openSnackbar(t('error.locationNotFound'));
+      return;
+    }
 
     const isService = type === ITEM_TYPE.SERVICE;
 
