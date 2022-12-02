@@ -81,6 +81,7 @@ const SignupView = ({
                   name="birthdate"
                   label={t('birthdate')}
                   withTime={false}
+                  disableFuture
                 />
               </Box>
               {!isExtraSmallScreen && avatarWithButton}
