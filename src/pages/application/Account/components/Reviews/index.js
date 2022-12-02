@@ -16,6 +16,7 @@ import Rating from 'components/Rating';
 import TileWrapper from 'components/TileWrapper';
 import { datetimeFormat } from 'consts/dateFormats';
 import useBreakpoints from 'hooks/useBreakpoints';
+import useUserData from 'hooks/useUserData';
 import { reviewsShape } from '../../shapes';
 import commonStyles from '../../styles';
 import styles from './styles';
@@ -24,12 +25,13 @@ import getValidation from './validation';
 const ReviewsView = ({ reviews, isMyAccount, isLoading, onSubmitReview }) => {
   const { t } = useTranslation();
   const { isSmallScreen } = useBreakpoints();
+  const { isLoggedIn } = useUserData();
   const navigate = useNavigate();
 
   return (
     <Box sx={[commonStyles.column, styles.root]}>
       <Typography variant="h1">{t('reviews')}</Typography>
-      {!isMyAccount && (
+      {isLoggedIn && !isMyAccount && (
         <Formik
           initialValues={{ stars: null, content: '' }}
           onSubmit={(values, { resetForm }) => {
@@ -42,7 +44,9 @@ const ReviewsView = ({ reviews, isMyAccount, isLoading, onSubmitReview }) => {
         >
           <Box component={Form} sx={styles.form}>
             <Rating name="stars" isFormField />
-            <Input name="content" label={t('content')} multiline />
+            <Box sx={{ width: '100%' }}>
+              <Input name="content" label={t('content')} multiline />
+            </Box>
             <Button type="submit">{t('submit')}</Button>
             {isLoading && <Loader />}
           </Box>
