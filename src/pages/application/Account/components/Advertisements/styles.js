@@ -1,6 +1,6 @@
 import commonStyles from 'consts/commonStyles';
 
-export default {
+export default (isDarkMode) => ({
   switchButtons: {
     display: 'flex',
     height: 50,
@@ -9,6 +9,7 @@ export default {
     flex: 1,
     transition: (theme) => theme.transition.normal,
     cursor: 'pointer',
+    color: (theme) => theme.palette.black,
     ...commonStyles.centered,
 
     '&:hover': {
@@ -25,10 +26,10 @@ export default {
   },
   switchButtonActive: {
     backgroundColor: (theme) => theme.palette.primary.main,
-    color: (theme) => theme.palette.white,
+    color: (theme) => (isDarkMode ? theme.palette.black : theme.palette.white),
 
     '&:hover': {
       backgroundColor: (theme) => theme.palette.primary.main,
     },
   },
-};
+});

@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { useTheme as useMUITheme } from '@mui/material';
 import { ThemeContext } from 'providers/Theme';
 import { actions } from 'providers/Theme/reducer';
+import { MODE } from 'providers/Theme/theme';
 
 const useTheme = () => {
   const context = useContext(ThemeContext);
@@ -20,6 +21,7 @@ const useTheme = () => {
   return {
     ...MUITheme,
     mode: context.state.mode,
+    isDarkMode: context.state.mode === MODE.DARK,
     toggleTheme,
   };
 };

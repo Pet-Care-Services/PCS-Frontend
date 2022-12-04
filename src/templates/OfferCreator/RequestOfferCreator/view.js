@@ -108,7 +108,9 @@ const RequestOfferCreatorView = ({
               helperText={t('optional')}
               multiline
             />
-            <Typography variant="h2">{t('availability')}</Typography>
+            <Typography variant="h2" sx={styles.text}>
+              {t('availability')}
+            </Typography>
             <TextAvailability availabilities={availabilities} />
             {isLoading && <Loader />}
 

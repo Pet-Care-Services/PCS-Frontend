@@ -8,9 +8,10 @@ import EmptyState from 'components/EmptyState';
 import TileWrapper from 'components/TileWrapper';
 import { ITEM_TYPE } from 'consts/enums';
 import useExpandedAdvertisement from 'hooks/useExpandedAdvertisement';
+import useTheme from 'hooks/useTheme';
 import advertisementsShape from 'shapes/advertisementsShape';
 import commonStyles from '../../styles';
-import styles from './styles';
+import useStyles from './styles';
 
 const AdvertisementsView = ({
   onSwitchButtonClick,
@@ -19,8 +20,11 @@ const AdvertisementsView = ({
   isMyAccount,
 }) => {
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
   const { expandedAdvertisementIndex, onAdvertisementClick } =
     useExpandedAdvertisement(advertisements, itemType);
+
+  const styles = useStyles(isDarkMode);
 
   return (
     <>

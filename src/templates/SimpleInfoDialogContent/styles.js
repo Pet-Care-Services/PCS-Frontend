@@ -6,6 +6,7 @@ export default {
     flexDirection: 'column',
     alignItems: 'center',
     textAlign: 'center',
+    color: (theme) => theme.palette.black,
   },
   linksWrapper: (theme) => ({
     width: '100%',

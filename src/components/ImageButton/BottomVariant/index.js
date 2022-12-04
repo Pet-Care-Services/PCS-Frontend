@@ -1,26 +1,32 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import useTheme from 'hooks/useTheme';
 import { defaultPropsObject, propTypesObject } from '../shapes';
-import styles from './styles';
+import useStyles from './styles';
 
-const BottomVariant = ({ img, title, faded, onClick }) => (
-  <Box
-    onClick={onClick}
-    sx={{ ...styles.root, ...(onClick && styles.clickable) }}
-  >
-    <Box sx={styles.imgWrapper}>
-      <Box component="img" src={img} sx={styles.img} />
-      <Box sx={{ ...styles.fadeBlock, ...(faded && styles.faded) }} />
-    </Box>
-    <Typography
-      variant="h2"
-      sx={{ ...styles.title, ...(faded && styles.textFaded) }}
+const BottomVariant = ({ img, title, faded, onClick }) => {
+  const { isDarkMode } = useTheme();
+  const styles = useStyles(isDarkMode);
+
+  return (
+    <Box
+      onClick={onClick}
+      sx={{ ...styles.root, ...(onClick && styles.clickable) }}
     >
-      {title}
-    </Typography>
-  </Box>
-);
+      <Box sx={styles.imgWrapper}>
+        <Box component="img" src={img} sx={styles.img} />
+        <Box sx={{ ...styles.fadeBlock, ...(faded && styles.faded) }} />
+      </Box>
+      <Typography
+        variant="h2"
+        sx={{ ...styles.title, ...(faded && styles.textFaded) }}
+      >
+        {title}
+      </Typography>
+    </Box>
+  );
+};
 
 BottomVariant.propTypes = propTypesObject;
 

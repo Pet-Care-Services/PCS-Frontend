@@ -22,7 +22,9 @@ const LoginView = ({ onGoToSignup, onSubmit }) => {
       validateOnBlur={false}
     >
       <Box component={Form} sx={styles.root}>
-        <Typography variant="h1">{t('login')}</Typography>
+        <Typography variant="h1" sx={styles.headerText}>
+          {t('login')}
+        </Typography>
         <Input name="email" label={t('email')} />
         <Input name="password" type="password" label={t('password')} />
         <Button type="submit">{t('login')}</Button>

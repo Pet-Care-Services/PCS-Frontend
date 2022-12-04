@@ -76,7 +76,7 @@ const ChatOffer = ({
                 />
               }
               color={theme.palette.action.main}
-              labelColor={theme.palette.white}
+              labelColor={theme.palette.action.contrastText}
             />
             <Tag
               label={t(`animal.${animal.name}`)}

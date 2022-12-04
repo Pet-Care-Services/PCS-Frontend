@@ -109,4 +109,7 @@ export default {
       gap: 40,
     },
   }),
+  headerText: {
+    color: (theme) => theme.palette.black,
+  },
 };

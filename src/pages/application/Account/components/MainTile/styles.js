@@ -6,6 +6,7 @@ export default {
     padding: 20,
     gap: 20,
     width: '50%',
+    color: (theme) => theme.palette.black,
 
     [mdBreakpoint(theme)]: {
       width: '100%',

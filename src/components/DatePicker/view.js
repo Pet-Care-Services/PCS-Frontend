@@ -23,7 +23,15 @@ const DatePickerView = ({ field, name, withTime, disableFuture, ...props }) => {
             value={p.inputProps.value}
             name={name}
             endAdornment={
-              <Box sx={{ marginRight: 20 }} onClick={() => setOpen(true)}>
+              <Box
+                sx={{
+                  marginRight: 20,
+                  svg: {
+                    color: (theme) => theme.palette.black,
+                  },
+                }}
+                onClick={() => setOpen(true)}
+              >
                 {p.InputProps.endAdornment}
               </Box>
             }

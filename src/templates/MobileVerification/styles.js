@@ -9,6 +9,7 @@ export default {
     alignItems: 'center',
     rowGap: 10,
     textAlign: 'center',
+    color: (theme) => theme.palette.black,
   },
   codeInput: {
     marginTop: 20,

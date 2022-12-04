@@ -33,6 +33,7 @@ const lightColors = {
     dark: '#B00020',
   },
   action: {
+    contrastText: WHITE,
     dark: '#0d5991',
     main: '#2579B7',
     light: '#61bcff',
@@ -42,40 +43,30 @@ const lightColors = {
   placeholder: '#7d7d7d',
 };
 
-// TODO create dark theme
-const TEMP_DARK_1 = '#242424';
-const TEMP_DARK_2 = '#363636';
-const TEMP_DARK_3 = '#4a4a4a';
-
 const darkColors = {
   primary: {
     contrastText: WHITE,
-    light: TEMP_DARK_1,
-    main: TEMP_DARK_2,
-    dark: TEMP_DARK_3,
+    light: '#747b7d',
+    main: '#485659',
+    dark: '#262e30',
   },
   secondary: {
     contrastText: WHITE,
-    light: TEMP_DARK_1,
-    main: TEMP_DARK_2,
-    dark: TEMP_DARK_3,
+    light: NO_COLOR,
+    main: '#494d49',
+    dark: '#2e3830',
   },
   neutral: {
-    light: TEMP_DARK_1,
-    main: TEMP_DARK_2,
-    dark: TEMP_DARK_3,
+    contrastText: WHITE,
+    light: NO_COLOR,
+    main: '#666666',
+    dark: '#363636',
   },
-  error: {
-    light: TEMP_DARK_1,
-    main: TEMP_DARK_2,
-    dark: TEMP_DARK_3,
-  },
-  action: {
-    main: TEMP_DARK_2,
-  },
-  white: WHITE,
-  black: BLACK,
-  placeholder: '#7d7d7d',
+  error: lightColors.error,
+  action: lightColors.action,
+  white: BLACK,
+  black: WHITE,
+  placeholder: WHITE,
 };
 
 const common = {

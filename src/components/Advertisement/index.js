@@ -22,7 +22,7 @@ import priceShape from 'shapes/priceShape';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
 import TagList from '../TagList';
 import { getCollapsedSize } from './consts';
-import styles from './styles';
+import useStyles from './styles';
 
 const Advertisement = ({
   author,
@@ -51,6 +51,8 @@ const Advertisement = ({
     servicesIndices,
     isExpanded && isService
   );
+
+  const styles = useStyles(theme.isDarkMode);
 
   let availability;
   if (isService) {
@@ -118,12 +120,14 @@ const Advertisement = ({
                   labels={activities}
                   modelKey="activity"
                   color={theme.palette.neutral.main}
+                  labelColor={theme.palette.neutral.contrastText}
                   amountToFit={isSmallScreen ? 1 : 2}
                 />
                 <TagList
                   labels={animals}
                   modelKey="animal"
                   color={theme.palette.secondary.dark}
+                  labelColor={theme.palette.secondary.contrastText}
                   amountToFit={isSmallScreen ? 1 : 2}
                 />
               </Box>
@@ -131,6 +135,9 @@ const Advertisement = ({
                 <Icon
                   Component={FmdGoodIcon}
                   size={isLargeScreen ? 'medium' : 'large'}
+                  componentProps={{
+                    sx: styles.locationIcon,
+                  }}
                 />
                 <Typography
                   noWrap

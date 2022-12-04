@@ -62,4 +62,7 @@ export default {
       marginX: -20,
     },
   }),
+  text: {
+    color: (theme) => theme.palette.black,
+  },
 };

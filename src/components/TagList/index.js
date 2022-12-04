@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/system';
 import Tag from 'components/Tag';
 
-const TagList = ({ labels, modelKey, color, amountToFit }) => {
+const TagList = ({ labels, modelKey, color, labelColor, amountToFit }) => {
   const { t } = useTranslation();
   const size = labels.length;
   const tags = [];
@@ -15,6 +15,7 @@ const TagList = ({ labels, modelKey, color, amountToFit }) => {
         <Tag
           label={t(`${modelKey}.${labels[i]}`)}
           color={color}
+          labelColor={labelColor}
           key={`tag-${i}-${labels[i]}`}
         />
       );
@@ -26,6 +27,7 @@ const TagList = ({ labels, modelKey, color, amountToFit }) => {
       <Tag
         label={'+' + (size - amountToFit)}
         color={color}
+        labelColor={labelColor}
         key={`tag-has-more-${modelKey}`}
       />
     );
@@ -42,6 +44,7 @@ TagList.propTypes = {
   labels: PropTypes.arrayOf(PropTypes.string).isRequired,
   modelKey: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
+  labelColor: PropTypes.string.isRequired,
   amountToFit: PropTypes.number,
 };
 

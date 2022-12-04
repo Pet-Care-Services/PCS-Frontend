@@ -46,7 +46,11 @@ const ServiceOfferCreatorView = ({
     priceTypeToAbbreviationMap[priceType]
   }`;
 
-  const descriptionView = <Typography variant="body">{description}</Typography>;
+  const descriptionView = (
+    <Typography variant="body" sx={commonStyles.text}>
+      {description}
+    </Typography>
+  );
 
   return (
     <Box sx={commonStyles.root}>
