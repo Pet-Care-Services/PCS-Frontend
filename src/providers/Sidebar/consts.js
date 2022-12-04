@@ -22,14 +22,6 @@ const getSidebarItems = (navigate, userId) => [
     isLoginRequired: false,
   },
   {
-    id: 2,
-    titleKey: 'history',
-    iconSrc: HistoryIconSrc,
-    onClick: () => navigate('/application/history'),
-    activeUrl: '/application/history',
-    isLoginRequired: true,
-  },
-  {
     id: 3,
     titleKey: 'newAdvertisement',
     iconSrc: AddIconSrc,

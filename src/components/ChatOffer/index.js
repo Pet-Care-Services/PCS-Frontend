@@ -85,6 +85,7 @@ const ChatOffer = ({
             <TagList
               amountToFit={2}
               color={theme.palette.neutral.main}
+              labelColor={theme.palette.neutral.contrastText}
               modelKey="activity"
               labels={map(activities, ({ name }) => name)}
             />
