@@ -79,6 +79,7 @@ const getOptionsFields = (t, onMapButtonClick, isMapVisible, isSmallScreen) => [
       fieldType: FIELD_TYPES.SELECT,
       fieldProps: {
         options: getSortOptions(t),
+        disabled: true,
       },
     },
     {
@@ -87,6 +88,7 @@ const getOptionsFields = (t, onMapButtonClick, isMapVisible, isSmallScreen) => [
       fieldType: FIELD_TYPES.SELECT,
       fieldProps: {
         options: getOrderOptions(t),
+        disabled: true,
       },
     },
   ],
