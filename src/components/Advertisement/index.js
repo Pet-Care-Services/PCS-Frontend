@@ -29,7 +29,7 @@ const Advertisement = ({
   userId,
   activities,
   animals,
-  starsValue,
+  averageRating,
   price,
   location,
   image,
@@ -85,7 +85,7 @@ const Advertisement = ({
 
   const ratingAndPriceView = (
     <>
-      <Rating value={starsValue} size={isLargeScreen ? 'small' : 'medium'} />
+      <Rating value={averageRating} size={isLargeScreen ? 'small' : 'medium'} />
       <PriceRange
         from={price.from}
         to={price.to}
@@ -192,7 +192,7 @@ Advertisement.propTypes = {
   userId: stringOrNumberShape.isRequired,
   activities: PropTypes.array.isRequired,
   animals: PropTypes.array.isRequired,
-  starsValue: PropTypes.number.isRequired,
+  averageRating: PropTypes.number.isRequired,
   price: priceShape.isRequired,
   location: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,

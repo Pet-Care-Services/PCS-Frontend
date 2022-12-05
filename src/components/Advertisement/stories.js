@@ -18,7 +18,7 @@ const Advertisement = Template.bind({});
 Advertisement.args = {
   activities: ['Walking', 'Feeding', 'SthElse'],
   animals: ['Cat', 'Dog', 'Fish', 'Horse'],
-  starsValue: 4,
+  averageRating: 4,
   price: {
     from: 10,
     to: 20,
