@@ -73,6 +73,9 @@ const InputView = forwardRef(
         sx={[
           {
             width: '100%',
+            svg: {
+              color: (theme) => theme.palette.black,
+            },
           },
           sx,
         ]}
@@ -118,11 +121,13 @@ const InputView = forwardRef(
           sx: {
             margin: 0,
             fontSize: (theme) => theme.typography.tiny,
+            color: (theme) => theme.palette.black,
           },
         }}
         InputLabelProps={{
           shrink: shrink ? undefined : false,
           sx: {
+            color: (theme) => theme.palette.placeholder,
             ...(!shrink && value !== '' && { opacity: 0 }),
             transform: 'translate(14px, 14px) scale(1)',
             ...(!shrink && { transform: 'translate(14px, 7px) scale(1)' }),

@@ -76,7 +76,7 @@ const ChatOffer = ({
                 />
               }
               color={theme.palette.action.main}
-              labelColor={theme.palette.white}
+              labelColor={theme.palette.action.contrastText}
             />
             <Tag
               label={t(`animal.${animal.name}`)}
@@ -85,6 +85,7 @@ const ChatOffer = ({
             <TagList
               amountToFit={2}
               color={theme.palette.neutral.main}
+              labelColor={theme.palette.neutral.contrastText}
               modelKey="activity"
               labels={map(activities, ({ name }) => name)}
             />

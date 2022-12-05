@@ -19,6 +19,7 @@ const EmailVerification = ({ isLoading, isSuccess, redirectTime }) => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        color: (theme) => theme.palette.black,
       }}
     >
       {isLoading && <Loader />}

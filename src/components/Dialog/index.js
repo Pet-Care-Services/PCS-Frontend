@@ -16,6 +16,7 @@ const Dialog = ({ onClose, open, content, width }) => (
         height: 'auto',
         borderRadius: (theme) => theme.borderRadius.tiny,
         padding: 40,
+        backgroundColor: (theme) => theme.palette.white,
 
         [smBreakpoint(theme)]: {
           padding: 20,

@@ -7,7 +7,7 @@ import InputView from 'components/Input/view';
 import { dateFormat, datetimeFormat } from '../../consts/dateFormats';
 import { views } from './consts';
 
-const DatePickerView = ({ field, name, withTime, ...props }) => {
+const DatePickerView = ({ field, name, withTime, disableFuture, ...props }) => {
   const { setFieldValue } = useFormikContext();
   const [open, setOpen] = useState(false);
 
@@ -23,7 +23,15 @@ const DatePickerView = ({ field, name, withTime, ...props }) => {
             value={p.inputProps.value}
             name={name}
             endAdornment={
-              <Box sx={{ marginRight: 20 }} onClick={() => setOpen(true)}>
+              <Box
+                sx={{
+                  marginRight: 20,
+                  svg: {
+                    color: (theme) => theme.palette.black,
+                  },
+                }}
+                onClick={() => setOpen(true)}
+              >
                 {p.InputProps.endAdornment}
               </Box>
             }
@@ -42,6 +50,7 @@ const DatePickerView = ({ field, name, withTime, ...props }) => {
       onClose={() => setOpen(false)}
       minutesStep={15}
       mask={null}
+      disableFuture={disableFuture}
     />
   );
 };
@@ -50,10 +59,12 @@ DatePickerView.propTypes = {
   name: PropTypes.string.isRequired,
   field: PropTypes.any,
   withTime: PropTypes.bool,
+  disableFuture: PropTypes.bool,
 };
 
 DatePickerView.defaultProps = {
   withTime: true,
+  disableFuture: false,
 };
 
 export default DatePickerView;

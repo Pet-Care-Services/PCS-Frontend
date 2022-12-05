@@ -12,12 +12,16 @@ export default {
       invalidCode: 'Kod jest niepoprawny',
       invalidFileType: 'Format pliku jest niepoprawny',
       fileTooBig: 'Plik jest za duży. Maksymalny rozmiar to {{max}}MB',
+      endDate: 'Data końca nie może być przed datą startu',
+      adult: 'Musisz mieć co najmniej 18 lat',
     },
     error: {
       unknown: 'Coś poszło nie tak...',
       sendEmail: 'Napotkaliśmy problem podczas wysyłania maila...',
       sessionExpired: 'Sesja wygasła. Zaloguj się ponownie',
       pageNotFound: 'Nie znaleziono strony',
+      locationNotFound:
+        'Podana lokalizacja nie została odnaleziona. Proszę podać istniejącą lokalizację!',
     },
     priceType: {
       single: 'Jednorazowo',

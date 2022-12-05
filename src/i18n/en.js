@@ -12,12 +12,17 @@ export default {
       invalidCode: 'The code is invalid',
       invalidFileType: 'The file format is invalid',
       fileTooBig: 'Uploaded file is too big. Maximum size is {{max}}MB',
+      // eslint-disable-next-line quotes
+      endDate: "End date can't be before the start date",
+      adult: 'You have to be at least 18 years old',
     },
     error: {
       unknown: 'Something went wrong...',
       sendEmail: 'We encountered an error while sending the email...',
       sessionExpired: 'Session expired. Please log in again',
       pageNotFound: 'Page not found',
+      locationNotFound:
+        'Provided location seems to be wrong. Please provide an existing one!',
     },
     priceType: {
       single: 'Once',

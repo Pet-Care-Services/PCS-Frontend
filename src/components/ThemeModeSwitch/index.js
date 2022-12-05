@@ -6,14 +6,12 @@ import useTheme from 'hooks/useTheme';
 import { MODE } from 'providers/Theme/theme';
 
 const ThemeModeSwitch = () => {
-  const { mode, toggleTheme } = useTheme();
+  const { isDarkMode, toggleTheme } = useTheme();
 
   const changeMode = () => {
     localStorage.setItem('mode', isDarkMode ? MODE.LIGHT : MODE.DARK);
     toggleTheme();
   };
-
-  const isDarkMode = mode === MODE.DARK;
 
   return (
     <Icon

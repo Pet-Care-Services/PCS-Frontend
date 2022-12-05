@@ -9,6 +9,9 @@ export default {
     alignItems: 'center',
     rowGap: 10,
   },
+  headerText: {
+    color: (theme) => theme.palette.black,
+  },
   linkButton: (theme) => ({
     marginBottom: -20,
     alignSelf: 'flex-end',

@@ -62,7 +62,9 @@ const SignupView = ({
 
         return (
           <Box component={Form} sx={styles.root}>
-            <Typography variant="h1">{t('signup')}</Typography>
+            <Typography variant="h1" sx={styles.headerText}>
+              {t('signup')}
+            </Typography>
             <Box sx={styles.dualField}>
               <Input name="firstName" label={t('firstName')} />
               <Input name="lastName" label={t('lastName')} />
@@ -81,6 +83,7 @@ const SignupView = ({
                   name="birthdate"
                   label={t('birthdate')}
                   withTime={false}
+                  disableFuture
                 />
               </Box>
               {!isExtraSmallScreen && avatarWithButton}

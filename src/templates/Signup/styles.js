@@ -9,6 +9,9 @@ export default {
     alignItems: 'center',
     rowGap: 10,
   },
+  headerText: {
+    color: (theme) => theme.palette.black,
+  },
   dualField: {
     width: '100%',
     display: 'flex',

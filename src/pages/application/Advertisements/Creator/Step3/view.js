@@ -63,7 +63,9 @@ const Step3 = ({
           return (
             <Box component={Form} sx={styles.form}>
               {isSmallScreen && imageView}
-              <Typography variant="h2">{t('information')}</Typography>
+              <Typography variant="h2" sx={styles.headerText}>
+                {t('information')}
+              </Typography>
               <Box sx={styles.spaceBetween}>
                 <ActivitiesFieldArray
                   activitiesOptions={activitiesOptions}
@@ -175,7 +177,9 @@ const Step3 = ({
                 <FileUpload name="image" label={t('choosePhoto')} />
               )}
 
-              <Typography variant="h2">{t('availability')}</Typography>
+              <Typography variant="h2" sx={styles.headerText}>
+                {t('availability')}
+              </Typography>
               <AvailabilitiesFieldArray
                 periodOptions={periodOptions}
                 availabilities={values.availabilities}

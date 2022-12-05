@@ -45,7 +45,9 @@ const Filters = ({
           {({ resetForm }) => (
             <Form>
               <Box sx={styles.formContent}>
-                <Typography variant="h2">{t('filters')}</Typography>
+                <Typography variant="h2" sx={styles.headerText}>
+                  {t('filters')}
+                </Typography>
                 {isSmallMidScreen && (
                   <Icon
                     Component={isExpanded ? ExpandLessIcon : ExpandMoreIcon}
@@ -55,7 +57,9 @@ const Filters = ({
                 )}
                 <MappedRows rows={filtersRows} />
 
-                <Typography variant="h2">{t('options')}</Typography>
+                <Typography variant="h2" sx={styles.headerText}>
+                  {t('options')}
+                </Typography>
                 <MappedRows rows={optionsRows} />
 
                 <Box sx={styles.buttons}>

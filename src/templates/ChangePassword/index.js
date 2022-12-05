@@ -43,7 +43,9 @@ const ChangePasswordView = () => {
           gap: 20,
         }}
       >
-        <Typography variant="h1">{t('changePassword')}</Typography>
+        <Typography variant="h1" sx={{ color: (theme) => theme.palette.black }}>
+          {t('changePassword')}
+        </Typography>
         <Input type="password" name="password" label={t('newPassword')} />
         <Box sx={{ display: 'flex', gap: 10 }}>
           <Button onClick={closeDialog} color="neutral">

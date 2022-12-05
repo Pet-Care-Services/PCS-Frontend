@@ -32,4 +32,7 @@ export default {
     top: 10,
     right: 10,
   },
+  headerText: {
+    color: (theme) => theme.palette.black,
+  },
 };

@@ -1,6 +1,5 @@
 import AccountIconSrc from 'assets/icons/account.png';
 import AddIconSrc from 'assets/icons/add.png';
-import HistoryIconSrc from 'assets/icons/history.png';
 import RequestIconSrc from 'assets/icons/request.png';
 import ServiceIconSrc from 'assets/icons/service.png';
 
@@ -20,14 +19,6 @@ const getSidebarItems = (navigate, userId) => [
     onClick: () => navigate('/application/requests'),
     activeUrl: '/application/requests',
     isLoginRequired: false,
-  },
-  {
-    id: 2,
-    titleKey: 'history',
-    iconSrc: HistoryIconSrc,
-    onClick: () => navigate('/application/history'),
-    activeUrl: '/application/history',
-    isLoginRequired: true,
   },
   {
     id: 3,
