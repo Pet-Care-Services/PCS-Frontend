@@ -1,6 +1,5 @@
 import AccountIconSrc from 'assets/icons/account.png';
 import AddIconSrc from 'assets/icons/add.png';
-import HistoryIconSrc from 'assets/icons/history.png';
 import RequestIconSrc from 'assets/icons/request.png';
 import ServiceIconSrc from 'assets/icons/service.png';
 
