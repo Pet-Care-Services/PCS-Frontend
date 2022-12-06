@@ -101,7 +101,7 @@ const ListContainer = ({ itemType }) => {
     minPrice: params.minPrice || '',
     maxPrice: params.maxPrice || '',
     sort: params.sort || '',
-    order: params.order || 'false',
+    isDescending: params.isDescending || '',
   };
 
   const pages = get(advertisementsData, 'pages');

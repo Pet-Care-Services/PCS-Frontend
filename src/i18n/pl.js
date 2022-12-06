@@ -182,5 +182,7 @@ export default {
     saveFormToUploadPhoto: 'Zapisz formularz aby zdjęcie zostało przesłane',
     content: 'Treść',
     addReview: 'Dodaj ocenę',
+    rating: 'Oceny',
+    reviewsAmount: 'Ilość opinii',
   },
 };

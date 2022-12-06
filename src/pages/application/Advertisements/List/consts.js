@@ -47,16 +47,16 @@ const getFiltersFields = (t, animalsOptions, activitiesOptions) => [
 
 const getSortOptions = (t) => [
   {
-    value: 'price',
+    value: 'PRICE',
     label: t('price'),
   },
   {
-    value: 'animal',
-    label: t('animalLabel'),
+    value: 'RATING',
+    label: t('rating'),
   },
   {
-    value: 'location',
-    label: t('location'),
+    value: 'REVIEWS_AMOUNT',
+    label: t('reviewsAmount'),
   },
 ];
 
@@ -79,7 +79,6 @@ const getOptionsFields = (t, onMapButtonClick, isMapVisible, isSmallScreen) => [
       fieldType: FIELD_TYPES.SELECT,
       fieldProps: {
         options: getSortOptions(t),
-        disabled: true,
       },
     },
     {
@@ -88,7 +87,6 @@ const getOptionsFields = (t, onMapButtonClick, isMapVisible, isSmallScreen) => [
       fieldType: FIELD_TYPES.SELECT,
       fieldProps: {
         options: getOrderOptions(t),
-        disabled: true,
       },
     },
   ],

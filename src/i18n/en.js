@@ -183,5 +183,7 @@ export default {
     saveFormToUploadPhoto: 'Save the form to upload new photo',
     content: 'Content',
     addReview: 'Add review',
+    rating: 'Rating',
+    reviewsAmount: 'Reviews amount',
   },
 };
