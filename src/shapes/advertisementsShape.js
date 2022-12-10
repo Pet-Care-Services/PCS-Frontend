@@ -7,7 +7,7 @@ const advertisementShape = PropTypes.shape({
   servicesIndices: PropTypes.arrayOf(PropTypes.number),
   activities: PropTypes.arrayOf(PropTypes.string),
   animals: PropTypes.arrayOf(PropTypes.string),
-  starsValue: PropTypes.number,
+  averageRating: PropTypes.number,
   price: priceShape,
   location: PropTypes.string,
   pin: pinShape,

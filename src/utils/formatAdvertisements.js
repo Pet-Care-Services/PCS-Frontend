@@ -43,7 +43,6 @@ export default (advertisements, onContactClick) => {
     author: `${entry.firstName} ${entry.lastName}`,
     activities: map(entry.activities, ({ name }) => name),
     animals: formatAnimals(entry.animals || entry.animal),
-    starsValue: 5,
     price: formatPrice(entry.price),
     location: formatLocationText(entry.location),
     image: entry.imageUrl || entry.avatar,

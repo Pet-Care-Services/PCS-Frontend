@@ -6,7 +6,7 @@ const markerDataShape = PropTypes.shape({
   requestId: PropTypes.number,
   activities: PropTypes.arrayOf(PropTypes.string),
   animals: PropTypes.arrayOf(PropTypes.string),
-  starsValue: PropTypes.number,
+  averageRating: PropTypes.number,
   price: priceShape,
 });
 

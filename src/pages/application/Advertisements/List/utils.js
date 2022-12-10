@@ -13,7 +13,7 @@ const formatMarkers = (advertisements) =>
       requestId: entry.requestId,
       activities: map(entry.activities, ({ name }) => name),
       animals: formatAnimals(entry.animals || entry.animal),
-      starsValue: 5,
+      averageRating: entry.averageRating,
       price: formatPrice(entry.price),
     },
   }));
