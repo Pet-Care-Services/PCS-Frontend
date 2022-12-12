@@ -9,9 +9,12 @@ const useChat = () => {
     throw new Error('useChat must be used within a ChatContext');
   }
 
-  const openChat = () => {
+  const openChat = (initialActiveConversationId) => {
     context.dispatch({
       type: actions.OPEN_CHAT,
+      payload: {
+        initialActiveConversationId,
+      },
     });
   };
 

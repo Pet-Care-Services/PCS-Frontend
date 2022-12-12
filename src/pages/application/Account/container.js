@@ -62,8 +62,8 @@ const AccountContainer = () => {
     });
 
   const { mutate: createConversation } = useMutation(postConversation, {
-    onSuccess: () => {
-      openChat();
+    onSuccess: (data) => {
+      openChat(data.data);
     },
   });
 
