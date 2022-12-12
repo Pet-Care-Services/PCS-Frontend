@@ -10,31 +10,72 @@ export default {
     '&.MuiToolbar-gutters': {
       height: 50,
       minHeight: 50,
-      padding: (theme) => theme.spacing(5, 10),
+      padding: (theme) => theme.spacing(5, 15),
     },
     justifyContent: 'space-between',
   },
   icons: {
-    width: 200,
+    display: 'flex',
+    gap: 10,
   },
   rightIcons: {
-    display: 'flex',
     justifyContent: 'flex-end',
-  },
-  searchWrapper: {
-    flex: 1,
-    height: '100%',
-    minWidth: 300,
-    maxWidth: 800,
-    display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
   },
-  formWrapper: {
+  middleArea: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: 40,
+    height: '100%',
+    alignItems: 'center',
+  },
+  link: {
+    cursor: 'pointer',
+    opacity: 0.8,
+    transition: (theme) => theme.transition.fast,
+
+    '&:hover': {
+      opacity: 1,
+    },
+  },
+  activeLink: {
+    fontWeight: '600',
+    opacity: 1,
+  },
+  indicator: {
+    width: 0,
+    height: 2,
+    minHeight: 2,
+    backgroundColor: (theme) => theme.palette.forceWhite,
+    borderRadius: (theme) => theme.borderRadius.infinite,
+    position: 'absolute',
+    bottom: -5,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    opacity: 0,
+    transition: (theme) => theme.transition.fast,
+  },
+  activeIndicator: {
+    opacity: 1,
     width: '100%',
   },
-  inputIcon: {
-    margin: (theme) => theme.spacing(0, 10),
-    color: (theme) => theme.palette.primary.main,
+  linkWrapper: {
+    position: 'relative',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+
+    '&:hover .indicator': {
+      opacity: 1,
+      width: '100%',
+    },
+  },
+  logo: {
+    cursor: 'pointer',
+    display: 'flex',
+    gap: 20,
+  },
+  logoShift: {
+    marginRight: 40,
   },
 };

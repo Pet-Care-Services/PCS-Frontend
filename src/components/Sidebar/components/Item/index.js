@@ -3,12 +3,9 @@ import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 import Icon from 'components/Icon';
-import useTheme from 'hooks/useTheme';
-import { MODE } from 'providers/Theme/theme';
 
 const Item = ({ iconSrc, title, active, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const { mode } = useTheme();
 
   const activeStyles = {
     backgroundColor: (theme) => theme.palette.white,
@@ -30,8 +27,7 @@ const Item = ({ iconSrc, title, active, onClick }) => {
         columnGap: 10,
         cursor: 'pointer',
         transition: (theme) => theme.transition.fast,
-        color: (theme) =>
-          mode === MODE.LIGHT ? theme.palette.white : theme.palette.black,
+        color: (theme) => theme.palette.forceWhite,
         '&:hover': activeStyles,
         ...(active && activeStyles),
       }}

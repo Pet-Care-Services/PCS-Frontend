@@ -1,77 +1,109 @@
 import React from 'react';
-import { Form, Formik } from 'formik';
-import { noop } from 'lodash';
+import { map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
+import { useNavigate } from 'react-router-dom';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import PersonIcon from '@mui/icons-material/Person';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import { Box } from '@mui/material';
+import PetsIcon from '@mui/icons-material/Pets';
+import { Box, Typography } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiToolbar from '@mui/material/Toolbar';
+import ChatIconSrc from 'assets/icons/chat.png';
 import Icon from 'components/Icon';
-import Input from 'components/Input';
+import LanguageSwitch from 'components/LanguageSwitch';
+import ThemeModeSwitch from 'components/ThemeModeSwitch';
+import { DEFAULT_ROUTE } from 'consts/config';
 import useBreakpoints from 'hooks/useBreakpoints';
+import useMenuItems from 'hooks/useMenuItems';
 import styles from './styles';
 
 const Topbar = ({
-  initialValues,
-  withRightIcons,
-  onSearch,
+  isLoggedIn,
   onMenuClick,
-  onNotificationClick,
+  onLoginClick,
+  onLogoutClick,
   onChatClick,
-  onAccountClick,
 }) => {
   const { t } = useTranslation();
-  const { isSmallScreen } = useBreakpoints();
+  const {
+    isMediumScreen,
+    isLargeScreen,
+    isSmallMidScreen,
+    isExtraSmallScreen,
+  } = useBreakpoints();
+  const navigate = useNavigate();
+
+  const menuItems = useMenuItems();
+
+  const logoView = (
+    <Box
+      sx={[styles.logo, isSmallMidScreen && !isLoggedIn && styles.logoShift]}
+      onClick={() => navigate(DEFAULT_ROUTE)}
+    >
+      <PetsIcon />
+      {(!isLargeScreen || (isSmallMidScreen && !isExtraSmallScreen)) && (
+        <Typography variant="h2">{t('petCareServices')}</Typography>
+      )}
+    </Box>
+  );
 
   return (
     <MuiAppBar position="fixed" sx={styles.root}>
       <MuiToolbar sx={styles.toolbar}>
         <Box sx={styles.icons}>
-          <Icon size="large" Component={MenuIcon} onClick={onMenuClick} />
+          {isSmallMidScreen ? (
+            <Icon size="large" Component={MenuIcon} onClick={onMenuClick} />
+          ) : (
+            logoView
+          )}
         </Box>
-        {!isSmallScreen && (
-          <Box sx={styles.searchWrapper}>
-            <Box sx={styles.formWrapper}>
-              <Formik initialValues={initialValues} onSubmit={onSearch}>
-                <Form>
-                  <Input
-                    name="search"
-                    label={t('searchOffer')}
-                    endAdornment={<SearchOutlinedIcon sx={styles.inputIcon} />}
-                    shrink={false}
-                    small
-                    noBorderEffects
-                    rounded
-                  />
-                </Form>
-              </Formik>
-            </Box>
+        {!isSmallMidScreen ? (
+          <Box sx={styles.middleArea}>
+            {map(menuItems, (item) => (
+              <Box key={item.id} sx={styles.linkWrapper}>
+                <Typography
+                  variant={isMediumScreen ? 'h4' : 'h2'}
+                  onClick={() => item.onClick()}
+                  sx={[styles.link, item.isActive && styles.activeLink]}
+                >
+                  {item.title}
+                </Typography>
+                <Box
+                  sx={[
+                    styles.indicator,
+                    item.isActive && styles.activeIndicator,
+                  ]}
+                  className="indicator"
+                />
+              </Box>
+            ))}
           </Box>
+        ) : (
+          logoView
         )}
         <Box sx={{ ...styles.icons, ...styles.rightIcons }}>
-          {withRightIcons && (
+          {!isSmallMidScreen && (
             <>
               <Icon
                 size="large"
-                Component={NotificationsNoneIcon}
-                onClick={onNotificationClick}
+                Component={isLoggedIn ? LogoutIcon : LoginIcon}
+                onClick={isLoggedIn ? onLogoutClick : onLoginClick}
               />
-              <Icon
-                size="large"
-                Component={ChatOutlinedIcon}
-                onClick={onChatClick}
-              />
-              <Icon
-                size="large"
-                Component={PersonIcon}
-                onClick={onAccountClick}
-              />
+              <LanguageSwitch />
+              <ThemeModeSwitch />
             </>
+          )}
+          {isLoggedIn && isSmallMidScreen && (
+            <Icon
+              size="large"
+              Component="img"
+              componentProps={{
+                src: ChatIconSrc,
+              }}
+              onClick={onChatClick}
+            />
           )}
         </Box>
       </MuiToolbar>
@@ -80,25 +112,19 @@ const Topbar = ({
 };
 
 Topbar.propTypes = {
-  initialValues: PropTypes.shape({
-    search: PropTypes.string,
-  }),
-  withRightIcons: PropTypes.bool,
-  onSearch: PropTypes.func,
+  isLoggedIn: PropTypes.bool,
   onMenuClick: PropTypes.func,
-  onNotificationClick: PropTypes.func,
+  onLoginClick: PropTypes.func,
+  onLogoutClick: PropTypes.func,
   onChatClick: PropTypes.func,
-  onAccountClick: PropTypes.func,
 };
 
 Topbar.defaultProps = {
-  initialValues: {},
-  withRightIcons: false,
-  onSearch: noop,
+  isLoggedIn: false,
   onMenuClick: noop,
-  onNotificationClick: noop,
+  onLoginClick: noop,
+  onLogoutClick: noop,
   onChatClick: noop,
-  onAccountClick: noop,
 };
 
 export default Topbar;

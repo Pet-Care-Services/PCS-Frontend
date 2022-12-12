@@ -3,10 +3,9 @@ import { map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/system';
 import Loader from 'components/Loader';
-import useTheme from 'hooks/useTheme';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
 import { conversationOptionsShape } from './shapes';
-import useStyles from './styles';
+import styles from './styles';
 
 const ConversationChooser = ({
   loading,
@@ -14,9 +13,6 @@ const ConversationChooser = ({
   activeConversationId,
   onConversationClick,
 }) => {
-  const { isDarkMode } = useTheme();
-  const styles = useStyles(isDarkMode);
-
   return (
     <Box sx={styles.root}>
       {loading && <Loader />}

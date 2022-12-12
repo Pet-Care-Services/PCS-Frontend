@@ -1,13 +1,12 @@
 import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
 import { Drawer } from '@mui/material';
 import Sidebar from 'components/Sidebar';
 import useBreakpoints from 'hooks/useBreakpoints';
 import useDialog from 'hooks/useDialog';
+import useMenuItems from 'hooks/useMenuItems';
 import useUserData from 'hooks/useUserData';
 import Login from 'templates/Login';
-import { getSidebarItems } from './consts';
 import reducer, { actions } from './reducer';
 
 const initialState = {
@@ -17,10 +16,9 @@ const initialState = {
 const SidebarContext = React.createContext({});
 
 const SidebarProvider = ({ children }) => {
-  const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, initialState);
   const value = { state, dispatch };
-  const { isLoggedIn, clearUserData, userId } = useUserData();
+  const { isLoggedIn, clearUserData } = useUserData();
   const { openDialog } = useDialog();
   const { isExtraSmallScreen } = useBreakpoints();
 
@@ -40,7 +38,7 @@ const SidebarProvider = ({ children }) => {
     clearUserData();
   };
 
-  const sidebarItems = getSidebarItems(navigate, userId);
+  const sidebarItems = useMenuItems();
 
   return (
     <SidebarContext.Provider value={value}>
