@@ -10,6 +10,7 @@ import PetsIcon from '@mui/icons-material/Pets';
 import { Box, Typography } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiToolbar from '@mui/material/Toolbar';
+import ChatIconSrc from 'assets/icons/chat.png';
 import Icon from 'components/Icon';
 import LanguageSwitch from 'components/LanguageSwitch';
 import ThemeModeSwitch from 'components/ThemeModeSwitch';
@@ -18,47 +19,92 @@ import useBreakpoints from 'hooks/useBreakpoints';
 import useMenuItems from 'hooks/useMenuItems';
 import styles from './styles';
 
-const Topbar = ({ isLoggedIn, onMenuClick, onLoginClick, onLogoutClick }) => {
+const Topbar = ({
+  isLoggedIn,
+  onMenuClick,
+  onLoginClick,
+  onLogoutClick,
+  onChatClick,
+}) => {
   const { t } = useTranslation();
-  const { isSmallScreen } = useBreakpoints();
+  const {
+    isMediumScreen,
+    isLargeScreen,
+    isSmallMidScreen,
+    isExtraSmallScreen,
+  } = useBreakpoints();
   const navigate = useNavigate();
 
   const menuItems = useMenuItems();
+
+  const logoView = (
+    <Box
+      sx={[styles.logo, isSmallMidScreen && !isLoggedIn && styles.logoShift]}
+      onClick={() => navigate(DEFAULT_ROUTE)}
+    >
+      <PetsIcon />
+      {(!isLargeScreen || (isSmallMidScreen && !isExtraSmallScreen)) && (
+        <Typography variant="h2">{t('petCareServices')}</Typography>
+      )}
+    </Box>
+  );
 
   return (
     <MuiAppBar position="fixed" sx={styles.root}>
       <MuiToolbar sx={styles.toolbar}>
         <Box sx={styles.icons}>
-          {isSmallScreen && (
+          {isSmallMidScreen ? (
             <Icon size="large" Component={MenuIcon} onClick={onMenuClick} />
+          ) : (
+            logoView
           )}
-          <Box sx={styles.logo} onClick={() => navigate(DEFAULT_ROUTE)}>
-            <PetsIcon />
-            <Typography variant="h2">{t('petCareServices')}</Typography>
+        </Box>
+        {!isSmallMidScreen ? (
+          <Box sx={styles.middleArea}>
+            {map(menuItems, (item) => (
+              <Box key={item.id} sx={styles.linkWrapper}>
+                <Typography
+                  variant={isMediumScreen ? 'h4' : 'h2'}
+                  onClick={() => item.onClick()}
+                  sx={[styles.link, item.isActive && styles.activeLink]}
+                >
+                  {item.title}
+                </Typography>
+                <Box
+                  sx={[
+                    styles.indicator,
+                    item.isActive && styles.activeIndicator,
+                  ]}
+                  className="indicator"
+                />
+              </Box>
+            ))}
           </Box>
-        </Box>
-        <Box sx={styles.middleArea}>
-          {map(menuItems, (item) => (
-            <Box key={item.id} sx={styles.linkWrapper}>
-              <Typography
-                variant="h2"
-                onClick={() => item.onClick()}
-                sx={[styles.link, item.isActive && styles.activeLink]}
-              >
-                {item.title}
-              </Typography>
-              {item.isActive && <Box sx={styles.activeIndicator} />}
-            </Box>
-          ))}
-        </Box>
+        ) : (
+          logoView
+        )}
         <Box sx={{ ...styles.icons, ...styles.rightIcons }}>
-          <Icon
-            size="large"
-            Component={isLoggedIn ? LogoutIcon : LoginIcon}
-            onClick={isLoggedIn ? onLogoutClick : onLoginClick}
-          />
-          <LanguageSwitch />
-          <ThemeModeSwitch />
+          {!isSmallMidScreen && (
+            <>
+              <Icon
+                size="large"
+                Component={isLoggedIn ? LogoutIcon : LoginIcon}
+                onClick={isLoggedIn ? onLogoutClick : onLoginClick}
+              />
+              <LanguageSwitch />
+              <ThemeModeSwitch />
+            </>
+          )}
+          {isLoggedIn && isSmallMidScreen && (
+            <Icon
+              size="large"
+              Component="img"
+              componentProps={{
+                src: ChatIconSrc,
+              }}
+              onClick={onChatClick}
+            />
+          )}
         </Box>
       </MuiToolbar>
     </MuiAppBar>
@@ -70,6 +116,7 @@ Topbar.propTypes = {
   onMenuClick: PropTypes.func,
   onLoginClick: PropTypes.func,
   onLogoutClick: PropTypes.func,
+  onChatClick: PropTypes.func,
 };
 
 Topbar.defaultProps = {
@@ -77,6 +124,7 @@ Topbar.defaultProps = {
   onMenuClick: noop,
   onLoginClick: noop,
   onLogoutClick: noop,
+  onChatClick: noop,
 };
 
 export default Topbar;

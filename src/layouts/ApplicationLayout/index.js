@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/system';
 import Topbar from 'components/Topbar';
 import useBreakpoints from 'hooks/useBreakpoints';
@@ -13,8 +13,7 @@ const ApplicationLayout = () => {
   const { openSidebar } = useSidebar();
   const { openChat } = useChat();
   const { openDialog } = useDialog();
-  const { isLoggedIn, userId, clearUserData } = useUserData();
-  const navigate = useNavigate();
+  const { isLoggedIn, clearUserData } = useUserData();
   const { isMediumScreen } = useBreakpoints();
 
   const basePadding = isMediumScreen ? 20 : 40;
@@ -31,8 +30,7 @@ const ApplicationLayout = () => {
     >
       <Topbar
         onMenuClick={openSidebar}
-        onChatClick={openChat}
-        onAccountClick={() => navigate(`/application/account/${userId}`)}
+        onChatClick={() => openChat()}
         onLoginClick={() => openDialog({ content: <Login /> })}
         onLogoutClick={clearUserData}
         isLoggedIn={isLoggedIn}

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AccountIconSrc from 'assets/icons/account.png';
 import AddIconSrc from 'assets/icons/add.png';
+import ChatIconSrc from 'assets/icons/chat.png';
 import RequestIconSrc from 'assets/icons/request.png';
 import ServiceIconSrc from 'assets/icons/service.png';
 import useChat from './useChat';
@@ -53,13 +54,13 @@ const useMenuItems = () => {
       {
         id: 5,
         title: t('chat'),
-        iconSrc: AccountIconSrc,
+        iconSrc: ChatIconSrc,
         onClick: openChat,
         activeUrl: null,
         isLoginRequired: true,
       },
     ],
-    [userId]
+    [userId, t]
   );
 
   const visibleItems = useMemo(

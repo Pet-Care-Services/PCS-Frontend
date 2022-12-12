@@ -26,6 +26,8 @@ export default {
     display: 'flex',
     justifyContent: 'center',
     gap: 40,
+    height: '100%',
+    alignItems: 'center',
   },
   link: {
     cursor: 'pointer',
@@ -40,24 +42,40 @@ export default {
     fontWeight: '600',
     opacity: 1,
   },
-  activeIndicator: {
-    width: '100%',
-    minWidth: 20,
+  indicator: {
+    width: 0,
     height: 2,
     minHeight: 2,
     backgroundColor: (theme) => theme.palette.white,
     borderRadius: (theme) => theme.borderRadius.infinite,
     position: 'absolute',
-    bottom: -13,
+    bottom: -5,
     left: '50%',
     transform: 'translateX(-50%)',
+    opacity: 0,
+    transition: (theme) => theme.transition.fast,
+  },
+  activeIndicator: {
+    opacity: 1,
+    width: '100%',
   },
   linkWrapper: {
     position: 'relative',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+
+    '&:hover .indicator': {
+      opacity: 1,
+      width: '100%',
+    },
   },
   logo: {
     cursor: 'pointer',
     display: 'flex',
     gap: 20,
+  },
+  logoShift: {
+    marginRight: 40,
   },
 };

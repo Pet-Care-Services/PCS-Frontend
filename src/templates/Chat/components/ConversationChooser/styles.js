@@ -1,7 +1,7 @@
 import { mdBreakpoint, smBreakpoint } from 'hooks/useBreakpoints';
 import addOpacity from 'utils/addOpacity';
 
-export default (isDarkMode) => ({
+export default {
   root: (theme) => ({
     display: 'flex',
     flexDirection: 'column',
@@ -58,4 +58,4 @@ export default (isDarkMode) => ({
     boxShadow: (theme) =>
       `${theme.spacing(0, 4, 5)} ${addOpacity(theme.palette.forceBlack, 50)}`,
   },
-});
+};
