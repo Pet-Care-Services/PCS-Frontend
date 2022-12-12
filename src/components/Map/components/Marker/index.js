@@ -45,7 +45,7 @@ const Marker = ({
               }}
             >
               <Box sx={styles.popupRow}>
-                <Rating value={data.starsValue} />
+                <Rating value={data.averageRating} />
                 <PriceRange
                   from={data.price.from}
                   to={data.price.to}

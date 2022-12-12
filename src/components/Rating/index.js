@@ -5,7 +5,15 @@ import { Rating as MUIRating, Typography } from '@mui/material';
 
 const Rating = ({ name, value, size, isFormField, ...props }) => {
   if (!isFormField) {
-    return <MUIRating name={name} value={value} size={size} readOnly />;
+    return (
+      <MUIRating
+        name={name}
+        value={value}
+        size={size}
+        precision={0.1}
+        readOnly
+      />
+    );
   } else {
     return (
       <FormikField name={name} {...props}>
