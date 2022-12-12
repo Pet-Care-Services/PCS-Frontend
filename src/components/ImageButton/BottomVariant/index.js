@@ -1,14 +1,10 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import useTheme from 'hooks/useTheme';
 import { defaultPropsObject, propTypesObject } from '../shapes';
-import useStyles from './styles';
+import styles from './styles';
 
 const BottomVariant = ({ img, title, faded, onClick }) => {
-  const { isDarkMode } = useTheme();
-  const styles = useStyles(isDarkMode);
-
   return (
     <Box
       onClick={onClick}

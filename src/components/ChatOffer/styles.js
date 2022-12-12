@@ -64,6 +64,7 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     rowGap: 15,
+    color: (theme) => theme.palette.black,
   },
   tags: {
     display: 'flex',

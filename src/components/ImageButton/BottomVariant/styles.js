@@ -2,7 +2,7 @@ import addOpacity from 'utils/addOpacity';
 
 const SIZE = 100;
 
-export default (isDarkMode) => ({
+export default {
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -18,10 +18,7 @@ export default (isDarkMode) => ({
     borderRadius: '50%',
     objectFit: 'cover',
     boxShadow: (theme) =>
-      `${theme.spacing(0, 2, 5)} ${addOpacity(
-        isDarkMode ? theme.palette.white : theme.palette.black,
-        50
-      )}`,
+      `${theme.spacing(0, 2, 5)} ${addOpacity(theme.palette.forceBlack, 50)}`,
   },
   fadeBlock: {
     width: SIZE,
@@ -46,4 +43,4 @@ export default (isDarkMode) => ({
   textFaded: {
     color: (theme) => addOpacity(theme.palette.black, 60),
   },
-});
+};

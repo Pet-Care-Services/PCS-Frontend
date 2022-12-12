@@ -25,7 +25,7 @@ const useChat = () => {
   };
 
   return {
-    isSidebarOpened: context.state.open,
+    isChatOpened: context.state.open,
     openChat,
     closeChat,
   };

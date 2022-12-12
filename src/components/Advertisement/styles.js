@@ -5,7 +5,7 @@ import {
   xsBreakpoint,
 } from 'hooks/useBreakpoints';
 
-export default (isDarkMode) => ({
+export default {
   contactButton: {
     width: 300,
     marginTop: 10,
@@ -116,7 +116,7 @@ export default (isDarkMode) => ({
     marginBottom: 10,
   },
   locationIcon: {
-    color: (theme) => (isDarkMode ? theme.palette.white : theme.palette.black),
+    color: (theme) => theme.palette.forceBlack,
   },
   location: (theme) => ({
     width: 400,
@@ -139,4 +139,4 @@ export default (isDarkMode) => ({
       color: (theme) => theme.palette.action.dark,
     },
   },
-});
+};

@@ -39,7 +39,9 @@ const lightColors = {
     light: '#61bcff',
   },
   white: WHITE,
+  forceWhite: WHITE,
   black: BLACK,
+  forceBlack: BLACK,
   placeholder: '#7d7d7d',
 };
 
@@ -65,7 +67,9 @@ const darkColors = {
   error: lightColors.error,
   action: lightColors.action,
   white: BLACK,
+  forceWhite: WHITE,
   black: WHITE,
+  forceBlack: BLACK,
   placeholder: WHITE,
 };
 

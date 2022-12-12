@@ -1,20 +1,28 @@
-import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/system';
 import Topbar from 'components/Topbar';
 import useBreakpoints from 'hooks/useBreakpoints';
 import useChat from 'hooks/useChat';
+import useDialog from 'hooks/useDialog';
 import useSidebar from 'hooks/useSidebar';
 import useUserData from 'hooks/useUserData';
+import Login from 'templates/Login';
 
 const ApplicationLayout = () => {
-  const { openSidebar } = useSidebar();
+  const { openSidebar, closeSidebar } = useSidebar();
   const { openChat } = useChat();
-  const { isLoggedIn, userId } = useUserData();
-  const navigate = useNavigate();
-  const { isMediumScreen } = useBreakpoints();
+  const { openDialog } = useDialog();
+  const { isLoggedIn, clearUserData } = useUserData();
+  const { isMediumScreen, isSmallMidScreen } = useBreakpoints();
 
   const basePadding = isMediumScreen ? 20 : 40;
+
+  useEffect(() => {
+    if (!isSmallMidScreen) {
+      closeSidebar();
+    }
+  }, [isSmallMidScreen]);
 
   return (
     <Box
@@ -28,9 +36,10 @@ const ApplicationLayout = () => {
     >
       <Topbar
         onMenuClick={openSidebar}
-        onChatClick={openChat}
-        onAccountClick={() => navigate(`/application/account/${userId}`)}
-        withRightIcons={isLoggedIn}
+        onChatClick={() => openChat()}
+        onLoginClick={() => openDialog({ content: <Login /> })}
+        onLogoutClick={clearUserData}
+        isLoggedIn={isLoggedIn}
       />
       <Box
         sx={{

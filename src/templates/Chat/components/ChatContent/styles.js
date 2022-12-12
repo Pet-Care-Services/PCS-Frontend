@@ -12,6 +12,7 @@ export default {
   },
   header: {
     background: (theme) => theme.palette.neutral.main,
+    color: (theme) => theme.palette.black,
     width: '100%',
     height: 50,
     borderTopLeftRadius: 10,
