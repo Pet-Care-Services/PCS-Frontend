@@ -97,9 +97,9 @@ const ListContainer = ({ itemType }) => {
   };
 
   const filtersInitialValues = {
-    animalId: params.animalId || '',
+    animalIndices: params.animalIndices || '',
     location: params.location || '',
-    activityId: params.activityId || '',
+    activityIndices: params.activityIndices || '',
     minPrice: params.minPrice || '',
     maxPrice: params.maxPrice || '',
     sort: params.sort || '',

@@ -5,9 +5,9 @@ import { ITEM_TYPE } from 'consts/enums';
 const itemTypeShape = PropTypes.oneOf(values(ITEM_TYPE));
 
 const filtersInitialValuesShape = PropTypes.exact({
-  animalId: PropTypes.string,
+  animalIndices: PropTypes.string,
   location: PropTypes.string,
-  activityId: PropTypes.string,
+  activityIndices: PropTypes.string,
   minPrice: PropTypes.string,
   maxPrice: PropTypes.string,
   sort: PropTypes.string,
