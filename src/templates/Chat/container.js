@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { isNil } from 'lodash';
+import { find, isNil } from 'lodash';
+import PropTypes from 'prop-types';
 import { useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { OFFER_STATUS } from 'consts/enums';
@@ -15,7 +16,7 @@ import {
 import { prepareConversationOptions, prepareMessages } from './utils';
 import ChatView from './view';
 
-const ChatContainer = () => {
+const ChatContainer = ({ initialActiveConversationId }) => {
   const navigate = useNavigate();
   const { closeChat } = useChat();
   const [activeConversation, setActiveConversation] = useState({
@@ -27,10 +28,15 @@ const ChatContainer = () => {
     useQuery(CONVERSATIONS_KEY, getConversations, {
       refetchOnWindowFocus: false,
       onSuccess: (data) => {
-        const firstConversation = data.data[0];
+        const chosenConversation =
+          find(
+            data.data,
+            (entry) => entry.conversationId === initialActiveConversationId
+          ) || data.data[0];
+
         setActiveConversation({
-          id: firstConversation.conversationId,
-          name: `${firstConversation.firstName} ${firstConversation.lastName}`,
+          id: chosenConversation.conversationId,
+          name: `${chosenConversation.firstName} ${chosenConversation.lastName}`,
         });
       },
     });
@@ -109,6 +115,14 @@ const ChatContainer = () => {
       isLoadingMessages={isLoadingMessages}
     />
   );
+};
+
+ChatContainer.propTypes = {
+  initialActiveConversationId: PropTypes.number,
+};
+
+ChatContainer.defaultProps = {
+  initialActiveConversationId: null,
 };
 
 export default ChatContainer;

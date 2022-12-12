@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+
 const actions = {
   OPEN_CHAT: 'CHAT/OPEN',
   CLOSE_CHAT: 'CHAT/CLOSE',
@@ -9,6 +11,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         open: true,
+        initialActiveConversationId: get(
+          action,
+          'payload.initialActiveConversationId',
+          null
+        ),
       };
     }
 
@@ -16,6 +23,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         open: false,
+        initialActiveConversationId: null,
       };
     }
 

@@ -7,6 +7,7 @@ import reducer, { actions } from './reducer';
 
 const initialState = {
   open: false,
+  initialActiveConversationId: null,
 };
 
 const ChatContext = React.createContext({});
@@ -40,7 +41,7 @@ const ChatProvider = ({ children }) => {
         onClose={handleClose}
         transitionDuration={700}
       >
-        <Chat />
+        <Chat initialActiveConversationId={state.initialActiveConversationId} />
       </Drawer>
     </ChatContext.Provider>
   );
