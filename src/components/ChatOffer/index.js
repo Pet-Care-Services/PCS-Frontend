@@ -88,6 +88,7 @@ const ChatOffer = ({
               labelColor={theme.palette.neutral.contrastText}
               modelKey="activity"
               labels={map(activities, ({ name }) => name)}
+              wrap
             />
           </Box>
           {availabilities && (

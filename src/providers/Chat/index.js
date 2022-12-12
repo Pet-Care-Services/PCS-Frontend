@@ -30,7 +30,7 @@ const ChatProvider = ({ children }) => {
         open={state.open}
         PaperProps={{
           sx: {
-            width: isMediumScreen ? '100%' : '70%',
+            width: isMediumScreen ? '100%' : 700,
             backgroundColor: 'transparent',
             borderTopLeftRadius: 10,
             borderBottomLeftRadius: 10,

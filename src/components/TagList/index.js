@@ -4,7 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/system';
 import Tag from 'components/Tag';
 
-const TagList = ({ labels, modelKey, color, labelColor, amountToFit }) => {
+const TagList = ({
+  labels,
+  modelKey,
+  color,
+  labelColor,
+  amountToFit,
+  wrap,
+}) => {
   const { t } = useTranslation();
   const size = labels.length;
   const tags = [];
@@ -34,7 +41,7 @@ const TagList = ({ labels, modelKey, color, labelColor, amountToFit }) => {
   }
 
   return (
-    <Box display={'flex'} gap={5}>
+    <Box display={'flex'} gap={5} flexWrap={wrap ? 'wrap' : 'nowrap'}>
       {tags}
     </Box>
   );
@@ -46,10 +53,12 @@ TagList.propTypes = {
   color: PropTypes.string.isRequired,
   labelColor: PropTypes.string.isRequired,
   amountToFit: PropTypes.number,
+  wrap: PropTypes.bool,
 };
 
 TagList.defaultProps = {
   amountToFit: 2,
+  wrap: false,
 };
 
 export default TagList;
