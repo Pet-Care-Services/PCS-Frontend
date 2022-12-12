@@ -11,7 +11,7 @@ const filtersInitialValuesShape = PropTypes.exact({
   minPrice: PropTypes.string,
   maxPrice: PropTypes.string,
   sort: PropTypes.string,
-  isDescending: PropTypes.oneOf(['true', 'false']),
+  isDescending: PropTypes.oneOf(['true', 'false', '']),
 });
 
 export { itemTypeShape, filtersInitialValuesShape };

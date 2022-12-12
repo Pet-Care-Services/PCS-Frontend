@@ -36,6 +36,7 @@ const ListContainer = ({ itemType }) => {
     refetch,
     fetchNextPage,
     hasNextPage,
+    remove,
   } = useInfiniteQuery(
     ADVERTISEMENTS_KEY,
     ({ pageParam = 0 }) =>
@@ -47,7 +48,7 @@ const ListContainer = ({ itemType }) => {
     {
       refetchOnWindowFocus: false,
       getNextPageParam: (lastPage) => {
-        const nextPage = get(lastPage, 'data.number') + 1;
+        const nextPage = get(lastPage, 'data.page') + 1;
         return nextPage < lastPage.data.totalPages ? nextPage : undefined;
       },
     }
@@ -66,6 +67,7 @@ const ListContainer = ({ itemType }) => {
   );
 
   useEffect(() => {
+    remove();
     refetch();
   }, [itemType, params]);
 
