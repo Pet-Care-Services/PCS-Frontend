@@ -10,6 +10,7 @@ import Button from 'components/Button';
 import Icon from 'components/Icon';
 import PriceRange from 'components/PriceRange';
 import Rating from 'components/Rating';
+import Tag from 'components/Tag';
 import TextAvailability from 'components/TextAvailability';
 import TileWrapper from 'components/TileWrapper';
 import { daysAvailabilitiesShape } from 'components/WeekAvailability/shapes';
@@ -23,6 +24,7 @@ import stringOrNumberShape from 'shapes/stringOrNumberShape';
 import TagList from '../TagList';
 import { getCollapsedSize } from './consts';
 import styles from './styles';
+import { getCapacityString } from './utils';
 
 const Advertisement = ({
   author,
@@ -33,6 +35,7 @@ const Advertisement = ({
   price,
   location,
   image,
+  capacity,
   description,
   isExpanded,
   availabilities,
@@ -93,6 +96,8 @@ const Advertisement = ({
     </>
   );
 
+  const capacityString = getCapacityString(capacity);
+
   return (
     <TileWrapper>
       <Collapse
@@ -121,13 +126,22 @@ const Advertisement = ({
                   labelColor={theme.palette.neutral.contrastText}
                   amountToFit={isSmallScreen ? 1 : 2}
                 />
-                <TagList
-                  labels={animals}
-                  modelKey="animal"
-                  color={theme.palette.secondary.dark}
-                  labelColor={theme.palette.secondary.contrastText}
-                  amountToFit={isSmallScreen ? 1 : 2}
-                />
+                <Box sx={styles.row}>
+                  <TagList
+                    labels={animals}
+                    modelKey="animal"
+                    color={theme.palette.secondary.dark}
+                    labelColor={theme.palette.secondary.contrastText}
+                    amountToFit={isSmallScreen ? 1 : 2}
+                  />
+                  {capacity.upperBound > 1 && (
+                    <Tag
+                      label={`${t('count')}: ${capacityString}`}
+                      labelColor={(theme) => theme.palette.action.contrastText}
+                      color={(theme) => theme.palette.action.main}
+                    />
+                  )}
+                </Box>
               </Box>
               <Box sx={styles.locationBox}>
                 <Icon
@@ -206,6 +220,10 @@ Advertisement.propTypes = {
   servicesIndices: PropTypes.arrayOf(PropTypes.number),
   onContactClick: PropTypes.func,
   onBoxClick: PropTypes.func,
+  capacity: PropTypes.shape({
+    lowerBound: PropTypes.number,
+    upperBound: PropTypes.number,
+  }),
 };
 
 Advertisement.defaultProps = {
@@ -215,6 +233,10 @@ Advertisement.defaultProps = {
   belongsToMe: false,
   onContactClick: noop,
   onBoxClick: noop,
+  capacity: {
+    lowerBound: 0,
+    upperBound: 0,
+  },
 };
 
 //TODO Location prop as an object

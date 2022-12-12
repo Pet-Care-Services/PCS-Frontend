@@ -77,7 +77,12 @@ const ListView = ({
     <Box sx={styles.root}>
       <Box sx={styles.filtersWrapper}>
         <Filters
-          filtersRows={getFiltersFields(t, animalsOptions, activitiesOptions)}
+          filtersRows={getFiltersFields(
+            isService,
+            t,
+            animalsOptions,
+            activitiesOptions
+          )}
           optionsRows={getOptionsFields(
             t,
             () => setIsMapVisible((v) => !v),

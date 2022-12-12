@@ -4,9 +4,9 @@ import * as Yup from 'yup';
 const getFiltersValidation = (t) =>
   Yup.object().shape(
     {
-      animalId: Yup.string(),
+      animalIndices: Yup.string(),
       location: Yup.string(),
-      activityId: Yup.string(),
+      activityIndices: Yup.string(),
       minPrice: Yup.number().when('maxPrice', {
         is: (val) => !isNil(val),
         then: (schema) =>
@@ -23,8 +23,27 @@ const getFiltersValidation = (t) =>
             t('validation.min', { value: lowerCase(t('minimalPrice')) })
           ),
       }),
+      minCapacity: Yup.number().when('maxCapacity', {
+        is: (val) => !isNil(val),
+        then: (schema) =>
+          schema.max(
+            Yup.ref('maxCapacity'),
+            t('validation.max', { value: lowerCase(t('maximalCapacity')) })
+          ),
+      }),
+      maxCapacity: Yup.number().when('minCapacity', {
+        is: (val) => !isNil(val),
+        then: (schema) =>
+          schema.min(
+            Yup.ref('minCapacity'),
+            t('validation.min', { value: lowerCase(t('minimalCapacity')) })
+          ),
+      }),
     },
-    [['minPrice', 'maxPrice']]
+    [
+      ['minPrice', 'maxPrice'],
+      ['minCapacity', 'maxCapacity'],
+    ]
   );
 
 export { getFiltersValidation };

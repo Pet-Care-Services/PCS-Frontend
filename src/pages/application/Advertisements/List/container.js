@@ -36,6 +36,7 @@ const ListContainer = ({ itemType }) => {
     refetch,
     fetchNextPage,
     hasNextPage,
+    remove,
   } = useInfiniteQuery(
     ADVERTISEMENTS_KEY,
     ({ pageParam = 0 }) =>
@@ -47,7 +48,7 @@ const ListContainer = ({ itemType }) => {
     {
       refetchOnWindowFocus: false,
       getNextPageParam: (lastPage) => {
-        const nextPage = get(lastPage, 'data.number') + 1;
+        const nextPage = get(lastPage, 'data.page') + 1;
         return nextPage < lastPage.data.totalPages ? nextPage : undefined;
       },
     }
@@ -66,6 +67,7 @@ const ListContainer = ({ itemType }) => {
   );
 
   useEffect(() => {
+    remove();
     refetch();
   }, [itemType, params]);
 
@@ -95,13 +97,13 @@ const ListContainer = ({ itemType }) => {
   };
 
   const filtersInitialValues = {
-    animalId: params.animalId || '',
+    animalIndices: params.animalIndices || '',
     location: params.location || '',
-    activityId: params.activityId || '',
+    activityIndices: params.activityIndices || '',
     minPrice: params.minPrice || '',
     maxPrice: params.maxPrice || '',
     sort: params.sort || '',
-    order: params.order || 'false',
+    isDescending: params.isDescending || '',
   };
 
   const pages = get(advertisementsData, 'pages');

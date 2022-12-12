@@ -139,4 +139,8 @@ export default {
       color: (theme) => theme.palette.action.dark,
     },
   },
+  row: {
+    display: 'flex',
+    gap: 5,
+  },
 };

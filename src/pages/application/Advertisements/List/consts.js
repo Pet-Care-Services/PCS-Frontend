@@ -1,62 +1,85 @@
+/* eslint-disable indent */
 import React from 'react';
+import { compact } from 'lodash';
 import { Box } from '@mui/material';
 import mapIconSrc from 'assets/icons/map.png';
 import { FIELD_TYPES } from 'components/Filters/components/Field/consts';
 
-const getFiltersFields = (t, animalsOptions, activitiesOptions) => [
-  {
-    name: 'animalId',
-    label: t('animalLabel'),
-    fieldType: FIELD_TYPES.SELECT,
-    fieldProps: {
-      options: animalsOptions,
-    },
-  },
-  {
-    name: 'activityId',
-    label: t('service'),
-    fieldType: FIELD_TYPES.SELECT,
-    fieldProps: {
-      options: activitiesOptions,
-    },
-  },
-  {
-    name: 'location',
-    label: t('location'),
-    fieldType: FIELD_TYPES.INPUT,
-  },
-  [
+const getFiltersFields = (isService, t, animalsOptions, activitiesOptions) =>
+  compact([
     {
-      name: 'minPrice',
-      label: t('minimalPrice'),
-      fieldType: FIELD_TYPES.INPUT,
+      name: 'animalIndices',
+      label: t('animalLabel'),
+      fieldType: FIELD_TYPES.SELECT,
       fieldProps: {
-        onlyNumbers: true,
+        options: animalsOptions,
       },
     },
     {
-      name: 'maxPrice',
-      label: t('maximalPrice'),
-      fieldType: FIELD_TYPES.INPUT,
+      name: 'activityIndices',
+      label: t('service'),
+      fieldType: FIELD_TYPES.SELECT,
       fieldProps: {
-        onlyNumbers: true,
+        options: activitiesOptions,
       },
     },
-  ],
-];
+    {
+      name: 'location',
+      label: t('location'),
+      fieldType: FIELD_TYPES.INPUT,
+    },
+    [
+      {
+        name: 'minPrice',
+        label: t('minimalPrice'),
+        fieldType: FIELD_TYPES.INPUT,
+        fieldProps: {
+          onlyNumbers: true,
+        },
+      },
+      {
+        name: 'maxPrice',
+        label: t('maximalPrice'),
+        fieldType: FIELD_TYPES.INPUT,
+        fieldProps: {
+          onlyNumbers: true,
+        },
+      },
+    ],
+    isService
+      ? [
+          {
+            name: 'minCapacity',
+            label: t('minimalCapacity'),
+            fieldType: FIELD_TYPES.INPUT,
+            fieldProps: {
+              onlyNumbers: true,
+            },
+          },
+          {
+            name: 'maxCapacity',
+            label: t('maximalCapacity'),
+            fieldType: FIELD_TYPES.INPUT,
+            fieldProps: {
+              onlyNumbers: true,
+            },
+          },
+        ]
+      : undefined,
+  ]);
 
 const getSortOptions = (t) => [
   {
-    value: 'price',
+    value: 'PRICE',
     label: t('price'),
   },
   {
-    value: 'animal',
-    label: t('animalLabel'),
+    value: 'RATING',
+    label: t('rating'),
   },
   {
-    value: 'location',
-    label: t('location'),
+    value: 'REVIEWS_AMOUNT',
+    label: t('reviewsAmount'),
   },
 ];
 
@@ -79,7 +102,6 @@ const getOptionsFields = (t, onMapButtonClick, isMapVisible, isSmallScreen) => [
       fieldType: FIELD_TYPES.SELECT,
       fieldProps: {
         options: getSortOptions(t),
-        disabled: true,
       },
     },
     {
@@ -88,7 +110,6 @@ const getOptionsFields = (t, onMapButtonClick, isMapVisible, isSmallScreen) => [
       fieldType: FIELD_TYPES.SELECT,
       fieldProps: {
         options: getOrderOptions(t),
-        disabled: true,
       },
     },
   ],
