@@ -43,6 +43,24 @@ const getFiltersFields = (t, animalsOptions, activitiesOptions) => [
       },
     },
   ],
+  [
+    {
+      name: 'minCapacity',
+      label: t('minimalCapacity'),
+      fieldType: FIELD_TYPES.INPUT,
+      fieldProps: {
+        onlyNumbers: true,
+      },
+    },
+    {
+      name: 'maxCapacity',
+      label: t('maximalCapacity'),
+      fieldType: FIELD_TYPES.INPUT,
+      fieldProps: {
+        onlyNumbers: true,
+      },
+    },
+  ],
 ];
 
 const getSortOptions = (t) => [
