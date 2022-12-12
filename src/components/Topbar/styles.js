@@ -10,31 +10,54 @@ export default {
     '&.MuiToolbar-gutters': {
       height: 50,
       minHeight: 50,
-      padding: (theme) => theme.spacing(5, 10),
+      padding: (theme) => theme.spacing(5, 15),
     },
     justifyContent: 'space-between',
   },
   icons: {
-    width: 200,
+    display: 'flex',
+    gap: 10,
   },
   rightIcons: {
-    display: 'flex',
     justifyContent: 'flex-end',
-  },
-  searchWrapper: {
-    flex: 1,
-    height: '100%',
-    minWidth: 300,
-    maxWidth: 800,
-    display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
   },
-  formWrapper: {
-    width: '100%',
+  middleArea: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: 40,
   },
-  inputIcon: {
-    margin: (theme) => theme.spacing(0, 10),
-    color: (theme) => theme.palette.primary.main,
+  link: {
+    cursor: 'pointer',
+    opacity: 0.8,
+    transition: (theme) => theme.transition.fast,
+
+    '&:hover': {
+      opacity: 1,
+    },
+  },
+  activeLink: {
+    fontWeight: '600',
+    opacity: 1,
+  },
+  activeIndicator: {
+    width: '100%',
+    minWidth: 20,
+    height: 2,
+    minHeight: 2,
+    backgroundColor: (theme) => theme.palette.white,
+    borderRadius: (theme) => theme.borderRadius.infinite,
+    position: 'absolute',
+    bottom: -13,
+    left: '50%',
+    transform: 'translateX(-50%)',
+  },
+  linkWrapper: {
+    position: 'relative',
+  },
+  logo: {
+    cursor: 'pointer',
+    display: 'flex',
+    gap: 20,
   },
 };

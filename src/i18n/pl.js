@@ -1,5 +1,6 @@
 export default {
   translation: {
+    petCareServices: 'Pet Care Services',
     validation: {
       required: 'Pole jest wymagane',
       min: 'Wartość nie może być mniejsza niż {{value}}',
@@ -93,6 +94,7 @@ export default {
     history: 'Historia',
     newAdvertisement: 'Nowe ogłoszenie',
     account: 'Konto',
+    chat: 'Chat',
     back: 'Powrót',
     needKeeper: 'Potrzebuję opiekuna',
     iAmKeeper: 'Jestem opiekunem',

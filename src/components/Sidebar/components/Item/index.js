@@ -30,8 +30,7 @@ const Item = ({ iconSrc, title, active, onClick }) => {
         columnGap: 10,
         cursor: 'pointer',
         transition: (theme) => theme.transition.fast,
-        color: (theme) =>
-          mode === MODE.LIGHT ? theme.palette.white : theme.palette.black,
+        color: (theme) => theme.palette.forceWhite,
         '&:hover': activeStyles,
         ...(active && activeStyles),
       }}

@@ -4,13 +4,16 @@ import { Box } from '@mui/system';
 import Topbar from 'components/Topbar';
 import useBreakpoints from 'hooks/useBreakpoints';
 import useChat from 'hooks/useChat';
+import useDialog from 'hooks/useDialog';
 import useSidebar from 'hooks/useSidebar';
 import useUserData from 'hooks/useUserData';
+import Login from 'templates/Login';
 
 const ApplicationLayout = () => {
   const { openSidebar } = useSidebar();
   const { openChat } = useChat();
-  const { isLoggedIn, userId } = useUserData();
+  const { openDialog } = useDialog();
+  const { isLoggedIn, userId, clearUserData } = useUserData();
   const navigate = useNavigate();
   const { isMediumScreen } = useBreakpoints();
 
@@ -30,7 +33,9 @@ const ApplicationLayout = () => {
         onMenuClick={openSidebar}
         onChatClick={openChat}
         onAccountClick={() => navigate(`/application/account/${userId}`)}
-        withRightIcons={isLoggedIn}
+        onLoginClick={() => openDialog({ content: <Login /> })}
+        onLogoutClick={clearUserData}
+        isLoggedIn={isLoggedIn}
       />
       <Box
         sx={{

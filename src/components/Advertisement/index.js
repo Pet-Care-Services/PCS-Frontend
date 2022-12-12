@@ -22,7 +22,7 @@ import priceShape from 'shapes/priceShape';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
 import TagList from '../TagList';
 import { getCollapsedSize } from './consts';
-import useStyles from './styles';
+import styles from './styles';
 
 const Advertisement = ({
   author,
@@ -51,8 +51,6 @@ const Advertisement = ({
     servicesIndices,
     isExpanded && isService
   );
-
-  const styles = useStyles(theme.isDarkMode);
 
   let availability;
   if (isService) {

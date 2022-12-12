@@ -1,5 +1,6 @@
 export default {
   translation: {
+    petCareServices: 'Pet Care Services',
     validation: {
       required: 'Field is required',
       min: 'The value cannot be lower than {{value}}',
@@ -94,6 +95,7 @@ export default {
     history: 'History',
     newAdvertisement: 'New Advertisement',
     account: 'Account',
+    chat: 'Chat',
     back: 'Back',
     needKeeper: 'I need a keeper',
     iAmKeeper: 'I am a keeper',

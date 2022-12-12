@@ -56,9 +56,6 @@ export default (isDarkMode) => ({
   active: {
     backgroundColor: (theme) => theme.palette.white,
     boxShadow: (theme) =>
-      `${theme.spacing(0, 4, 5)} ${addOpacity(
-        isDarkMode ? theme.palette.white : theme.palette.black,
-        50
-      )}`,
+      `${theme.spacing(0, 4, 5)} ${addOpacity(theme.palette.forceBlack, 50)}`,
   },
 });

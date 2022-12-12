@@ -15,7 +15,7 @@ const ThemeModeSwitch = () => {
 
   return (
     <Icon
-      Component={isDarkMode ? MoonIcon : SunIcon}
+      Component={isDarkMode ? SunIcon : MoonIcon}
       onClick={changeMode}
       active
       sx={{

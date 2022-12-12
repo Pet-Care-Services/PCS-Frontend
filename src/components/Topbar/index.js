@@ -1,78 +1,64 @@
 import React from 'react';
-import { Form, Formik } from 'formik';
-import { noop } from 'lodash';
+import { map, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
+import { useNavigate } from 'react-router-dom';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import PersonIcon from '@mui/icons-material/Person';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import { Box } from '@mui/material';
+import PetsIcon from '@mui/icons-material/Pets';
+import { Box, Typography } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiToolbar from '@mui/material/Toolbar';
 import Icon from 'components/Icon';
-import Input from 'components/Input';
+import LanguageSwitch from 'components/LanguageSwitch';
+import ThemeModeSwitch from 'components/ThemeModeSwitch';
+import { DEFAULT_ROUTE } from 'consts/config';
 import useBreakpoints from 'hooks/useBreakpoints';
+import useMenuItems from 'hooks/useMenuItems';
 import styles from './styles';
 
-const Topbar = ({
-  initialValues,
-  withRightIcons,
-  onSearch,
-  onMenuClick,
-  onNotificationClick,
-  onChatClick,
-  onAccountClick,
-}) => {
+const Topbar = ({ isLoggedIn, onMenuClick, onLoginClick, onLogoutClick }) => {
   const { t } = useTranslation();
   const { isSmallScreen } = useBreakpoints();
+  const navigate = useNavigate();
+
+  const menuItems = useMenuItems();
 
   return (
     <MuiAppBar position="fixed" sx={styles.root}>
       <MuiToolbar sx={styles.toolbar}>
         <Box sx={styles.icons}>
-          <Icon size="large" Component={MenuIcon} onClick={onMenuClick} />
-        </Box>
-        {!isSmallScreen && (
-          <Box sx={styles.searchWrapper}>
-            <Box sx={styles.formWrapper}>
-              <Formik initialValues={initialValues} onSubmit={onSearch}>
-                <Form>
-                  <Input
-                    name="search"
-                    label={t('searchOffer')}
-                    endAdornment={<SearchOutlinedIcon sx={styles.inputIcon} />}
-                    shrink={false}
-                    small
-                    noBorderEffects
-                    rounded
-                  />
-                </Form>
-              </Formik>
-            </Box>
-          </Box>
-        )}
-        <Box sx={{ ...styles.icons, ...styles.rightIcons }}>
-          {withRightIcons && (
-            <>
-              <Icon
-                size="large"
-                Component={NotificationsNoneIcon}
-                onClick={onNotificationClick}
-              />
-              <Icon
-                size="large"
-                Component={ChatOutlinedIcon}
-                onClick={onChatClick}
-              />
-              <Icon
-                size="large"
-                Component={PersonIcon}
-                onClick={onAccountClick}
-              />
-            </>
+          {isSmallScreen && (
+            <Icon size="large" Component={MenuIcon} onClick={onMenuClick} />
           )}
+          <Box sx={styles.logo} onClick={() => navigate(DEFAULT_ROUTE)}>
+            <PetsIcon />
+            <Typography variant="h2">{t('petCareServices')}</Typography>
+          </Box>
+        </Box>
+        <Box sx={styles.middleArea}>
+          {map(menuItems, (item) => (
+            <Box key={item.id} sx={styles.linkWrapper}>
+              <Typography
+                variant="h2"
+                onClick={() => item.onClick()}
+                sx={[styles.link, item.isActive && styles.activeLink]}
+              >
+                {item.title}
+              </Typography>
+              {item.isActive && <Box sx={styles.activeIndicator} />}
+            </Box>
+          ))}
+        </Box>
+        <Box sx={{ ...styles.icons, ...styles.rightIcons }}>
+          <Icon
+            size="large"
+            Component={isLoggedIn ? LogoutIcon : LoginIcon}
+            onClick={isLoggedIn ? onLogoutClick : onLoginClick}
+          />
+          <LanguageSwitch />
+          <ThemeModeSwitch />
         </Box>
       </MuiToolbar>
     </MuiAppBar>
@@ -80,25 +66,17 @@ const Topbar = ({
 };
 
 Topbar.propTypes = {
-  initialValues: PropTypes.shape({
-    search: PropTypes.string,
-  }),
-  withRightIcons: PropTypes.bool,
-  onSearch: PropTypes.func,
+  isLoggedIn: PropTypes.bool,
   onMenuClick: PropTypes.func,
-  onNotificationClick: PropTypes.func,
-  onChatClick: PropTypes.func,
-  onAccountClick: PropTypes.func,
+  onLoginClick: PropTypes.func,
+  onLogoutClick: PropTypes.func,
 };
 
 Topbar.defaultProps = {
-  initialValues: {},
-  withRightIcons: false,
-  onSearch: noop,
+  isLoggedIn: false,
   onMenuClick: noop,
-  onNotificationClick: noop,
-  onChatClick: noop,
-  onAccountClick: noop,
+  onLoginClick: noop,
+  onLogoutClick: noop,
 };
 
 export default Topbar;
