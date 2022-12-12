@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Loader from 'components/Loader';
 import { ITEM_TYPE, S3_DIRECTORY } from 'consts/enums';
 import useAWSUpload from 'hooks/useAWSUpload';
+import useChat from 'hooks/useChat';
 import useDialog from 'hooks/useDialog';
 import useURLParams from 'hooks/useURLParams';
 import useUserData from 'hooks/useUserData';
@@ -14,6 +15,7 @@ import ServiceOfferCreator from 'templates/OfferCreator/ServiceOfferCreator';
 import formatAdvertisements from 'utils/formatAdvertisements';
 import {
   getUserProfile,
+  postConversation,
   postProfile,
   postReview,
   USER_PROFILE_KEY,
@@ -25,6 +27,7 @@ const AccountContainer = () => {
   const { userId, isLoggedIn, email, mobile, refetchMe } = useUserData();
   const { params } = useURLParams();
   const { openDialog } = useDialog();
+  const { openChat } = useChat();
   const navigate = useNavigate();
   const [isEditMode, setIsEditMode] = useState(false);
   const [displayedItemType, setDisplayedItemType] = useState(ITEM_TYPE.REQUEST);
@@ -57,6 +60,12 @@ const AccountContainer = () => {
         refetchProfile();
       },
     });
+
+  const { mutate: createConversation } = useMutation(postConversation, {
+    onSuccess: (data) => {
+      openChat(data.data);
+    },
+  });
 
   const {
     uploadFileToS3,
@@ -115,6 +124,10 @@ const AccountContainer = () => {
     submitReview({ ...values, userId: id });
   };
 
+  const onCreateConversation = () => {
+    createConversation({ userId: id });
+  };
+
   const formattedRequests = useMemo(() => {
     if (isLoadingUserProfile) return [];
 
@@ -149,6 +162,7 @@ const AccountContainer = () => {
       itemType={displayedItemType}
       onSwitchButtonClick={onSwitchButtonClick}
       onSubmitProfileChanges={onSubmitProfileChanges}
+      onCreateConversation={onCreateConversation}
       onSubmitReview={onSubmitReview}
       toggleEditMode={() => setIsEditMode((v) => !v)}
       isEditMode={isEditMode}

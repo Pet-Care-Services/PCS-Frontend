@@ -26,6 +26,7 @@ const AccountView = ({
   reviews,
   onSwitchButtonClick,
   onSubmitProfileChanges,
+  onCreateConversation,
   onSubmitReview,
   toggleEditMode,
   isEditMode,
@@ -52,6 +53,7 @@ const AccountView = ({
           avatar={avatar}
           description={description}
           onSubmitProfileChanges={onSubmitProfileChanges}
+          onCreateConversation={onCreateConversation}
           isLoadingFormSubmit={isLoadingFormSubmit}
           progressAWSSubmit={progressAWSSubmit}
           isLoadingAWSSubmit={isLoadingAWSSubmit}
@@ -88,6 +90,7 @@ AccountView.propTypes = {
   reviews: reviewsShape,
   onSwitchButtonClick: PropTypes.func,
   onSubmitProfileChanges: PropTypes.func,
+  onCreateConversation: PropTypes.func,
   onSubmitReview: PropTypes.func,
   toggleEditMode: PropTypes.func,
   isEditMode: PropTypes.bool,
@@ -109,6 +112,7 @@ AccountView.defaultProps = {
   reviews: [],
   onSwitchButtonClick: noop,
   onSubmitProfileChanges: noop,
+  onCreateConversation: noop,
   onSubmitReview: noop,
   toggleEditMode: noop,
   isEditMode: false,

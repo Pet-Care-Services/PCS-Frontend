@@ -8,4 +8,12 @@ const postProfile = (values) => axios.post('/users/profileSettings', values);
 
 const postReview = (values) => axios.post('/reviews', values);
 
-export { getUserProfile, postProfile, postReview, USER_PROFILE_KEY };
+const postConversation = (values) => axios.post('/conversations', values);
+
+export {
+  getUserProfile,
+  postProfile,
+  postReview,
+  postConversation,
+  USER_PROFILE_KEY,
+};
