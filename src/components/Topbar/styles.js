@@ -46,7 +46,7 @@ export default {
     width: 0,
     height: 2,
     minHeight: 2,
-    backgroundColor: (theme) => theme.palette.white,
+    backgroundColor: (theme) => theme.palette.forceWhite,
     borderRadius: (theme) => theme.borderRadius.infinite,
     position: 'absolute',
     bottom: -5,
