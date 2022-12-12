@@ -2,6 +2,7 @@ import React from 'react';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import ChatIcon from '@mui/icons-material/Chat';
 import EditIcon from '@mui/icons-material/Edit';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
@@ -38,6 +39,7 @@ const MainTileView = ({
   gender,
   avatar,
   onSubmitProfileChanges,
+  onCreateConversation,
   isLoadingFormSubmit,
   progressAWSSubmit,
   isLoadingAWSSubmit,
@@ -72,7 +74,14 @@ const MainTileView = ({
               <Icon
                 Component={EditIcon}
                 onClick={toggleEditMode}
-                sx={styles.editIcon}
+                sx={styles.topIcon}
+              />
+            )}
+            {!isMyAccount && (
+              <Icon
+                Component={ChatIcon}
+                onClick={onCreateConversation}
+                sx={styles.topIcon}
               />
             )}
           </Box>
@@ -116,6 +125,7 @@ MainTileView.propTypes = {
   description: PropTypes.string,
   toggleEditMode: PropTypes.func,
   onSubmitProfileChanges: PropTypes.func,
+  onCreateConversation: PropTypes.func,
   isLoadingFormSubmit: PropTypes.bool,
   progressAWSSubmit: PropTypes.number,
   isLoadingAWSSubmit: PropTypes.bool,

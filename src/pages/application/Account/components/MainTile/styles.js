@@ -29,8 +29,9 @@ export default {
       height: 70,
     },
   }),
-  editIcon: {
+  topIcon: {
     marginLeft: 'auto',
+    color: (theme) => theme.palette.black,
   },
   propertyName: {
     fontWeight: 500,
