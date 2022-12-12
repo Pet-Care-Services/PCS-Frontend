@@ -12,6 +12,11 @@ const Rating = ({ name, value, size, isFormField, ...props }) => {
         size={size}
         precision={0.1}
         readOnly
+        sx={{
+          '.MuiRating-iconEmpty': {
+            color: (theme) => theme.palette.neutral.dark,
+          },
+        }}
       />
     );
   } else {
