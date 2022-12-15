@@ -105,6 +105,7 @@ const ChatContainer = ({ initialActiveConversationId }) => {
       conversationOptions={conversationOptions}
       activeConversationId={activeConversation.id}
       activeConversatorName={activeConversation.name}
+      activeConversatorId={'TODO'}
       onConversationClick={onConversationClick}
       onSendMessage={onSendMessage}
       onAcceptOffer={onAcceptOffer}

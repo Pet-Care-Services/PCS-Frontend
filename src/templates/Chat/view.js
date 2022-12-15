@@ -13,6 +13,7 @@ const ChatView = ({
   conversationOptions,
   activeConversationId,
   activeConversatorName,
+  activeConversatorId,
   messages,
   onConversationClick,
   onSendMessage,
@@ -39,6 +40,7 @@ const ChatView = ({
           loading={isLoadingMessages}
           onSendMessage={onSendMessage}
           name={activeConversatorName}
+          userId={activeConversatorId}
         />
       </Box>
     </Box>
@@ -48,6 +50,7 @@ const ChatView = ({
 ChatView.propTypes = {
   conversationOptions: conversationOptionsShape,
   activeConversationId: stringOrNumberShape,
+  activeConversatorId: stringOrNumberShape,
   messages: messagesShape,
   onConversationClick: PropTypes.func,
   onSendMessage: PropTypes.func,
@@ -62,6 +65,7 @@ ChatView.propTypes = {
 ChatView.defaultProps = {
   conversationOptions: [],
   activeConversationId: null,
+  activeConversatorId: null,
   messages: [],
   onConversationClick: noop,
   onSendMessage: noop,
