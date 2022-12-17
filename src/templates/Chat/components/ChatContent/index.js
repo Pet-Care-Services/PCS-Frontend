@@ -43,7 +43,10 @@ const ChatContent = ({
       <Box sx={styles.header}>
         <ActionText
           variant="h2"
-          onClick={() => navigate(`application/account/${userId}`)}
+          onClick={() => {
+            closeChat();
+            navigate(`application/account/${userId}`);
+          }}
         >
           {name || ''}
         </ActionText>

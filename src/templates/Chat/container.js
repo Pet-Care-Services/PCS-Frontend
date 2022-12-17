@@ -22,6 +22,7 @@ const ChatContainer = ({ initialActiveConversationId }) => {
   const [activeConversation, setActiveConversation] = useState({
     id: null,
     name: null,
+    userId: null,
   });
 
   const { data: conversationsData, isLoading: isLoadingConversations } =
@@ -41,6 +42,7 @@ const ChatContainer = ({ initialActiveConversationId }) => {
           name: isDataPresent
             ? `${chosenConversation.firstName} ${chosenConversation.lastName}`
             : null,
+          userId: isDataPresent ? chosenConversation.userId : null,
         });
       },
     });
@@ -109,7 +111,7 @@ const ChatContainer = ({ initialActiveConversationId }) => {
       conversationOptions={conversationOptions}
       activeConversationId={activeConversation.id}
       activeConversatorName={activeConversation.name}
-      activeConversatorId={'TODO'}
+      activeConversatorId={activeConversation.userId}
       onConversationClick={onConversationClick}
       onSendMessage={onSendMessage}
       onAcceptOffer={onAcceptOffer}

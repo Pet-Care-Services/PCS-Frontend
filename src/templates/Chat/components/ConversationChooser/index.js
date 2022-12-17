@@ -16,7 +16,7 @@ const ConversationChooser = ({
   return (
     <Box sx={styles.root}>
       {loading && <Loader />}
-      {map(options, ({ id, image, name }) => (
+      {map(options, ({ id, image, name, userId }) => (
         <Box
           key={id}
           sx={[
@@ -27,7 +27,7 @@ const ConversationChooser = ({
           <Box
             component="img"
             src={image}
-            onClick={() => onConversationClick({ id, name })}
+            onClick={() => onConversationClick({ id, name, userId })}
             sx={styles.image}
           />
         </Box>
