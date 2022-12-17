@@ -90,6 +90,7 @@ export default {
     maximalCapacity: 'Zwierząt do',
     searchOffer: 'Wyszukaj ofertę',
     noResults: 'Brak wyników...',
+    noConversations: 'Brak konwersacji...',
     loading: 'Ładowanie...',
     services: 'Usługi',
     requests: 'Prośby',

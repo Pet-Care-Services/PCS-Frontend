@@ -91,6 +91,7 @@ export default {
     maximalCapacity: 'Max. animals',
     searchOffer: 'Search for an offer',
     noResults: 'No results found...',
+    noConversations: 'No conversations found...',
     loading: 'Loading...',
     services: 'Services',
     requests: 'Requests',

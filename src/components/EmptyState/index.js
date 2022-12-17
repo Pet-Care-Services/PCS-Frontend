@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
 import useTheme from 'hooks/useTheme';
 
-const EmptyState = () => {
+const EmptyState = ({ message }) => {
   const { t } = useTranslation();
   const { isDarkMode } = useTheme();
 
@@ -23,13 +24,15 @@ const EmptyState = () => {
         }}
       />
       <Typography variant="h2" sx={{ color: (theme) => theme.palette.black }}>
-        {t('noResults')}
+        {message || t('noResults')}
       </Typography>
     </Box>
   );
 };
 
-EmptyState.propTypes = {};
+EmptyState.propTypes = {
+  message: PropTypes.string,
+};
 
 EmptyState.defaultProps = {};
 

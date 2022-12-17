@@ -34,9 +34,13 @@ const ChatContainer = ({ initialActiveConversationId }) => {
             (entry) => entry.conversationId === initialActiveConversationId
           ) || data.data[0];
 
+        const isDataPresent = !isNil(chosenConversation);
+
         setActiveConversation({
-          id: chosenConversation.conversationId,
-          name: `${chosenConversation.firstName} ${chosenConversation.lastName}`,
+          id: isDataPresent ? chosenConversation.conversationId : null,
+          name: isDataPresent
+            ? `${chosenConversation.firstName} ${chosenConversation.lastName}`
+            : null,
         });
       },
     });

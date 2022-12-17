@@ -1,5 +1,5 @@
 import React from 'react';
-import { noop } from 'lodash';
+import { isNil, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/system';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
@@ -41,6 +41,7 @@ const ChatView = ({
           onSendMessage={onSendMessage}
           name={activeConversatorName}
           userId={activeConversatorId}
+          isConversationChosen={!isNil(activeConversationId)}
         />
       </Box>
     </Box>

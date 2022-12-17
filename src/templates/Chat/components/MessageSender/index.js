@@ -11,7 +11,7 @@ import Input from 'components/Input';
 import styles from './styles';
 import getValidation from './validation';
 
-const MessageSender = ({ onSubmit }) => {
+const MessageSender = ({ isConversationChosen, onSubmit }) => {
   const { t } = useTranslation();
 
   return (
@@ -36,7 +36,7 @@ const MessageSender = ({ onSubmit }) => {
             Component={SendIcon}
             onClick={submitForm}
             size="large"
-            disabled={!isValid}
+            disabled={!isValid || !isConversationChosen}
           />
         </Box>
       )}
@@ -46,10 +46,12 @@ const MessageSender = ({ onSubmit }) => {
 
 MessageSender.propTypes = {
   onSubmit: PropTypes.func,
+  isConversationChosen: PropTypes.bool,
 };
 
 MessageSender.defaultProps = {
   onSubmit: noop,
+  isConversationChosen: false,
 };
 
 export default MessageSender;
