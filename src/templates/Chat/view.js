@@ -1,5 +1,5 @@
 import React from 'react';
-import { noop } from 'lodash';
+import { isNil, noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/system';
 import stringOrNumberShape from 'shapes/stringOrNumberShape';
@@ -13,6 +13,7 @@ const ChatView = ({
   conversationOptions,
   activeConversationId,
   activeConversatorName,
+  activeConversatorId,
   messages,
   onConversationClick,
   onSendMessage,
@@ -39,6 +40,8 @@ const ChatView = ({
           loading={isLoadingMessages}
           onSendMessage={onSendMessage}
           name={activeConversatorName}
+          userId={activeConversatorId}
+          isConversationChosen={!isNil(activeConversationId)}
         />
       </Box>
     </Box>
@@ -48,6 +51,7 @@ const ChatView = ({
 ChatView.propTypes = {
   conversationOptions: conversationOptionsShape,
   activeConversationId: stringOrNumberShape,
+  activeConversatorId: stringOrNumberShape,
   messages: messagesShape,
   onConversationClick: PropTypes.func,
   onSendMessage: PropTypes.func,
@@ -62,6 +66,7 @@ ChatView.propTypes = {
 ChatView.defaultProps = {
   conversationOptions: [],
   activeConversationId: null,
+  activeConversatorId: null,
   messages: [],
   onConversationClick: noop,
   onSendMessage: noop,

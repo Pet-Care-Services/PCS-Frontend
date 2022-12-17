@@ -5,6 +5,7 @@ const prepareConversationOptions = (data) =>
     id: conversation.conversationId,
     image: conversation.avatar,
     name: `${conversation.firstName} ${conversation.lastName}`,
+    userId: conversation.userId,
   }));
 
 const prepareMessages = (data) =>

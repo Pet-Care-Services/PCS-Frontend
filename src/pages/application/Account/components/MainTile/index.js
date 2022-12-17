@@ -10,6 +10,7 @@ import Icon from 'components/Icon';
 import Loader from 'components/Loader';
 import TileWrapper from 'components/TileWrapper';
 import { dateFormat } from 'consts/dateFormats';
+import useUserData from 'hooks/useUserData';
 import commonStyles from '../../styles';
 import EditFormView from '../EditForm';
 import styles from './styles';
@@ -45,6 +46,7 @@ const MainTileView = ({
   isLoadingAWSSubmit,
 }) => {
   const { t } = useTranslation();
+  const { isLoggedIn } = useUserData();
 
   const initialValues = {
     firstName,
@@ -77,7 +79,7 @@ const MainTileView = ({
                 sx={styles.topIcon}
               />
             )}
-            {!isMyAccount && (
+            {isLoggedIn && !isMyAccount && (
               <Icon
                 Component={ChatIcon}
                 onClick={onCreateConversation}

@@ -22,6 +22,7 @@ const ChatContainer = ({ initialActiveConversationId }) => {
   const [activeConversation, setActiveConversation] = useState({
     id: null,
     name: null,
+    userId: null,
   });
 
   const { data: conversationsData, isLoading: isLoadingConversations } =
@@ -34,9 +35,14 @@ const ChatContainer = ({ initialActiveConversationId }) => {
             (entry) => entry.conversationId === initialActiveConversationId
           ) || data.data[0];
 
+        const isDataPresent = !isNil(chosenConversation);
+
         setActiveConversation({
-          id: chosenConversation.conversationId,
-          name: `${chosenConversation.firstName} ${chosenConversation.lastName}`,
+          id: isDataPresent ? chosenConversation.conversationId : null,
+          name: isDataPresent
+            ? `${chosenConversation.firstName} ${chosenConversation.lastName}`
+            : null,
+          userId: isDataPresent ? chosenConversation.userId : null,
         });
       },
     });
@@ -105,6 +111,7 @@ const ChatContainer = ({ initialActiveConversationId }) => {
       conversationOptions={conversationOptions}
       activeConversationId={activeConversation.id}
       activeConversatorName={activeConversation.name}
+      activeConversatorId={activeConversation.userId}
       onConversationClick={onConversationClick}
       onSendMessage={onSendMessage}
       onAcceptOffer={onAcceptOffer}

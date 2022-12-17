@@ -57,11 +57,13 @@ const Marker = ({
                 labels={data.activities}
                 modelKey="activity"
                 color={theme.palette.neutral.main}
+                labelColor={theme.palette.neutral.contrastText}
               />
               <TagList
                 labels={data.animals}
                 modelKey="animal"
                 color={theme.palette.secondary.dark}
+                labelColor={theme.palette.secondary.contrastText}
               />
             </Box>
           </Collapse>

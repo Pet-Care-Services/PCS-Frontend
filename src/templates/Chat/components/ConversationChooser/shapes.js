@@ -6,6 +6,7 @@ const conversationOptionsShape = PropTypes.arrayOf(
     id: stringOrNumberShape,
     image: PropTypes.string,
     name: PropTypes.string,
+    userId: stringOrNumberShape,
   })
 );
 

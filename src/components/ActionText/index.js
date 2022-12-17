@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 import sxShape from 'shapes/sxShape';
 
-const ActionText = ({ onClick, children, isTypography, sx }) => {
+const ActionText = ({ onClick, children, isTypography, variant, sx }) => {
   const Component = isTypography ? Typography : Box;
 
   return (
     <Component
-      variant="h4"
+      variant={variant}
       onClick={onClick}
       sx={[
         {
@@ -29,11 +29,13 @@ ActionText.propTypes = {
   onClick: PropTypes.func,
   sx: sxShape,
   isTypography: PropTypes.bool,
+  variant: PropTypes.string,
 };
 
 ActionText.defaultProps = {
   onClick: noop,
   isTypography: true,
+  variant: 'h4',
   sx: {},
 };
 
